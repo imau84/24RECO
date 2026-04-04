@@ -170,7 +170,7 @@ export default function AutoPage() {
                 <Bar dataKey="hibrid" stackId="a" fill="#1D9E75" name="Hibrid" />
                 <Bar dataKey="electrice" stackId="a" fill="#534AB7" name="Electric" />
                 <Bar dataKey="benzina" stackId="a" fill="#EF9F27" name="Benzina" />
-                <Bar dataKey="diesel" stackId="a" fill="#378ADD" name="Diesel" radius={[3,3,0,0]} name="Diesel" />
+                <Bar dataKey="diesel" stackId="a" fill="#378ADD" name="Diesel" radius={[3,3,0,0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
