@@ -194,10 +194,7 @@ export default function AutoPage() {
                 const prev = filtered[filtered.length - 2 - i];
                 const delta = prev ? ((row.total - prev.total) / prev.total * 100) : null;
                 return (
-                  <tr key={row.luna} style={{ borderBottom: "0.5px solid #e5e7eb" }}
-                    onMouseEnter={e => (e.currentTarget.style.background = "#f9fafb")}
-                    onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
-                  >
+                  <tr key={row.luna} style={{ borderBottom: "0.5px solid #e5e7eb" }}>
                     <td style={{ padding: "10px 14px", fontWeight: 500 }}>{row.luna}</td>
                     <td style={{ padding: "10px 14px" }}>{row.total.toLocaleString("ro-RO")}</td>
                     <td style={{ padding: "10px 14px" }}>{row.electrice.toLocaleString("ro-RO")}</td>
