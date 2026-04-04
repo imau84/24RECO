@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -73,6 +75,37 @@ const stats = [
   { val: "100%", lbl: "Date publice" },
 ];
 
+function SectorCard({ s }: { s: typeof sectors[0] }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <Link
+      href={s.href}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display: "block", padding: 24,
+        border: `0.5px solid ${hovered ? "#9ca3af" : "#e5e7eb"}`,
+        borderRadius: 12, background: "#fff", transition: "border-color 0.15s",
+      }}
+    >
+      <div style={{ width: 36, height: 36, borderRadius: 8, background: s.iconBg, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 16 }}>
+        {s.icon}
+      </div>
+      <div style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 600, marginBottom: 6 }}>{s.title}</div>
+      <div style={{ fontSize: 13, color: "#6b7280", lineHeight: 1.55, marginBottom: 16 }}>{s.desc}</div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+        {s.tags.map(t => (
+          <span key={t} style={{ fontSize: 11, padding: "3px 8px", border: "0.5px solid #e5e7eb", borderRadius: 4, color: "#6b7280", background: "#f9fafb" }}>{t}</span>
+        ))}
+      </div>
+      <div style={{ marginTop: 16, paddingTop: 14, borderTop: "0.5px solid #e5e7eb", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <span style={{ fontSize: 11, color: "#9ca3af" }}>Sursa: {s.sursa}</span>
+        <span style={{ fontSize: 14, color: "#9ca3af" }}>→</span>
+      </div>
+    </Link>
+  );
+}
+
 export default function Home() {
   return (
     <main>
@@ -105,31 +138,7 @@ export default function Home() {
       <section style={{ padding: "40px 32px" }}>
         <p style={{ fontSize: 11, fontWeight: 500, letterSpacing: "1.5px", textTransform: "uppercase", color: "#9ca3af", marginBottom: 20 }}>Sectoare</p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
-          {sectors.map(s => (
-            <Link key={s.href} href={s.href} style={{
-              display: "block", padding: 24,
-              border: "0.5px solid #e5e7eb", borderRadius: 12,
-              background: "#fff", transition: "border-color 0.15s",
-            }}
-              onMouseEnter={e => (e.currentTarget.style.borderColor = "#9ca3af")}
-              onMouseLeave={e => (e.currentTarget.style.borderColor = "#e5e7eb")}
-            >
-              <div style={{ width: 36, height: 36, borderRadius: 8, background: s.iconBg, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 16 }}>
-                {s.icon}
-              </div>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 600, marginBottom: 6 }}>{s.title}</div>
-              <div style={{ fontSize: 13, color: "#6b7280", lineHeight: 1.55, marginBottom: 16 }}>{s.desc}</div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                {s.tags.map(t => (
-                  <span key={t} style={{ fontSize: 11, padding: "3px 8px", border: "0.5px solid #e5e7eb", borderRadius: 4, color: "#6b7280", background: "#f9fafb" }}>{t}</span>
-                ))}
-              </div>
-              <div style={{ marginTop: 16, paddingTop: 14, borderTop: "0.5px solid #e5e7eb", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ fontSize: 11, color: "#9ca3af" }}>Sursa: {s.sursa}</span>
-                <span style={{ fontSize: 14, color: "#9ca3af" }}>→</span>
-              </div>
-            </Link>
-          ))}
+          {sectors.map(s => <SectorCard key={s.href} s={s} />)}
         </div>
       </section>
 
