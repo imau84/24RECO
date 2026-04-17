@@ -63,13 +63,11 @@ function RomaniaMap({ ancpiData, viewMode, getValue, maxVal }: {
         const svg = d3.select(svgRef.current);
         svg.selectAll("*").remove();
 
-        const w = svgRef.current.clientWidth || 680;
-        const h = 360;
-
-        const proj = d3.geoMercator().center([25, 45.8]).scale(w * 2.4).translate([w * 0.32, h * 0.48]);
-        const pathGen = d3.geoPath(proj);
         const key = Object.keys(topo.objects)[0];
         const features = (topojson.feature(topo, topo.objects[key] as any) as any).features;
+        const geojson = { type: "FeatureCollection" as const, features };
+        const proj = d3.geoMercator().fitSize([680, 420], geojson);
+        const pathGen = d3.geoPath(proj);
 
         svg.selectAll<SVGPathElement, any>("path")
           .data(features)
@@ -114,7 +112,7 @@ function RomaniaMap({ ancpiData, viewMode, getValue, maxVal }: {
   return (
     <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: 16 }}>
       <div style={{ border: "0.5px solid #e5e7eb", borderRadius: 10, padding: 16, background: "#fafafa", position: "relative" }}>
-        <svg ref={svgRef} viewBox="0 -130 680 620" style={{ width: "100%", minHeight: 280, display: "block" }} />
+        <svg ref={svgRef} viewBox="0 0 680 420" style={{ width: "100%", minHeight: 280, display: "block" }} />
         {!mapLoaded && (
           <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", color: "#9ca3af", fontSize: 13 }}>
             Se încarcă harta...
