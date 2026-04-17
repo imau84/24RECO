@@ -7,7 +7,7 @@ import {
 } from "recharts";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ancpiMartie2026, totalNational, luna, sursa } from "@/data/ancpiData";
+import { ancpiMartie2026, totalNational, luna, sursa } frhom "@/data/ancpiData";
 
 type ViewMode = "total" | "terenuri" | "unitati";
 
@@ -114,7 +114,7 @@ function RomaniaMap({ ancpiData, viewMode, getValue, maxVal }: {
   return (
     <div style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: 16 }}>
       <div style={{ border: "0.5px solid #e5e7eb", borderRadius: 10, padding: 16, background: "#fafafa", position: "relative" }}>
-        <svg ref={svgRef} viewBox="0 0 680 420" style={{ width: "100%", display: "block" }} />
+        <svg ref={svgRef} viewBox="0 -130 680 620" style={{ width: "100%", display: "block" }} />
         {!mapLoaded && (
           <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", color: "#9ca3af", fontSize: 13 }}>
             Se încarcă harta...
