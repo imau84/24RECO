@@ -12,9 +12,13 @@
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
-    "recharts": "^2.12.7"
+    "recharts": "^2.12.7",
+        "d3": "^7.9.0",
+        "topojson-client": "^3.1.0"
   },
-  "devDependencies": {
+  "devDependencies": {,
+        "@types/d3": "^7.4.3",
+      "@types/topojson-client": "^3.1.4"
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
