@@ -7,7 +7,7 @@ import {
 } from "recharts";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ancpiMartie2026, totalNational, luna, sursa } frhom "@/data/ancpiData";
+import { ancpiMartie2026, totalNational, luna, sursa } from "@/data/ancpiData";
 
 type ViewMode = "total" | "terenuri" | "unitati";
 
