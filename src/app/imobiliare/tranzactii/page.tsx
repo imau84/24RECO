@@ -112,9 +112,9 @@ function RomaniaMap({ ancpiData, viewMode, getValue, maxVal }: {
   const hoveredData = hoveredCod ? ancpiData.find(d => d.cod === hoveredCod) : null;
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: 16 }}>
+    <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: 16 }}>
       <div style={{ border: "0.5px solid #e5e7eb", borderRadius: 10, padding: 16, background: "#fafafa", position: "relative" }}>
-        <svg ref={svgRef} viewBox="0 -130 680 620" style={{ width: "100%", display: "block" }} />
+        <svg ref={svgRef} viewBox="0 -130 680 620" style={{ width: "100%", minHeight: 280, display: "block" }} />
         {!mapLoaded && (
           <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", color: "#9ca3af", fontSize: 13 }}>
             Se încarcă harta...
