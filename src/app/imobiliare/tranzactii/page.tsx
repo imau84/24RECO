@@ -14,10 +14,10 @@ type ViewMode = "total" | "terenuri" | "unitati";
 const NAME_MAP: Record<string, string> = {
   "Alba": "AB", "Arad": "AR", "Arges": "AG", "Bacau": "BC",
   "Bihor": "BH", "Bistrita-Nasaud": "BN", "Botosani": "BT",
-  "Braila": "BR", "Brasov": "BV", "Bucuresti": "B",
+  "Braila": "BR", "Brasov": "BV", "Bucharest": "B",
   "Buzau": "BZ", "Calarasi": "CL", "Caras-Severin": "CS",
   "Cluj": "CJ", "Constanta": "CT", "Covasna": "CV",
-  "Dambovita": "DB", "Dolj": "DJ", "Galati": "GL",
+  "Dâmbovita": "DB", "Dolj": "DJ", "Galati": "GL",
   "Giurgiu": "GR", "Gorj": "GJ", "Harghita": "HR",
   "Hunedoara": "HD", "Ialomita": "IL", "Iasi": "IS",
   "Ilfov": "IF", "Maramures": "MM", "Mehedinti": "MH",
@@ -79,14 +79,14 @@ function RomaniaMap({ ancpiData, viewMode, getValue, maxVal }: {
           .attr("stroke-width", "0.8")
           .style("cursor", "pointer")
           .attr("fill", (d: any) => {
-            const raw: string = d.properties?.NAME_1 || "";
+            const raw: string = d.properties?.name || "";
             const cod = NAME_MAP[raw] || "";
             const row = ancpiData.find(r => r.cod === cod);
             return row ? getColor(getValue(row), maxVal) : "#f3f4f6";
           })
           .on("mouseenter", function(this: SVGPathElement, event: MouseEvent, d: any) {
             d3.select(this).attr("stroke", "#1D9E75").attr("stroke-width", "2");
-            const raw: string = d.properties?.NAME_1 || "";
+            const raw: string = d.properties?.name || "";
             const cod = NAME_MAP[raw] || "";
             const rect = svgRef.current!.getBoundingClientRect();
             setHoveredCod(cod);
