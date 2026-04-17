@@ -66,7 +66,7 @@ function RomaniaMap({ ancpiData, viewMode, getValue, maxVal }: {
         const w = svgRef.current.clientWidth || 680;
         const h = 360;
 
-        const proj = d3.geoMercator().center([25, 45.8]).scale(w * 2.4).translate([w * 0.38, h * 0.55]);
+        const proj = d3.geoMercator().center([25, 45.8]).scale(w * 2.4).translate([w * 0.32, h * 0.48]);
         const pathGen = d3.geoPath(proj);
         const key = Object.keys(topo.objects)[0];
         const features = (topojson.feature(topo, topo.objects[key] as any) as any).features;
