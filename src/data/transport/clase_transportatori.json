@@ -1,9 +1,47 @@
 {
   "sursa": "autorizatiiauto.ro",
   "actualizat": "2026-04-19",
-  "total": [
-    [],
-    0
-  ],
-  "date": []
+  "total": 5,
+  "date": [
+    {
+      "ClasaID": 1,
+      "Denumire": "Operatori mici",
+      "NrOperatori": 2806,
+      "NrCamioane": 10354,
+      "NrCamioaneMin": 1,
+      "NrCamioaneMax": 12
+    },
+    {
+      "ClasaID": 2,
+      "Denumire": "Operatori medii 1",
+      "NrOperatori": 457,
+      "NrCamioane": 9980,
+      "NrCamioaneMin": 13,
+      "NrCamioaneMax": 39
+    },
+    {
+      "ClasaID": 3,
+      "Denumire": "Operatori medii 2",
+      "NrOperatori": 154,
+      "NrCamioane": 10068,
+      "NrCamioaneMin": 40,
+      "NrCamioaneMax": 125
+    },
+    {
+      "ClasaID": 4,
+      "Denumire": "Operatori mari",
+      "NrOperatori": 45,
+      "NrCamioane": 9700,
+      "NrCamioaneMin": 126,
+      "NrCamioaneMax": 376
+    },
+    {
+      "ClasaID": 5,
+      "Denumire": "T O T A L",
+      "NrOperatori": 3462,
+      "NrCamioane": 40102,
+      "NrCamioaneMin": 1,
+      "NrCamioaneMax": 376
+    }
+  ]
 }
