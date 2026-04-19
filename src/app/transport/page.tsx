@@ -8,22 +8,19 @@ interface ClasaTransportator {
   NrCamioaneMax: number
 }
 
-export default function TransportPage() {
-  const { date, actualizat, total, sursa } = claseData as {
-    date: ClasaTransportator[]
-    actualizat: string
-    total: number
-    sursa: string
-  }
+const data = claseData.date as ClasaTransportator[]
+const actualizat = claseData.actualizat as string
+const sursa = claseData.sursa as string
 
+export default function TransportPage() {
   return (
     <main className="max-w-5xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-1">Transport Marfă</h1>
       <p className="text-sm text-gray-500 mb-6">
-        Sursă: {sursa} · Actualizat: {actualizat} · {total} clase
+        Sursă: {sursa} · Actualizat: {actualizat} · {data.length} clase
       </p>
 
-      {date.length === 0 ? (
+      {data.length === 0 ? (
         <p className="text-gray-400">Nu există date disponibile.</p>
       ) : (
         <div className="overflow-x-auto">
@@ -39,7 +36,7 @@ export default function TransportPage() {
               </tr>
             </thead>
             <tbody>
-              {date.map((row, i) => (
+              {data.map((row, i) => (
                 <tr key={i} className="hover:bg-gray-50 transition-colors">
                   <td className="p-3 border border-gray-200 text-gray-400">{i + 1}</td>
                   <td className="p-3 border border-gray-200 font-medium">{row.Denumire}</td>
