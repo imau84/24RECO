@@ -1,4 +1,4 @@
-yamlname: Sync Transport Data
+name: Sync Transport Data
 
 on:
   schedule:
@@ -25,10 +25,10 @@ jobs:
       - name: Fetch transport data
         run: python scripts/fetch_transport.py
 
-      - name: Commit & push data
+      - name: Commit and push data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add src/data/transport/
-          git diff --staged --quiet || git commit -m "chore: actualizare date transport $(date +'%Y-%m-%d')"
+          git diff --staged --quiet || git commit -m "actualizare date transport"
           git push
