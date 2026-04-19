@@ -1,22 +1,58 @@
-import Link from "next/link";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import claseData from '@/data/transport/clase_transportatori.json'
+
+interface ClasaTransportator {
+  Denumire: string
+  NrOperatori: number
+  NrCamioane: number
+  NrCamioaneMin: number
+  NrCamioaneMax: number
+}
 
 export default function TransportPage() {
+  const { date, actualizat, total, sursa } = claseData as {
+    date: ClasaTransportator[]
+    actualizat: string
+    total: number
+    sursa: string
+  }
+
   return (
-    <main>
-      <Navbar />
-      <div style={{ padding: "64px 32px", textAlign: "center" }}>
-        <p style={{ fontSize: 11, fontWeight: 500, letterSpacing: "1.5px", textTransform: "uppercase", color: "#378ADD", marginBottom: 14 }}>Sector Transport</p>
-        <h1 style={{ fontSize: 36, marginBottom: 16 }}>Transport</h1>
-        <p style={{ fontSize: 15, color: "#6b7280", maxWidth: 480, margin: "0 auto 32px" }}>
-          Rapoartele pentru sectorul Transport sunt in curs de pregatire. Surse: Ministerul Transporturilor, INS.
-        </p>
-        <Link href="/" style={{ fontSize: 13, padding: "8px 16px", border: "0.5px solid #d1d5db", borderRadius: 6, background: "#fff" }}>
-          ← Inapoi la acasa
-        </Link>
-      </div>
-      <Footer />
+    <main className="max-w-5xl mx-auto px-4 py-8">
+      <h1 className="text-2xl font-bold mb-1">Transport Marfă</h1>
+      <p className="text-sm text-gray-500 mb-6">
+        Sursă: {sursa} · Actualizat: {actualizat} · {total} clase
+      </p>
+
+      {date.length === 0 ? (
+        <p className="text-gray-400">Nu există date disponibile.</p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm border-collapse">
+            <thead>
+              <tr className="bg-gray-100 text-left">
+                <th className="p-3 border border-gray-200">#</th>
+                <th className="p-3 border border-gray-200">Clasă</th>
+                <th className="p-3 border border-gray-200 text-right">Nr. Operatori</th>
+                <th className="p-3 border border-gray-200 text-right">Nr. Camioane</th>
+                <th className="p-3 border border-gray-200 text-right">Min</th>
+                <th className="p-3 border border-gray-200 text-right">Max</th>
+              </tr>
+            </thead>
+            <tbody>
+              {date.map((row, i) => (
+                <tr key={i} className="hover:bg-gray-50 transition-colors">
+                  <td className="p-3 border border-gray-200 text-gray-400">{i + 1}</td>
+                  <td className="p-3 border border-gray-200 font-medium">{row.Denumire}</td>
+                  <td className="p-3 border border-gray-200 text-right">{row.NrOperatori?.toLocaleString('ro-RO')}</td>
+                  <td className="p-3 border border-gray-200 text-right">{row.NrCamioane?.toLocaleString('ro-RO')}</td>
+                  <td className="p-3 border border-gray-200 text-right">{row.NrCamioaneMin}</td>
+                  <td className="p-3 border border-gray-200 text-right">{row.NrCamioaneMax}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </main>
-  );
+  )
 }
