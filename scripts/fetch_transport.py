@@ -10,52 +10,57 @@ CLASE = [
     {"id": 4, "nume": "operatori_mari"},
 ]
 
-def fetch_clasa(page, clasa_id, clasa_nume):
+def fetch_clasa(context, clasa_id, clasa_nume):
     print(f"Fetch {clasa_nume} (clasaId={clasa_id})...")
 
-    # Navigam la pagina Detail pentru aceasta clasa
+    # Obtine sesiune vizitand pagina principala
+    page = context.new_page()
     page.goto("https://www.autorizatiiauto.ro/Marfa/ListaClase", wait_until="networkidle", timeout=60000)
 
-    # Submit form pentru a obtine sesiunea cu clasa corecta
-    page.evaluate(f"""
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = '/Marfa/ListaClase/Detail';
-        const input = document.createElement('input');
-        input.name = 'clasaId';
-        input.value = '{clasa_id}';
-        form.appendChild(input);
-        document.body.appendChild(form);
-        form.submit();
+    # Obtine cookies din sesiune
+    cookies = context.cookies()
+    cookie_str = "; ".join([f"{c['name']}={c['value']}" for c in cookies])
+
+    # Extrage requestVerificationToken din pagina
+    token = page.evaluate("""
+        () => {
+            const el = document.querySelector('input[name="__RequestVerificationToken"]');
+            return el ? el.value : '';
+        }
     """)
-    page.wait_for_load_state("networkidle", timeout=30000)
+    print(f"  Token: {token[:20] if token else 'N/A'}...")
+    page.close()
 
     all_data = []
     page_num = 1
 
     while True:
-        result = page.evaluate(f"""
-            async () => {{
-                const formData = new URLSearchParams();
-                formData.append('sort', 'DenumireOperator-asc');
-                formData.append('page', '{page_num}');
-                formData.append('pageSize', '100');
-                formData.append('group', '');
-                formData.append('filter', '');
+        # Folosim API request direct cu sesiunea
+        response = context.request.post(
+            f"https://www.autorizatiiauto.ro/Marfa/ListaClase/GetListaClaseOperator?clasaId={clasa_id}",
+            headers={
+                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                "X-Requested-With": "XMLHttpRequest",
+                "Referer": "https://www.autorizatiiauto.ro/Marfa/ListaClase/Detail",
+            },
+            form={
+                "sort": "DenumireOperator-asc",
+                "page": str(page_num),
+                "pageSize": "100",
+                "group": "",
+                "filter": "",
+            }
+        )
 
-                const r = await fetch('/Marfa/ListaClase/GetListaClaseOperator?clasaId={clasa_id}', {{
-                    method: 'POST',
-                    headers: {{
-                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }},
-                    body: formData.toString()
-                }});
-                return await r.json();
-            }}
-        """)
+        print(f"  Status pagina {page_num}: {response.status}")
 
+        if response.status != 200:
+            print(f"  Eroare: {response.text()[:200]}")
+            break
+
+        result = response.json()
         items = result.get("Data", [])
+
         if not items:
             print(f"  Pagina {page_num}: 0 items, stop.")
             break
@@ -79,10 +84,9 @@ def save():
         context = browser.new_context(
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"
         )
-        page = context.new_page()
 
         for clasa in CLASE:
-            data = fetch_clasa(page, clasa["id"], clasa["nume"])
+            data = fetch_clasa(context, clasa["id"], clasa["nume"])
             toate_datele[clasa["nume"]] = data
             print(f"Total {clasa['nume']}: {len(data)} operatori")
 
