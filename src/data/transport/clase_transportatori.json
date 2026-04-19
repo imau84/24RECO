@@ -1,6 +1,9 @@
-json{
+{
   "sursa": "autorizatiiauto.ro",
-  "actualizat": "2026-01-01",
-  "total": 0,
+  "actualizat": "2026-04-19",
+  "total": [
+    [],
+    0
+  ],
   "date": []
 }
