@@ -7,46 +7,36 @@ def fetch_clase_transportatori():
     session = requests.Session()
     session.headers.update({
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "Accept-Language": "ro-RO,ro;q=0.9,en;q=0.8",
     })
 
-    # Obtine cookie de sesiune
-    session.get("https://www.autorizatiiauto.ro/Marfa/ListaClase", timeout=30)
+    print("Obtin sesiune...")
+    resp = session.get("https://www.autorizatiiauto.ro/Marfa/ListaClase", timeout=30)
+    print(f"Sesiune status: {resp.status_code}")
+    print(f"Cookies: {dict(session.cookies)}")
 
     url = "https://www.autorizatiiauto.ro/Marfa/ListaClase/GetListaClase"
-    all_data = []
-    page = 1
+    params = {
+        "ListaClaseTransportator-page": 1,
+        "ListaClaseTransportator-pageSize": 100,
+    }
+    headers = {
+        "X-Requested-With": "XMLHttpRequest",
+        "Referer": "https://www.autorizatiiauto.ro/Marfa/ListaClase",
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+    }
 
-    while True:
-        params = {
-            "ListaClaseTransportator-page": page,
-            "ListaClaseTransportator-pageSize": 100,
-        }
-        headers = {
-            "X-Requested-With": "XMLHttpRequest",
-            "Referer": "https://www.autorizatiiauto.ro/Marfa/ListaClase",
-        }
-        r = session.get(url, params=params, headers=headers, timeout=30)
-        print(f"Status pagina {page}: {r.status_code}")
+    r = session.get(url, params=params, headers=headers, timeout=30)
+    print(f"API status: {r.status_code}")
+    print(f"Raspuns raw (primii 1000 chars): {r.text[:1000]}")
 
-        if r.status_code != 200:
-            print(f"Eroare: {r.text[:500]}")
-            break
+    data = r.json()
+    print(f"Keys in raspuns: {list(data.keys())}")
+    print(f"Total: {data.get('Total')}")
+    print(f"Nr items in Data: {len(data.get('Data', []))}")
 
-        data = r.json()
-        items = data.get("Data", [])
-        if not items:
-            print("Nu mai sunt date.")
-            break
-
-        all_data.extend(items)
-        total = data.get("Total", 0)
-        print(f"Pagina {page}: {len(items)} items (total: {total})")
-
-        if len(all_data) >= total:
-            break
-        page += 1
-
-    return all_data, data.get("Total", 0) if all_data else ([], 0)
+    return data.get("Data", []), data.get("Total", 0)
 
 def save():
     os.makedirs("src/data/transport", exist_ok=True)
