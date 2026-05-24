@@ -8,9 +8,9 @@ interface ClasaTransportator {
   NrCamioaneMax: number
 }
 
-const data = claseData.date as ClasaTransportator[]
-const actualizat = claseData.actualizat as string
-const sursa = claseData.sursa as string
+const data = classData.date as any[]
+const actualizat = claseData.actualizat as any
+const sursa = claseData.sursa as any
 
 export default function TransportPage() {
   return (
