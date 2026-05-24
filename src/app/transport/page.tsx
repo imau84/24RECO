@@ -1,16 +1,8 @@
 import claseData from '@/data/transport/clase_transportatori.json'
 
-interface ClasaTransportator {
-  Denumire: string
-  NrOperatori: number
-  NrCamioane: number
-  NrCamioaneMin: number
-  NrCamioaneMax: number
-}
-
-const data = classData.date as any[]
-const actualizat = claseData.actualizat as any
-const sursa = claseData.sursa as any
+const data = (claseData as any).date as any[]
+const actualizat = (claseData as any).actualizat
+const sursa = (claseData as any).sursa
 
 export default function TransportPage() {
   return (
@@ -19,7 +11,6 @@ export default function TransportPage() {
       <p className="text-sm text-gray-500 mb-6">
         Sursă: {sursa} · Actualizat: {actualizat} · {data.length} clase
       </p>
-
       {data.length === 0 ? (
         <p className="text-gray-400">Nu există date disponibile.</p>
       ) : (
