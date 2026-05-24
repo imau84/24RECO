@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deficit Bugetar — Ministerul Finanțelor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: #f4f5f7; color: #1a1d23; }
+</style>
+</head>
+<body>
+<script type="text/babel">
+
+/* ── Date reale din Excel ── */
+const DATA = {
+  title: "EXECUȚIA BUGETULUI GENERAL CONSOLIDAT — DATE LUNARE 2026",
+  subtitle: "Valori în mil. lei | PIB 2026: 2.045.200 mil. lei",
+  sursa: "Sursa: Ministerul Finanțelor — mfinante.ro | data.gov.ro | Actualizat: Apr 2026",
+  rows: [
+    { label: "VENITURI TOTALE",                        ian26: 55117.88, feb26: 48609.37, cum26: 103727.25, ian25: 46745.69, feb25: 42917.93, cum25: 89663.61,  var: 15.68,  bold: true, cat: 'venituri' },
+    { label: "Venituri curente",                       ian26: 53011.07, feb26: 42360.52, cum26: 95371.59,  ian25: 45241.12, feb25: 40022.90, cum25: 85264.02,  var: 11.85,  indent: 1,  cat: 'venituri' },
+    { label: "Venituri fiscale",                       ian26: 29342.45, feb26: 23107.19, cum26: 52449.64,  ian25: 24116.18, feb25: 21353.50, cum25: 45469.68,  var: 15.35,  indent: 2,  cat: 'venituri' },
+    { label: "Impozit profit, salarii, venit",         ian26: 10042.64, feb26: 4864.27,  cum26: 14906.91,  ian25: 7620.15,  feb25: 4460.93,  cum25: 12081.08,  var: 23.39,  indent: 3,  cat: 'venituri' },
+    { label: "Impozitul pe profit",                    ian26: 637.19,   feb26: 308.62,   cum26: 945.81,    ian25: 518.94,   feb25: 202.73,   cum25: 721.67,    var: 31.06,  indent: 4,  cat: 'venituri' },
+    { label: "Impozitul pe salarii și venit",          ian26: 9019.91,  feb26: 4437.39,  cum26: 13457.31,  ian25: 6863.06,  feb25: 4142.48,  cum25: 11005.54,  var: 22.28,  indent: 4,  cat: 'venituri' },
+    { label: "Alte impozite pe venit/profit",          ian26: 385.54,   feb26: 118.26,   cum26: 503.79,    ian25: 238.15,   feb25: 115.73,   cum25: 353.88,    var: 42.36,  indent: 4,  cat: 'venituri' },
+    { label: "Impozite și taxe pe proprietate",        ian26: 847.67,   feb26: 1062.66,  cum26: 1910.32,   ian25: 724.81,   feb25: 941.48,   cum25: 1666.29,   var: 14.65,  indent: 3,  cat: 'venituri' },
+    { label: "Impozite și taxe bunuri și servicii",    ian26: 17989.95, feb26: 16816.40, cum26: 34806.34,  ian25: 15192.45, feb25: 15518.50, cum25: 30710.95,  var: 13.34,  indent: 3,  cat: 'venituri' },
+    { label: "TVA",                                    ian26: 13060.37, feb26: 10690.55, cum26: 23750.92,  ian25: 10538.13, feb25: 9150.74,  cum25: 19688.88,  var: 20.63,  indent: 4,  cat: 'venituri' },
+    { label: "Accize",                                 ian26: 3674.74,  feb26: 3226.70,  cum26: 6901.43,   ian25: 3435.81,  feb25: 3531.77,  cum25: 6967.58,   var: -0.95,  indent: 4,  cat: 'venituri' },
+    { label: "Alte impozite bunuri și servicii",       ian26: 184.99,   feb26: 1915.15,  cum26: 2100.14,   ian25: 258.40,   feb25: 2059.51,  cum25: 2317.91,   var: -9.40,  indent: 4,  cat: 'venituri' },
+    { label: "Taxe utilizare bunuri",                  ian26: 1069.86,  feb26: 984.00,   cum26: 2053.86,   ian25: 960.10,   feb25: 776.48,   cum25: 1736.58,   var: 18.27,  indent: 4,  cat: 'venituri' },
+    { label: "Taxe vamale",                            ian26: 185.47,   feb26: 164.92,   cum26: 350.39,    ian25: 206.55,   feb25: 206.36,   cum25: 412.90,    var: -15.14, indent: 3,  cat: 'venituri' },
+    { label: "Alte impozite și taxe fiscale",          ian26: 276.72,   feb26: 198.95,   cum26: 475.67,    ian25: 372.23,   feb25: 226.22,   cum25: 598.45,    var: -20.52, indent: 3,  cat: 'venituri' },
+    { label: "Contribuții de asigurări",               ian26: 18463.08, feb26: 16690.10, cum26: 35153.19,  ian25: 17065.71, feb25: 16098.76, cum25: 33164.47,  var: 5.99,   indent: 2,  cat: 'venituri' },
+    { label: "Venituri nefiscale",                     ian26: 5205.53,  feb26: 2563.22,  cum26: 7768.76,   ian25: 4059.22,  feb25: 2570.64,  cum25: 6629.87,   var: 17.18,  indent: 2,  cat: 'venituri' },
+    { label: "Venituri din capital",                   ian26: 55.94,    feb26: 68.03,    cum26: 123.97,    ian25: 44.11,    feb25: 70.45,    cum25: 114.57,    var: 8.21,   indent: 1,  cat: 'venituri' },
+    { label: "Donații",                                ian26: 0.30,     feb26: 2.47,     cum26: 2.77,      ian25: 0.05,     feb25: 1.60,     cum25: 1.64,      var: 68.27,  indent: 1,  cat: 'venituri' },
+    { label: "Sume primite UE (prefinanțări)",         ian26: 1597.50,  feb26: 3953.58,  cum26: 5551.08,   ian25: 1382.10,  feb25: 1685.71,  cum25: 3067.82,   var: 80.95,  indent: 1,  cat: 'venituri' },
+    { label: "Sume în curs de distribuire",            ian26: -224.34,  feb26: 177.44,   cum26: -46.90,    ian25: -239.28,  feb25: 116.55,   cum25: -122.72,   var: -61.78, indent: 1,  cat: 'venituri' },
+    { label: "Alte sume UE (incl. 2014–2020)",        ian26: 3.82+13.86,   feb26: 3.34+31.91,   cum26: 7.16+45.77,    ian25: 134.08+1.13,  feb25: 190.79+0.08,  cum25: 324.87+1.21,   var: ((7.16+45.77)-(324.87+1.21))/(324.87+1.21)*100, indent: 1, cat: 'venituri' },
+    { label: "PNRR nerambursabil",                     ian26: 659.73,   feb26: 2012.09,  cum26: 2671.82,   ian25: 182.38,   feb25: 829.84,   cum25: 1012.22,   var: 163.96, indent: 2,  cat: 'venituri' },
+    { label: "CHELTUIELI TOTALE",                        ian26: 54272.73, feb26: 63687.09, cum26: 117959.82, ian25: 57757.52, feb25: 62143.33, cum25: 119900.85, var: -1.62,  bold: true, cat: 'cheltuieli' },
+    { label: "Cheltuieli curente",                       ian26: 53161.03, feb26: 62092.47, cum26: 115253.49, ian25: 55260.48, feb25: 58719.43, cum25: 113979.91, var: 1.12,  indent: 1,  cat: 'cheltuieli' },
+    { label: "Cheltuieli de personal",                   ian26: 13537.01, feb26: 13588.36, cum26: 27125.38,  ian25: 14010.91, feb25: 14090.10, cum25: 28101.00,  var: -3.47, indent: 2,  cat: 'cheltuieli' },
+    { label: "Bunuri și servicii",                       ian26: 6511.31,  feb26: 7916.24,  cum26: 14427.55,  ian25: 7382.11,  feb25: 7356.80,  cum25: 14738.91,  var: -2.11, indent: 2,  cat: 'cheltuieli' },
+    { label: "Dobânzi",                                  ian26: 3536.64,  feb26: 6721.99,  cum26: 10258.63,  ian25: 3841.72,  feb25: 6213.70,  cum25: 10055.43,  var: 2.02,  indent: 2,  cat: 'cheltuieli' },
+    { label: "Subvenții",                                ian26: 706.90,   feb26: 787.53,   cum26: 1494.43,   ian25: 795.37,   feb25: 951.90,   cum25: 1747.27,   var: -14.47,indent: 2,  cat: 'cheltuieli' },
+    { label: "Transferuri între unități adm. pub.",      ian26: 318.34,   feb26: 361.49,   cum26: 679.83,    ian25: 210.28,   feb25: 242.09,   cum25: 452.36,    var: 50.28, indent: 2,  cat: 'cheltuieli' },
+    { label: "Alte transferuri",                         ian26: 2082.70,  feb26: 3031.28,  cum26: 5113.98,   ian25: 1587.76,  feb25: 2077.89,  cum25: 3665.65,   var: 39.51, indent: 2,  cat: 'cheltuieli' },
+    { label: "Proiecte fonduri externe nerambursabile",  ian26: 1777.59,  feb26: 4708.30,  cum26: 6485.88,   ian25: 1755.16,  feb25: 2124.12,  cum25: 3879.29,   var: 67.19, indent: 2,  cat: 'cheltuieli' },
+    { label: "Asistență socială",                        ian26: 22738.55, feb26: 20436.45, cum26: 43175.00,  ian25: 22302.47, feb25: 20477.26, cum25: 42779.73,  var: 0.92,  indent: 2,  cat: 'cheltuieli' },
+    { label: "Proiecte FEN 2014–2020",                  ian26: 39.98,    feb26: 144.91,   cum26: 184.89,    ian25: 314.61,   feb25: 362.36,   cum25: 676.97,    var: -72.69,indent: 2,  cat: 'cheltuieli' },
+    { label: "Alte cheltuieli",                          ian26: 778.05,   feb26: 904.58,   cum26: 1682.63,   ian25: 1302.06,  feb25: 1943.84,  cum25: 3245.90,   var: -48.16,indent: 2,  cat: 'cheltuieli' },
+    { label: "Proiecte PNRR nerambursabil",              ian26: 609.25,   feb26: 2436.27,  cum26: 3045.53,   ian25: 415.90,   feb25: 915.53,   cum25: 1331.43,   var: 128.74,indent: 2,  cat: 'cheltuieli' },
+    { label: "Proiecte PNRR împrumut",                  ian26: 431.85,   feb26: 965.43,   cum26: 1397.27,   ian25: 1311.83,  feb25: 1907.96,  cum25: 3219.79,   var: -56.60,indent: 2,  cat: 'cheltuieli' },
+    { label: "Programe finanțare rambursabilă",          ian26: 92.86,    feb26: 89.63,    cum26: 182.49,    ian25: 30.30,    feb25: 55.89,    cum25: 86.19,     var: 111.73,indent: 2,  cat: 'cheltuieli' },
+    { label: "Cheltuieli de capital",                    ian26: 1394.21,  feb26: 1975.73,  cum26: 3369.95,   ian25: 2679.50,  feb25: 3695.07,  cum25: 6374.57,   var: -47.13,indent: 1,  cat: 'cheltuieli' },
+    { label: "Plăți recuperate ani precedenți",          ian26: -282.51,  feb26: -381.11,  cum26: -663.62,   ian25: -182.46,  feb25: -271.17,  cum25: -453.63,   var: -46.29,indent: 1,  cat: 'cheltuieli' },
+    { label: "EXCEDENT / DEFICIT",               ian26: 845.15,   feb26: -15077.71,cum26: -14232.57, ian25: -11011.83,feb25: -19225.40,cum25: -30237.24, var: 52.93,  bold: true,  cat: 'deficit' },
+  ]
+};
+
+const fmt = (v) => {
+  if (v === undefined || v === null) return '—';
+  return new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(v);
+};
+const fmtPct = (v) => (v >= 0 ? '+' : '') + v.toFixed(2) + '%';
+
+/* ── Culori ── */
+const C = {
+  bg: '#f4f5f7',
+  card: '#ffffff',
+  border: '#e8eaed',
+  navy: '#0f2044',
+  blue: '#1a56db',
+  blueLight: '#e8f0fe',
+  green: '#0e7245',
+  greenLight: '#d4edda',
+  red: '#b91c1c',
+  redLight: '#fee2e2',
+  amber: '#92400e',
+  amberLight: '#fef3c7',
+  text: '#1a1d23',
+  muted: '#6b7280',
+  subtle: '#9ca3af',
+};
+
+/* ── KPI Card ── */
+const KPICard = ({ label, value, delta, pct, color = C.blue, sub }) => {
+  const pos = pct >= 0;
+  return (
+    <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, padding: '18px 20px', flex: 1 }}>
+      <div style={{ fontSize: 11, fontWeight: 600, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>{label}</div>
+      <div style={{ fontSize: 26, fontWeight: 700, color, fontVariantNumeric: 'tabular-nums', lineHeight: 1, marginBottom: 6 }}>{value}</div>
+      {sub && <div style={{ fontSize: 11, color: C.subtle, marginBottom: 4 }}>{sub}</div>}
+      {delta !== undefined && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+          <span style={{
+            background: pos ? C.greenLight : C.redLight,
+            color: pos ? C.green : C.red,
+            borderRadius: 4, padding: '2px 7px', fontSize: 11, fontWeight: 600
+          }}>{fmtPct(pct)}</span>
+          <span style={{ fontSize: 11, color: C.muted }}>vs ian-feb 2025</span>
+        </div>
+      )}
+    </div>
+  );
+};
+
+/* ── Bar Chart SVG ── */
+const BarChartComparativ = ({ data }) => {
+  const W = 600, H = 200, PL = 60, PR = 20, PT = 20, PB = 30;
+  const chartW = W - PL - PR, chartH = H - PT - PB;
+  const labels = ['Ian 2026','Feb 2026'];
+  const pairs = [
+    { v25: data[0].ian25, v26: data[0].ian26, c26: '#1a56db', c25: '#93c5fd' },
+    { v25: data[0].feb25, v26: data[0].feb26, c26: '#1a56db', c25: '#93c5fd' },
+  ];
+  const allVals = pairs.flatMap(p => [p.v25, p.v26]);
+  const maxV = Math.max(...allVals) * 1.1;
+  const barW = chartW / pairs.length / 2 - 6;
+  const groupW = chartW / pairs.length;
+
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto' }}>
+      {/* grid lines */}
+      {[0, 0.25, 0.5, 0.75, 1].map(t => {
+        const y = PT + chartH - t * chartH;
+        const v = t * maxV;
+        return (
+          <g key={t}>
+            <line x1={PL} y1={y} x2={W - PR} y2={y} stroke={C.border} strokeWidth={0.5} />
+            <text x={PL - 6} y={y + 4} textAnchor="end" fontSize={9} fill={C.muted}>
+              {(v / 1000).toFixed(0)}K
+            </text>
+          </g>
+        );
+      })}
+      {/* bars */}
+      {pairs.map((p, i) => {
+        const gx = PL + i * groupW + groupW / 2;
+        const h25 = (p.v25 / maxV) * chartH;
+        const h26 = (p.v26 / maxV) * chartH;
+        return (
+          <g key={i}>
+            <rect x={gx - barW - 2} y={PT + chartH - h25} width={barW} height={h25} fill={p.c25} rx={2} />
+            <rect x={gx + 2} y={PT + chartH - h26} width={barW} height={h26} fill={p.c26} rx={2} />
+            <text x={gx} y={H - 8} textAnchor="middle" fontSize={9} fill={C.muted}>{labels[i].split('\n')[0]}</text>
+            {labels[i].includes('\n') && <text x={gx} y={H - 0} textAnchor="middle" fontSize={8} fill={C.muted}>{labels[i].split('\n')[1]}</text>}
+          </g>
+        );
+      })}
+      {/* legend */}
+      <rect x={PL} y={4} width={10} height={8} fill="#93c5fd" rx={1} />
+      <text x={PL + 14} y={11} fontSize={9} fill={C.muted}>2025</text>
+      <rect x={PL + 46} y={4} width={10} height={8} fill="#1a56db" rx={1} />
+      <text x={PL + 60} y={11} fontSize={9} fill={C.muted}>2026</text>
+    </svg>
+  );
+};
+
+/* ── Date istorice 2006–2025 ── */
+const ISTORIC = [
+  { an: 2006, ven: 106975.3, chel: 112626.3, pib: 335900 },
+  { an: 2007, ven: 127108.2, chel: 136556.5, pib: 390800 },
+  { an: 2008, ven: 164466.8, chel: 189121.7, pib: 514700 },
+  { an: 2009, ven: 156624.9, chel: 193025.4, pib: 505503 },
+  { an: 2010, ven: 168598.5, chel: 201903.6, pib: 511581 },
+  { an: 2011, ven: 181566.9, chel: 205403.6, pib: 547829 },
+  { an: 2012, ven: 193148.2, chel: 207922.1, pib: 585200 },
+  { an: 2013, ven: 200045.7, chel: 215816.9, pib: 625617 },
+  { an: 2014, ven: 213833.6, chel: 226326.8, pib: 674300 },
+  { an: 2015, ven: 233554.3, chel: 243915.5, pib: 704542 },
+  { an: 2016, ven: 223721.9, chel: 242016.3, pib: 758500 },
+  { an: 2017, ven: 251819.7, chel: 276080.4, pib: 842500 },
+  { an: 2018, ven: 295118.2, chel: 322454.5, pib: 949600 },
+  { an: 2019, ven: 321131.4, chel: 369431.6, pib: 1040800 },
+  { an: 2020, ven: 322518.1, chel: 424434.8, pib: 1053900 },
+  { an: 2021, ven: 379612.9, chel: 459633.3, pib: 1190300 },
+  { an: 2022, ven: 460086.5, chel: 541092.3, pib: 1427300 },
+  { an: 2023, ven: 521447.3, chel: 611349.7, pib: 1583500 },
+  { an: 2024, ven: 574598.8, chel: 727316.2, pib: 1764500 },
+  { an: 2025, ven: 662698.2, chel: 808731.4, pib: 1909000 },
+].map(r => ({ ...r, def: r.ven - r.chel, pct: (r.ven - r.chel) / r.pib * 100 }));
+
+/* ── Grafic Evoluție Deficit 2006–2025 ── */
+const DeficitLineChart = () => {
+  const [hover, setHover] = React.useState(null);
+  const [chartType, setChartType] = React.useState('bare'); // 'bare' | 'pib' | 'combinat'
+
+  const W = 860, H = 320, PL = 75, PR = 30, PT = 40, PB = 50;
+  const chartW = W - PL - PR, chartH = H - PT - PB;
+  const n = ISTORIC.length;
+
+  // For bare chart: show deficit absolute values as bars
+  const defVals = ISTORIC.map(r => r.def);
+  const venVals = ISTORIC.map(r => r.ven);
+  const chelVals = ISTORIC.map(r => r.chel);
+  const pctVals = ISTORIC.map(r => r.pct);
+
+  const minDef = Math.min(...defVals) * 1.12;
+  const maxDef = 20000;
+  const rangeD = maxDef - minDef;
+
+  const minPct = Math.min(...pctVals) * 1.15;
+  const maxPct = 2;
+  const rangePct = maxPct - minPct;
+
+  const maxVen = Math.max(...chelVals) * 1.08;
+
+  const xOf = (i) => PL + (i / (n - 1)) * chartW;
+  const yOfD = (v) => PT + ((maxDef - v) / rangeD) * chartH;
+  const yOfP = (v) => PT + ((maxPct - v) / rangePct) * chartH;
+  const zeroYD = yOfD(0);
+  const zeroYP = yOfP(0);
+
+  const barW = chartW / n * 0.55;
+
+  const fmtK = (v) => {
+    if (Math.abs(v) >= 1000) return (v / 1000).toFixed(1) + 'K';
+    return v.toFixed(0);
+  };
+
+  const gridLinesD = [0, -25000, -50000, -75000, -100000, -125000, -150000];
+  const gridLinesPct = [0, -2, -4, -6, -8, -10];
+
+  return (
+    <div>
+      {/* Chart type selector */}
+      <div style={{ display: 'flex', gap: 6, marginBottom: 14 }}>
+        {[['bare','📊 Deficit absolut (mil. lei)'],['pib','📈 Deficit % din PIB'],['combinat','⊞ Venituri vs. Cheltuieli']].map(([id, lbl]) => (
+          <button key={id} onClick={() => setChartType(id)} style={{
+            background: chartType === id ? C.navy : '#fff',
+            color: chartType === id ? '#fff' : C.muted,
+            border: `1px solid ${chartType === id ? C.navy : C.border}`,
+            borderRadius: 6, padding: '5px 14px', fontSize: 12,
+            cursor: 'pointer', fontFamily: 'DM Sans', fontWeight: chartType === id ? 600 : 400
+          }}>{lbl}</button>
+        ))}
+      </div>
+
+      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto' }}
+        onMouseLeave={() => setHover(null)}>
+
+        {/* ── GRAFIC BARE — deficit absolut ── */}
+        {chartType === 'bare' && <>
+          {/* grid */}
+          {gridLinesD.map(v => {
+            const y = yOfD(v);
+            return (
+              <g key={v}>
+                <line x1={PL} y1={y} x2={W - PR} y2={y} stroke={v === 0 ? '#aaa' : C.border} strokeWidth={v === 0 ? 1 : 0.5} strokeDasharray={v === 0 ? '0' : '3,3'} />
+                <text x={PL - 6} y={y + 4} textAnchor="end" fontSize={9} fill={C.muted}>{fmtK(v)}</text>
+              </g>
+            );
+          })}
+          {/* bars */}
+          {ISTORIC.map((r, i) => {
+            const x = PL + i * (chartW / n) + (chartW / n - barW) / 2;
+            const barH = Math.abs(yOfD(r.def) - zeroYD);
+            const isHover = hover === i;
+            const isBad = r.pct < -6;
+            const barColor = isBad ? '#dc2626' : r.pct < -3 ? '#f97316' : '#1a56db';
+            return (
+              <g key={i} onMouseEnter={() => setHover(i)} style={{ cursor: 'pointer' }}>
+                <rect x={x} y={zeroYD} width={barW} height={barH}
+                  fill={isHover ? (isBad ? '#b91c1c' : C.navy) : barColor}
+                  rx={2} opacity={isHover ? 1 : 0.85} />
+                {/* value label on top of bar */}
+                <text x={x + barW / 2} y={zeroYD + barH + 11} textAnchor="middle"
+                  fontSize={isHover ? 9 : 7.5} fontWeight={isHover ? '700' : '400'}
+                  fill={isHover ? C.navy : C.muted}>
+                  {fmtK(r.def)}
+                </text>
+                {/* year label */}
+                <text x={x + barW / 2} y={H - 6} textAnchor="middle" fontSize={8.5} fill={C.text}
+                  fontWeight={isHover ? '700' : '400'}>{r.an}</text>
+              </g>
+            );
+          })}
+          {/* hover tooltip */}
+          {hover !== null && (() => {
+            const r = ISTORIC[hover];
+            const x = PL + hover * (chartW / n) + (chartW / n) / 2;
+            const tx = Math.min(Math.max(x - 80, 10), W - 175);
+            return (
+              <g>
+                <rect x={tx} y={8} width={170} height={60} rx={5} fill={C.navy} opacity={0.95} />
+                <text x={tx + 10} y={26} fontSize={11} fontWeight="700" fill="#fff">{r.an}</text>
+                <text x={tx + 10} y={40} fontSize={9} fill="#93c5fd">Deficit: {new Intl.NumberFormat('en-US').format(Math.round(r.def))} mil. lei</text>
+                <text x={tx + 10} y={53} fontSize={9} fill="#fca5a5">% PIB: {r.pct.toFixed(2)}%</text>
+                <text x={tx + 10} y={65} fontSize={9} fill="#86efac">Venituri: {new Intl.NumberFormat('en-US').format(Math.round(r.ven))} mil.</text>
+              </g>
+            );
+          })()}
+        </>}
+
+        {/* ── GRAFIC LINIE — % din PIB ── */}
+        {chartType === 'pib' && <>
+          {gridLinesPct.map(v => {
+            const y = yOfP(v);
+            return (
+              <g key={v}>
+                <line x1={PL} y1={y} x2={W - PR} y2={y} stroke={v === 0 ? '#aaa' : C.border} strokeWidth={v === 0 ? 1 : 0.5} strokeDasharray={v === 0 ? '0' : '3,3'} />
+                <text x={PL - 6} y={y + 4} textAnchor="end" fontSize={9} fill={C.muted}>{v}%</text>
+              </g>
+            );
+          })}
+          {/* Maastricht -3% line */}
+          {(() => {
+            const y = yOfP(-3);
+            return <>
+              <line x1={PL} y1={y} x2={W - PR} y2={y} stroke="#ef4444" strokeWidth={1} strokeDasharray="6,3" />
+              <text x={W - PR + 4} y={y + 4} fontSize={8} fill="#ef4444">-3%</text>
+              <text x={PL + 4} y={y - 4} fontSize={8} fill="#ef4444">Limita Maastricht</text>
+            </>;
+          })()}
+          {/* Area fill */}
+          <defs>
+            <linearGradient id="defGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#1a56db" stopOpacity="0.15" />
+              <stop offset="100%" stopColor="#1a56db" stopOpacity="0.02" />
+            </linearGradient>
+          </defs>
+          <polygon
+            points={[
+              `${xOf(0)},${zeroYP}`,
+              ...ISTORIC.map((r, i) => `${xOf(i)},${yOfP(r.pct)}`),
+              `${xOf(n-1)},${zeroYP}`
+            ].join(' ')}
+            fill="url(#defGrad)" />
+          {/* Line */}
+          <polyline
+            points={ISTORIC.map((r, i) => `${xOf(i)},${yOfP(r.pct)}`).join(' ')}
+            stroke="#1a56db" strokeWidth={2.5} fill="none" strokeLinejoin="round" />
+          {/* Dots + labels */}
+          {ISTORIC.map((r, i) => {
+            const x = xOf(i), y = yOfP(r.pct);
+            const isHover = hover === i;
+            const isBad = r.pct < -6;
+            const col = isBad ? '#dc2626' : r.pct < -3 ? '#f97316' : '#1a56db';
+            return (
+              <g key={i} onMouseEnter={() => setHover(i)} style={{ cursor: 'pointer' }}>
+                <circle cx={x} cy={y} r={isHover ? 6 : 4} fill={col} stroke="#fff" strokeWidth={1.5} />
+                {/* value above dot */}
+                <text x={x} y={y - 9} textAnchor="middle" fontSize={isHover ? 9.5 : 8}
+                  fontWeight={isHover ? '700' : '500'} fill={col}>
+                  {r.pct.toFixed(1)}%
+                </text>
+                {/* year below */}
+                <text x={x} y={H - 6} textAnchor="middle" fontSize={8.5} fill={C.text}
+                  fontWeight={isHover ? '700' : '400'}>{r.an}</text>
+              </g>
+            );
+          })}
+          {/* hover tooltip */}
+          {hover !== null && (() => {
+            const r = ISTORIC[hover];
+            const x = xOf(hover);
+            const tx = Math.min(Math.max(x - 80, 10), W - 175);
+            return (
+              <g>
+                <rect x={tx} y={8} width={175} height={68} rx={5} fill={C.navy} opacity={0.95} />
+                <text x={tx + 10} y={26} fontSize={11} fontWeight="700" fill="#fff">{r.an}</text>
+                <text x={tx + 10} y={40} fontSize={9} fill="#fca5a5">Deficit % PIB: {r.pct.toFixed(2)}%</text>
+                <text x={tx + 10} y={53} fontSize={9} fill="#93c5fd">Deficit: {new Intl.NumberFormat('en-US').format(Math.round(r.def))} mil. lei</text>
+                <text x={tx + 10} y={66} fontSize={9} fill="#86efac">PIB: {new Intl.NumberFormat('en-US').format(r.pib)} mil. lei</text>
+              </g>
+            );
+          })()}
+        </>}
+
+        {/* ── GRAFIC COMBINAT — Venituri vs Cheltuieli ── */}
+        {chartType === 'combinat' && <>
+          {[0, 0.25, 0.5, 0.75, 1].map(t => {
+            const v = t * maxVen;
+            const y = PT + chartH - t * chartH;
+            return (
+              <g key={t}>
+                <line x1={PL} y1={y} x2={W - PR} y2={y} stroke={C.border} strokeWidth={0.5} strokeDasharray="3,3" />
+                <text x={PL - 6} y={y + 4} textAnchor="end" fontSize={9} fill={C.muted}>{fmtK(v)}</text>
+              </g>
+            );
+          })}
+          {/* Venituri area */}
+          <polygon
+            points={[
+              `${xOf(0)},${PT + chartH}`,
+              ...ISTORIC.map((r, i) => `${xOf(i)},${PT + chartH - (r.ven / maxVen) * chartH}`),
+              `${xOf(n-1)},${PT + chartH}`
+            ].join(' ')}
+            fill="rgba(26,86,219,0.15)" />
+          <polyline
+            points={ISTORIC.map((r, i) => `${xOf(i)},${PT + chartH - (r.ven / maxVen) * chartH}`).join(' ')}
+            stroke="#1a56db" strokeWidth={2} fill="none" strokeLinejoin="round" />
+          {/* Cheltuieli line */}
+          <polyline
+            points={ISTORIC.map((r, i) => `${xOf(i)},${PT + chartH - (r.chel / maxVen) * chartH}`).join(' ')}
+            stroke="#dc2626" strokeWidth={2} fill="none" strokeLinejoin="round" strokeDasharray="5,2" />
+          {/* Dots + year labels */}
+          {ISTORIC.map((r, i) => {
+            const x = xOf(i);
+            const yV = PT + chartH - (r.ven / maxVen) * chartH;
+            const yC = PT + chartH - (r.chel / maxVen) * chartH;
+            const isHover = hover === i;
+            return (
+              <g key={i} onMouseEnter={() => setHover(i)} style={{ cursor: 'pointer' }}>
+                <circle cx={x} cy={yV} r={isHover ? 5 : 3} fill="#1a56db" stroke="#fff" strokeWidth={1} />
+                <circle cx={x} cy={yC} r={isHover ? 5 : 3} fill="#dc2626" stroke="#fff" strokeWidth={1} />
+                <text x={x} y={H - 6} textAnchor="middle" fontSize={8.5} fill={C.text}
+                  fontWeight={isHover ? '700' : '400'}>{r.an}</text>
+              </g>
+            );
+          })}
+          {/* Legend */}
+          <line x1={PL} y1={PT - 18} x2={PL + 20} y2={PT - 18} stroke="#1a56db" strokeWidth={2} />
+          <text x={PL + 24} y={PT - 14} fontSize={9} fill={C.muted}>Venituri</text>
+          <line x1={PL + 80} y1={PT - 18} x2={PL + 100} y2={PT - 18} stroke="#dc2626" strokeWidth={2} strokeDasharray="5,2" />
+          <text x={PL + 104} y={PT - 14} fontSize={9} fill={C.muted}>Cheltuieli</text>
+          {/* hover tooltip */}
+          {hover !== null && (() => {
+            const r = ISTORIC[hover];
+            const x = xOf(hover);
+            const tx = Math.min(Math.max(x - 85, 10), W - 185);
+            return (
+              <g>
+                <rect x={tx} y={8} width={180} height={72} rx={5} fill={C.navy} opacity={0.95} />
+                <text x={tx + 10} y={26} fontSize={11} fontWeight="700" fill="#fff">{r.an}</text>
+                <text x={tx + 10} y={40} fontSize={9} fill="#93c5fd">Venituri: {new Intl.NumberFormat('en-US').format(Math.round(r.ven))} mil.</text>
+                <text x={tx + 10} y={53} fontSize={9} fill="#fca5a5">Cheltuieli: {new Intl.NumberFormat('en-US').format(Math.round(r.chel))} mil.</text>
+                <text x={tx + 10} y={66} fontSize={9} fill="#fdba74">Deficit: {new Intl.NumberFormat('en-US').format(Math.round(r.def))} mil. ({r.pct.toFixed(1)}%)</text>
+              </g>
+            );
+          })()}
+        </>}
+      </svg>
+
+      {/* Tabel rezumat sub grafic */}
+      <div style={{ marginTop: 16, overflowX: 'auto' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 11 }}>
+          <thead>
+            <tr style={{ background: C.navy }}>
+              {['An','Venituri (mil. lei)','Cheltuieli (mil. lei)','Deficit (mil. lei)','% PIB','% Venituri'].map(h => (
+                <th key={h} style={{ padding: '7px 10px', color: '#fff', fontWeight: 600, fontSize: 10, textAlign: h === 'An' ? 'center' : 'right' }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {ISTORIC.map((r, i) => {
+              const isBad = r.pct < -6;
+              const isMed = r.pct < -3;
+              const bg = i % 2 === 0 ? '#fff' : '#fafafa';
+              return (
+                <tr key={r.an} style={{ background: bg, borderBottom: `1px solid ${C.border}` }}
+                  onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)}>
+                  <td style={{ padding: '5px 10px', textAlign: 'center', fontWeight: 600, color: C.navy }}>{r.an}</td>
+                  <td style={{ padding: '5px 10px', textAlign: 'right', fontFamily: 'DM Mono, monospace' }}>{new Intl.NumberFormat('en-US', {minimumFractionDigits:1}).format(r.ven)}</td>
+                  <td style={{ padding: '5px 10px', textAlign: 'right', fontFamily: 'DM Mono, monospace' }}>{new Intl.NumberFormat('en-US', {minimumFractionDigits:1}).format(r.chel)}</td>
+                  <td style={{ padding: '5px 10px', textAlign: 'right', fontFamily: 'DM Mono, monospace', color: C.red, fontWeight: 600 }}>
+                    {new Intl.NumberFormat('en-US', {minimumFractionDigits:1}).format(r.def)}
+                  </td>
+                  <td style={{ padding: '5px 10px', textAlign: 'right' }}>
+                    <span style={{
+                      background: isBad ? C.redLight : isMed ? '#fff7ed' : '#f9fafb',
+                      color: isBad ? C.red : isMed ? '#c2410c' : C.muted,
+                      padding: '2px 7px', borderRadius: 4, fontWeight: isBad ? 700 : 500, fontSize: 10
+                    }}>{r.pct.toFixed(2)}%</span>
+                  </td>
+                  <td style={{ padding: '5px 10px', textAlign: 'right' }}>
+                    {(() => {
+                      const pVen = (Math.abs(r.def) / r.ven * 100);
+                      const isHighV = pVen > 20;
+                      const isMedV = pVen > 10;
+                      return (
+                        <span style={{
+                          background: isHighV ? C.redLight : isMedV ? '#fff7ed' : '#f9fafb',
+                          color: isHighV ? C.red : isMedV ? '#c2410c' : C.muted,
+                          padding: '2px 7px', borderRadius: 4, fontWeight: isHighV ? 700 : 500, fontSize: 10
+                        }}>{pVen.toFixed(1)}%</span>
+                      );
+                    })()}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+          <tfoot>
+            <tr style={{ background: C.navy, borderTop: `2px solid ${C.border}` }}>
+              <td style={{ padding: '7px 10px', textAlign: 'center', fontWeight: 700, color: '#fff', fontSize: 11 }}>TOTAL</td>
+              <td style={{ padding: '7px 10px', textAlign: 'right', fontFamily: 'DM Mono, monospace', fontWeight: 700, color: '#93c5fd', fontSize: 11 }}>
+                {new Intl.NumberFormat('en-US', {minimumFractionDigits:1}).format(ISTORIC.reduce((s,r) => s + r.ven, 0))}
+              </td>
+              <td style={{ padding: '7px 10px', textAlign: 'right', fontFamily: 'DM Mono, monospace', fontWeight: 700, color: '#fca5a5', fontSize: 11 }}>
+                {new Intl.NumberFormat('en-US', {minimumFractionDigits:1}).format(ISTORIC.reduce((s,r) => s + r.chel, 0))}
+              </td>
+              <td style={{ padding: '7px 10px', textAlign: 'right', fontFamily: 'DM Mono, monospace', fontWeight: 700, color: '#fca5a5', fontSize: 11 }}>
+                {new Intl.NumberFormat('en-US', {minimumFractionDigits:1}).format(ISTORIC.reduce((s,r) => s + r.def, 0))}
+              </td>
+              <td style={{ padding: '7px 10px', textAlign: 'right', color: '#fff', fontSize: 11 }}>—</td>
+              <td style={{ padding: '7px 10px', textAlign: 'right', color: '#fff', fontSize: 11 }}>—</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+/* ── Export CSV util ── */
+const exportCSV = () => {
+  const headers = ['Indicator','Ian 2026','Feb 2026','Ian-Feb 2026 Cumulat','Ian 2025','Feb 2025','Ian-Feb 2025 Cumulat','Variatie (%)'];
+  const rows = DATA.rows.map(r =>
+    [r.label, r.ian26, r.feb26, r.cum26, r.ian25, r.feb25, r.cum25, r.var].join(';')
+  );
+  const csv = '\uFEFF' + [headers.join(';'), ...rows].join('\n'); // BOM for Excel
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'deficit_bugetar_ian_feb_2026.csv';
+  a.click(); URL.revokeObjectURL(url);
+};
+
+/* ── Tabel date ── */
+const DataTable = ({ filter, search }) => {
+  const cols = [
+    { key: 'ian26', label: 'Ian 2026',   sub: 'mil. lei' },
+    { key: 'feb26', label: 'Feb 2026',   sub: 'mil. lei' },
+    { key: 'ian25', label: 'Ian 2025',   sub: 'mil. lei' },
+    { key: 'feb25', label: 'Feb 2025',   sub: 'mil. lei' },
+    { key: 'var',   label: 'Variație',   sub: '26/25 %' },
+  ];
+
+  const filteredRows = DATA.rows.filter(r => {
+    if (filter !== 'toate' && r.cat !== filter) return false;
+    if (search && !r.label.toLowerCase().includes(search.toLowerCase())) return false;
+    return true;
+  });
+
+  return (
+    <div style={{ overflowX: 'auto' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
+        <thead>
+          <tr style={{ background: C.navy }}>
+            <th style={{ textAlign: 'left', padding: '10px 14px', color: '#fff', fontWeight: 600, fontSize: 11, position: 'sticky', left: 0, background: C.navy, minWidth: 240 }}>
+              Indicator
+            </th>
+            {cols.map(c => (
+              <th key={c.key} style={{ textAlign: 'right', padding: '10px 12px', color: '#fff', fontWeight: 600, fontSize: 11, whiteSpace: 'nowrap', minWidth: 110 }}>
+                {c.label}<br/><span style={{ fontWeight: 400, opacity: 0.65, fontSize: 10 }}>{c.sub}</span>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {filteredRows.map((row, i) => {
+            const isDeficit = row.cat === 'deficit';
+            const rowBg = row.bold
+              ? isDeficit ? '#fff8f0' : row.cat === 'venituri' ? '#f0f7ff' : '#f5f0ff'
+              : i % 2 === 0 ? '#fff' : '#fafafa';
+            return (
+              <tr key={i} style={{ background: rowBg, borderBottom: `1px solid ${C.border}` }}>
+                <td style={{
+                  padding: `${row.bold ? 9 : 7}px 14px`,
+                  paddingLeft: 14 + (row.indent || 0) * 14,
+                  fontWeight: row.bold ? 700 : 400,
+                  color: isDeficit && row.bold ? C.red : row.bold ? C.navy : C.text,
+                  fontSize: row.bold ? 12 : 11,
+                  borderLeft: row.bold ? `3px solid ${isDeficit ? C.red : row.cat === 'venituri' ? C.blue : '#7c3aed'}` : '3px solid transparent',
+                  position: 'sticky', left: 0, background: rowBg,
+                }}>
+                  {row.label}
+                </td>
+                {cols.map(c => {
+                  const v = row[c.key];
+                  const isVar = c.key === 'var';
+                  const isNeg = v < 0;
+                  return (
+                    <td key={c.key} style={{
+                      textAlign: 'right', padding: '7px 12px',
+                      fontFamily: isVar ? 'DM Sans' : 'DM Mono, monospace',
+                      fontSize: 11, fontWeight: row.bold ? 600 : 400,
+                      color: isVar
+                        ? (v >= 0 ? C.green : C.red)
+                        : (isNeg ? C.red : C.text),
+                    }}>
+                      {isVar
+                        ? <span style={{
+                            background: v >= 0 ? C.greenLight : C.redLight,
+                            padding: '2px 6px', borderRadius: 4,
+                          }}>{fmtPct(v)}</span>
+                        : fmt(v)
+                      }
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+/* ── Tweaks ── */
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "showChart": "da",
+  "showDeficitLine": "da",
+  "defaultTab": "grafic",
+  "mainTab": "executie"
+}/*EDITMODE-END*/;
+
+/* ══ Date Salariați Bugetari 2025–2026 ══ */
+const LUNI_SALAR = ['Ian 2025','Feb 2025','Mar 2025','Apr 2025','Mai 2025','Iun 2025','Iul 2025','Aug 2025','Sep 2025','Oct 2025','Nov 2025','Dec 2025','Ian 2026'];
+const LUNI_COLS = ['B','C','D','E','F','G','H','I','J','K','L','M','N'];
+
+// Institutii individuale cu date complete (non-zero pe toate lunile)
+const SALARIATI = {
+  total: [1312508,1311451,1306241,1306234,1305361,1305595,1303563,1268801,1264845,1280852,1280562,1278795,1280305],
+  institutii: [
+    { name: 'Ministerul Afacerilor Interne', vals: [124931,125001,125454,125660,125534,126880,127192,126539,125876,125313,124860,124671,125676], cat: 'minister' },
+    { name: 'Ministerul Apărării Naționale', vals: [81089,80746,76120,76446,75888,75987,76131,76074,76034,76277,75585,74813,76175], cat: 'minister' },
+    { name: 'Ministerul Educației', vals: [308052,308442,308799,308705,308529,308368,308129,277083,276544,292347,293788,293919,293922], cat: 'minister' },
+    { name: 'Ministerul Finanțelor', vals: [24797,24558,24489,24437,24360,24314,24228,24133,24030,23918,23881,23804,23721], cat: 'minister' },
+    { name: 'Ministerul Sănătății', vals: [18240,18386,18381,18366,18356,18339,18355,18333,18334,18310,18265,18289,18318], cat: 'minister' },
+    { name: '\u00cenalta Curte de Casație și Justiție', vals: [14725,14684,14707,14686,14703,14850,14855,14798,14780,14755,14727,14712,14661], cat: 'justitie' },
+    { name: 'Ministerul Agriculturii', vals: [5705,5595,5591,5614,5629,5642,5631,5614,5602,5589,5585,5575,5558], cat: 'minister' },
+    { name: 'Ministerul Muncii', vals: [3876,3760,3977,4013,4042,4073,4070,4068,4051,4046,4051,4051,4134], cat: 'minister' },
+    { name: 'Secretariatul General al Guvernului', vals: [4624,3499,3688,3677,3669,3622,3598,3556,3625,3624,3623,3582,3564], cat: 'guvern' },
+    { name: 'Ministerul Mediului', vals: [3362,3334,3316,3281,3269,3317,3315,3475,3472,3388,3395,3395,3399], cat: 'minister' },
+    { name: 'Ministerul Public', vals: [6118,6088,6101,6111,6108,6159,6196,6182,6171,6156,6156,6128,6108], cat: 'justitie' },
+    { name: 'Ministerul Investitiilor Europene', vals: [2040,2034,2023,2029,2044,2033,2040,2048,2036,2032,2023,2024,2013], cat: 'minister' },
+    { name: 'Ministerul Afacerilor Externe', vals: [2093,2099,2102,2129,2137,2154,2162,2185,2184,2163,2174,2163,2158], cat: 'minister' },
+    { name: 'Ministerul Justitiei', vals: [2837,2839,2804,2783,2753,2746,2740,2706,2668,2659,2641,2638,2629], cat: 'minister' },
+    { name: 'Curtea de Conturi', vals: [1617,1611,1650,1650,1634,1650,1743,1731,1731,1726,1726,1721,1719], cat: 'justitie' },
+    { name: 'Serviciul de Telecom. Speciale', vals: [3003,3009,3026,3044,3037,3013,3045,3039,3035,3038,3032,3028,3021], cat: 'siguranta' },
+    { name: 'Serviciul de Protectie si Paza', vals: [1465,1498,1499,1522,1522,1508,1503,1540,1538,1518,1515,1515,1531], cat: 'siguranta' },
+    { name: 'Academia Romana', vals: [3222,3240,3241,3238,3246,3247,3247,3243,3237,3231,3235,3234,3193], cat: 'cultura' },
+    { name: 'Ministerul Energiei', vals: [362,345,343,344,342,335,340,331,317,324,324,318,317], cat: 'minister' },
+    { name: 'Camera Deputatilor', vals: [1711,1701,1665,1645,1646,1627,1631,1623,1622,1620,1618,1620,1616], cat: 'parlament' },
+    { name: 'Senatul Romaniei', vals: [881,873,850,835,799,768,767,767,762,769,766,768,766], cat: 'parlament' },
+    { name: 'Ministerul Culturii', vals: [412,411,411,411,411,409,409,409,393,393,393,395,395], cat: 'minister' },
+    { name: 'Curtea Constitutionala', vals: [105,104,105,105,105,107,102,122,124,125,127,128,127], cat: 'justitie' },
+    { name: 'Administratia Prezidentiala', vals: [289,292,289,289,288,278,276,272,271,277,290,296,302], cat: 'guvern' },
+    { name: 'Consiliul Superior al Magistraturii', vals: [468,481,478,482,484,485,484,485,485,483,483,481,490], cat: 'justitie' },
+  ],
+  grupe: [
+    { name: 'I. Administratie Publica Centrala', vals: [842264,841259,836726,836767,836430,837241,836019,801829,798365,814963,815556,814331,816514] },
+    { name: 'II. Administratie Publica Locala', vals: [470244,470192,469515,469467,468931,468354,467544,466972,466480,465889,465006,464464,463791] },
+  ]
+};
+
+/* ══ Componenta Salariati Bugetari ══ */
+const SalariatiBugetari = () => {
+  const [subtab, setSubtab] = React.useState('institutii');
+  const [hover, setHover] = React.useState(null);
+  const [sortBy, setSortBy] = React.useState('ian2026');
+  const [catFilter, setCatFilter] = React.useState('toate');
+
+  const fmtS = (v) => new Intl.NumberFormat('en-US').format(v);
+
+  // Ultima luna = index 12 (Ian 2026), prima = index 0 (Ian 2025)
+  const sortedInstitutii = [...SALARIATI.institutii]
+    .filter(r => catFilter === 'toate' || r.cat === catFilter)
+    .sort((a, b) => {
+      if (sortBy === 'ian2026') return b.vals[12] - a.vals[12];
+      if (sortBy === 'var') return (a.vals[12] - a.vals[0]) - (b.vals[12] - b.vals[0]);
+      return b.vals[12] - a.vals[12];
+    });
+
+  // Chart evolutie total
+  const W = 860, H = 280, PL = 80, PR = 20, PT = 30, PB = 50;
+  const cW = W - PL - PR, cH = H - PT - PB;
+  const n = LUNI_SALAR.length;
+  const xOf = (i) => PL + (i / (n-1)) * cW;
+  const minT = Math.min(...SALARIATI.total) - 20000;
+  const maxT = Math.max(...SALARIATI.total) + 20000;
+  const yOf = (v) => PT + cH - ((v - minT) / (maxT - minT)) * cH;
+  const gridVals = [1200000, 1250000, 1280000, 1310000];
+
+  const COLORS_GRUPE = ['#1a56db','#0e7245'];
+  const CAT_COLORS = {minister:'#1a56db',justitie:'#7c3aed',siguranta:'#c2410c',guvern:'#0891b2',cultura:'#d97706',parlament:'#0e7245'};
+
+  return (
+    <div style={{ flex: 1, padding: '20px 24px', maxWidth: 1200, margin: '0 auto', width: '100%' }}>
+      {/* KPI top */}
+      <div style={{ display: 'flex', gap: 12, marginBottom: 16 }}>
+        {[
+          { label: 'Total posturi Ian 2026', val: fmtS(SALARIATI.total[12]), sub: 'Administrație publică centrală + locală', color: C.navy },
+          { label: 'Variație vs. Ian 2025', val: `${new Intl.NumberFormat('en-US',{signDisplay:'always'}).format(SALARIATI.total[12]-SALARIATI.total[0])}`, sub: `${(((SALARIATI.total[12]-SALARIATI.total[0])/SALARIATI.total[0])*100).toFixed(2)}% față de ian. 2025`, color: SALARIATI.total[12] > SALARIATI.total[0] ? C.red : C.green },
+          { label: 'Adm. Centrală Ian 2026', val: fmtS(SALARIATI.grupe[0].vals[12]), sub: `${((SALARIATI.grupe[0].vals[12]/SALARIATI.total[12])*100).toFixed(1)}% din total`, color: '#1a56db' },
+          { label: 'Adm. Locală Ian 2026', val: fmtS(SALARIATI.grupe[1].vals[12]), sub: `${((SALARIATI.grupe[1].vals[12]/SALARIATI.total[12])*100).toFixed(1)}% din total`, color: '#0e7245' },
+        ].map(({label,val,sub,color}) => (
+          <div key={label} style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, padding: '14px 18px', flex: 1 }}>
+            <div style={{ fontSize: 11, fontWeight: 600, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 6 }}>{label}</div>
+            <div style={{ fontSize: 22, fontWeight: 700, color, lineHeight: 1, marginBottom: 4 }}>{val}</div>
+            <div style={{ fontSize: 11, color: C.subtle }}>{sub}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Subtabs */}
+      <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, overflow: 'hidden' }}>
+        <div style={{ display: 'flex', borderBottom: `1px solid ${C.border}`, padding: '0 16px', alignItems: 'center' }}>
+          {[['institutii','🏛️ Pe Instituții'],['evolutie','📈 Evoluție în timp']].map(([id,lbl]) => (
+            <button key={id} onClick={() => setSubtab(id)} style={{
+              background: 'none', border: 'none', cursor: 'pointer',
+              padding: '12px 16px', fontSize: 12, fontFamily: 'DM Sans',
+              fontWeight: subtab === id ? 600 : 400,
+              color: subtab === id ? C.blue : C.muted,
+              borderBottom: subtab === id ? `2px solid ${C.blue}` : '2px solid transparent',
+              marginBottom: -1
+            }}>{lbl}</button>
+          ))}
+          <div style={{ flex: 1 }} />
+          {subtab === 'institutii' && (
+            <div style={{ display: 'flex', gap: 4 }}>
+              {[['toate','Toate'],['minister','Ministere'],['justitie','Justiție'],['siguranta','Siguranță'],['guvern','Guvern'],['parlament','Parlament']].map(([id,lbl]) => (
+                <button key={id} onClick={() => setCatFilter(id)} style={{
+                  background: catFilter === id ? C.navy : 'transparent',
+                  color: catFilter === id ? '#fff' : C.muted,
+                  border: `1px solid ${catFilter === id ? C.navy : C.border}`,
+                  borderRadius: 5, padding: '4px 10px', fontSize: 10,
+                  cursor: 'pointer', fontFamily: 'DM Sans'
+                }}>{lbl}</button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div style={{ padding: subtab === 'institutii' ? 0 : 24 }}>
+
+          {/* TAB 1 — Pe institutii */}
+          {subtab === 'institutii' && (
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 11 }}>
+                <thead>
+                  <tr style={{ background: C.navy }}>
+                    <th style={{ padding: '9px 14px', color: '#fff', fontWeight: 600, fontSize: 11, textAlign: 'left', position: 'sticky', left: 0, background: C.navy, minWidth: 240 }}>Instituție</th>
+                    <th style={{ padding: '9px 12px', color: '#93c5fd', fontWeight: 600, fontSize: 10, textAlign: 'right', cursor: 'pointer', whiteSpace: 'nowrap' }} onClick={() => setSortBy('ian2026')}>Ian 2026 {sortBy==='ian2026'&&'↓'}</th>
+                    <th style={{ padding: '9px 12px', color: '#86efac', fontWeight: 600, fontSize: 10, textAlign: 'right', whiteSpace: 'nowrap' }}>Ian 2025</th>
+                    <th style={{ padding: '9px 12px', color: '#fca5a5', fontWeight: 600, fontSize: 10, textAlign: 'right', cursor: 'pointer', whiteSpace: 'nowrap' }} onClick={() => setSortBy('var')}>Variație {sortBy==='var'&&'↓'}</th>
+                    {[3,5,7,9,11].map(i => (
+                      <th key={i} style={{ padding: '9px 8px', color: 'rgba(255,255,255,0.5)', fontWeight: 400, fontSize: 9, textAlign: 'right', whiteSpace: 'nowrap' }}>{LUNI_SALAR[i].substring(0,3)}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {sortedInstitutii.map((inst, i) => {
+                    const varAbs = inst.vals[12] - inst.vals[0];
+                    const varPct = (varAbs / inst.vals[0] * 100).toFixed(1);
+                    const bg = i % 2 === 0 ? '#fff' : '#fafafa';
+                    return (
+                      <tr key={inst.name} style={{ background: bg, borderBottom: `1px solid ${C.border}` }}
+                        onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)}>
+                        <td style={{ padding: '7px 14px', color: C.text, position: 'sticky', left: 0, background: bg, display: 'flex', alignItems: 'center', gap: 6 }}>
+                          <div style={{ width: 8, height: 8, borderRadius: '50%', background: CAT_COLORS[inst.cat] || C.blue, flexShrink: 0 }} />
+                          {inst.name}
+                        </td>
+                        <td style={{ padding: '7px 12px', textAlign: 'right', fontFamily: 'DM Mono, monospace', fontWeight: 700, color: '#1a56db' }}>{fmtS(inst.vals[12])}</td>
+                        <td style={{ padding: '7px 12px', textAlign: 'right', fontFamily: 'DM Mono, monospace', color: C.muted }}>{fmtS(inst.vals[0])}</td>
+                        <td style={{ padding: '7px 12px', textAlign: 'right' }}>
+                          <span style={{
+                            background: varAbs < 0 ? C.greenLight : C.redLight,
+                            color: varAbs < 0 ? C.green : C.red,
+                            padding: '2px 7px', borderRadius: 4, fontSize: 10, fontWeight: 600
+                          }}>{varAbs > 0 ? '+' : ''}{fmtS(varAbs)} ({varPct}%)</span>
+                        </td>
+                        {[3,5,7,9,11].map(idx => (
+                          <td key={idx} style={{ padding: '7px 8px', textAlign: 'right', fontSize: 10, color: C.muted, fontFamily: 'DM Mono, monospace' }}>{fmtS(inst.vals[idx])}</td>
+                        ))}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {/* TAB 2 — Evolutie in timp */}
+          {subtab === 'evolutie' && (
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: C.navy, marginBottom: 4 }}>Evoluție număr posturi ocupate — Ian 2025 → Ian 2026</div>
+              <div style={{ fontSize: 11, color: C.muted, marginBottom: 16 }}>Total administrație publică + defalcare centrală vs. locală</div>
+
+              {/* Grafic linii SVG */}
+              <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto' }} onMouseLeave={() => setHover(null)}>
+                {/* grid */}
+                {gridVals.map(v => (
+                  <g key={v}>
+                    <line x1={PL} y1={yOf(v)} x2={W-PR} y2={yOf(v)} stroke={C.border} strokeWidth={0.5} strokeDasharray="3,3" />
+                    <text x={PL-6} y={yOf(v)+4} textAnchor="end" fontSize={9} fill={C.muted}>{new Intl.NumberFormat('en-US').format(v)}</text>
+                  </g>
+                ))}
+
+                {/* Linii grupe */}
+                {SALARIATI.grupe.map((g, gi) => (
+                  <g key={g.name}>
+                    <polyline
+                      points={g.vals.map((v,i) => `${xOf(i)},${yOf(v)}`).join(' ')}
+                      stroke={COLORS_GRUPE[gi]} strokeWidth={2} fill="none" strokeDasharray={gi===1?'5,3':'0'} />
+                    {g.vals.map((v,i) => (
+                      <circle key={i} cx={xOf(i)} cy={yOf(v)} r={3} fill={COLORS_GRUPE[gi]} stroke="#fff" strokeWidth={1} />
+                    ))}
+                  </g>
+                ))}
+
+                {/* Linie total */}
+                <polyline
+                  points={SALARIATI.total.map((v,i) => `${xOf(i)},${yOf(v)}`).join(' ')}
+                  stroke={C.navy} strokeWidth={2.5} fill="none" />
+                {SALARIATI.total.map((v,i) => {
+                  const isH = hover===i;
+                  return (
+                    <g key={i} onMouseEnter={() => setHover(i)} style={{ cursor: 'pointer' }}>
+                      <circle cx={xOf(i)} cy={yOf(v)} r={isH?6:3.5} fill={C.navy} stroke="#fff" strokeWidth={1.5} />
+                      {isH && <text x={xOf(i)} y={yOf(v)-10} textAnchor="middle" fontSize={9} fontWeight={700} fill={C.navy}>{new Intl.NumberFormat('en-US').format(v)}</text>}
+                      <text x={xOf(i)} y={H-6} textAnchor="middle" fontSize={8} fill={isH?C.navy:C.muted} fontWeight={isH?700:400}>{LUNI_SALAR[i].substring(0,3)}</text>
+                    </g>
+                  );
+                })}
+
+                {/* Legend */}
+                <line x1={PL} y1={PT-15} x2={PL+20} y2={PT-15} stroke={C.navy} strokeWidth={2.5} />
+                <text x={PL+24} y={PT-11} fontSize={9} fill={C.muted}>Total</text>
+                {SALARIATI.grupe.map((g,gi) => (
+                  <g key={g.name}>
+                    <line x1={PL+gi*120+60} y1={PT-15} x2={PL+gi*120+80} y2={PT-15} stroke={COLORS_GRUPE[gi]} strokeWidth={2} strokeDasharray={gi===1?'4,2':'0'} />
+                    <text x={PL+gi*120+84} y={PT-11} fontSize={9} fill={C.muted}>{g.name.split('.')[1]?.trim().split(' ').slice(0,2).join(' ')}</text>
+                  </g>
+                ))}
+
+                {/* Tooltip */}
+                {hover !== null && (() => {
+                  const x = xOf(hover);
+                  const tx = Math.min(Math.max(x-90, 5), W-190);
+                  return (
+                    <g>
+                      <rect x={tx} y={8} width={185} height={72} rx={5} fill={C.navy} opacity={0.95} />
+                      <text x={tx+10} y={24} fontSize={11} fontWeight={700} fill="#fff">{LUNI_SALAR[hover]}</text>
+                      <text x={tx+10} y={38} fontSize={9} fill="#93c5fd">Total: {new Intl.NumberFormat('en-US').format(SALARIATI.total[hover])}</text>
+                      <text x={tx+10} y={51} fontSize={9} fill="#6edbff">Centrală: {new Intl.NumberFormat('en-US').format(SALARIATI.grupe[0].vals[hover])}</text>
+                      <text x={tx+10} y={64} fontSize={9} fill="#86efac">Locală: {new Intl.NumberFormat('en-US').format(SALARIATI.grupe[1].vals[hover])}</text>
+                    </g>
+                  );
+                })()}
+              </svg>
+
+              {/* Tabel evolutie lunar */}
+              <div style={{ marginTop: 20, overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 11 }}>
+                  <thead>
+                    <tr style={{ background: C.navy }}>
+                      <th style={{ padding: '8px 12px', color: '#fff', fontWeight: 600, fontSize: 11, textAlign: 'left', minWidth: 180 }}>Categorie</th>
+                      {LUNI_SALAR.map(l => (
+                        <th key={l} style={{ padding: '8px 8px', color: '#fff', fontWeight: 500, fontSize: 9, textAlign: 'right', whiteSpace: 'nowrap' }}>{l}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { name: 'TOTAL', vals: SALARIATI.total, bold: true },
+                      { name: 'Adm. Centrală', vals: SALARIATI.grupe[0].vals },
+                      { name: 'Adm. Locală', vals: SALARIATI.grupe[1].vals },
+                    ].map((r, i) => (
+                      <tr key={r.name} style={{ background: i===0?'#f0f7ff': i%2===0?'#fff':'#fafafa', borderBottom: `1px solid ${C.border}` }}>
+                        <td style={{ padding: '7px 12px', fontWeight: r.bold?700:500, color: r.bold?C.navy:C.text, borderLeft: `3px solid ${i===0?C.navy:i===1?'#1a56db':'#0e7245'}` }}>{r.name}</td>
+                        {r.vals.map((v, vi) => {
+                          const prev = vi > 0 ? r.vals[vi-1] : null;
+                          const delta = prev ? v - prev : null;
+                          return (
+                            <td key={vi} style={{ padding: '7px 8px', textAlign: 'right', fontFamily: 'DM Mono, monospace', fontSize: 10, fontWeight: r.bold?600:400 }}>
+                              <div>{new Intl.NumberFormat('en-US').format(v)}</div>
+                              {delta !== null && (
+                                <div style={{ fontSize: 8, color: delta < 0 ? C.green : delta > 0 ? C.red : C.subtle }}>
+                                  {delta > 0 ? '+' : ''}{new Intl.NumberFormat('en-US').format(delta)}
+                                </div>
+                              )}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Footer sursa */}
+      <div style={{ borderTop: `1px solid ${C.border}`, background: C.card, padding: '10px 0', marginTop: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#22c55e', flexShrink: 0 }} />
+        <div style={{ fontSize: 11, color: C.muted }}>Sursa: Ministerul Finanțelor — Numărul de posturi ocupate în instituțiile și autoritățile publice</div>
+        <span style={{ color: C.border }}>•</span>
+        <a href="https://mfinante.gov.ro" target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: C.blue, textDecoration: 'none' }}>🔗 mfinante.gov.ro</a>
+        <div style={{ flex: 1 }} />
+        <div style={{ fontSize: 11, color: C.subtle }}>Date: Ian 2025 – Ian 2026 • Actualizat lunar</div>
+      </div>
+    </div>
+  );
+};
+
+/* ── App principal ── */
+function App() {
+  const [tab, setTab] = React.useState('grafic');
+  const [filter, setFilter] = React.useState('toate');
+  const [search, setSearch] = React.useState('');
+  const [mainTab, setMainTab] = React.useState('executie');
+  const [tweaksOpen, setTweaksOpen] = React.useState(false);
+  const [tw, setTw] = React.useState(TWEAK_DEFAULTS);
+
+  React.useEffect(() => {
+    const h = e => {
+      if (e.data?.type === '__activate_edit_mode') setTweaksOpen(true);
+      if (e.data?.type === '__deactivate_edit_mode') setTweaksOpen(false);
+    };
+    window.addEventListener('message', h);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', h);
+  }, []);
+
+  const deficitRow = DATA.rows.find(r => r.cat === 'deficit');
+  const venituriRow = DATA.rows.find(r => r.cat === 'venituri' && r.bold);
+  const cheltuieliRow = DATA.rows.find(r => r.cat === 'cheltuieli' && r.bold);
+
+  return (
+    <div style={{ minHeight: '100vh', background: C.bg, display: 'flex', flexDirection: 'column' }}>
+
+      {/* ── Navbar ── */}
+      <nav style={{ background: C.navy, height: 52, display: 'flex', alignItems: 'center', padding: '0 24px', gap: 24, flexShrink: 0 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#fff', letterSpacing: '-0.3px' }}>📊 DatePublice.ro</div>
+        <div style={{ display: 'flex', gap: 6, flex: 1, justifyContent: 'center' }}>
+          {['Industrii','Instituții','Rapoarte'].map(l => (
+            <div key={l} style={{ fontSize: 12, color: l === 'Instituții' ? '#fff' : 'rgba(255,255,255,0.55)', padding: '4px 10px', borderRadius: 5,
+              borderBottom: l === 'Instituții' ? '2px solid #1a56db' : '2px solid transparent' }}>{l}</div>
+          ))}
+        </div>
+        <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>Cont</div>
+      </nav>
+
+      {/* ── Breadcrumb + titlu instituție ── */}
+      <div style={{ background: C.card, borderBottom: `1px solid ${C.border}`, padding: '0 24px' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <div style={{ fontSize: 11, color: C.subtle, padding: '10px 0 0', display: 'flex', gap: 5, alignItems: 'center' }}>
+            <span>Acasă</span><span>›</span><span>Instituții</span><span>›</span>
+            <span style={{ color: C.text, fontWeight: 500 }}>Ministerul Finanțelor</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '10px 0 12px' }}>
+            <div style={{ width: 40, height: 40, background: '#e8f0fe', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>🏛️</div>
+            <div>
+              <div style={{ fontSize: 18, fontWeight: 700, color: C.navy }}>Ministerul Finanțelor</div>
+              <div style={{ fontSize: 11, color: C.muted }}>mfinante.ro • data.gov.ro</div>
+            </div>
+            <a href="https://mfinante.gov.ro" target="_blank" style={{ marginLeft: 'auto', fontSize: 11, color: C.blue, textDecoration: 'none', border: `1px solid ${C.blue}`, padding: '5px 12px', borderRadius: 6 }}>
+              ↗ Site oficial
+            </a>
+          </div>
+          {/* Sub-tabs */}
+          <div style={{ display: 'flex', gap: 0, borderTop: `1px solid ${C.border}` }}>
+            {['Execuție Bugetară','Datorie Publică','Număr Salariați Bugetari'].map((t, i) => {
+              const tabId = i===0?'executie':i===1?'datorie':'salariati';
+              return (
+              <div key={t} onClick={() => setMainTab(tabId)} style={{
+                fontSize: 12, fontWeight: mainTab === tabId ? 600 : 400,
+                color: mainTab === tabId ? C.blue : C.muted,
+                padding: '10px 16px', cursor: 'pointer',
+                borderBottom: mainTab === tabId ? `2px solid ${C.blue}` : '2px solid transparent',
+              }}>{t}</div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Conținut principal ── */}
+      {mainTab === 'salariati' && <SalariatiBugetari />}
+      {mainTab === 'executie' && <div style={{ flex: 1, padding: '20px 24px', maxWidth: 1200, margin: '0 auto', width: '100%' }}>
+
+        {/* Titlu raport + export */}
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, marginBottom: 16 }}>
+          <div style={{ flex: 1 }}>
+            <h1 style={{ fontSize: 18, fontWeight: 700, color: C.navy, marginBottom: 4 }}>Deficit Bugetar — Execuție Ian–Feb 2026</h1>
+            <p style={{ fontSize: 12, color: C.muted }}>{DATA.subtitle}</p>
+          </div>
+          <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
+            <button style={{
+              display: 'flex', alignItems: 'center', gap: 5,
+              background: '#fff', border: `1px solid ${C.border}`, borderRadius: 6,
+              padding: '7px 14px', fontSize: 12, color: C.text, cursor: 'pointer', fontFamily: 'DM Sans'
+            }}>⬇ Export Excel</button>
+            <button style={{
+              background: C.navy, border: 'none', borderRadius: 6,
+              padding: '7px 14px', fontSize: 12, color: '#fff', cursor: 'pointer', fontFamily: 'DM Sans'
+            }}>⬇ PDF</button>
+          </div>
+        </div>
+
+        {/* ── KPI Cards ── */}
+        <div style={{ display: 'flex', gap: 12, marginBottom: 16 }}>
+          <KPICard
+            label="Venituri totale (Ian–Feb 2026)"
+            value={`${fmt(venituriRow.cum26)} mil. lei`}
+            pct={venituriRow.var}
+            color={C.blue}
+            sub="față de target MF"
+          />
+          <KPICard
+            label="Cheltuieli totale (Ian–Feb 2026)"
+            value={`${fmt(cheltuieliRow.cum26)} mil. lei`}
+            pct={cheltuieliRow.var}
+            color="#7c3aed"
+          />
+          <KPICard
+            label="Deficit Bugetar (Ian–Feb 2026)"
+            value={`${fmt(deficitRow.cum26)} mil. lei`}
+            pct={deficitRow.var}
+            color={C.red}
+            sub={`${(deficitRow.cum26 / 2045200 * 100).toFixed(2)}% din PIB`}
+          />
+          <KPICard
+            label="Deficit Ian 2026 (lunar)"
+            value={`${fmt(deficitRow.ian26)} mil. lei`}
+            pct={((deficitRow.ian26 - deficitRow.ian25) / Math.abs(deficitRow.ian25)) * 100}
+            color={deficitRow.ian26 >= 0 ? C.green : C.red}
+            sub="Excedent în luna Ian"
+          />
+        </div>
+
+        {/* ── Tab selector vizualizare ── */}
+        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, overflow: 'hidden' }}>
+          {/* Tab bar */}
+          <div style={{ display: 'flex', borderBottom: `1px solid ${C.border}`, padding: '0 16px' }}>
+            {[
+              { id: 'grafic', label: '📊 Grafic comparativ' },
+              { id: 'deficit', label: '📈 Evoluție deficit' },
+              { id: 'tabel', label: '⊞ Tabel date' },
+            ].map(t => (
+              <button key={t.id} onClick={() => setTab(t.id)} style={{
+                background: 'none', border: 'none', cursor: 'pointer',
+                padding: '12px 16px', fontSize: 12, fontFamily: 'DM Sans',
+                fontWeight: tab === t.id ? 600 : 400,
+                color: tab === t.id ? C.blue : C.muted,
+                borderBottom: tab === t.id ? `2px solid ${C.blue}` : '2px solid transparent',
+                marginBottom: -1,
+              }}>{t.label}</button>
+            ))}
+            <div style={{ flex: 1 }} />
+            {tab === 'tabel' && (
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '6px 0' }}>
+                <input
+                  placeholder="Caută indicator..."
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  style={{ border: `1px solid ${C.border}`, borderRadius: 5, padding: '4px 10px', fontSize: 11, fontFamily: 'DM Sans', outline: 'none', width: 160 }}
+                />
+                {['toate','venituri','cheltuieli','deficit'].map(f => (
+                  <button key={f} onClick={() => setFilter(f)} style={{
+                    background: filter === f ? C.navy : '#fff',
+                    color: filter === f ? '#fff' : C.muted,
+                    border: `1px solid ${filter === f ? C.navy : C.border}`,
+                    borderRadius: 5, padding: '4px 10px', fontSize: 11, cursor: 'pointer', fontFamily: 'DM Sans',
+                    textTransform: 'capitalize'
+                  }}>{f}</button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Tab content */}
+          <div style={{ padding: tab === 'tabel' ? 0 : 24 }}>
+            {tab === 'grafic' && (
+              <div style={{ display: 'flex', gap: 24 }}>
+                <div style={{ flex: 2 }}>
+                  <div style={{ fontSize: 11, color: C.muted, marginBottom: 4 }}>Comparație lunară (mil. lei)</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: C.navy, marginBottom: 12 }}>Venituri vs. Cheltuieli — 2025 / 2026</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 2, marginTop: 8 }}>
+                    <div style={{ width: 3, height: 14, background: C.blue, borderRadius: 2 }} />
+                    <span style={{ fontSize: 12, fontWeight: 600, color: C.blue }}>Venituri totale (mil. lei)</span>
+                  </div>
+                  <BarChartComparativ data={[
+                    { ...venituriRow, ian26: venituriRow.ian26, feb26: venituriRow.feb26, cum26: venituriRow.cum26, cum25: venituriRow.cum25 },
+                  ]} />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 2, marginTop: 12 }}>
+                    <div style={{ width: 3, height: 14, background: '#7c3aed', borderRadius: 2 }} />
+                    <span style={{ fontSize: 12, fontWeight: 600, color: '#7c3aed' }}>Cheltuieli totale (mil. lei)</span>
+                  </div>
+                  <BarChartComparativ data={[
+                    { ...cheltuieliRow, ian26: cheltuieliRow.ian26, feb26: cheltuieliRow.feb26, cum26: cheltuieliRow.cum26, cum25: cheltuieliRow.cum25 },
+                  ]} />
+                </div>
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  <div style={{ background: C.bg, borderRadius: 8, padding: 14 }}>
+                    <div style={{ fontSize: 11, fontWeight: 600, color: C.muted, marginBottom: 8 }}>TOP CREȘTERI VENITURI 2026</div>
+                    {DATA.rows.filter(r => r.cat === 'venituri' && !r.bold && r.var > 5).sort((a,b) => b.var - a.var).slice(0,4).map(r => (
+                      <div key={r.label} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6, fontSize: 11 }}>
+                        <span style={{ color: C.text }}>{r.label}</span>
+                        <span style={{ color: C.green, fontWeight: 600 }}>+{r.var.toFixed(1)}%</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div style={{ background: C.bg, borderRadius: 8, padding: 14 }}>
+                    <div style={{ fontSize: 11, fontWeight: 600, color: C.muted, marginBottom: 8 }}>TOP SCĂDERI CHELTUIELI 2026</div>
+                    {DATA.rows.filter(r => r.cat === 'cheltuieli' && !r.bold && r.var < 0).sort((a,b) => a.var - b.var).slice(0,4).map(r => (
+                      <div key={r.label} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6, fontSize: 11 }}>
+                        <span style={{ color: C.text }}>{r.label}</span>
+                        <span style={{ color: C.red, fontWeight: 600 }}>{r.var.toFixed(1)}%</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {tab === 'deficit' && (
+              <div>
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 14, flexWrap: 'wrap', gap: 8 }}>
+                  <div>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: C.navy, marginBottom: 3 }}>Evoluție Deficit Bugetar România — 2006–2025</div>
+                    <div style={{ fontSize: 11, color: C.muted }}>Buget general consolidat (mil. lei) • Sursa: Ministerul Finanțelor</div>
+                  </div>
+                  <div style={{ display: 'flex', gap: 10, fontSize: 11, color: C.muted }}>
+                    <span style={{ background: C.redLight, color: C.red, padding: '3px 8px', borderRadius: 4, fontWeight: 600 }}>
+                      Max deficit: 2020 (-9.67% PIB)
+                    </span>
+                    <span style={{ background: C.greenLight, color: C.green, padding: '3px 8px', borderRadius: 4, fontWeight: 600 }}>
+                      Min deficit: 2015 (-1.47% PIB)
+                    </span>
+                  </div>
+                </div>
+                <DeficitLineChart />
+              </div>
+            )}
+
+            {tab === 'tabel' && <DataTable filter={filter} search={search} />}
+          </div>
+        </div>
+      </div>}
+
+      {/* ── Footer sursă ── */}
+      <div style={{ borderTop: `1px solid ${C.border}`, background: C.card, padding: '10px 24px', display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+        <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#22c55e', flexShrink: 0 }} />
+        <div style={{ fontSize: 11, color: C.muted }}>{DATA.sursa}</div>
+        <span style={{ color: C.border }}>•</span>
+        <a href="https://mfinante.gov.ro/ro/domenii/bugetul-de-stat/informatii-executie-bugetara"
+          target="_blank" rel="noopener noreferrer"
+          style={{ fontSize: 11, color: C.blue, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 3 }}>
+          🔗 mfinante.gov.ro — Informații execuție bugetară
+        </a>
+        <div style={{ flex: 1 }} />
+        <div style={{ fontSize: 11, color: C.subtle }}>Ultima actualizare: 15 Apr 2026 • Frecvență: lunar</div>
+      </div>
+      {/* ── Tweaks Panel ── */}
+      {tweaksOpen && (
+        <div style={{
+          position: 'fixed', bottom: 24, right: 24, width: 240,
+          background: '#fff', border: `1px solid ${C.border}`, borderRadius: 10,
+          boxShadow: '0 8px 32px rgba(0,0,0,0.12)', padding: 16, zIndex: 9999,
+          fontFamily: 'DM Sans'
+        }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: C.navy, marginBottom: 12, borderBottom: `1px solid ${C.border}`, paddingBottom: 8 }}>✏️ Tweaks</div>
+          <div style={{ marginBottom: 10 }}>
+            <div style={{ fontSize: 11, color: C.muted, marginBottom: 4 }}>Tab implicit la încărcare</div>
+            {['grafic','deficit','tabel'].map(v => (
+              <label key={v} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, marginBottom: 3, cursor: 'pointer' }}>
+                <input type="radio" name="defaultTab" checked={tw.defaultTab === v} onChange={() => { const n = {...tw, defaultTab: v}; setTw(n); setTab(v); window.parent.postMessage({ type: '__edit_mode_set_keys', edits: n }, '*'); }} />
+                {v.charAt(0).toUpperCase() + v.slice(1)}
+              </label>
+            ))}
+          </div>
+          <div>
+            <div style={{ fontSize: 11, color: C.muted, marginBottom: 4 }}>Vizibilitate grafice</div>
+            {[['showChart','Grafic comparativ'],['showDeficitLine','Grafic evoluție deficit']].map(([k, l]) => (
+              <label key={k} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, marginBottom: 3, cursor: 'pointer' }}>
+                <input type="checkbox" checked={tw[k] === 'da'} onChange={e => { const n = {...tw, [k]: e.target.checked ? 'da' : 'nu'}; setTw(n); window.parent.postMessage({ type: '__edit_mode_set_keys', edits: n }, '*'); }} />
+                {l}
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+<div id="root"></div>
+</body>
+</html>

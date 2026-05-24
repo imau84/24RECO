@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wireframes — 24reco.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Caveat', cursive; overflow: hidden; }
+
+  .wf-nav { background: #1a1a1a; color: #fff; display: flex; align-items: center; gap: 12px; padding: 0 14px; height: 38px; flex-shrink: 0; }
+  .wf-nav-logo { font-size: 13px; font-weight: 700; letter-spacing: -0.3px; color: #fff; white-space: nowrap; }
+  .wf-nav-links { display: flex; gap: 8px; flex: 1; justify-content: center; }
+  .wf-nav-link { font-size: 10px; color: rgba(255,255,255,0.6); }
+  .wf-nav-link.active { color: #fff; border-bottom: 1.5px solid #4a9eff; padding-bottom: 1px; }
+  .wf-nav-btn { font-size: 10px; color: #fff; background: #4a9eff; border-radius: 3px; padding: 3px 8px; }
+
+  .wf-box { border: 1.5px solid #aaa; border-radius: 4px; background: #e8e8e8; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #444; text-align: center; flex-direction: column; gap: 2px; padding: 6px; }
+  .wf-box.dashed { border-style: dashed; border-color: #bbb; background: #f8f8f8; color: #999; }
+  .wf-box.dark { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
+  .wf-box.blue { background: #dbeeff; border-color: #4a9eff; color: #2266aa; }
+
+  .wf-tag { background: #e8e8e8; border-radius: 3px; padding: 2px 6px; font-size: 10px; color: #555; display: inline-block; }
+  .wf-tag.active { background: #1a1a1a; color: #fff; }
+  .wf-tag.blue { background: #4a9eff; color: #fff; }
+
+  .wf-btn { background: #1a1a1a; color: #fff; border-radius: 3px; padding: 5px 12px; font-size: 11px; display: inline-block; }
+  .wf-btn.outline { background: transparent; color: #1a1a1a; border: 1.5px solid #1a1a1a; }
+  .wf-btn.blue { background: #4a9eff; }
+
+  .wf-input { border: 1.5px solid #ccc; border-radius: 3px; padding: 5px 10px; font-size: 11px; color: #999; background: #fff; display: flex; align-items: center; gap: 6px; }
+
+  .wf-label { font-size: 9px; color: #999; margin-bottom: 2px; }
+  .wf-title { font-size: 13px; font-weight: 700; color: #1a1a1a; }
+  .wf-sub { font-size: 10px; color: #666; }
+  .wf-text { font-size: 10px; color: #444; line-height: 1.4; }
+
+  .wf-section-title { font-size: 11px; font-weight: 700; color: #1a1a1a; border-bottom: 1.5px solid #1a1a1a; padding-bottom: 3px; margin-bottom: 8px; }
+  .wf-breadcrumb { font-size: 9px; color: #999; display: flex; gap: 4px; align-items: center; }
+  .wf-breadcrumb span { color: #1a1a1a; }
+
+  .wf-kpi { border: 1.5px solid #e0e0e0; border-radius: 4px; padding: 8px; background: #fff; }
+  .wf-kpi-val { font-size: 18px; font-weight: 700; color: #1a1a1a; }
+  .wf-kpi-lbl { font-size: 9px; color: #888; }
+  .wf-kpi-delta { font-size: 9px; color: #4caf7d; }
+
+  .wf-chart-bar { display: flex; align-items: flex-end; gap: 3px; height: 40px; }
+  .wf-bar { background: #d0d0d0; border-radius: 2px 2px 0 0; flex: 1; }
+  .wf-bar.hi { background: #4a9eff; }
+  .wf-chart-line svg { width: 100%; height: 100%; }
+
+  .wf-table-header { display: flex; gap: 0; background: #1a1a1a; }
+  .wf-table-cell { flex: 1; padding: 4px 6px; font-size: 9px; color: #fff; border-right: 1px solid #333; }
+  .wf-table-cell.body { color: #444; border-right: 1px solid #f0f0f0; }
+  .wf-table-row { display: flex; border-bottom: 1px solid #f0f0f0; }
+  .wf-table-row:nth-child(even) { background: #fafafa; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+/* ── Reusable micro-components ── */
+const Nav = ({ active = 'Industrii' }) => (
+  <div className="wf-nav">
+    <div className="wf-nav-logo">📊 24reco.com</div>
+    <div className="wf-nav-links">
+      {['Industrii','Instituții','Rapoarte','Despre'].map(l => (
+        <div key={l} className={`wf-nav-link ${l === active ? 'active' : ''}`}>{l}</div>
+      ))}
+    </div>
+    <div className="wf-nav-btn">Cont</div>
+  </div>
+);
+
+const KPI = ({ val, lbl, delta, w = 70 }) => (
+  <div className="wf-kpi" style={{ minWidth: w, flex: 1 }}>
+    <div className="wf-kpi-val">{val}</div>
+    <div className="wf-kpi-lbl">{lbl}</div>
+    {delta && <div className="wf-kpi-delta">{delta}</div>}
+  </div>
+);
+
+const BarChart = ({ bars = [60,40,75,50,90,45,80,70,55,65,75,85], highlight = 11 }) => (
+  <div className="wf-chart-bar">
+    {bars.map((h,i) => <div key={i} className={`wf-bar ${i === highlight ? 'hi' : ''}`} style={{ height: h + '%' }} />)}
+  </div>
+);
+
+const LineChart = () => (
+  <div className="wf-chart-line" style={{ height: 40 }}>
+    <svg viewBox="0 0 120 40" preserveAspectRatio="none">
+      <polyline points="0,35 15,28 30,30 45,18 60,22 75,10 90,14 105,6 120,8" stroke="#4a9eff" strokeWidth="2" fill="none"/>
+      <polyline points="0,35 15,28 30,30 45,18 60,22 75,10 90,14 105,6 120,8 120,40 0,40" fill="rgba(74,158,255,0.1)"/>
+    </svg>
+  </div>
+);
+
+const DonutMini = () => (
+  <svg viewBox="0 0 60 60" style={{ width: 60, height: 60 }}>
+    <circle cx="30" cy="30" r="22" fill="none" stroke="#e0e0e0" strokeWidth="10"/>
+    <circle cx="30" cy="30" r="22" fill="none" stroke="#4a9eff" strokeWidth="10" strokeDasharray="90 138" transform="rotate(-90 30 30)"/>
+  </svg>
+);
+
+const SubTabs = ({ tabs = [], active = 0 }) => (
+  <div style={{ display: 'flex', gap: 4, borderBottom: '1.5px solid #e5e5e5', paddingBottom: 4 }}>
+    {tabs.map((t,i) => (
+      <div key={t} className={`wf-tag ${i === active ? 'active' : ''}`}>{t}</div>
+    ))}
+  </div>
+);
+
+const SourceBar = ({ source = 'Sursa: 24reco.com' }) => (
+  <div style={{ borderTop: '1px solid #e5e5e5', padding: '4px 10px', display: 'flex', alignItems: 'center', gap: 6, background: '#fafafa', flexShrink: 0 }}>
+    <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#4caf7d' }} />
+    <div style={{ fontSize: 9, color: '#888' }}>{source}</div>
+  </div>
+);
+
+/* ════════════════════════════════════════
+   HOMEPAGE — Portal Clasic (singura varianta)
+   ════════════════════════════════════════ */
+const Homepage = () => {
+  const INDUSTRII = [
+    '🌾 Agricultură','🏗️ Construcții','🏠 Imobiliare','🚛 Transport',
+    '🏭 Industrie','🛒 Comerț','🏨 Turism','💻 IT & Comm.'
+  ];
+  const INSTITUTII = [
+    '🏛️ Min. Finanțe','📋 ANAF','📊 INS','🏦 BNR',
+    '🎓 Min. Educație','👴 Casa Pensii','⚖️ Min. Justiție','🌐 data.gov.ro'
+  ];
+  const RAPOARTE = [
+    '📑 Situații Financiare','🗳️ Alegeri Locale 2024','📈 Dashboard Național','🌍 Comerț Exterior',
+    '💰 Buget Stat','📉 Inflație','🏥 Sănătate','🚓 Siguranță'
+  ];
+
+  return (
+    <div style={{ height: '100%', background: '#fff', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <Nav active="Industrii" />
+      {/* Hero */}
+      <div style={{ background: '#1a1a1a', padding: '16px 16px 14px', color: '#fff' }}>
+        <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 3 }}>Date publice. Simplu.</div>
+        <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.5)', marginBottom: 8 }}>Analizează industrii, instituții și rapoarte din România</div>
+        <div className="wf-input" style={{ background: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)', color: 'rgba(255,255,255,0.5)' }}>
+          <span>🔍</span><span>Caută industrie, raport, indicator...</span>
+        </div>
+      </div>
+      <div style={{ flex: 1, padding: '10px 12px', overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div>
+          <div className="wf-section-title">Industrii</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 5 }}>
+            {INDUSTRII.map(i => (
+              <div key={i} className="wf-box" style={{ height: 34, fontSize: 9 }}>{i}</div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div className="wf-section-title">Instituții Publice</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 5 }}>
+            {INSTITUTII.map(i => (
+              <div key={i} className="wf-box" style={{ height: 34, fontSize: 9 }}>{i}</div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div className="wf-section-title">Rapoarte</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 5 }}>
+            {RAPOARTE.map(i => (
+              <div key={i} className="wf-box" style={{ height: 34, fontSize: 9 }}>{i}</div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <SourceBar source="24reco.com — Date publice România" />
+    </div>
+  );
+};
+
+/* ════════════════════════════════════════
+   PAGINA INDUSTRIE — model generic
+   Match pe: Agricultură, Comerț, Construcții, Imobiliare,
+   Industrie, Transport, Turism
+   ════════════════════════════════════════ */
+const PaginaIndustrie = ({ icon = '🚛', titlu = 'Transport', subtitlu = 'autorizatiiauto.ro · Date oficiale',
+  tabs = ['Clase transp.','Operatori','Distribuție geo','Oil Bulletin'],
+  activeTab = 0,
+  showCompare = true }) => (
+  <div style={{ height: '100%', background: '#fff', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <Nav active="Industrii" />
+    {/* Header industrie */}
+    <div style={{ background: '#f5f5f5', padding: '8px 14px', borderBottom: '1px solid #e5e5e5' }}>
+      <div className="wf-breadcrumb" style={{ marginBottom: 4 }}>Acasă <span>›</span> <span>Industrii</span> <span>›</span> <span>{titlu}</span></div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 20 }}>{icon}</span>
+        <div>
+          <div className="wf-title">{titlu}</div>
+          <div className="wf-sub" style={{ fontSize: 9 }}>{subtitlu}</div>
+        </div>
+        <div className="wf-btn outline" style={{ marginLeft: 'auto', fontSize: 9 }}>↗ Site oficial</div>
+      </div>
+    </div>
+    <div style={{ padding: '8px 14px 0' }}>
+      <SubTabs tabs={tabs} active={activeTab} />
+    </div>
+    <div style={{ flex: 1, padding: '10px 14px', overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {/* Filtre */}
+      <div style={{ display: 'flex', gap: 5 }}>
+        <div className="wf-box" style={{ flex: 1, height: 24, fontSize: 9 }}>Filtru 1 ▾</div>
+        <div className="wf-box" style={{ flex: 1, height: 24, fontSize: 9 }}>Filtru 2 ▾</div>
+        <div className="wf-box" style={{ flex: 1, height: 24, fontSize: 9 }}>Caută... 🔍</div>
+        {showCompare && <div className="wf-tag blue" style={{ fontSize: 9, padding: '4px 8px' }}>⇄ YoY 2026 vs 2025</div>}
+      </div>
+      {/* KPIs */}
+      <div style={{ display: 'flex', gap: 5 }}>
+        <KPI val="142K" lbl="Total" delta="▲ +12.4% YoY" />
+        <KPI val="3,462" lbl="Operatori" delta="▲ +5.1%" />
+        <KPI val="40,102" lbl="Volum" delta="—" />
+        <KPI val="#1 Top" lbl="Lider" delta="" />
+      </div>
+      {/* Chart */}
+      <div style={{ border: '1.5px solid #e5e5e5', borderRadius: 4, padding: 8, flex: 1 }}>
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: 4 }}>
+          <div className="wf-label" style={{ flex: 1 }}>Evoluție 2025 vs 2026</div>
+          <div style={{ display: 'flex', gap: 3 }}>
+            {['📊 Linie','📈 Bare','⊞ Tabel'].map((v,i) => (
+              <div key={v} className={`wf-tag ${i === 0 ? 'active' : ''}`} style={{ fontSize: 8 }}>{v}</div>
+            ))}
+          </div>
+        </div>
+        <LineChart />
+        <div style={{ height: 6 }} />
+        <BarChart />
+      </div>
+      {/* Tabel */}
+      <div style={{ border: '1.5px solid #e5e5e5', borderRadius: 3, overflow: 'hidden' }}>
+        <div className="wf-table-header">
+          {['Indicator','2025','2026','Δ %','Top'].map(h => (
+            <div key={h} className="wf-table-cell">{h}</div>
+          ))}
+        </div>
+        {[1,2,3].map(i => (
+          <div key={i} className="wf-table-row">
+            {['—————','——','——','—','▲'].map((v,j) => (
+              <div key={j} className="wf-table-cell body">{v}</div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+    <SourceBar source="Sursa: INS / ONRC / 24reco.com" />
+  </div>
+);
+
+/* ════════════════════════════════════════
+   PAGINA INSTITUTIE — model generic
+   ════════════════════════════════════════ */
+const PaginaInstitutie = ({ icon = '🏛️', titlu = 'Ministerul Finanțelor', subtitlu = 'mfinante.gov.ro',
+  tabs = ['Execuție Bugetară','Datorie Publică','Nr. Salariați'],
+  activeTab = 0 }) => (
+  <div style={{ height: '100%', background: '#fff', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <Nav active="Instituții" />
+    {/* Header instituție */}
+    <div style={{ background: '#1a1a1a', padding: '10px 14px', color: '#fff' }}>
+      <div className="wf-breadcrumb" style={{ marginBottom: 4, color: 'rgba(255,255,255,0.4)' }}>
+        Acasă <span style={{ color: 'rgba(255,255,255,0.4)' }}>›</span>
+        <span style={{ color: '#fff' }}>Instituții publice</span>
+        <span style={{ color: 'rgba(255,255,255,0.4)' }}>›</span>
+        <span style={{ color: '#fff' }}>{titlu}</span>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div className="wf-box dark" style={{ width: 30, height: 30, fontSize: 16, borderRadius: '50%' }}>{icon}</div>
+        <div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>{titlu}</div>
+          <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.5)' }}>{subtitlu}</div>
+        </div>
+        <div className="wf-btn" style={{ marginLeft: 'auto', background: 'rgba(255,255,255,0.1)', fontSize: 9 }}>↗ Site oficial</div>
+      </div>
+    </div>
+    <div style={{ padding: '8px 14px 0' }}>
+      <SubTabs tabs={tabs} active={activeTab} />
+    </div>
+    <div style={{ flex: 1, padding: '10px 14px', overflow: 'hidden', display: 'flex', gap: 8 }}>
+      {/* Main */}
+      <div style={{ flex: 2, display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <div style={{ display: 'flex', gap: 5 }}>
+          <KPI val="-14K" lbl="Deficit" delta="▼ -52% vs 2025" w={60} />
+          <KPI val="103K" lbl="Venituri" delta="▲ +15.7%" w={60} />
+          <KPI val="118K" lbl="Cheltuieli" delta="▼ -1.6%" w={60} />
+        </div>
+        <div style={{ border: '1.5px solid #e5e5e5', borderRadius: 4, padding: 8, flex: 1 }}>
+          <div className="wf-label" style={{ marginBottom: 4 }}>Evoluție 2006–2026</div>
+          <LineChart />
+          <div style={{ height: 8 }} />
+          <BarChart />
+        </div>
+        <div style={{ border: '1.5px solid #e5e5e5', borderRadius: 3, overflow: 'hidden' }}>
+          <div className="wf-table-header">
+            {['An','Venituri','Cheltuieli','Deficit','% PIB'].map(h => (
+              <div key={h} className="wf-table-cell">{h}</div>
+            ))}
+          </div>
+          {[1,2,3].map(i => (
+            <div key={i} className="wf-table-row">
+              {['202'+(i+3),'——','——','——','—'].map((v,j) => (
+                <div key={j} className="wf-table-cell body">{v}</div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      {/* Sidebar */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <div style={{ border: '1.5px solid #e5e5e5', borderRadius: 4, padding: 8 }}>
+          <div className="wf-label">Distribuție</div>
+          <div style={{ display: 'flex', justifyContent: 'center', padding: '4px 0' }}><DonutMini /></div>
+        </div>
+        <div style={{ border: '1.5px solid #e5e5e5', borderRadius: 4, padding: 8 }}>
+          <div className="wf-label">Ultima actualizare</div>
+          <div className="wf-title" style={{ fontSize: 11 }}>15 Apr 2026</div>
+          <div className="wf-sub" style={{ fontSize: 9 }}>Frecvență: lunar</div>
+        </div>
+        <div style={{ border: '1.5px solid #e5e5e5', borderRadius: 4, padding: 8 }}>
+          <div className="wf-label">Alte instituții</div>
+          {['ANAF','BNR','INS','CNPP'].map(i => (
+            <span key={i} className="wf-tag" style={{ marginRight: 3, marginBottom: 3 }}>{i}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+    <SourceBar source="Sursa: mfinante.gov.ro · data.gov.ro · 24reco.com" />
+  </div>
+);
+
+/* ════════════════════════════════════════
+   PAGINA RAPORT — model generic
+   ════════════════════════════════════════ */
+const PaginaRaport = ({ icon = '📑', titlu = 'Situații Financiare', subtitlu = 'ONRC — CAEN Rev.3',
+  tabs = ['Coduri CAEN','Date Identif.','Bilanț','Profit & Pierdere'],
+  activeTab = 0 }) => (
+  <div style={{ height: '100%', background: '#fff', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <Nav active="Rapoarte" />
+    {/* Header raport */}
+    <div style={{ padding: '10px 14px', borderBottom: '1.5px solid #e5e5e5', background: '#fafafa' }}>
+      <div className="wf-breadcrumb" style={{ marginBottom: 5 }}>
+        Acasă <span>›</span> <span>Rapoarte</span> <span>›</span> <span>{titlu}</span>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 20 }}>{icon}</span>
+        <div style={{ flex: 1 }}>
+          <div className="wf-title" style={{ fontSize: 13, lineHeight: 1.2 }}>{titlu}</div>
+          <div className="wf-sub" style={{ fontSize: 9 }}>{subtitlu}</div>
+        </div>
+        <div style={{ display: 'flex', gap: 4 }}>
+          <div className="wf-btn outline" style={{ fontSize: 9 }}>↓ Excel</div>
+          <div className="wf-btn" style={{ fontSize: 9 }}>↓ PDF</div>
+        </div>
+      </div>
+    </div>
+    <div style={{ padding: '8px 14px 0' }}>
+      <SubTabs tabs={tabs} active={activeTab} />
+    </div>
+    <div style={{ flex: 1, padding: '10px 14px', overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <div style={{ display: 'flex', gap: 5 }}>
+        <KPI val="22" lbl="Secțiuni" />
+        <KPI val="651" lbl="Clase CAEN" />
+        <KPI val="2025" lbl="Versiune" />
+        <KPI val="🔍" lbl="Căutare" />
+      </div>
+      <div style={{ display: 'flex', gap: 5 }}>
+        <div className="wf-input" style={{ flex: 1 }}>🔍 Caută cod sau denumire CAEN...</div>
+        <div className="wf-btn outline" style={{ fontSize: 9 }}>Extinde tot</div>
+      </div>
+      <div style={{ border: '1.5px solid #e5e5e5', borderRadius: 4, flex: 1, overflow: 'hidden' }}>
+        {['▶ A · AGRICULTURĂ, SILVICULTURĂ ȘI PESCUIT','▶ B · INDUSTRIA EXTRACTIVĂ','▼ C · INDUSTRIA PRELUCRĂTOARE','     ▶ 10 · Industria alimentară','     ▶ 11 · Băuturi','▶ F · CONSTRUCȚII','▶ G · COMERȚ CU RIDICATA ȘI AMĂNUNTUL'].map((row,i) => (
+          <div key={i} style={{ padding: '5px 10px', borderBottom: '1px solid #f0f0f0', fontSize: 10, color: i % 5 === 2 ? '#1a1a1a' : '#666', fontWeight: i % 5 === 2 ? 700 : 400 }}>
+            {row}
+          </div>
+        ))}
+      </div>
+    </div>
+    <SourceBar source="Sursa: ONRC · INS · 24reco.com" />
+  </div>
+);
+
+/* ════════════════════════════════════════
+   APP ROOT
+   ════════════════════════════════════════ */
+function App() {
+  return (
+    <DesignCanvas>
+      <DCSection id="hp" title="Homepage" subtitle="Portal Clasic — 3 secțiuni principale (Industrii · Instituții · Rapoarte)">
+        <DCArtboard id="home" label="Homepage 24reco.com" width={420} height={520}><Homepage /></DCArtboard>
+      </DCSection>
+
+      <DCSection id="industrii" title="Pagini Industrii" subtitle="Model: header industrie + tab-uri + filtre + KPI + grafic + tabel + sursa">
+        <DCArtboard id="agro" label="🌾 Agricultură" width={500} height={460}>
+          <PaginaIndustrie icon="🌾" titlu="Agricultură" subtitlu="brm.ro · Cotații cereale BRM"
+            tabs={['Prețuri Cereale','Suprafețe','Producții','Exporturi']} />
+        </DCArtboard>
+        <DCArtboard id="comert" label="🛒 Comerț" width={500} height={460}>
+          <PaginaIndustrie icon="🛒" titlu="Comerț" subtitlu="DRPCIV · Înmatriculări auto"
+            tabs={['Înmatriculări Auto']} />
+        </DCArtboard>
+        <DCArtboard id="constr" label="🏗️ Construcții" width={500} height={460}>
+          <PaginaIndustrie icon="🏗️" titlu="Construcții" subtitlu="INS LOC108A · Bursa Construcțiilor"
+            tabs={['Autorizații','Preț materiale']} />
+        </DCArtboard>
+        <DCArtboard id="imob" label="🏠 Imobiliare" width={500} height={460}>
+          <PaginaIndustrie icon="🏠" titlu="Imobiliare" subtitlu="ANCPI · Date lunare"
+            tabs={['ANCPI']} />
+        </DCArtboard>
+        <DCArtboard id="ind" label="🏭 Industrie" width={500} height={460}>
+          <PaginaIndustrie icon="🏭" titlu="Industrie" subtitlu="INS EXP101I · Exporturi pe CSCI"
+            tabs={['Evoluție','Comparație','Județe']} />
+        </DCArtboard>
+        <DCArtboard id="transp" label="🚛 Transport" width={500} height={460}>
+          <PaginaIndustrie icon="🚛" titlu="Transport" subtitlu="autorizatiiauto.ro · Oil Bulletin UE"
+            tabs={['Clase','Operatori','Geo','Oil Bulletin']} />
+        </DCArtboard>
+        <DCArtboard id="turism" label="🏨 Turism" width={500} height={460}>
+          <PaginaIndustrie icon="🏨" titlu="Turism" subtitlu="INS · Sosiri în structuri de cazare"
+            tabs={['Național','Județe','Categorii','Localități']} />
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="institutii" title="Pagini Instituții Publice" subtitle="Model: header negru + tab-uri + KPI + grafic + sidebar">
+        <DCArtboard id="mfin-eb" label="🏛️ Min. Finanțe — Execuție Bugetară" width={520} height={460}>
+          <PaginaInstitutie icon="🏛️" titlu="Ministerul Finanțelor" subtitlu="mfinante.gov.ro · Execuție bugetară"
+            tabs={['Execuție Bugetară','Datorie Publică','Nr. Salariați']} activeTab={0} />
+        </DCArtboard>
+        <DCArtboard id="mfin-dp" label="🏛️ Min. Finanțe — Datorie Publică" width={520} height={460}>
+          <PaginaInstitutie icon="🏛️" titlu="Ministerul Finanțelor" subtitlu="Datoria administrației publice UE"
+            tabs={['Execuție Bugetară','Datorie Publică','Nr. Salariați']} activeTab={1} />
+        </DCArtboard>
+        <DCArtboard id="medu" label="🎓 Min. Educație" width={520} height={460}>
+          <PaginaInstitutie icon="🎓" titlu="Ministerul Educației" subtitlu="SIIIR · Elevi înmatriculați 2025-2026"
+            tabs={['Elevi']} />
+        </DCArtboard>
+        <DCArtboard id="bnr" label="🏦 BNR" width={520} height={460}>
+          <PaginaInstitutie icon="🏦" titlu="Banca Națională a României" subtitlu="bnr.ro · Date lunare BPM6"
+            tabs={['Balanța de plăți','ISD','Depozite','Credite']} />
+        </DCArtboard>
+        <DCArtboard id="cnpp" label="👴 Casa de Pensii" width={520} height={460}>
+          <PaginaInstitutie icon="👴" titlu="Casa Națională de Pensii Publice" subtitlu="cnpp.ro · Asigurați Pilon I"
+            tabs={['Asigurați']} />
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="rapoarte" title="Pagini Rapoarte" subtitle="Model: header alb + tab-uri + KPI + căutare + tabel/arbore">
+        <DCArtboard id="sf" label="📑 Situații Financiare" width={520} height={460}>
+          <PaginaRaport icon="📑" titlu="Situații Financiare" subtitlu="ONRC · CAEN Rev.3 Nov 2025"
+            tabs={['Coduri CAEN','Date Identif.','Bilanț','Profit & Pierdere']} />
+        </DCArtboard>
+        <DCArtboard id="al2024" label="🗳️ Alegeri Locale 2024" width={520} height={460}>
+          <PaginaRaport icon="🗳️" titlu="Alegeri Locale 2024" subtitlu="AEP · Consilii Județene 9 iunie 2024"
+            tabs={['Sumar','Partide','Județe','Legende']} />
+        </DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>

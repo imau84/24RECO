@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ministerul Educației — Elevi Înmatriculați 2025-2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', system-ui, sans-serif; background: #f4f5f7; color: #1a1f2e; -webkit-font-smoothing: antialiased; }
+button { font-family: inherit; }
+.scrollx::-webkit-scrollbar { height: 8px; }
+.scrollx::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+.scrollx::-webkit-scrollbar-track { background: #f1f5f9; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+/* ── Culori (consistent cu celelalte pagini) ── */
+const C = {
+  bg: '#f4f5f7', card: '#ffffff', border: '#e8eaed',
+  text: '#1a1f2e', muted: '#5f6368', subtle: '#9aa0a6',
+  navy: '#0f2044', blue: '#1a56db',
+  green: '#0e7245', greenLight: '#d4edda',
+  red: '#b91c1c', redLight: '#fee2e2',
+  purple: '#7c3aed', orange: '#c2410c',
+};
+
+/* ── Mapare cod judet → nume ── */
+const JUDETE_NUME = {
+  AB:'Alba', AG:'Argeș', AR:'Arad', B:'București', BC:'Bacău', BH:'Bihor',
+  BN:'Bistrița-Năsăud', BR:'Brăila', BT:'Botoșani', BV:'Brașov', BZ:'Buzău',
+  CJ:'Cluj', CL:'Călărași', CS:'Caraș-Severin', CT:'Constanța', CV:'Covasna',
+  DB:'Dâmbovița', DJ:'Dolj', GJ:'Gorj', GL:'Galați', GR:'Giurgiu', HD:'Hunedoara',
+  HR:'Harghita', IF:'Ilfov', IL:'Ialomița', IS:'Iași', MH:'Mehedinți',
+  MM:'Maramureș', MS:'Mureș', NT:'Neamț', OT:'Olt', PH:'Prahova', SB:'Sibiu',
+  SJ:'Sălaj', SM:'Satu Mare', SV:'Suceava', TL:'Tulcea', TM:'Timiș', TR:'Teleorman',
+  VL:'Vâlcea', VN:'Vrancea', VS:'Vaslui'
+};
+
+const fmt = (v) => new Intl.NumberFormat('en-US').format(Math.round(v));
+
+/* ── Componenta KPI ── */
+const KPICard = ({ label, value, sub, color = C.blue }) => (
+  <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, padding: '14px 18px', flex: 1, minWidth: 0 }}>
+    <div style={{ fontSize: 11, fontWeight: 600, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 6 }}>{label}</div>
+    <div style={{ fontSize: 22, fontWeight: 700, color, lineHeight: 1, marginBottom: 4 }}>{value}</div>
+    <div style={{ fontSize: 11, color: C.subtle }}>{sub}</div>
+  </div>
+);
+
+/* ════════════════════════════════════════
+   TAB ANALIZĂ NAȚIONALĂ
+   ════════════════════════════════════════ */
+const AnalizaNationala = ({ data }) => {
+  const totalElevi = data.total;
+  const totalUnitati = data.unitati.length;
+  const top10Judete = data.agg.judete.slice(0, 10);
+  const niveluriOrdonat = data.agg.niveluri;
+  const NIVEL_COLORS = {
+    'Antepreşcolar': '#0891b2', 'Preșcolar': '#06b6d4', 'Primar': '#1a56db',
+    'Gimnazial': '#7c3aed', 'Liceal': '#c2410c', 'Profesional': '#d97706', 'Postliceal': '#0e7245'
+  };
+  const publicElevi = data.agg.forme.find(f => f.forma.includes('Public'))?.elevi || 0;
+  const privatElevi = data.agg.forme.find(f => f.forma === 'Privată')?.elevi || 0;
+  const urbanElevi = data.agg.byMediu.find(m => m.mediu === 'URBAN')?.elevi || 0;
+  const ruralElevi = data.agg.byMediu.find(m => m.mediu === 'RURAL')?.elevi || 0;
+
+  // Donut Nivel
+  const donutSize = 200, donutR = 75, donutInner = 50;
+  const donutCx = 100, donutCy = 100;
+  let cumAng = -90;
+  const donutSegs = niveluriOrdonat.map(n => {
+    const ang = (n.elevi / totalElevi) * 360;
+    const seg = { ...n, start: cumAng, end: cumAng + ang, mid: cumAng + ang/2 };
+    cumAng += ang;
+    return seg;
+  });
+  const arcPath = (start, end, rOuter, rInner) => {
+    const toRad = a => (a * Math.PI) / 180;
+    const x1 = donutCx + rOuter * Math.cos(toRad(start));
+    const y1 = donutCy + rOuter * Math.sin(toRad(start));
+    const x2 = donutCx + rOuter * Math.cos(toRad(end));
+    const y2 = donutCy + rOuter * Math.sin(toRad(end));
+    const x3 = donutCx + rInner * Math.cos(toRad(end));
+    const y3 = donutCy + rInner * Math.sin(toRad(end));
+    const x4 = donutCx + rInner * Math.cos(toRad(start));
+    const y4 = donutCy + rInner * Math.sin(toRad(start));
+    const large = end - start > 180 ? 1 : 0;
+    return `M ${x1} ${y1} A ${rOuter} ${rOuter} 0 ${large} 1 ${x2} ${y2} L ${x3} ${y3} A ${rInner} ${rInner} 0 ${large} 0 ${x4} ${y4} Z`;
+  };
+
+  return (
+    <div style={{ padding: 20 }}>
+      {/* KPI Cards */}
+      <div style={{ display: 'flex', gap: 12, marginBottom: 16 }}>
+        <KPICard label="Total Elevi 2025-2026" value={fmt(totalElevi)} sub="Pe toate nivelele de învățământ" color={C.navy} />
+        <KPICard label="Unități de Învățământ" value={fmt(totalUnitati)} sub="Formațiuni active SIIIR" color={C.blue} />
+        <KPICard label="Învățământ Public" value={`${((publicElevi/totalElevi)*100).toFixed(1)}%`} sub={`${fmt(publicElevi)} elevi`} color={C.green} />
+        <KPICard label="Învățământ Privat" value={`${((privatElevi/totalElevi)*100).toFixed(1)}%`} sub={`${fmt(privatElevi)} elevi`} color={C.purple} />
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+        {/* Distributie pe nivel - Donut */}
+        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, padding: 18 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: C.navy, marginBottom: 4 }}>Distribuție pe nivel de învățământ</div>
+          <div style={{ fontSize: 11, color: C.muted, marginBottom: 14 }}>Procent din total elevi (3.03 mil.)</div>
+          <div style={{ display: 'flex', gap: 18, alignItems: 'center' }}>
+            <svg viewBox={`0 0 200 200`} style={{ width: 180, height: 180, flexShrink: 0 }}>
+              {donutSegs.map(s => (
+                <path key={s.nivel} d={arcPath(s.start, s.end, donutR, donutInner)} fill={NIVEL_COLORS[s.nivel] || '#888'} />
+              ))}
+              <text x={100} y={95} textAnchor="middle" fontSize={11} fill={C.muted}>Total</text>
+              <text x={100} y={113} textAnchor="middle" fontSize={15} fontWeight={700} fill={C.navy}>{(totalElevi/1e6).toFixed(2)}M</text>
+            </svg>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 5 }}>
+              {donutSegs.map(s => (
+                <div key={s.nivel} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11 }}>
+                  <div style={{ width: 10, height: 10, borderRadius: 2, background: NIVEL_COLORS[s.nivel], flexShrink: 0 }} />
+                  <div style={{ flex: 1, color: C.text }}>{s.nivel}</div>
+                  <div style={{ fontFamily: 'DM Mono, monospace', fontWeight: 600, color: C.navy }}>{fmt(s.elevi)}</div>
+                  <div style={{ fontSize: 10, color: C.muted, minWidth: 38, textAlign: 'right' }}>{((s.elevi/totalElevi)*100).toFixed(1)}%</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Public vs Privat + Urban vs Rural */}
+        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, padding: 18 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: C.navy, marginBottom: 14 }}>Defalcare după proprietate & mediu</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div>
+              <div style={{ fontSize: 11, color: C.muted, marginBottom: 6, fontWeight: 600 }}>📋 Forma de proprietate</div>
+              <div style={{ display: 'flex', height: 32, borderRadius: 6, overflow: 'hidden', border: `1px solid ${C.border}` }}>
+                <div style={{ flex: publicElevi, background: C.green, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 11, fontWeight: 600 }}>
+                  Public {((publicElevi/totalElevi)*100).toFixed(1)}%
+                </div>
+                <div style={{ flex: privatElevi, background: C.purple, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 11, fontWeight: 600 }}>
+                  Privat {((privatElevi/totalElevi)*100).toFixed(1)}%
+                </div>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4, fontSize: 10, color: C.muted, fontFamily: 'DM Mono, monospace' }}>
+                <span>{fmt(publicElevi)} publici</span>
+                <span>{fmt(privatElevi)} privati</span>
+              </div>
+            </div>
+
+            <div>
+              <div style={{ fontSize: 11, color: C.muted, marginBottom: 6, fontWeight: 600 }}>🏙️ Mediu unitate</div>
+              <div style={{ display: 'flex', height: 32, borderRadius: 6, overflow: 'hidden', border: `1px solid ${C.border}` }}>
+                <div style={{ flex: urbanElevi, background: C.blue, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 11, fontWeight: 600 }}>
+                  Urban {((urbanElevi/totalElevi)*100).toFixed(1)}%
+                </div>
+                <div style={{ flex: ruralElevi, background: C.orange, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 11, fontWeight: 600 }}>
+                  Rural {((ruralElevi/totalElevi)*100).toFixed(1)}%
+                </div>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4, fontSize: 10, color: C.muted, fontFamily: 'DM Mono, monospace' }}>
+                <span>{fmt(urbanElevi)} urban</span>
+                <span>{fmt(ruralElevi)} rural</span>
+              </div>
+            </div>
+
+            <div style={{ background: '#f0f7ff', borderRadius: 6, padding: 10, fontSize: 11, color: C.muted, borderLeft: `3px solid ${C.blue}` }}>
+              <strong style={{ color: C.navy }}>Observații:</strong>
+              <ul style={{ margin: '5px 0 0 16px', display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <li>4.7% din elevi sunt în învățământ privat</li>
+                <li>32% din elevi sunt în mediul rural</li>
+                <li>Primarul + Preșcolar = 48% din total</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Top 10 judete */}
+      <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, padding: 18, marginBottom: 16 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: C.navy, marginBottom: 4 }}>Top 10 județe după număr elevi</div>
+        <div style={{ fontSize: 11, color: C.muted, marginBottom: 14 }}>Județele cu cea mai mare populație școlară</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+          {top10Judete.map((j, i) => {
+            const pct = (j.elevi / top10Judete[0].elevi) * 100;
+            const pctTotal = (j.elevi / totalElevi) * 100;
+            return (
+              <div key={j.judet} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <div style={{ width: 24, fontSize: 11, fontWeight: 600, color: C.muted }}>{i+1}.</div>
+                <div style={{ width: 130, fontSize: 12, color: C.text, fontWeight: 500 }}>{JUDETE_NUME[j.judet]} <span style={{ color: C.subtle }}>({j.judet})</span></div>
+                <div style={{ flex: 1, height: 22, background: '#f1f5f9', borderRadius: 4, position: 'relative' }}>
+                  <div style={{ width: `${pct}%`, height: '100%', background: i === 0 ? C.navy : C.blue, borderRadius: 4, opacity: 1 - i*0.04 }} />
+                  <div style={{ position: 'absolute', left: 8, top: 0, bottom: 0, display: 'flex', alignItems: 'center', fontSize: 10, color: '#fff', fontWeight: 600 }}>{fmt(j.elevi)}</div>
+                </div>
+                <div style={{ width: 50, textAlign: 'right', fontSize: 11, color: C.muted, fontFamily: 'DM Mono, monospace' }}>{pctTotal.toFixed(1)}%</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Tabel complet județe */}
+      <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, padding: 18 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: C.navy, marginBottom: 14 }}>Toate cele 42 de județe — sortare descrescătoare</div>
+        <div className="scrollx" style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 11 }}>
+            <thead>
+              <tr style={{ background: C.navy }}>
+                <th style={{ padding: '8px 12px', color: '#fff', fontWeight: 600, fontSize: 11, textAlign: 'left' }}>#</th>
+                <th style={{ padding: '8px 12px', color: '#fff', fontWeight: 600, fontSize: 11, textAlign: 'left' }}>Județ</th>
+                <th style={{ padding: '8px 12px', color: '#fff', fontWeight: 600, fontSize: 11, textAlign: 'right' }}>Cod</th>
+                <th style={{ padding: '8px 12px', color: '#fff', fontWeight: 600, fontSize: 11, textAlign: 'right' }}>Nr. Elevi</th>
+                <th style={{ padding: '8px 12px', color: '#fff', fontWeight: 600, fontSize: 11, textAlign: 'right' }}>% din total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.agg.judete.map((j, i) => (
+                <tr key={j.judet} style={{ background: i%2===0?'#fff':'#fafafa', borderBottom: `1px solid ${C.border}` }}>
+                  <td style={{ padding: '6px 12px', color: C.muted, fontFamily: 'DM Mono, monospace' }}>{i+1}</td>
+                  <td style={{ padding: '6px 12px', color: C.text, fontWeight: 500 }}>{JUDETE_NUME[j.judet] || j.judet}</td>
+                  <td style={{ padding: '6px 12px', textAlign: 'right', color: C.subtle, fontFamily: 'DM Mono, monospace' }}>{j.judet}</td>
+                  <td style={{ padding: '6px 12px', textAlign: 'right', fontFamily: 'DM Mono, monospace', fontWeight: 600, color: C.navy }}>{fmt(j.elevi)}</td>
+                  <td style={{ padding: '6px 12px', textAlign: 'right', fontFamily: 'DM Mono, monospace', color: C.muted }}>{((j.elevi/totalElevi)*100).toFixed(2)}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ════════════════════════════════════════
+   TAB FILTRU DETALIAT
+   ════════════════════════════════════════ */
+const FiltruDetaliat = ({ data }) => {
+  // Normalizare diacritice: datele folosesc Ş/Ţ (cedilla) — folosim ele
+  const NORM = (s) => s.replace(/Ș/g,'Ş').replace(/Ț/g,'Ţ').replace(/ș/g,'ş').replace(/ț/g,'ţ');
+  const [judet, setJudet] = React.useState('TM');
+  const [loc, setLoc] = React.useState('TIMIŞOARA');
+  const [forma, setForma] = React.useState('Publică de interes naţional şi local');
+  const [nivel, setNivel] = React.useState('Liceal');
+  const [sortBy, setSortBy] = React.useState('elevi');
+
+  const locOptions = data.localitati[judet] || [];
+
+  // Reset loc when judet changes
+  React.useEffect(() => {
+    if (loc && !locOptions.includes(loc)) {
+      setLoc(locOptions[0] || '');
+    }
+  }, [judet]);
+
+  const formaIdx = data.forme.indexOf(forma);
+  const nivelIdx = data.niveluri.indexOf(nivel);
+
+  // Filter unitati: [judet, loc, formaIdx, nivelIdx, cod, denum, elevi]
+  const filtered = React.useMemo(() => {
+    return data.unitati.filter(u =>
+      u[0] === judet &&
+      (loc === '' || u[1] === loc) &&
+      (formaIdx === -1 || u[2] === formaIdx) &&
+      (nivelIdx === -1 || u[3] === nivelIdx)
+    );
+  }, [judet, loc, formaIdx, nivelIdx]);
+
+  const sorted = React.useMemo(() => {
+    const arr = [...filtered];
+    if (sortBy === 'elevi') arr.sort((a, b) => b[6] - a[6]);
+    else if (sortBy === 'denum') arr.sort((a, b) => a[5].localeCompare(b[5]));
+    else if (sortBy === 'cod') arr.sort((a, b) => a[4].localeCompare(b[4]));
+    return arr;
+  }, [filtered, sortBy]);
+
+  const totalFiltered = filtered.reduce((s, u) => s + u[6], 0);
+
+  // Export CSV
+  const exportCSV = () => {
+    const header = ['Cod SIIIR', 'Denumire unitate', 'Județ', 'Localitate', 'Forma proprietate', 'Nivel', 'Nr. elevi'];
+    const rows = sorted.map(u => [u[4], u[5], u[0], u[1], data.forme[u[2]], data.niveluri[u[3]], u[6]]);
+    const csv = [header, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `Elevi_${judet}_${loc}_${nivel}.csv`.replace(/[^a-zA-Z0-9_.-]/g,'_');
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const Select = ({ label, value, onChange, options, optionLabels }) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 5, minWidth: 0, flex: 1 }}>
+      <div style={{ fontSize: 10, fontWeight: 700, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</div>
+      <select value={value} onChange={e => onChange(e.target.value)} style={{
+        background: '#fff', border: `1px solid ${C.border}`, borderRadius: 6,
+        padding: '8px 10px', fontSize: 12, fontFamily: 'DM Sans', color: C.text, cursor: 'pointer'
+      }}>
+        {options.map((o, i) => <option key={o} value={o}>{optionLabels ? optionLabels[i] : o}</option>)}
+      </select>
+    </div>
+  );
+
+  return (
+    <div style={{ padding: 20 }}>
+      {/* Filtre */}
+      <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, padding: 16, marginBottom: 14 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: C.navy }}>🔍 Filtre interactive</div>
+          <div style={{ fontSize: 11, color: C.muted }}>— selectează criterii pentru a vedea unitățile de învățământ și numărul de elevi</div>
+        </div>
+        <div style={{ display: 'flex', gap: 12 }}>
+          <Select label="Județ PJ" value={judet} onChange={setJudet}
+            options={data.judete}
+            optionLabels={data.judete.map(j => `${JUDETE_NUME[j]} (${j})`)} />
+          <Select label="Localitate PJ" value={loc} onChange={setLoc} options={['', ...locOptions]} optionLabels={['— toate —', ...locOptions]} />
+          <Select label="Forma proprietate" value={forma} onChange={setForma} options={['', ...data.forme]} optionLabels={['— toate —', ...data.forme]} />
+          <Select label="Nivel învățământ" value={nivel} onChange={setNivel} options={['', ...data.niveluri]} optionLabels={['— toate —', ...data.niveluri]} />
+        </div>
+      </div>
+
+      {/* Rezultat KPI */}
+      <div style={{ display: 'flex', gap: 12, marginBottom: 14 }}>
+        <div style={{ background: C.navy, color: '#fff', borderRadius: 10, padding: '18px 22px', flex: 2 }}>
+          <div style={{ fontSize: 11, fontWeight: 600, color: '#93c5fd', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>Rezultat filtrare</div>
+          <div style={{ fontSize: 32, fontWeight: 700, lineHeight: 1, marginBottom: 6 }}>{fmt(totalFiltered)}</div>
+          <div style={{ fontSize: 12, color: '#cbd5e1' }}>
+            elevi în <strong style={{ color: '#fff' }}>{filtered.length}</strong> unități
+            {loc && ` din ${loc}`}, {JUDETE_NUME[judet]}
+            {nivel && `, nivel ${nivel.toLowerCase()}`}
+          </div>
+        </div>
+        <KPICard label="% din județ" value={`${((totalFiltered/(data.agg.judete.find(j=>j.judet===judet)?.elevi||1))*100).toFixed(1)}%`} sub={`Total județ: ${fmt(data.agg.judete.find(j=>j.judet===judet)?.elevi || 0)}`} color={C.blue} />
+        <KPICard label="% din total țară" value={`${((totalFiltered/data.total)*100).toFixed(2)}%`} sub={`Total țară: ${fmt(data.total)}`} color={C.green} />
+      </div>
+
+      {/* Tabel */}
+      <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, overflow: 'hidden' }}>
+        <div style={{ padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 10, borderBottom: `1px solid ${C.border}` }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: C.navy }}>Unități de învățământ ({filtered.length})</div>
+            <div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>Sortare după <strong>{sortBy === 'elevi' ? 'Nr. elevi (desc.)' : sortBy === 'denum' ? 'Denumire' : 'Cod SIIIR'}</strong></div>
+          </div>
+          <button onClick={exportCSV} style={{
+            display: 'flex', alignItems: 'center', gap: 5,
+            background: C.green, border: 'none', borderRadius: 6, color: '#fff',
+            padding: '8px 14px', fontSize: 12, cursor: 'pointer', fontWeight: 600
+          }}>
+            <span>📥</span> Export CSV
+          </button>
+        </div>
+        <div className="scrollx" style={{ maxHeight: 500, overflowY: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 11 }}>
+            <thead>
+              <tr style={{ background: C.navy, position: 'sticky', top: 0, zIndex: 1 }}>
+                <th style={{ padding: '9px 12px', color: '#fff', fontWeight: 600, fontSize: 10, textAlign: 'left', cursor: 'pointer' }} onClick={() => setSortBy('cod')}>Cod SIIIR {sortBy==='cod'&&'↓'}</th>
+                <th style={{ padding: '9px 12px', color: '#fff', fontWeight: 600, fontSize: 10, textAlign: 'left', cursor: 'pointer' }} onClick={() => setSortBy('denum')}>Denumire Unitate {sortBy==='denum'&&'↓'}</th>
+                <th style={{ padding: '9px 12px', color: '#fff', fontWeight: 600, fontSize: 10, textAlign: 'right', cursor: 'pointer' }} onClick={() => setSortBy('elevi')}>Nr. Elevi {sortBy==='elevi'&&'↓'}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sorted.length === 0 && (
+                <tr><td colSpan={3} style={{ padding: 30, textAlign: 'center', color: C.muted, fontSize: 12 }}>Nicio unitate găsită pentru combinația selectată</td></tr>
+              )}
+              {sorted.map((u, i) => (
+                <tr key={u[4]+i} style={{ background: i%2===0?'#fff':'#fafafa', borderBottom: `1px solid ${C.border}` }}>
+                  <td style={{ padding: '7px 12px', fontFamily: 'DM Mono, monospace', color: C.subtle, fontSize: 10 }}>{u[4]}</td>
+                  <td style={{ padding: '7px 12px', color: C.text, fontWeight: 500 }}>{u[5]}</td>
+                  <td style={{ padding: '7px 12px', textAlign: 'right', fontFamily: 'DM Mono, monospace', fontWeight: 700, color: C.navy }}>{fmt(u[6])}</td>
+                </tr>
+              ))}
+            </tbody>
+            {sorted.length > 0 && (
+              <tfoot>
+                <tr style={{ background: '#f1f5f9' }}>
+                  <td colSpan={2} style={{ padding: '10px 12px', fontWeight: 700, color: C.navy }}>TOTAL ({sorted.length} unități)</td>
+                  <td style={{ padding: '10px 12px', textAlign: 'right', fontFamily: 'DM Mono, monospace', fontWeight: 700, color: C.navy, fontSize: 13 }}>{fmt(totalFiltered)}</td>
+                </tr>
+              </tfoot>
+            )}
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ════════════════════════════════════════
+   TAB DATE UNITATE (formatiuni detaliate)
+   ════════════════════════════════════════ */
+const NIVEL_BG = {
+  'Antepreşcolar': '#cffafe', 'Preșcolar': '#a5f3fc',
+  'Primar': '#bbf7d0', 'Gimnazial': '#86efac',
+  'Liceal': '#fed7aa', 'Profesional': '#fde68a', 'Postliceal': '#fbcfe8'
+};
+const NIVEL_FG = {
+  'Antepreşcolar': '#0e7490', 'Preșcolar': '#0891b2',
+  'Primar': '#15803d', 'Gimnazial': '#166534',
+  'Liceal': '#c2410c', 'Profesional': '#a16207', 'Postliceal': '#9d174d'
+};
+
+const DateUnitate = ({ data, unitIndex }) => {
+  const [query, setQuery] = React.useState('');
+  const [selectedCod, setSelectedCod] = React.useState(null);
+  const [unitData, setUnitData] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
+  const [showSuggestions, setShowSuggestions] = React.useState(false);
+
+  // Filter suggestions
+  const suggestions = React.useMemo(() => {
+    if (!query || query.length < 2) return [];
+    const q = query.toLowerCase().trim();
+    const matches = [];
+    for (const cod in unitIndex) {
+      const u = unitIndex[cod];
+      if (cod.includes(q) || u.d.toLowerCase().includes(q)) {
+        matches.push({ cod, ...u });
+        if (matches.length >= 20) break;
+      }
+    }
+    return matches;
+  }, [query, unitIndex]);
+
+  // Load unit data when selected
+  const loadUnit = async (cod) => {
+    setSelectedCod(cod);
+    setShowSuggestions(false);
+    setLoading(true);
+    const u = unitIndex[cod];
+    setQuery(`${cod} — ${u.d}`);
+    try {
+      const judetData = await fetch(`edu_units/${u.j}.json`).then(r => r.json());
+      const unit = judetData.units[cod];
+      if (!unit) throw new Error('Unitate negăsită în fișier');
+      setUnitData({ judetData, unit, cod });
+    } catch (e) {
+      setUnitData({ error: String(e) });
+    }
+    setLoading(false);
+  };
+
+  const FIELDS_LEFT = ['An','Judet PJ','Localitate PJ','Mediu PJ','Cod SIIIR PJ','Denumire PJ',
+    'Cod SIIIR unitate','Denumire unitate','Localitate unitate','Statut','Tip unitate',
+    'Mod functionare unitate','Forma proprietate unitate','Forma finantare unitate'];
+
+  const FIELDS_RIGHT = ['Nivel invatamant','Tip formatiune studiu','Tip invatamant',
+    'Alternativa educationala','Forma invatamant','Limba predare','Tip predare','Intensiv','Bilingv',
+    'Integrat/Suplimentar','Disciplina sportiva','Filiera','Profil','Domeniu de baza','Domeniu general',
+    'Spec/Calif niv.4','Stare calif. niv.4','Dual','Scoala maistri','Deficiente','Grad deficiente',
+    'Grupa speciala','Clase existente','Nr. elevi distincti'];
+
+  const resolve = (judetData, formRow, fieldName) => {
+    const fi = judetData.fields.indexOf(fieldName);
+    const v = formRow[fi];
+    if (v === -1 || v === null) return '';
+    if (fieldName === 'Clase existente' || fieldName === 'Nr. elevi distincti') return v;
+    return judetData.dicts[fi]?.[v] ?? '';
+  };
+  const resolveMeta = (judetData, metaRow, fieldName) => {
+    const fi = judetData.fields.indexOf(fieldName);
+    const v = metaRow[fi];
+    if (v === -1 || v === null) return '';
+    return judetData.dicts[fi]?.[v] ?? v;
+  };
+
+  return (
+    <div style={{ padding: 20 }}>
+      {/* Search box */}
+      <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, padding: 16, marginBottom: 14 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: C.navy, marginBottom: 4 }}>🏫 Caută unitate de învățământ</div>
+        <div style={{ fontSize: 11, color: C.muted, marginBottom: 12 }}>Caută după Cod SIIIR (ex: 3561101656) sau denumire (ex: "Grigore Moisil")</div>
+        <div style={{ position: 'relative' }}>
+          <input
+            type="text"
+            value={query}
+            onChange={e => { setQuery(e.target.value); setShowSuggestions(true); }}
+            onFocus={() => setShowSuggestions(true)}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+            placeholder="Cod SIIIR sau denumire unitate..."
+            style={{
+              width: '100%', padding: '12px 14px', fontSize: 13,
+              fontFamily: 'DM Sans', border: `1px solid ${C.border}`,
+              borderRadius: 6, color: C.text, outline: 'none'
+            }}
+          />
+          {showSuggestions && suggestions.length > 0 && (
+            <div style={{
+              position: 'absolute', top: '100%', left: 0, right: 0, marginTop: 4,
+              background: C.card, border: `1px solid ${C.border}`, borderRadius: 6,
+              maxHeight: 320, overflowY: 'auto', zIndex: 10,
+              boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
+            }}>
+              {suggestions.map(s => (
+                <div key={s.cod}
+                  onMouseDown={() => loadUnit(s.cod)}
+                  style={{
+                    padding: '8px 14px', cursor: 'pointer', borderBottom: `1px solid ${C.border}`,
+                    fontSize: 11, display: 'flex', gap: 12, alignItems: 'center'
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.background = '#f1f5f9'}
+                  onMouseLeave={e => e.currentTarget.style.background = '#fff'}
+                >
+                  <div style={{ fontFamily: 'DM Mono, monospace', color: C.muted, width: 90, flexShrink: 0 }}>{s.cod}</div>
+                  <div style={{ flex: 1, color: C.text, fontWeight: 500 }}>{s.d}</div>
+                  <div style={{ fontSize: 10, color: C.subtle, fontFamily: 'DM Mono, monospace' }}>{s.l}, {s.j}</div>
+                </div>
+              ))}
+            </div>
+          )}
+          {query.length >= 2 && suggestions.length === 0 && (
+            <div style={{ position: 'absolute', top: '100%', left: 0, marginTop: 4, fontSize: 11, color: C.muted, padding: '4px 8px' }}>
+              Niciun rezultat pentru "{query}"
+            </div>
+          )}
+        </div>
+        {!selectedCod && (
+          <div style={{ marginTop: 12, fontSize: 11, color: C.muted }}>
+            <strong style={{ color: C.text }}>Exemple rapide:</strong>
+            {[['3561101656','Liceul Teoretic „Grigore Moisil" Timișoara'],
+              ['0161102892','Liceul „Horea, Cloșca și Crișan" Abrud'],
+              ['1411013120','Colegiul Național „Andrei Șaguna" Brașov']].map(([c, label]) => (
+              <button key={c} onClick={() => loadUnit(c)} style={{
+                marginLeft: 8, background: '#f1f5f9', border: `1px solid ${C.border}`,
+                borderRadius: 4, padding: '3px 8px', fontSize: 10, color: C.blue, cursor: 'pointer'
+              }}>{c} — {label}</button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {loading && (
+        <div style={{ padding: 30, textAlign: 'center', color: C.muted, fontSize: 12 }}>
+          Se încarcă datele unității...
+        </div>
+      )}
+
+      {unitData?.error && (
+        <div style={{ padding: 20, background: C.redLight, color: C.red, borderRadius: 8, fontSize: 12 }}>
+          Eroare: {unitData.error}
+        </div>
+      )}
+
+      {unitData && !unitData.error && (() => {
+        const { judetData, unit } = unitData;
+        const formatiuni = unit.f;
+        const totalElevi = formatiuni.reduce((s, f) => s + (resolve(judetData, f, 'Nr. elevi distincti') || 0), 0);
+        const totalClase = formatiuni.reduce((s, f) => s + (resolve(judetData, f, 'Clase existente') || 0), 0);
+        const denumire = resolveMeta(judetData, unit.m, 'Denumire unitate');
+        const nivelDist = {};
+        formatiuni.forEach(f => {
+          const n = resolve(judetData, f, 'Nivel invatamant');
+          if (!n) return;
+          nivelDist[n] = (nivelDist[n] || 0) + (resolve(judetData, f, 'Nr. elevi distincti') || 0);
+        });
+
+        return (
+          <>
+            {/* Header unitate */}
+            <div style={{ background: C.navy, color: '#fff', borderRadius: 10, padding: 18, marginBottom: 14 }}>
+              <div style={{ fontSize: 11, color: '#93c5fd', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 6 }}>Unitate de învățământ</div>
+              <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 10 }}>{denumire}</div>
+              <div style={{ display: 'flex', gap: 30, fontSize: 12, flexWrap: 'wrap' }}>
+                <div><span style={{ color: '#cbd5e1' }}>Cod SIIIR: </span><strong style={{ fontFamily: 'DM Mono, monospace' }}>{unitData.cod}</strong></div>
+                <div><span style={{ color: '#cbd5e1' }}>Localitate: </span><strong>{resolveMeta(judetData, unit.m, 'Localitate PJ')}, {resolveMeta(judetData, unit.m, 'Judet PJ')}</strong></div>
+                <div><span style={{ color: '#cbd5e1' }}>Mediu: </span><strong>{resolveMeta(judetData, unit.m, 'Mediu PJ')}</strong></div>
+                <div><span style={{ color: '#cbd5e1' }}>Tip: </span><strong>{resolveMeta(judetData, unit.m, 'Tip unitate')}</strong></div>
+              </div>
+            </div>
+
+            {/* KPI */}
+            <div style={{ display: 'flex', gap: 12, marginBottom: 14 }}>
+              <KPICard label="Total elevi" value={fmt(totalElevi)} sub={`în ${formatiuni.length} formațiuni de studiu`} color={C.navy} />
+              <KPICard label="Total clase" value={fmt(totalClase)} sub="clase existente" color={C.blue} />
+              <KPICard label="Niveluri" value={Object.keys(nivelDist).length} sub={Object.keys(nivelDist).join(', ')} color={C.green} />
+              <KPICard label="Formă finanțare" value={resolveMeta(judetData, unit.m, 'Forma finantare unitate')} sub={resolveMeta(judetData, unit.m, 'Forma proprietate unitate')} color={C.purple} />
+            </div>
+
+            {/* Tabelul principal: metadate stânga + formatiuni coloane */}
+            <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, overflow: 'hidden' }}>
+              <div style={{ padding: '14px 18px', borderBottom: `1px solid ${C.border}` }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: C.navy }}>📋 Formațiuni de studiu — {formatiuni.length} clase</div>
+                <div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>Fiecare coloană = o clasă/grupă distinctă. Culorile indică nivelul de învățământ.</div>
+              </div>
+
+              <div className="scrollx" style={{ overflowX: 'auto', maxHeight: 600, overflowY: 'auto' }}>
+                <table style={{ borderCollapse: 'collapse', fontSize: 10 }}>
+                  <tbody>
+                    {/* Unit-level fields (constante) */}
+                    {FIELDS_LEFT.map((field, fi) => (
+                      <tr key={field} style={{ background: fi%2===0?'#fafafa':'#fff' }}>
+                        <td style={{
+                          padding: '6px 12px', borderRight: `1px solid ${C.border}`,
+                          color: C.muted, fontWeight: 600, fontSize: 10,
+                          position: 'sticky', left: 0, background: 'inherit',
+                          width: 180, minWidth: 180, zIndex: 1
+                        }}>{fi+1}. {field}</td>
+                        <td colSpan={formatiuni.length} style={{
+                          padding: '6px 12px', fontSize: 10, color: C.text,
+                          borderBottom: `1px solid ${C.border}`
+                        }}>
+                          <strong>{resolveMeta(judetData, unit.m, field)}</strong>
+                          <span style={{ color: C.subtle, marginLeft: 8, fontSize: 9 }}>(aceeași valoare pentru toate formațiunile)</span>
+                        </td>
+                      </tr>
+                    ))}
+                    {/* Separator */}
+                    <tr><td colSpan={formatiuni.length+1} style={{ background: '#e2e8f0', height: 4 }}></td></tr>
+                    {/* Form-level fields (per formatiune) */}
+                    {FIELDS_RIGHT.map((field, fi) => {
+                      // Check if all values empty -- if so, skip
+                      const hasAny = formatiuni.some(f => {
+                        const v = resolve(judetData, f, field);
+                        return v !== '' && v !== null && v !== undefined;
+                      });
+                      if (!hasAny) return null;
+                      return (
+                        <tr key={field} style={{ background: fi%2===0?'#fafafa':'#fff' }}>
+                          <td style={{
+                            padding: '6px 12px', borderRight: `2px solid ${C.border}`,
+                            color: C.muted, fontWeight: 600, fontSize: 10,
+                            position: 'sticky', left: 0, background: 'inherit',
+                            width: 180, minWidth: 180, zIndex: 1
+                          }}>{FIELDS_LEFT.length + fi + 1}. {field}</td>
+                          {formatiuni.map((f, ci) => {
+                            const val = resolve(judetData, f, field);
+                            const nivel = resolve(judetData, f, 'Nivel invatamant');
+                            const isNivelRow = field === 'Nivel invatamant';
+                            const isNum = field === 'Clase existente' || field === 'Nr. elevi distincti';
+                            return (
+                              <td key={ci} style={{
+                                padding: '5px 8px', fontSize: 10,
+                                borderRight: `1px solid ${C.border}`,
+                                background: isNivelRow ? (NIVEL_BG[nivel] || '#fff') : 'inherit',
+                                color: isNivelRow ? NIVEL_FG[nivel] : (isNum ? C.navy : C.text),
+                                fontWeight: isNivelRow || isNum ? 600 : 400,
+                                textAlign: isNum ? 'right' : 'left',
+                                fontFamily: isNum ? 'DM Mono, monospace' : 'inherit',
+                                whiteSpace: 'nowrap',
+                                minWidth: isNum ? 50 : 80,
+                              }}>{val === '' ? <span style={{ color: '#cbd5e1' }}>—</span> : val}</td>
+                            );
+                          })}
+                        </tr>
+                      );
+                    })}
+                    {/* Total row */}
+                    <tr style={{ background: '#1a56db', color: '#fff' }}>
+                      <td style={{
+                        padding: '9px 12px', fontWeight: 700, fontSize: 11,
+                        position: 'sticky', left: 0, background: '#1a56db', zIndex: 1
+                      }}>TOTAL ELEVI</td>
+                      {formatiuni.map((f, ci) => {
+                        const v = resolve(judetData, f, 'Nr. elevi distincti');
+                        return (
+                          <td key={ci} style={{
+                            padding: '9px 8px', fontWeight: 700, fontSize: 11,
+                            textAlign: 'right', fontFamily: 'DM Mono, monospace',
+                            color: '#fff'
+                          }}>{fmt(v)}</td>
+                        );
+                      })}
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div style={{ marginTop: 12, fontSize: 11, color: C.muted, padding: '8px 12px', background: '#f1f5f9', borderRadius: 6 }}>
+              💡 <strong>Citire:</strong> Pe verticală — câmpurile cu definițiile clasei. Pe orizontală — fiecare clasă/grupă distinctă (formațiune de studiu) cu valorile sale. Scroll orizontal pentru toate formațiunile.
+            </div>
+          </>
+        );
+      })()}
+    </div>
+  );
+};
+
+/* ════════════════════════════════════════
+   APP PRINCIPAL
+   ════════════════════════════════════════ */
+function App() {
+  const [data, setData] = React.useState(null);
+  const [unitIndex, setUnitIndex] = React.useState(null);
+  const [err, setErr] = React.useState(null);
+  const [eleviTab, setEleviTab] = React.useState('national');
+
+  React.useEffect(() => {
+    fetch('edu_data.json').then(r => r.json()).then(setData).catch(e => setErr(String(e)));
+  }, []);
+
+  React.useEffect(() => {
+    if (eleviTab === 'unitate' && !unitIndex) {
+      fetch('edu_unit_index.json').then(r => r.json()).then(setUnitIndex).catch(e => setErr(String(e)));
+    }
+  }, [eleviTab, unitIndex]);
+
+  if (err) return <div style={{ padding: 40, color: C.red }}>Eroare la încărcarea datelor: {err}</div>;
+  if (!data) return <div style={{ padding: 40, textAlign: 'center', color: C.muted, fontSize: 13 }}>
+    <div style={{ marginBottom: 12, fontSize: 24 }}>📊</div>
+    Se încarcă datele educației...<br/>
+    <span style={{ fontSize: 11, color: C.subtle }}>134,009 înregistrări • ~2.3 MB</span>
+  </div>;
+
+  return (
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      {/* Navbar */}
+      <nav style={{ background: C.navy, height: 52, display: 'flex', alignItems: 'center', padding: '0 24px', gap: 24, flexShrink: 0 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#fff', letterSpacing: '-0.3px' }}>📊 DatePublice.ro</div>
+        <div style={{ display: 'flex', gap: 6, flex: 1, justifyContent: 'center' }}>
+          {['Industrii','Instituții','Rapoarte'].map(l => (
+            <div key={l} style={{ fontSize: 12, color: l === 'Instituții' ? '#fff' : 'rgba(255,255,255,0.55)', padding: '4px 10px', borderRadius: 5,
+              borderBottom: l === 'Instituții' ? '2px solid #1a56db' : '2px solid transparent', cursor: 'pointer' }}>{l}</div>
+          ))}
+        </div>
+        <div style={{ display: 'flex', gap: 10, color: '#fff', fontSize: 12 }}>
+          <span style={{ opacity: 0.6 }}>🔍</span><span style={{ opacity: 0.6 }}>🔔</span><span>👤</span>
+        </div>
+      </nav>
+
+      {/* Header instituție */}
+      <div style={{ background: C.card, borderBottom: `1px solid ${C.border}` }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '14px 24px 0' }}>
+          <div style={{ fontSize: 11, color: C.muted, marginBottom: 6 }}>
+            <span style={{ color: C.subtle }}>Acasă › Instituții publice › </span>
+            <span style={{ color: C.text, fontWeight: 500 }}>Ministerul Educației</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '10px 0 12px' }}>
+            <div style={{ width: 40, height: 40, background: '#fef3c7', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>🎓</div>
+            <div>
+              <div style={{ fontSize: 18, fontWeight: 700, color: C.navy }}>Ministerul Educației</div>
+              <div style={{ fontSize: 11, color: C.muted }}>edu.ro • data.gov.ro • SIIIR</div>
+            </div>
+            <a href="https://www.edu.ro" target="_blank" rel="noopener noreferrer" style={{ marginLeft: 'auto', fontSize: 11, color: C.blue, textDecoration: 'none', border: `1px solid ${C.blue}`, padding: '5px 12px', borderRadius: 6 }}>
+              ↗ Site oficial
+            </a>
+          </div>
+          {/* Tab-uri principale */}
+          <div style={{ display: 'flex', gap: 0, borderTop: `1px solid ${C.border}` }}>
+            {['Elevi'].map((t, i) => (
+              <div key={t} style={{
+                fontSize: 12, fontWeight: 600,
+                color: C.blue,
+                padding: '10px 16px', cursor: 'pointer',
+                borderBottom: `2px solid ${C.blue}`,
+              }}>{t}</div>
+            ))}
+            {['Personal didactic','Unități școlare','Buget'].map(t => (
+              <div key={t} style={{
+                fontSize: 12, fontWeight: 400, color: C.subtle,
+                padding: '10px 16px', cursor: 'not-allowed',
+              }}>{t} <span style={{ fontSize: 9, marginLeft: 4, opacity: 0.6 }}>(curând)</span></div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Conținut */}
+      <div style={{ flex: 1, maxWidth: 1200, margin: '0 auto', width: '100%' }}>
+        {/* Sub-tabs pentru "Elevi" */}
+        <div style={{ background: '#fff', borderBottom: `1px solid ${C.border}`, padding: '0 20px' }}>
+          <div style={{ display: 'flex', gap: 0, alignItems: 'center' }}>
+            <div style={{ fontSize: 11, color: C.muted, marginRight: 16, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>📊 Elevi 2025-2026</div>
+            {[['national','🇷🇴 Analiză Națională'],['filtru','🔍 Filtru Detaliat (Unități)'],['unitate','🏫 Date Unitate']].map(([id, lbl]) => (
+              <button key={id} onClick={() => setEleviTab(id)} style={{
+                background: 'none', border: 'none', cursor: 'pointer',
+                padding: '12px 18px', fontSize: 12, fontFamily: 'DM Sans',
+                fontWeight: eleviTab === id ? 600 : 400,
+                color: eleviTab === id ? C.blue : C.muted,
+                borderBottom: eleviTab === id ? `2px solid ${C.blue}` : '2px solid transparent',
+              }}>{lbl}</button>
+            ))}
+          </div>
+        </div>
+
+        {eleviTab === 'national' && <AnalizaNationala data={data} />}
+        {eleviTab === 'filtru' && <FiltruDetaliat data={data} />}
+        {eleviTab === 'unitate' && (unitIndex ? <DateUnitate data={data} unitIndex={unitIndex} /> : <div style={{ padding: 40, textAlign: 'center', color: C.muted, fontSize: 12 }}>Se încarcă indexul unităților...</div>)}
+      </div>
+
+      {/* Footer */}
+      <div style={{ borderTop: `1px solid ${C.border}`, background: C.card, padding: '10px 24px', display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+        <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#22c55e', flexShrink: 0 }} />
+        <div style={{ fontSize: 11, color: C.muted }}>Sursa: Ministerul Educației — SIIIR Plan de școlarizare 2025-2026</div>
+        <span style={{ color: C.border }}>•</span>
+        <a href="https://data.gov.ro/dataset/elevi-inmatriculati-2025"
+          target="_blank" rel="noopener noreferrer"
+          style={{ fontSize: 11, color: C.blue, textDecoration: 'none' }}>
+          🔗 data.gov.ro — Elevi înmatriculați 2025
+        </a>
+        <div style={{ flex: 1 }} />
+        <div style={{ fontSize: 11, color: C.subtle }}>Snapshot: 11 Feb 2026 • {fmt(data.unitati.length)} unități • {fmt(134009)} formațiuni</div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

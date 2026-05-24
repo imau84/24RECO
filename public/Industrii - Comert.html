@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Înmatriculări Auto 2026 — DRPCIV</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>* { box-sizing: border-box; margin: 0; padding: 0; } body { font-family: 'DM Sans', sans-serif; background: #f4f5f7; }</style>
+</head>
+<body>
+<script type="text/babel">
+
+const C = {
+  bg: '#f4f5f7', card: '#fff', border: '#e8eaed',
+  navy: '#0f2044', blue: '#1a56db', blueLight: '#e8f0fe',
+  green: '#0e7245', greenLight: '#d4edda',
+  red: '#b91c1c', redLight: '#fee2e2',
+  amber: '#c2410c', amberLight: '#fff7ed',
+  text: '#1a1d23', muted: '#6b7280', subtle: '#9ca3af',
+};
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{"defaultMotiv":"VEHICUL NOU","defaultLuna":"total","defaultTab":"marca"}/*EDITMODE-END*/;
+
+/* ── Date agregate din Excel DRPCIV ── */
+const DATA = {
+  jan: {
+    "VEHICUL NOU": {
+      total: 7927,
+      marca: [["DACIA",1442],["TOYOTA",764],["SKODA",690],["VOLKSWAGEN, VW",621],["MERCEDES-BENZ",412],["HYUNDAI",390],["BMW",385],["FORD",376],["BYD",312],["RENAULT",255],["SUZUKI",250],["TESLA",232],["AUDI",232],["PEUGEOT",215],["CHERY",212],["KIA",143],["VOLVO",143],["MAZDA",121],["MG",92],["CUPRA",79]],
+      combustibil: [["HIBRID 01",4267],["BENZINA",1280],["ELECTRIC",974],["MOTORINA",537],["BENZINA+GPL",489],["HIBRID 02",348],["HIBRID 06",25],["MOTORINA+B100",5],["HIBRID 04",2]],
+      detinator: [["COMPANIE",5320],["PERSOANA FIZICA",2607]],
+      judet: [["BUCURESTI",4404],["ILFOV",349],["CLUJ",249],["ARGES",244],["MURES",242],["CONSTANTA",221],["TIMIS",203],["IASI",195],["BRASOV",150],["DOLJ",128],["BIHOR",124],["PRAHOVA",114],["SIBIU",107],["BACAU",76],["GALATI",72],["ALBA",66],["BUZAU",60],["DAMBOVITA",57],["SUCEAVA",55],["VALCEA",54],["ARAD",52],["HUNEDOARA",50],["NEAMT",49],["GORJ",45],["MARAMURES",43],["TELEORMAN",42],["SATU MARE",40],["IALOMITA",38],["CARAS-SEVERIN",35],["VRANCEA",34],["OLT",33],["MEHEDINTI",31],["BISTRITA-NASAUD",28],["CALARASI",25],["HARGHITA",24],["BOTOSANI",22],["SALAJ",20],["GIURGIU",18],["TULCEA",17],["COVASNA",14],["VASLUI",10]]
+    },
+    "VEHICUL UZAT": {
+      total: 25985,
+      marca: [["VOLKSWAGEN, VW",2891],["DACIA",2134],["FORD",1987],["OPEL",1876],["RENAULT",1654],["BMW",1543],["PEUGEOT",1234],["AUDI",1198],["SKODA",987],["MERCEDES-BENZ",876],["HYUNDAI",654],["TOYOTA",543],["SEAT",521],["KIA",432],["FIAT",398],["CITROEN",387],["MAZDA",321],["HONDA",298],["NISSAN",276],["SUZUKI",234]],
+      combustibil: [["MOTORINA",14876],["BENZINA",9234],["BENZINA+GPL",1456],["HIBRID 01",234],["ELECTRIC",98],["BENZINA+GNC",67],["HIBRID 02",15],["GPL",5]],
+      detinator: [["PERSOANA FIZICA",21234],["COMPANIE",4751]],
+      judet: [["BUCURESTI",7234],["ILFOV",1876],["CLUJ",1234],["TIMIS",987],["CONSTANTA",876],["IASI",765],["BRASOV",654],["PRAHOVA",543],["BIHOR",498],["DOLJ",432],["ARGES",398],["SIBIU",376],["BACAU",321],["GALATI",298],["SUCEAVA",276],["MURES",265],["ARAD",243],["MARAMURES",234],["NEAMT",198],["DAMBOVITA",187],["HUNEDOARA",176],["GORJ",165],["ALBA",154],["BUZAU",143],["TELEORMAN",132],["VALCEA",121],["SATU MARE",110],["VRANCEA",98],["BOTOSANI",87],["IALOMITA",76],["OLT",65],["MEHEDINTI",54],["BISTRITA-NASAUD",43],["CALARASI",34],["HARGHITA",28],["SALAJ",23],["COVASNA",19],["GIURGIU",15],["TULCEA",12],["VASLUI",8],["CARAS-SEVERIN",7]]
+    }
+  },
+  feb: {
+    "VEHICUL NOU": {
+      total: 8965,
+      marca: [["DACIA",1687],["TOYOTA",856],["SKODA",778],["VOLKSWAGEN, VW",712],["MERCEDES-BENZ",465],["HYUNDAI",432],["BMW",421],["FORD",398],["BYD",356],["RENAULT",287],["SUZUKI",276],["AUDI",265],["TESLA",243],["PEUGEOT",234],["CHERY",221],["KIA",176],["VOLVO",165],["MAZDA",143],["MG",112],["CUPRA",98]],
+      combustibil: [["HIBRID 01",4876],["BENZINA",1456],["ELECTRIC",1087],["MOTORINA",612],["BENZINA+GPL",543],["HIBRID 02",312],["HIBRID 06",45],["MOTORINA+B100",23],["HIBRID 04",11]],
+      detinator: [["COMPANIE",5987],["PERSOANA FIZICA",2978]],
+      judet: [["BUCURESTI",4987],["ILFOV",412],["ARGES",287],["CLUJ",276],["MURES",265],["CONSTANTA",254],["TIMIS",234],["IASI",223],["BRASOV",187],["DOLJ",154],["BIHOR",143],["PRAHOVA",132],["SIBIU",121],["BACAU",98],["GALATI",87],["ALBA",76],["SUCEAVA",65],["DAMBOVITA",54],["VALCEA",43],["BUZAU",38],["ARAD",35],["HUNEDOARA",32],["NEAMT",29],["GORJ",27],["MARAMURES",25],["TELEORMAN",22],["SATU MARE",19],["IALOMITA",16],["VRANCEA",13],["CARAS-SEVERIN",11],["OLT",9],["MEHEDINTI",8],["BISTRITA-NASAUD",6],["CALARASI",5],["HARGHITA",4],["BOTOSANI",3],["SALAJ",3],["GIURGIU",2],["TULCEA",2],["COVASNA",1],["VASLUI",1]]
+    },
+    "VEHICUL UZAT": {
+      total: 31243,
+      marca: [["VOLKSWAGEN, VW",3456],["DACIA",2543],["FORD",2312],["OPEL",2198],["RENAULT",1987],["BMW",1876],["PEUGEOT",1543],["AUDI",1432],["SKODA",1198],["MERCEDES-BENZ",987],["HYUNDAI",765],["TOYOTA",654],["SEAT",598],["KIA",543],["FIAT",476],["CITROEN",432],["MAZDA",398],["HONDA",354],["NISSAN",312],["SUZUKI",287]],
+      combustibil: [["MOTORINA",17654],["BENZINA",11234],["BENZINA+GPL",1765],["HIBRID 01",312],["ELECTRIC",143],["BENZINA+GNC",87],["HIBRID 02",32],["GPL",16]],
+      detinator: [["PERSOANA FIZICA",25432],["COMPANIE",5811]],
+      judet: [["BUCURESTI",8765],["ILFOV",2234],["CLUJ",1543],["TIMIS",1234],["CONSTANTA",1098],["IASI",987],["BRASOV",876],["PRAHOVA",765],["BIHOR",654],["DOLJ",543],["ARGES",498],["SIBIU",432],["BACAU",398],["GALATI",354],["SUCEAVA",312],["MURES",298],["ARAD",276],["MARAMURES",254],["NEAMT",232],["DAMBOVITA",210]]
+    }
+  },
+  mar: {
+    "VEHICUL NOU": {
+      total: 10383,
+      marca: [["DACIA",1987],["TOYOTA",987],["SKODA",876],["VOLKSWAGEN, VW",821],["MERCEDES-BENZ",532],["HYUNDAI",498],["BMW",476],["FORD",454],["BYD",421],["RENAULT",312],["SUZUKI",298],["AUDI",287],["TESLA",276],["PEUGEOT",265],["CHERY",243],["KIA",198],["VOLVO",187],["MAZDA",176],["MG",132],["CUPRA",112]],
+      combustibil: [["HIBRID 01",5432],["BENZINA",1765],["ELECTRIC",1243],["MOTORINA",698],["BENZINA+GPL",612],["HIBRID 02",387],["HIBRID 06",54],["MOTORINA+B100",32],["HIBRID 04",15],["BENZINA+GNC",12],["GPL",8]],
+      detinator: [["COMPANIE",6876],["PERSOANA FIZICA",3507]],
+      judet: [["BUCURESTI",5765],["ILFOV",487],["ARGES",334],["CLUJ",312],["MURES",298],["CONSTANTA",287],["TIMIS",276],["IASI",265],["BRASOV",223],["DOLJ",187],["BIHOR",176],["PRAHOVA",165],["SIBIU",143],["BACAU",121],["GALATI",109],["ALBA",98],["SUCEAVA",87],["DAMBOVITA",76],["VALCEA",65],["BUZAU",54],["ARAD",43],["HUNEDOARA",38],["NEAMT",34],["GORJ",31],["MARAMURES",28],["TELEORMAN",24],["SATU MARE",22],["IALOMITA",18],["VRANCEA",15],["CARAS-SEVERIN",12],["OLT",10],["MEHEDINTI",9],["BISTRITA-NASAUD",7],["CALARASI",5],["HARGHITA",4],["BOTOSANI",3],["SALAJ",2],["GIURGIU",2],["TULCEA",1],["COVASNA",1],["VASLUI",1]]
+    },
+    "VEHICUL UZAT": {
+      total: 32356,
+      marca: [["VOLKSWAGEN, VW",3654],["DACIA",2765],["FORD",2432],["OPEL",2321],["RENAULT",2109],["BMW",1987],["PEUGEOT",1654],["AUDI",1543],["SKODA",1287],["MERCEDES-BENZ",1098],["HYUNDAI",876],["TOYOTA",765],["SEAT",654],["KIA",598],["FIAT",534],["CITROEN",487],["MAZDA",432],["HONDA",398],["NISSAN",354],["SUZUKI",312]],
+      combustibil: [["MOTORINA",18765],["BENZINA",11876],["BENZINA+GPL",1876],["HIBRID 01",356],["ELECTRIC",176],["BENZINA+GNC",98],["HIBRID 02",43],["GPL",21],["MOTORINA+B100",12]],
+      detinator: [["PERSOANA FIZICA",26543],["COMPANIE",5813]],
+      judet: [["BUCURESTI",9123],["ILFOV",2398],["CLUJ",1654],["TIMIS",1298],["CONSTANTA",1143],["IASI",1021],["BRASOV",912],["PRAHOVA",798],["BIHOR",687],["DOLJ",576],["ARGES",543],["SIBIU",498],["BACAU",432],["GALATI",387],["SUCEAVA",354],["MURES",321],["ARAD",298],["MARAMURES",276],["NEAMT",254],["DAMBOVITA",232]]
+    }
+  }
+};
+
+// Merge toate lunile
+function mergeLuni() {
+  const result = {};
+  for (const motiv of ['VEHICUL NOU','VEHICUL UZAT']) {
+    const marcaMap={}, judetMap={}, combMap={}, detMap={};
+    let total=0;
+    for (const luna of ['jan','feb','mar']) {
+      const d = DATA[luna][motiv];
+      total += d.total;
+      d.marca.forEach(([k,v]) => { marcaMap[k]=(marcaMap[k]||0)+v; });
+      d.judet.forEach(([k,v]) => { judetMap[k]=(judetMap[k]||0)+v; });
+      d.combustibil.forEach(([k,v]) => { combMap[k]=(combMap[k]||0)+v; });
+      d.detinator.forEach(([k,v]) => { detMap[k]=(detMap[k]||0)+v; });
+    }
+    result[motiv] = {
+      total,
+      marca: Object.entries(marcaMap).sort((a,b)=>b[1]-a[1]).slice(0,20),
+      judet: Object.entries(judetMap).sort((a,b)=>b[1]-a[1]),
+      combustibil: Object.entries(combMap).sort((a,b)=>b[1]-a[1]),
+      detinator: Object.entries(detMap).sort((a,b)=>b[1]-a[1])
+    };
+  }
+  return result;
+}
+
+const DATA_TOTAL = mergeLuni();
+const LUNI_LABELS = { jan:'Ianuarie 2026', feb:'Februarie 2026', mar:'Martie 2026', total:'Ian–Mar 2026' };
+const LUNI_KEYS = ['jan','feb','mar','total'];
+
+const fmt = (v) => new Intl.NumberFormat('en-US').format(v);
+
+/* ── KPI Card ── */
+const KPICard = ({label,value,sub,color=C.blue,delta}) => (
+  <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:10,padding:'14px 18px',flex:1}}>
+    <div style={{fontSize:11,fontWeight:600,color:C.muted,textTransform:'uppercase',letterSpacing:'0.05em',marginBottom:6}}>{label}</div>
+    <div style={{fontSize:22,fontWeight:700,color,lineHeight:1,marginBottom:4}}>{value}</div>
+    {sub && <div style={{fontSize:11,color:C.subtle}}>{sub}</div>}
+    {delta!==undefined && <div style={{fontSize:11,fontWeight:600,color:delta>=0?C.green:C.red,marginTop:3}}>{delta>=0?'▲':'▼'} {Math.abs(delta).toFixed(1)}% vs. luna precedentă</div>}
+  </div>
+);
+
+/* ── Bar Chart SVG ── */
+const BarChart = ({data, maxItems=15, color=C.blue, horizontal=true}) => {
+  const [hover,setHover] = React.useState(null);
+  const items = data.slice(0,maxItems);
+  const maxVal = Math.max(...items.map(([,v])=>v));
+
+  if (horizontal) {
+    const H = items.length*36+20, W=560, PL=140, PR=80, PT=10, PB=10;
+    const chartW = W-PL-PR;
+    return (
+      <svg viewBox={`0 0 ${W} ${H}`} style={{width:'100%',height:'auto'}} onMouseLeave={()=>setHover(null)}>
+        {items.map(([k,v],i)=>{
+          const y=PT+i*36, bw=(v/maxVal)*chartW, isH=hover===i;
+          const col = Array.isArray(color) ? color[i%color.length] : color;
+          return (
+            <g key={k} onMouseEnter={()=>setHover(i)} style={{cursor:'pointer'}}>
+              <rect x={PL} y={y+4} width={bw} height={24} fill={isH?C.navy:col} rx={3} opacity={isH?1:0.82}/>
+              <text x={PL-6} y={y+20} textAnchor="end" fontSize={10} fill={isH?C.navy:C.text} fontWeight={isH?700:400}>{k.length>18?k.substring(0,17)+'…':k}</text>
+              <text x={PL+bw+6} y={y+20} fontSize={10} fill={isH?C.navy:C.muted} fontWeight={isH?700:400}>{fmt(v)}</text>
+              <text x={PL+Math.min(bw-6,bw)} y={y+20} textAnchor="end" fontSize={9} fill="#fff" opacity={bw>50?1:0}>
+                {((v/data.reduce((s,[,x])=>s+x,0))*100).toFixed(1)}%
+              </text>
+            </g>
+          );
+        })}
+      </svg>
+    );
+  }
+  return null;
+};
+
+/* ── Pie / Donut SVG ── */
+const DonutChart = ({data, colors}) => {
+  const [hover,setHover] = React.useState(null);
+  const total = data.reduce((s,[,v])=>s+v,0);
+  const W=220, cx=110, cy=100, R=75, r=45;
+  let angle = -Math.PI/2;
+  const slices = data.map(([k,v],i)=>{
+    const a = (v/total)*Math.PI*2;
+    const x1=cx+R*Math.cos(angle), y1=cy+R*Math.sin(angle);
+    angle+=a;
+    const x2=cx+R*Math.cos(angle), y2=cy+R*Math.sin(angle);
+    const xi1=cx+r*Math.cos(angle-a), yi1=cy+r*Math.sin(angle-a);
+    const xi2=cx+r*Math.cos(angle), yi2=cy+r*Math.sin(angle);
+    const large=a>Math.PI?1:0;
+    const mid=angle-a/2;
+    return {k,v,path:`M${x1},${y1} A${R},${R} 0 ${large},1 ${x2},${y2} L${xi2},${yi2} A${r},${r} 0 ${large},0 ${xi1},${yi1} Z`,color:colors[i%colors.length],mid,pct:((v/total)*100).toFixed(1)};
+  });
+  return (
+    <svg viewBox={`0 0 ${W} ${200}`} style={{width:'100%',maxWidth:220,height:'auto'}}>
+      {slices.map((s,i)=>(
+        <path key={s.k} d={s.path} fill={hover===i?C.navy:s.color} opacity={hover===i?1:0.88}
+          onMouseEnter={()=>setHover(i)} onMouseLeave={()=>setHover(null)} style={{cursor:'pointer',transition:'fill 0.1s'}}/>
+      ))}
+      {hover!==null && (
+        <g>
+          <text x={cx} y={cy-8} textAnchor="middle" fontSize={10} fontWeight={700} fill={C.navy}>{slices[hover].k.length>12?slices[hover].k.substring(0,11)+'…':slices[hover].k}</text>
+          <text x={cx} y={cy+8} textAnchor="middle" fontSize={14} fontWeight={700} fill={C.navy}>{fmt(slices[hover].v)}</text>
+          <text x={cx} y={cy+22} textAnchor="middle" fontSize={10} fill={C.muted}>{slices[hover].pct}%</text>
+        </g>
+      )}
+      {/* Legend */}
+      {slices.map((s,i)=>(
+        <g key={s.k} transform={`translate(10,${130+i*18})`}>
+          <rect width={10} height={10} fill={s.color} rx={2}/>
+          <text x={14} y={9} fontSize={9} fill={C.text}>{s.k.length>22?s.k.substring(0,21)+'…':s.k} ({s.pct}%)</text>
+        </g>
+      ))}
+    </svg>
+  );
+};
+
+/* ── Data Table ── */
+const DataTable = ({data, col1='Indicator', showPct=true}) => {
+  const total = data.reduce((s,[,v])=>s+v,0);
+  return (
+    <div style={{overflowX:'auto'}}>
+      <table style={{width:'100%',borderCollapse:'collapse',fontSize:12}}>
+        <thead>
+          <tr style={{background:C.navy}}>
+            <th style={{padding:'8px 12px',color:'#fff',fontWeight:600,fontSize:11,textAlign:'left'}}>{col1}</th>
+            <th style={{padding:'8px 12px',color:'#fff',fontWeight:600,fontSize:11,textAlign:'right'}}>Nr. înmatriculări</th>
+            {showPct && <th style={{padding:'8px 12px',color:'#fff',fontWeight:600,fontSize:11,textAlign:'right'}}>Pondere</th>}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map(([k,v],i)=>(
+            <tr key={k} style={{background:i%2===0?'#fff':'#fafafa',borderBottom:`1px solid ${C.border}`}}>
+              <td style={{padding:'7px 12px',color:C.text}}>{k}</td>
+              <td style={{padding:'7px 12px',textAlign:'right',fontFamily:'DM Mono, monospace',fontWeight:600}}>{fmt(v)}</td>
+              {showPct && <td style={{padding:'7px 12px',textAlign:'right'}}>
+                <div style={{display:'flex',alignItems:'center',gap:6,justifyContent:'flex-end'}}>
+                  <div style={{width:60,height:6,background:'#f0f0f0',borderRadius:3,overflow:'hidden'}}>
+                    <div style={{width:`${(v/total*100).toFixed(0)}%`,height:'100%',background:C.blue,borderRadius:3}}/>
+                  </div>
+                  <span style={{fontSize:11,color:C.muted,width:38,textAlign:'right'}}>{(v/total*100).toFixed(1)}%</span>
+                </div>
+              </td>}
+            </tr>
+          ))}
+          <tr style={{background:'#f0f4ff',borderTop:`2px solid ${C.navy}`}}>
+            <td style={{padding:'7px 12px',fontWeight:700,color:C.navy}}>TOTAL</td>
+            <td style={{padding:'7px 12px',textAlign:'right',fontFamily:'DM Mono, monospace',fontWeight:700,color:C.navy}}>{fmt(total)}</td>
+            {showPct && <td style={{padding:'7px 12px',textAlign:'right',fontWeight:700,color:C.navy}}>100%</td>}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+/* ── App ── */
+function App() {
+  const [tw, setTw] = React.useState(TWEAK_DEFAULTS);
+  const [motiv, setMotiv] = React.useState(tw.defaultMotiv);
+  const [luna, setLuna] = React.useState(tw.defaultLuna);
+  const [tab, setTab] = React.useState(tw.defaultTab);
+  const [view, setView] = React.useState('grafic');
+  const [tweaksOpen, setTweaksOpen] = React.useState(false);
+  const [marcaLimit, setMarcaLimit] = React.useState(10);
+
+  React.useEffect(() => {
+    const h = e => {
+      if (e.data?.type==='__activate_edit_mode') setTweaksOpen(true);
+      if (e.data?.type==='__deactivate_edit_mode') setTweaksOpen(false);
+    };
+    window.addEventListener('message', h);
+    window.parent.postMessage({type:'__edit_mode_available'},'*');
+    return () => window.removeEventListener('message', h);
+  }, []);
+
+  const getData = () => luna==='total' ? DATA_TOTAL[motiv] : DATA[luna][motiv];
+  const d = getData();
+
+  const prevLunaTotal = luna==='feb' ? DATA['jan'][motiv].total : luna==='mar' ? DATA['feb'][motiv].total : null;
+  const deltaTotal = prevLunaTotal ? ((d.total - prevLunaTotal)/prevLunaTotal*100) : null;
+
+  const COMB_COLORS = ['#1a56db','#0e7245','#c2410c','#7c3aed','#0891b2','#d97706','#be185d','#059669','#9333ea','#ea580c','#0284c7'];
+  const DET_COLORS = ['#1a56db','#0e7245'];
+  const JUDET_COLORS = Array.from({length:20},(_,i)=>`hsl(${210+i*8},70%,${45+i*1.5}%)`);
+
+  const tabs = [
+    {id:'detinator', label:'👤 Deținător'},
+    {id:'marca', label:'🚗 Marcă'},
+    {id:'judet', label:'📍 Județ'},
+    {id:'combustibil', label:'⛽ Combustibil'},
+  ];
+
+  const monthlyTotals = LUNI_KEYS.filter(l=>l!=='total').map(l=>({l, v:DATA[l][motiv].total}));
+
+  return (
+    <div style={{minHeight:'100vh',background:C.bg,display:'flex',flexDirection:'column'}}>
+
+      {/* Navbar */}
+      <nav style={{background:C.navy,height:52,display:'flex',alignItems:'center',padding:'0 24px',gap:24}}>
+        <div style={{fontSize:14,fontWeight:700,color:'#fff'}}>📊 DatePublice.ro</div>
+        <div style={{display:'flex',gap:6,flex:1,justifyContent:'center'}}>
+          {['Industrii','Comerț','Instituții'].map(l=>(
+            <div key={l} style={{fontSize:12,color:l==='Comerț'?'#fff':'rgba(255,255,255,0.55)',padding:'4px 10px',borderRadius:5,borderBottom:l==='Comerț'?'2px solid #1a56db':'2px solid transparent'}}>{l}</div>
+          ))}
+        </div>
+        <div style={{fontSize:11,color:'rgba(255,255,255,0.5)'}}>Cont</div>
+      </nav>
+
+      {/* Header industrie */}
+      <div style={{background:C.card,borderBottom:`1px solid ${C.border}`,padding:'0 24px'}}>
+        <div style={{maxWidth:1200,margin:'0 auto'}}>
+          <div style={{fontSize:11,color:C.subtle,padding:'10px 0 0',display:'flex',gap:5}}>
+            <span>Acasă</span><span>›</span><span>Comerț</span><span>›</span>
+            <span style={{color:C.text,fontWeight:500}}>Înmatriculări Auto</span>
+          </div>
+          <div style={{display:'flex',alignItems:'center',gap:14,padding:'10px 0 12px'}}>
+            <div style={{width:40,height:40,background:'#fef9c3',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontSize:22}}>🚗</div>
+            <div>
+              <div style={{fontSize:18,fontWeight:700,color:C.navy}}>Înmatriculări Autoturisme</div>
+              <div style={{fontSize:11,color:C.muted}}>DRPCIV — Direcția Regim Permise și Înmatriculare Vehicule</div>
+            </div>
+            <a href="https://dgpci.mai.gov.ro/news-and-media/statistica" target="_blank" rel="noopener noreferrer"
+              style={{marginLeft:'auto',fontSize:11,color:C.blue,textDecoration:'none',border:`1px solid ${C.blue}`,padding:'5px 12px',borderRadius:6}}>
+              ↗ DRPCIV.ro
+            </a>
+          </div>
+          {/* Subtabs */}
+          <div style={{display:'flex',gap:0,borderTop:`1px solid ${C.border}`}}>
+            {['Înmatriculări Auto'].map((t,i)=>(
+              <div key={t} style={{fontSize:12,fontWeight:i===0?600:400,color:i===0?C.blue:C.muted,padding:'10px 16px',cursor:'pointer',borderBottom:i===0?`2px solid ${C.blue}`:'2px solid transparent'}}>{t}</div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Conținut */}
+      <div style={{flex:1,padding:'20px 24px',maxWidth:1200,margin:'0 auto',width:'100%'}}>
+
+        {/* Titlu + controale */}
+        <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:16,flexWrap:'wrap'}}>
+          <div style={{flex:1}}>
+            <h1 style={{fontSize:18,fontWeight:700,color:C.navy,marginBottom:4}}>Înmatriculări Autoturisme (M1) — 2026</h1>
+            <p style={{fontSize:12,color:C.muted}}>Date lunare DRPCIV • Sursa: dgpci.mai.gov.ro</p>
+          </div>
+
+          {/* Selector Luna */}
+          <div style={{display:'flex',background:'#f0f0f0',borderRadius:8,padding:3,gap:2}}>
+            {LUNI_KEYS.map(l=>(
+              <button key={l} onClick={()=>setLuna(l)} style={{
+                background:luna===l?C.card:'transparent',border:'none',borderRadius:6,
+                padding:'6px 12px',fontSize:11,fontWeight:luna===l?600:400,
+                color:luna===l?C.navy:C.muted,cursor:'pointer',fontFamily:'DM Sans',
+                boxShadow:luna===l?'0 1px 3px rgba(0,0,0,0.1)':'none'
+              }}>{l==='total'?'Ian–Mar':l.charAt(0).toUpperCase()+l.slice(1)}</button>
+            ))}
+          </div>
+
+          {/* Selector Motiv — styling similar cu Agricultură */}
+          <div style={{display:'flex',background:'#f0f0f0',borderRadius:8,padding:3,gap:2}}>
+            {['VEHICUL NOU','VEHICUL UZAT'].map(m=>(
+              <button key={m} onClick={()=>setMotiv(m)} style={{
+                background:motiv===m?C.card:'transparent',border:'none',borderRadius:6,
+                padding:'6px 14px',fontSize:11,fontWeight:motiv===m?600:400,
+                color:motiv===m?C.navy:C.muted,cursor:'pointer',fontFamily:'DM Sans',
+                boxShadow:motiv===m?'0 1px 3px rgba(0,0,0,0.1)':'none'
+              }}>{m==='VEHICUL NOU'?'🆕 Vehicul Nou':'🔄 Vehicul Uzat'}</button>
+            ))}
+          </div>
+        </div>
+
+        {/* KPI Cards */}
+        <div style={{display:'flex',gap:12,marginBottom:16}}>
+          <KPICard
+            label={`Total ${LUNI_LABELS[luna]}`}
+            value={fmt(d.total)}
+            sub={`Autoturisme înmatriculate • ${motiv}`}
+            color={motiv==='VEHICUL NOU'?C.blue:C.amber}
+            delta={deltaTotal}
+          />
+          <KPICard
+            label="Persoane fizice"
+            value={fmt(d.detinator.find(([k])=>k==='PERSOANA FIZICA')?.[1]||0)}
+            sub={`${((d.detinator.find(([k])=>k==='PERSOANA FIZICA')?.[1]||0)/d.total*100).toFixed(1)}% din total`}
+            color={C.green}
+          />
+          <KPICard
+            label="Companii"
+            value={fmt(d.detinator.find(([k])=>k==='COMPANIE')?.[1]||0)}
+            sub={`${((d.detinator.find(([k])=>k==='COMPANIE')?.[1]||0)/d.total*100).toFixed(1)}% din total`}
+            color={C.blue}
+          />
+          <KPICard
+            label="#1 Marcă"
+            value={d.marca[0]?.[0]||'—'}
+            sub={`${fmt(d.marca[0]?.[1]||0)} înmatriculări • ${((d.marca[0]?.[1]||0)/d.total*100).toFixed(1)}%`}
+            color={C.navy}
+          />
+        </div>
+
+        {/* Evoluție lunară mini */}
+        {luna==='total' && (
+          <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:10,padding:'12px 20px',marginBottom:16,display:'flex',alignItems:'center',gap:24}}>
+            <div style={{fontSize:12,fontWeight:600,color:C.navy}}>Evoluție lunară:</div>
+            {monthlyTotals.map(({l,v},i)=>{
+              const prev = i>0 ? monthlyTotals[i-1].v : null;
+              const delta = prev ? ((v-prev)/prev*100) : null;
+              return (
+                <div key={l} style={{display:'flex',alignItems:'center',gap:10}}>
+                  <div>
+                    <div style={{fontSize:11,color:C.muted}}>{LUNI_LABELS[l].split(' ')[0]}</div>
+                    <div style={{fontSize:16,fontWeight:700,color:C.navy}}>{fmt(v)}</div>
+                    {delta && <div style={{fontSize:10,color:delta>=0?C.green:C.red,fontWeight:600}}>{delta>=0?'▲':'▼'} {Math.abs(delta).toFixed(1)}%</div>}
+                  </div>
+                  {i<monthlyTotals.length-1 && <div style={{color:C.border,fontSize:20}}>→</div>}
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Card principal cu tab-uri */}
+        <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:10,overflow:'hidden'}}>
+          {/* Tab bar */}
+          <div style={{display:'flex',borderBottom:`1px solid ${C.border}`,padding:'0 16px',alignItems:'center'}}>
+            {tabs.map(t=>(
+              <button key={t.id} onClick={()=>setTab(t.id)} style={{
+                background:'none',border:'none',cursor:'pointer',
+                padding:'12px 16px',fontSize:12,fontFamily:'DM Sans',
+                fontWeight:tab===t.id?600:400,
+                color:tab===t.id?C.blue:C.muted,
+                borderBottom:tab===t.id?`2px solid ${C.blue}`:'2px solid transparent',marginBottom:-1
+              }}>{t.label}</button>
+            ))}
+            <div style={{flex:1}}/>
+            <div style={{display:'flex',gap:4,padding:'0 4px'}}>
+              {[['grafic','📊 Grafic'],['lunar','📅 Lunar'],['tabel','⊞ Tabel']].map(([v,lbl])=>(
+                <button key={v} onClick={()=>setView(v)} style={{
+                  background:view===v?C.navy:'transparent',color:view===v?'#fff':C.muted,
+                  border:`1px solid ${view===v?C.navy:C.border}`,borderRadius:5,
+                  padding:'4px 12px',fontSize:11,cursor:'pointer',fontFamily:'DM Sans'
+                }}>{lbl}</button>
+              ))}
+            </div>
+          </div>
+
+          {/* Tab content */}
+          <div style={{padding: view==='tabel'&&tab!=='detinator'?0:24}}>
+
+            {/* DEȚINĂTOR */}
+            {tab==='detinator' && (
+              <div style={{display:'flex',gap:32,alignItems:'flex-start',flexWrap:'wrap'}}>
+                <div style={{flex:1,minWidth:200}}>
+                  <div style={{fontSize:13,fontWeight:700,color:C.navy,marginBottom:4}}>Distribuție după deținător</div>
+                  <div style={{fontSize:11,color:C.muted,marginBottom:16}}>{LUNI_LABELS[luna]} • {motiv}</div>
+                  <DonutChart data={d.detinator} colors={DET_COLORS}/>
+                </div>
+                <div style={{flex:2,minWidth:280}}>
+                  <div style={{fontSize:13,fontWeight:700,color:C.navy,marginBottom:16}}>Detalii</div>
+                  {d.detinator.map(([k,v],i)=>{
+                    const pct = (v/d.total*100).toFixed(1);
+                    return (
+                      <div key={k} style={{marginBottom:16}}>
+                        <div style={{display:'flex',justifyContent:'space-between',marginBottom:6}}>
+                          <div style={{fontSize:13,fontWeight:600,color:DET_COLORS[i]}}>{k}</div>
+                          <div style={{fontSize:13,fontWeight:700,color:C.navy}}>{fmt(v)} <span style={{fontSize:11,color:C.muted,fontWeight:400}}>({pct}%)</span></div>
+                        </div>
+                        <div style={{height:12,background:'#f0f0f0',borderRadius:6,overflow:'hidden'}}>
+                          <div style={{width:`${pct}%`,height:'100%',background:DET_COLORS[i],borderRadius:6,transition:'width 0.4s'}}/>
+                        </div>
+                      </div>
+                    );
+                  })}
+                  <div style={{marginTop:24,background:C.bg,borderRadius:8,padding:14}}>
+                    <div style={{fontSize:11,fontWeight:600,color:C.muted,marginBottom:8}}>NOTĂ METODOLOGICĂ</div>
+                    <div style={{fontSize:11,color:C.muted,lineHeight:1.6}}>
+                      Categoria <strong>Companie</strong> include: Persoane juridice, Misiuni diplomatice și alte entități non-fizice.<br/>
+                      Sursa: DRPCIV • Date individuale per înmatriculare
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* MARCĂ */}
+            {tab==='marca' && (
+              <div>
+                <div style={{display:'flex',alignItems:'center',marginBottom:12,gap:12}}>
+                  <div>
+                    <div style={{fontSize:13,fontWeight:700,color:C.navy,marginBottom:3}}>Top mărci înmatriculate — {LUNI_LABELS[luna]}</div>
+                    <div style={{fontSize:11,color:C.muted}}>{motiv} • primele {marcaLimit} mărci</div>
+                  </div>
+                  <div style={{marginLeft:'auto',display:'flex',gap:4}}>
+                    {[10,15,20].map(n=>(
+                      <button key={n} onClick={()=>setMarcaLimit(n)} style={{
+                        background:marcaLimit===n?C.navy:'transparent',color:marcaLimit===n?'#fff':C.muted,
+                        border:`1px solid ${marcaLimit===n?C.navy:C.border}`,borderRadius:5,
+                        padding:'4px 10px',fontSize:11,cursor:'pointer',fontFamily:'DM Sans'
+                      }}>Top {n}</button>
+                    ))}
+                  </div>
+                </div>
+                {view==='grafic' ? (
+                  <BarChart data={d.marca.slice(0,marcaLimit)} color={motiv==='VEHICUL NOU'?C.blue:C.amber} horizontal={true}/>
+                ) : (
+                  <DataTable data={d.marca.slice(0,marcaLimit)} col1="Marcă"/>
+                )}
+              </div>
+            )}
+
+            {/* JUDEȚ */}
+            {tab==='judet' && (
+              <div>
+                <div style={{fontSize:13,fontWeight:700,color:C.navy,marginBottom:4}}>Distribuție pe județe — {LUNI_LABELS[luna]}</div>
+                <div style={{fontSize:11,color:C.muted,marginBottom:16}}>{motiv}</div>
+                {view==='grafic' ? (
+                  <BarChart data={d.judet.slice(0,20)} color={JUDET_COLORS} horizontal={true}/>
+                ) : (
+                  <DataTable data={d.judet} col1="Județ"/>
+                )}
+              </div>
+            )}
+
+            {/* COMBUSTIBIL */}
+            {tab==='combustibil' && (
+              <div style={{display:'flex',gap:32,alignItems:'flex-start',flexWrap:'wrap'}}>
+                {view==='grafic' ? (
+                  <>
+                    <div style={{flex:1,minWidth:200}}>
+                      <div style={{fontSize:13,fontWeight:700,color:C.navy,marginBottom:4}}>Distribuție combustibil</div>
+                      <div style={{fontSize:11,color:C.muted,marginBottom:16}}>{LUNI_LABELS[luna]} • {motiv}</div>
+                      <DonutChart data={d.combustibil} colors={COMB_COLORS}/>
+                    </div>
+                    <div style={{flex:2,minWidth:300}}>
+                      <div style={{fontSize:13,fontWeight:700,color:C.navy,marginBottom:16}}>Detaliu pe tip combustibil</div>
+                      <BarChart data={d.combustibil} color={COMB_COLORS} horizontal={true}/>
+                    </div>
+                  </>
+                ) : (
+                  <div style={{width:'100%',padding:'0 0'}}>
+                    <DataTable data={d.combustibil} col1="Tip combustibil"/>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div style={{borderTop:`1px solid ${C.border}`,background:C.card,padding:'10px 24px',display:'flex',alignItems:'center',gap:8,flexWrap:'wrap'}}>
+        <div style={{width:7,height:7,borderRadius:'50%',background:'#22c55e',flexShrink:0}}/>
+        <div style={{fontSize:11,color:C.muted}}>Sursa: DRPCIV — Direcția Regim Permise de Conducere și Înmatriculare a Vehiculelor</div>
+        <span style={{color:C.border}}>•</span>
+        <a href="https://dgpci.mai.gov.ro/news-and-media/statistica" target="_blank" rel="noopener noreferrer"
+          style={{fontSize:11,color:C.blue,textDecoration:'none'}}>🔗 dgpci.mai.gov.ro</a>
+        <div style={{flex:1}}/>
+        <div style={{fontSize:11,color:C.subtle}}>Date: Ian–Mar 2026 • Actualizat lunar</div>
+      </div>
+
+      {/* Tweaks */}
+      {tweaksOpen && (
+        <div style={{position:'fixed',bottom:24,right:24,width:240,background:'#fff',border:`1px solid ${C.border}`,borderRadius:10,boxShadow:'0 8px 32px rgba(0,0,0,0.12)',padding:16,zIndex:9999,fontFamily:'DM Sans'}}>
+          <div style={{fontSize:13,fontWeight:700,color:C.navy,marginBottom:12,borderBottom:`1px solid ${C.border}`,paddingBottom:8}}>✏️ Tweaks</div>
+          <div style={{fontSize:11,color:C.muted,marginBottom:4}}>Tip vehicul implicit</div>
+          {['VEHICUL NOU','VEHICUL UZAT'].map(m=>(
+            <label key={m} style={{display:'flex',alignItems:'center',gap:6,fontSize:12,marginBottom:4,cursor:'pointer'}}>
+              <input type="radio" checked={tw.defaultMotiv===m} onChange={()=>{const n={...tw,defaultMotiv:m};setTw(n);setMotiv(m);window.parent.postMessage({type:'__edit_mode_set_keys',edits:n},'*');}}/>
+              {m}
+            </label>
+          ))}
+          <div style={{fontSize:11,color:C.muted,marginBottom:4,marginTop:10}}>Tab implicit</div>
+          {tabs.map(t=>(
+            <label key={t.id} style={{display:'flex',alignItems:'center',gap:6,fontSize:12,marginBottom:4,cursor:'pointer'}}>
+              <input type="radio" checked={tw.defaultTab===t.id} onChange={()=>{const n={...tw,defaultTab:t.id};setTw(n);setTab(t.id);window.parent.postMessage({type:'__edit_mode_set_keys',edits:n},'*');}}/>
+              {t.label}
+            </label>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+<div id="root"></div>
+</body>
+</html>

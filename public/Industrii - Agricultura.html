@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agricultură — Prețuri Cereale BRM 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>* { box-sizing: border-box; margin: 0; padding: 0; } body { font-family: 'DM Sans', sans-serif; background: #f4f5f7; }</style>
+</head>
+<body>
+<script type="text/babel">
+
+const C = {
+  bg: '#f4f5f7', card: '#fff', border: '#e8eaed',
+  navy: '#0f2044', blue: '#1a56db', blueLight: '#e8f0fe',
+  green: '#0e7245', greenLight: '#d4edda',
+  red: '#b91c1c', redLight: '#fee2e2',
+  amber: '#92400e', amberLight: '#fef3c7',
+  text: '#1a1d23', muted: '#6b7280', subtle: '#9ca3af',
+  vest: '#1a56db', est: '#0e7245', sud: '#c2410c',
+};
+
+/* ── Date BRM Cereale 2026 — Săptămânile 02–16 ── */
+const SAPTAMANI = [
+  { nr: 2,  label: 'S02\n08-14 ian',  grau: { VEST: 950,  EST: 962,  SUD: 941  }, porumb: { VEST: 1015, EST: 944,  SUD: 1027 } },
+  { nr: 3,  label: 'S03\n15-21 ian',  grau: { VEST: 948,  EST: 1022, SUD: 928  }, porumb: { VEST: 958,  EST: 932,  SUD: 995  } },
+  { nr: 4,  label: 'S04\n22-28 ian',  grau: { VEST: 964,  EST: 952,  SUD: 938  }, porumb: { VEST: 1002, EST: 932,  SUD: 1030 } },
+  { nr: 5,  label: 'S05\n29ian-04feb', grau: { VEST: 1003, EST: 987,  SUD: 953  }, porumb: { VEST: 927,  EST: 957,  SUD: 989  } },
+  { nr: 6,  label: 'S06\n05-11 feb',  grau: { VEST: 982,  EST: 1025, SUD: 939  }, porumb: { VEST: 990,  EST: 937,  SUD: 971  } },
+  { nr: 7,  label: 'S07\n12-18 feb',  grau: { VEST: 899,  EST: 982,  SUD: 925  }, porumb: { VEST: 965,  EST: 943,  SUD: 1015 } },
+  { nr: 8,  label: 'S08\n19-25 feb',  grau: { VEST: 991,  EST: 985,  SUD: 936  }, porumb: { VEST: 947,  EST: 931,  SUD: 999  } },
+  { nr: 9,  label: 'S09\n26feb-04mar', grau: { VEST: 938,  EST: 986,  SUD: 914  }, porumb: { VEST: 929,  EST: 956,  SUD: 1039 } },
+  { nr: 10, label: 'S10\n05-11 mar',  grau: { VEST: 973,  EST: 1018, SUD: 957  }, porumb: { VEST: 913,  EST: 976,  SUD: 1021 } },
+  { nr: 11, label: 'S11\n12-18 mar',  grau: { VEST: 964,  EST: 1018, SUD: 943  }, porumb: { VEST: 928,  EST: 960,  SUD: 1021 } },
+  { nr: 12, label: 'S12\n19-25 mar',  grau: { VEST: 901,  EST: 983,  SUD: 957  }, porumb: { VEST: 919,  EST: 916,  SUD: 1033 } },
+  { nr: 13, label: 'S13\n26mar-01apr', grau: { VEST: 970,  EST: 962,  SUD: 959  }, porumb: { VEST: 957,  EST: 907,  SUD: 998  } },
+  { nr: 14, label: 'S14\n02-08 apr',  grau: { VEST: 964,  EST: 1040, SUD: 956  }, porumb: { VEST: 937,  EST: 980,  SUD: 993  } },
+  { nr: 15, label: 'S15\n09-15 apr',  grau: { VEST: 900,  EST: 1093, SUD: 947  }, porumb: { VEST: 1075, EST: 971,  SUD: 990  } },
+  { nr: 16, label: 'S16\n16-22 apr',  grau: { VEST: 952,  EST: 947,  SUD: 946  }, porumb: { VEST: 976,  EST: 992,  SUD: 989  } },
+];
+
+const ZONE = ['VEST', 'EST', 'SUD'];
+const ZONE_COLORS = { VEST: '#1a56db', EST: '#0e7245', SUD: '#c2410c' };
+const ZONE_LIGHT = { VEST: '#dbeafe', EST: '#dcfce7', SUD: '#fee2e2' };
+
+const fmt = (v) => v ? new Intl.NumberFormat('en-US').format(v) : '—';
+const fmtV = (v) => v ? `${new Intl.NumberFormat('en-US').format(v)} lei/t` : '—';
+
+/* ── KPI Card ── */
+const KPICard = ({ label, value, sub, color = C.blue, delta }) => (
+  <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, padding: '14px 18px', flex: 1 }}>
+    <div style={{ fontSize: 11, fontWeight: 600, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 6 }}>{label}</div>
+    <div style={{ fontSize: 22, fontWeight: 700, color, lineHeight: 1, marginBottom: 4 }}>{value}</div>
+    {sub && <div style={{ fontSize: 11, color: C.subtle }}>{sub}</div>}
+    {delta !== undefined && (
+      <div style={{ fontSize: 11, fontWeight: 600, color: delta >= 0 ? C.green : C.red, marginTop: 3 }}>
+        {delta >= 0 ? '▲' : '▼'} {Math.abs(delta).toFixed(1)}% față de S02
+      </div>
+    )}
+  </div>
+);
+
+/* ── Grafic linii SVG ── */
+const LineChart = ({ produs, dataKey }) => {
+  const [hover, setHover] = React.useState(null);
+  const W = 860, H = 280, PL = 60, PR = 20, PT = 30, PB = 55;
+  const chartW = W - PL - PR, chartH = H - PT - PB;
+  const n = SAPTAMANI.length;
+
+  const allVals = SAPTAMANI.flatMap(s => ZONE.map(z => s[dataKey][z]).filter(Boolean));
+  const minV = Math.min(...allVals) - 30;
+  const maxV = Math.max(...allVals) + 30;
+  const range = maxV - minV;
+
+  const xOf = (i) => PL + (i / (n - 1)) * chartW;
+  const yOf = (v) => PT + chartH - ((v - minV) / range) * chartH;
+
+  const gridVals = [];
+  const step = range > 200 ? 50 : 25;
+  for (let v = Math.ceil(minV / step) * step; v <= maxV; v += step) gridVals.push(v);
+
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto' }}
+      onMouseLeave={() => setHover(null)}>
+
+      {/* grid */}
+      {gridVals.map(v => (
+        <g key={v}>
+          <line x1={PL} y1={yOf(v)} x2={W - PR} y2={yOf(v)} stroke={C.border} strokeWidth={0.5} strokeDasharray="3,3" />
+          <text x={PL - 6} y={yOf(v) + 4} textAnchor="end" fontSize={9} fill={C.muted}>{v}</text>
+        </g>
+      ))}
+
+      {/* hover vertical line */}
+      {hover !== null && (
+        <line x1={xOf(hover)} y1={PT} x2={xOf(hover)} y2={PT + chartH} stroke="#ccc" strokeWidth={1} strokeDasharray="3,2" />
+      )}
+
+      {/* Lines per zonă */}
+      {ZONE.map(zona => {
+        const pts = SAPTAMANI.map((s, i) => ({ x: xOf(i), y: yOf(s[dataKey][zona]), v: s[dataKey][zona] }))
+          .filter(p => p.v);
+        const col = ZONE_COLORS[zona];
+        return (
+          <g key={zona}>
+            <polyline
+              points={pts.map(p => `${p.x},${p.y}`).join(' ')}
+              stroke={col} strokeWidth={2.5} fill="none" strokeLinejoin="round" />
+            {pts.map((p, i) => {
+              const sIdx = SAPTAMANI.findIndex((s, si) => s[dataKey][zona] && si === pts.indexOf ? si : si);
+              const isH = hover !== null && SAPTAMANI[hover]?.[dataKey]?.[zona] && pts.some(pp => Math.abs(pp.x - xOf(hover)) < 1);
+              return (
+                <circle key={i} cx={p.x} cy={p.y} r={3.5} fill={col} stroke="#fff" strokeWidth={1.5} />
+              );
+            })}
+          </g>
+        );
+      })}
+
+      {/* Hover detector areas + dots highlights */}
+      {SAPTAMANI.map((s, i) => (
+        <rect key={i} x={xOf(i) - chartW / n / 2} y={PT} width={chartW / n} height={chartH}
+          fill="transparent" onMouseEnter={() => setHover(i)} />
+      ))}
+
+      {/* x labels */}
+      {SAPTAMANI.map((s, i) => (
+        <g key={i}>
+          <text x={xOf(i)} y={H - 22} textAnchor="middle" fontSize={8} fill={hover === i ? C.navy : C.muted}
+            fontWeight={hover === i ? 700 : 400}>S{s.nr}</text>
+          <text x={xOf(i)} y={H - 10} textAnchor="middle" fontSize={7} fill={C.subtle}>
+            {s.label.split('\n')[1].substring(0, 6)}
+          </text>
+        </g>
+      ))}
+
+      {/* Tooltip */}
+      {hover !== null && (() => {
+        const s = SAPTAMANI[hover];
+        const x = xOf(hover);
+        const tx = Math.min(Math.max(x - 80, 5), W - 170);
+        const vals = ZONE.map(z => ({ z, v: s[dataKey][z] })).filter(d => d.v);
+        return (
+          <g>
+            <rect x={tx} y={5} width={165} height={18 + vals.length * 16} rx={5} fill={C.navy} opacity={0.95} />
+            <text x={tx + 10} y={20} fontSize={10} fontWeight="700" fill="#fff">
+              S{s.nr} — {s.label.split('\n')[1]}
+            </text>
+            {vals.map(({ z, v }, i) => (
+              <text key={z} x={tx + 10} y={35 + i * 16} fontSize={9} fill={ZONE_COLORS[z]}>
+                {z}: {new Intl.NumberFormat('en-US').format(v)} lei/t
+              </text>
+            ))}
+          </g>
+        );
+      })()}
+
+      {/* Legend */}
+      {ZONE.map((z, i) => (
+        <g key={z}>
+          <line x1={PL + i * 80} y1={14} x2={PL + i * 80 + 18} y2={14} stroke={ZONE_COLORS[z]} strokeWidth={2.5} />
+          <text x={PL + i * 80 + 22} y={18} fontSize={9} fill={C.muted}>{z}</text>
+        </g>
+      ))}
+    </svg>
+  );
+};
+
+/* ── Tabel date ── */
+const DataTable = ({ dataKey, label }) => {
+  const latest = SAPTAMANI[SAPTAMANI.length - 1];
+  const prev = SAPTAMANI[SAPTAMANI.length - 2];
+
+  return (
+    <div style={{ overflowX: 'auto' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 11 }}>
+        <thead>
+          <tr style={{ background: C.navy }}>
+            <th style={{ padding: '9px 12px', color: '#fff', fontWeight: 600, fontSize: 11, textAlign: 'left', position: 'sticky', left: 0, background: C.navy, minWidth: 140 }}>
+              Săptămâna
+            </th>
+            {ZONE.map(z => (
+              <th key={z} colSpan={2} style={{ padding: '9px 12px', color: ZONE_LIGHT[z], fontWeight: 600, fontSize: 11, textAlign: 'center', borderLeft: `2px solid rgba(255,255,255,0.1)` }}>
+                {z}
+              </th>
+            ))}
+          </tr>
+          <tr style={{ background: '#0d1b36' }}>
+            <th style={{ padding: '5px 12px', color: 'rgba(255,255,255,0.5)', fontSize: 10, textAlign: 'left', position: 'sticky', left: 0, background: '#0d1b36' }}></th>
+            {ZONE.flatMap(z => [
+              <th key={z + '-p'} style={{ padding: '5px 10px', color: ZONE_LIGHT[z], fontSize: 10, textAlign: 'right', fontWeight: 400 }}>lei/t</th>,
+              <th key={z + '-v'} style={{ padding: '5px 10px', color: 'rgba(255,255,255,0.4)', fontSize: 10, textAlign: 'right', fontWeight: 400 }}>var%</th>
+            ])}
+          </tr>
+        </thead>
+        <tbody>
+          {[...SAPTAMANI].reverse().map((s, rowIdx) => {
+            const prevS = SAPTAMANI[SAPTAMANI.length - 2 - rowIdx];
+            const bg = rowIdx === 0 ? '#f0f7ff' : rowIdx % 2 === 0 ? '#fff' : '#fafafa';
+            return (
+              <tr key={s.nr} style={{ background: bg, borderBottom: `1px solid ${C.border}` }}>
+                <td style={{ padding: '7px 12px', fontWeight: rowIdx === 0 ? 700 : 400, color: rowIdx === 0 ? C.navy : C.text, position: 'sticky', left: 0, background: bg, fontSize: 11 }}>
+                  <div style={{ fontWeight: 600 }}>S{s.nr}/2026</div>
+                  <div style={{ fontSize: 9, color: C.subtle }}>{s.label.split('\n')[1]}</div>
+                </td>
+                {ZONE.flatMap(z => {
+                  const v = s[dataKey][z];
+                  const vPrev = prevS?.[dataKey]?.[z];
+                  const varPct = v && vPrev ? ((v - vPrev) / vPrev * 100) : null;
+                  return [
+                    <td key={z + '-p'} style={{ padding: '7px 10px', textAlign: 'right', fontFamily: 'DM Mono, monospace', fontWeight: rowIdx === 0 ? 700 : 400, color: ZONE_COLORS[z], borderLeft: `2px solid ${ZONE_LIGHT[z]}` }}>
+                      {v ? new Intl.NumberFormat('en-US').format(v) : '—'}
+                    </td>,
+                    <td key={z + '-v'} style={{ padding: '7px 10px', textAlign: 'right', fontSize: 10 }}>
+                      {varPct !== null ? (
+                        <span style={{
+                          color: varPct > 0 ? C.green : varPct < 0 ? C.red : C.muted,
+                          fontWeight: Math.abs(varPct) > 5 ? 700 : 400
+                        }}>
+                          {varPct > 0 ? '+' : ''}{varPct.toFixed(1)}%
+                        </span>
+                      ) : '—'}
+                    </td>
+                  ];
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+/* ── App ── */
+function App() {
+  const [produs, setProdus] = React.useState('grau');
+  const [view, setView] = React.useState('grafic');
+  const [tweaksOpen, setTweaksOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    const h = e => {
+      if (e.data?.type === '__activate_edit_mode') setTweaksOpen(true);
+      if (e.data?.type === '__deactivate_edit_mode') setTweaksOpen(false);
+    };
+    window.addEventListener('message', h);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', h);
+  }, []);
+
+  const dataKey = produs === 'grau' ? 'grau' : 'porumb';
+  const prodLabel = produs === 'grau' ? 'Grâu pt. Panificație' : 'Porumb';
+  const latest = SAPTAMANI[SAPTAMANI.length - 1];
+  const first = SAPTAMANI[0];
+
+  return (
+    <div style={{ minHeight: '100vh', background: C.bg, display: 'flex', flexDirection: 'column' }}>
+
+      {/* Navbar */}
+      <nav style={{ background: C.navy, height: 52, display: 'flex', alignItems: 'center', padding: '0 24px', gap: 24 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#fff' }}>📊 DatePublice.ro</div>
+        <div style={{ display: 'flex', gap: 6, flex: 1, justifyContent: 'center' }}>
+          {['Industrii','Instituții','Rapoarte'].map(l => (
+            <div key={l} style={{ fontSize: 12, color: l === 'Industrii' ? '#fff' : 'rgba(255,255,255,0.55)', padding: '4px 10px', borderRadius: 5, borderBottom: l === 'Industrii' ? '2px solid #1a56db' : '2px solid transparent' }}>{l}</div>
+          ))}
+        </div>
+        <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>Cont</div>
+      </nav>
+
+      {/* Header industrie */}
+      <div style={{ background: C.card, borderBottom: `1px solid ${C.border}`, padding: '0 24px' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <div style={{ fontSize: 11, color: C.subtle, padding: '10px 0 0', display: 'flex', gap: 5 }}>
+            <span>Acasă</span><span>›</span><span>Industrii</span><span>›</span>
+            <span style={{ color: C.text, fontWeight: 500 }}>Agricultură</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '10px 0 12px' }}>
+            <div style={{ width: 40, height: 40, background: '#f0fdf4', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>🌾</div>
+            <div>
+              <div style={{ fontSize: 18, fontWeight: 700, color: C.navy }}>Agricultură</div>
+              <div style={{ fontSize: 11, color: C.muted }}>brm.ro • Bursa Română de Mărfuri</div>
+            </div>
+            <a href="https://brm.ro/cotatii-cereale/" target="_blank" rel="noopener noreferrer"
+              style={{ marginLeft: 'auto', fontSize: 11, color: C.blue, textDecoration: 'none', border: `1px solid ${C.blue}`, padding: '5px 12px', borderRadius: 6 }}>
+              ↗ brm.ro
+            </a>
+          </div>
+          {/* Subtabs */}
+          <div style={{ display: 'flex', gap: 0, borderTop: `1px solid ${C.border}` }}>
+            {['Prețuri Cereale','Suprafețe Cultivate','Producții','Exporturi'].map((t, i) => (
+              <div key={t} style={{ fontSize: 12, fontWeight: i === 0 ? 600 : 400, color: i === 0 ? C.blue : C.muted, padding: '10px 16px', cursor: 'pointer', borderBottom: i === 0 ? `2px solid ${C.blue}` : '2px solid transparent' }}>{t}</div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Conținut */}
+      <div style={{ flex: 1, padding: '20px 24px', maxWidth: 1200, margin: '0 auto', width: '100%' }}>
+
+        {/* Titlu + selector produs */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+          <div style={{ flex: 1 }}>
+            <h1 style={{ fontSize: 18, fontWeight: 700, color: C.navy, marginBottom: 4 }}>Prețuri Cereale — Cotații BRM 2026</h1>
+            <p style={{ fontSize: 12, color: C.muted }}>Cotații săptămânale pe zone de livrare (lei/tonă) • S02–S16 2026</p>
+          </div>
+          {/* Selector produs */}
+          <div style={{ display: 'flex', background: '#f0f0f0', borderRadius: 8, padding: 3, gap: 2 }}>
+            {[['grau','🌾 Grâu Panificație'],['porumb','🌽 Porumb']].map(([id, lbl]) => (
+              <button key={id} onClick={() => setProdus(id)} style={{
+                background: produs === id ? C.card : 'transparent',
+                border: 'none', borderRadius: 6, padding: '7px 16px', fontSize: 12,
+                fontWeight: produs === id ? 600 : 400,
+                color: produs === id ? C.navy : C.muted,
+                cursor: 'pointer', fontFamily: 'DM Sans',
+                boxShadow: produs === id ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+              }}>{lbl}</button>
+            ))}
+          </div>
+        </div>
+
+        {/* KPI Cards */}
+        <div style={{ display: 'flex', gap: 12, marginBottom: 16 }}>
+          {ZONE.map(z => {
+            const vLatest = latest[dataKey][z];
+            const vFirst = first[dataKey][z];
+            const delta = vFirst ? ((vLatest - vFirst) / vFirst * 100) : null;
+            return (
+              <KPICard
+                key={z}
+                label={`S16 — Zona ${z}`}
+                value={`${new Intl.NumberFormat('en-US').format(vLatest)} lei/t`}
+                sub={`${prodLabel} • Apr 2026`}
+                color={ZONE_COLORS[z]}
+                delta={delta}
+              />
+            );
+          })}
+          {/* Media națională */}
+          <KPICard
+            label="Medie națională S16"
+            value={`${new Intl.NumberFormat('en-US').format(Math.round(ZONE.reduce((s, z) => s + latest[dataKey][z], 0) / 3))} lei/t`}
+            sub={`${prodLabel} • VEST+EST+SUD`}
+            color={C.navy}
+          />
+        </div>
+
+        {/* Card principal */}
+        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, overflow: 'hidden' }}>
+          {/* Tab bar */}
+          <div style={{ display: 'flex', borderBottom: `1px solid ${C.border}`, padding: '0 16px', alignItems: 'center' }}>
+            {[['grafic','📈 Grafic evoluție'],['tabel','⊞ Tabel săptămânal']].map(([id, lbl]) => (
+              <button key={id} onClick={() => setView(id)} style={{
+                background: 'none', border: 'none', cursor: 'pointer',
+                padding: '12px 16px', fontSize: 12, fontFamily: 'DM Sans',
+                fontWeight: view === id ? 600 : 400,
+                color: view === id ? C.blue : C.muted,
+                borderBottom: view === id ? `2px solid ${C.blue}` : '2px solid transparent',
+                marginBottom: -1,
+              }}>{lbl}</button>
+            ))}
+            <div style={{ flex: 1 }} />
+            {/* Legend zone */}
+            <div style={{ display: 'flex', gap: 14, padding: '0 8px' }}>
+              {ZONE.map(z => (
+                <div key={z} style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 11, color: C.muted }}>
+                  <div style={{ width: 12, height: 3, background: ZONE_COLORS[z], borderRadius: 2 }} />
+                  {z}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ padding: view === 'tabel' ? 0 : 24 }}>
+            {view === 'grafic' && (
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: C.navy, marginBottom: 4 }}>
+                  Evoluție {prodLabel} — S02–S16 2026 (lei/tonă)
+                </div>
+                <div style={{ fontSize: 11, color: C.muted, marginBottom: 16 }}>
+                  Cotații BRM pe zone de livrare Ex Warehouse • Hover pe grafic pentru detalii
+                </div>
+                <LineChart produs={produs} dataKey={dataKey} />
+
+                {/* Min/Max summary */}
+                <div style={{ display: 'flex', gap: 10, marginTop: 16, flexWrap: 'wrap' }}>
+                  {ZONE.map(z => {
+                    const vals = SAPTAMANI.map(s => s[dataKey][z]).filter(Boolean);
+                    const min = Math.min(...vals), max = Math.max(...vals);
+                    const minS = SAPTAMANI.find(s => s[dataKey][z] === min);
+                    const maxS = SAPTAMANI.find(s => s[dataKey][z] === max);
+                    return (
+                      <div key={z} style={{ background: ZONE_LIGHT[z], border: `1px solid ${ZONE_COLORS[z]}22`, borderRadius: 8, padding: '10px 14px', flex: 1 }}>
+                        <div style={{ fontSize: 11, fontWeight: 700, color: ZONE_COLORS[z], marginBottom: 6 }}>Zona {z}</div>
+                        <div style={{ display: 'flex', gap: 16, fontSize: 11 }}>
+                          <div>
+                            <div style={{ color: C.muted, fontSize: 10 }}>MIN</div>
+                            <div style={{ fontWeight: 700, color: C.red }}>{new Intl.NumberFormat('en-US').format(min)} <span style={{ fontWeight: 400, color: C.muted }}>lei/t</span></div>
+                            <div style={{ fontSize: 9, color: C.subtle }}>S{minS?.nr}</div>
+                          </div>
+                          <div>
+                            <div style={{ color: C.muted, fontSize: 10 }}>MAX</div>
+                            <div style={{ fontWeight: 700, color: C.green }}>{new Intl.NumberFormat('en-US').format(max)} <span style={{ fontWeight: 400, color: C.muted }}>lei/t</span></div>
+                            <div style={{ fontSize: 9, color: C.subtle }}>S{maxS?.nr}</div>
+                          </div>
+                          <div>
+                            <div style={{ color: C.muted, fontSize: 10 }}>VARIAȚIE</div>
+                            <div style={{ fontWeight: 700, color: C.muted }}>{(max - min)} lei/t</div>
+                            <div style={{ fontSize: 9, color: C.subtle }}>{((max - min) / min * 100).toFixed(1)}%</div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {view === 'tabel' && <DataTable dataKey={dataKey} label={prodLabel} />}
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div style={{ borderTop: `1px solid ${C.border}`, background: C.card, padding: '10px 24px', display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+        <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#22c55e', flexShrink: 0 }} />
+        <div style={{ fontSize: 11, color: C.muted }}>Sursa: Bursa Română de Mărfuri (BRM) — Cotații săptămânale cereale 2026</div>
+        <span style={{ color: C.border }}>•</span>
+        <a href="https://brm.ro/cotatii-cereale/" target="_blank" rel="noopener noreferrer"
+          style={{ fontSize: 11, color: C.blue, textDecoration: 'none' }}>🔗 brm.ro/cotatii-cereale</a>
+        <div style={{ flex: 1 }} />
+        <div style={{ fontSize: 11, color: C.subtle }}>Ultima actualizare: S16 2026 (16-22 Apr) • Frecvență: săptămânal</div>
+      </div>
+
+      {/* Tweaks */}
+      {tweaksOpen && (
+        <div style={{ position: 'fixed', bottom: 24, right: 24, width: 220, background: '#fff', border: `1px solid ${C.border}`, borderRadius: 10, boxShadow: '0 8px 32px rgba(0,0,0,0.12)', padding: 16, zIndex: 9999, fontFamily: 'DM Sans' }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: C.navy, marginBottom: 12, borderBottom: `1px solid ${C.border}`, paddingBottom: 8 }}>✏️ Tweaks</div>
+          <div style={{ fontSize: 11, color: C.muted, marginBottom: 4 }}>Produs afișat</div>
+          {[['grau','🌾 Grâu Panificație'],['porumb','🌽 Porumb']].map(([id, lbl]) => (
+            <label key={id} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, marginBottom: 4, cursor: 'pointer' }}>
+              <input type="radio" checked={produs === id} onChange={() => setProdus(id)} />
+              {lbl}
+            </label>
+          ))}
+          <div style={{ fontSize: 11, color: C.muted, marginBottom: 4, marginTop: 10 }}>Vizualizare</div>
+          {[['grafic','📈 Grafic'],['tabel','⊞ Tabel']].map(([id, lbl]) => (
+            <label key={id} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, marginBottom: 4, cursor: 'pointer' }}>
+              <input type="radio" checked={view === id} onChange={() => setView(id)} />
+              {lbl}
+            </label>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+<div id="root"></div>
+</body>
+</html>

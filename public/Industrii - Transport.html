@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transport rutier marfă | Platforma Date Publice</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', system-ui, sans-serif; font-size: 14px; background: #f4f5f7; color: #1a1f2e; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+button, select, input { font-family: inherit; }
+
+.navbar { background: #0f2044; height: 52px; display: flex; align-items: center; padding: 0 24px; gap: 24px; flex-shrink: 0; }
+.navbar-logo { font-size: 14px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+.navbar-links { display: flex; gap: 6px; flex: 1; justify-content: center; }
+.navbar-link { font-size: 12px; color: rgba(255,255,255,0.55); padding: 4px 10px; border-radius: 5px; border-bottom: 2px solid transparent; cursor: pointer; }
+.navbar-link.active { color: #fff; border-bottom-color: #1a56db; }
+.navbar-right { display: flex; gap: 10px; color: #fff; font-size: 12px; }
+.navbar-right span { opacity: 0.6; }
+.navbar-right span:last-child { opacity: 1; }
+
+.header { background: #fff; border-bottom: 1px solid #e8eaed; }
+.header-inner { max-width: 1200px; margin: 0 auto; padding: 14px 24px 0; }
+.breadcrumb { font-size: 11px; color: #5f6368; margin-bottom: 6px; }
+.breadcrumb .crumb-sub { color: #9aa0a6; }
+.breadcrumb .crumb-current { color: #1a1f2e; font-weight: 500; }
+.header-row { display: flex; align-items: center; gap: 14px; padding: 10px 0 12px; }
+.header-icon { width: 40px; height: 40px; background: #dbeafe; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.header-title { font-size: 18px; font-weight: 700; color: #0f2044; }
+.header-sub { font-size: 11px; color: #5f6368; }
+.header-link { margin-left: auto; font-size: 11px; color: #1a56db; text-decoration: none; border: 1px solid #1a56db; padding: 5px 12px; border-radius: 6px; }
+.tabs { display: flex; gap: 0; border-top: 1px solid #e8eaed; }
+.tab { padding: 10px 16px; font-size: 12px; font-weight: 400; cursor: pointer; border-bottom: 2px solid transparent; color: #5f6368; }
+.tab.active { border-bottom-color: #1a56db; color: #1a56db; font-weight: 600; }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 20px 24px; flex: 1; }
+
+.banner { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 12px 16px; display: flex; gap: 10px; align-items: flex-start; margin-bottom: 20px; }
+.banner svg { flex-shrink: 0; color: #1a56db; margin-top: 1px; }
+.banner p { font-size: 12px; color: #1d4ed8; line-height: 1.6; }
+.banner strong { font-weight: 600; }
+
+.subtabs-bar { display: flex; gap: 0; border-bottom: 1px solid #e8eaed; margin-bottom: 20px; flex-wrap: wrap; }
+.subtab-btn { padding: 10px 18px; font-size: 12px; font-weight: 400; color: #5f6368; background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; margin-bottom: -1px; }
+.subtab-btn:hover { color: #1a1f2e; }
+.subtab-btn.active { color: #1a56db; font-weight: 600; border-bottom-color: #1a56db; }
+.sub-panel { display: none; }
+.sub-panel.active { display: block; }
+
+.controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; background: #fff; border: 1px solid #e8eaed; border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; }
+.ctrl-group { display: flex; flex-direction: column; gap: 5px; }
+.ctrl-label { font-size: 10px; font-weight: 600; color: #5f6368; text-transform: uppercase; letter-spacing: .05em; }
+select, .search-input { border: 1px solid #e8eaed; border-radius: 6px; padding: 6px 10px; font-size: 12px; color: #1a1f2e; background: #fff; outline: none; min-width: 160px; }
+select:focus, .search-input:focus { border-color: #1a56db; box-shadow: 0 0 0 2px rgba(26,86,219,.15); }
+
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.kpi-card { background: #fff; border: 1px solid #e8eaed; border-radius: 10px; padding: 14px 18px; }
+.kpi-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: #5f6368; margin-bottom: 6px; }
+.kpi-value { font-size: 22px; font-weight: 700; color: #0f2044; line-height: 1; font-family: 'DM Mono', monospace; }
+.kpi-sub { font-size: 11px; color: #9aa0a6; margin-top: 4px; }
+
+.panel { background: #fff; border: 1px solid #e8eaed; border-radius: 10px; padding: 18px; margin-bottom: 16px; }
+.panel-title { font-size: 13px; font-weight: 700; color: #0f2044; margin-bottom: 14px; }
+.chart-wrap { position: relative; width: 100%; height: 320px; }
+
+.table-scroll { overflow-x: auto; border: 1px solid #e8eaed; border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+thead tr { background: #0f2044; }
+th { padding: 9px 12px; font-weight: 600; color: #fff; text-align: right; white-space: nowrap; font-size: 11px; cursor: pointer; user-select: none; }
+th:first-child, th.text-left { text-align: left; }
+th:hover { background: #1a2d56; }
+th .sort-icon { opacity: .5; margin-left: 3px; }
+th.sorted .sort-icon { opacity: 1; color: #93c5fd; }
+td { padding: 7px 12px; text-align: right; color: #1a1f2e; border-bottom: 1px solid #f4f5f7; font-family: 'DM Mono', monospace; }
+td.text-left { text-align: left; font-weight: 500; font-family: 'DM Sans', sans-serif; }
+td.rank { color: #9aa0a6; text-align: center; }
+tbody tr:nth-child(odd) { background: #fafafa; }
+tbody tr:hover { background: #f0f7ff; }
+
+.bar-cell { min-width: 100px; }
+.mini-bar-bg { background: #e8eaed; border-radius: 2px; height: 6px; overflow: hidden; }
+.mini-bar-fill { height: 100%; border-radius: 2px; }
+
+.class-badge { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; }
+.class-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.range-pill { display: inline-block; background: #f4f5f7; border: 1px solid #e8eaed; border-radius: 12px; padding: 2px 10px; font-size: 11px; color: #5f6368; }
+
+.footer { border-top: 1px solid #e8eaed; background: #fff; padding: 10px 24px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.footer-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; }
+.footer-text { font-size: 11px; color: #5f6368; }
+.footer a { font-size: 11px; color: #1a56db; text-decoration: none; }
+.footer-sep { color: #e8eaed; }
+.footer-spacer { flex: 1; }
+.footer-meta { font-size: 11px; color: #9aa0a6; }
+
+.loading { padding: 60px; text-align: center; color: #9aa0a6; font-size: 13px; }
+
+.flag-cell { display: inline-flex; align-items: center; gap: 8px; }
+.flag-icon { width: 18px; height: 13px; border-radius: 2px; background-size: cover; background-position: center; border: 1px solid #e8eaed; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-logo">📊 DatePublice.ro</div>
+  <div class="navbar-links">
+    <div class="navbar-link active">Industrii</div>
+    <div class="navbar-link">Instituții</div>
+    <div class="navbar-link">Rapoarte</div>
+  </div>
+  <div class="navbar-right"><span>🔍</span><span>🔔</span><span>👤</span></div>
+</nav>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="breadcrumb">
+      <span class="crumb-sub">Acasă › Industrii › </span>
+      <span class="crumb-current">Transport</span>
+    </div>
+    <div class="header-row">
+      <div class="header-icon">🚛</div>
+      <div>
+        <div class="header-title">Transport rutier de marfă</div>
+        <div class="header-sub">Operatori autorizați + prețuri carburanți UE (Oil Bulletin)</div>
+      </div>
+      <a href="https://autorizatiiauto.ro" target="_blank" rel="noopener noreferrer" class="header-link">↗ Site oficial</a>
+    </div>
+    <div class="tabs">
+      <div class="tab active">Transport</div>
+    </div>
+  </div>
+</div>
+
+<div class="main" id="main-content">
+  <div class="loading">Se încarcă datele...</div>
+</div>
+
+<div class="footer">
+  <div class="footer-dot"></div>
+  <div class="footer-text">Sursa: autorizatiiauto.ro + EU Weekly Oil Bulletin (DG ENER)</div>
+  <span class="footer-sep">•</span>
+  <a href="https://autorizatiiauto.ro" target="_blank" rel="noopener noreferrer">🔗 autorizatiiauto.ro</a>
+  <div class="footer-spacer"></div>
+  <div class="footer-meta">Aprilie 2025 (operatori) • Mai 2026 (Oil Bulletin)</div>
+</div>
+
+<script>
+const MONTHS_RO = ['Ian','Feb','Mar','Apr','Mai','Iun','Iul','Aug','Sep','Oct','Nov','Dec'];
+const fmt = (n) => n==null?'—':n.toLocaleString('en-US');
+const fmt2 = (n) => n==null?'—':n.toFixed(3);
+let DATA, claseChart=null, oilChart=null, geoChart=null;
+let opState = { search:'', sortCol:'veh', sortDir:-1 };
+let oilState = { country: 'RO', compare: 'EU_AVG', startYear: 2020 };
+let geoState = { search:'', sortCol:'ops', sortDir:-1 };
+
+fetch('transport_data.json').then(r=>r.json()).then(d => {
+  DATA = d;
+  renderShell();
+  renderClase();
+}).catch(e => {
+  document.getElementById('main-content').innerHTML = '<div style="padding:30px;color:#b91c1c">Eroare: '+e+'</div>';
+});
+
+function renderShell() {
+  document.getElementById('main-content').innerHTML = `
+    <div class="banner">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <p>Date <strong>autorizatiiauto.ro</strong> (Aprilie 2025) — operatori autorizați transport rutier de marfă, plus prețuri săptămânale diesel UE (<strong>EU Weekly Oil Bulletin</strong>) 2005-2026.</p>
+    </div>
+    <div class="subtabs-bar">
+      <button class="subtab-btn active" data-tab="clase" onclick="switchSub('clase')">📊 Clase transportatori</button>
+      <button class="subtab-btn" data-tab="operatori" onclick="switchSub('operatori')">🚚 Operatori mari</button>
+      <button class="subtab-btn" data-tab="geo" onclick="switchSub('geo')">📍 Distribuție geografică</button>
+      <button class="subtab-btn" data-tab="oil" onclick="switchSub('oil')">⛽ Oil Bulletin (diesel UE)</button>
+    </div>
+    <div id="sub-clase" class="sub-panel active"></div>
+    <div id="sub-operatori" class="sub-panel"></div>
+    <div id="sub-geo" class="sub-panel"></div>
+    <div id="sub-oil" class="sub-panel"></div>
+  `;
+}
+
+function switchSub(name) {
+  document.querySelectorAll('.subtab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab===name));
+  document.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('sub-'+name).classList.add('active');
+  if (name==='clase') renderClase();
+  else if (name==='operatori') renderOperatori();
+  else if (name==='geo') renderGeo();
+  else renderOil();
+}
+
+/* ════════ CLASE ════════ */
+function renderClase() {
+  const totals = DATA.CLASES.reduce((s,c) => ({ops: s.ops+c.operatori, veh: s.veh+c.camioane}), {ops:0,veh:0});
+  const avgFlota = (totals.veh/totals.ops).toFixed(1);
+  const maxFlota = Math.max(...DATA.OPERATORI.map(o=>o.veh));
+
+  const panel = document.getElementById('sub-clase');
+  panel.innerHTML = `
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Total operatori</div>
+        <div class="kpi-value">${fmt(totals.ops)}</div>
+        <div class="kpi-sub">autorizați activi</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Total camioane</div>
+        <div class="kpi-value">${fmt(totals.veh)}</div>
+        <div class="kpi-sub">vehicule înregistrate</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Flotă medie</div>
+        <div class="kpi-value">${avgFlota}</div>
+        <div class="kpi-sub">camioane / operator</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Flotă maximă</div>
+        <div class="kpi-value">${fmt(maxFlota)}</div>
+        <div class="kpi-sub">camioane (cel mai mare)</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Distribuție operatori și camioane pe clase</div>
+      <div class="chart-wrap"><canvas id="claseChart"></canvas></div>
+    </div>
+
+    <div class="panel" style="padding:0;overflow:hidden">
+      <div style="padding:14px 18px;border-bottom:1px solid #e8eaed">
+        <div style="font-size:13px;font-weight:700;color:#0f2044">Clase transportatori după mărimea flotei</div>
+      </div>
+      <div class="table-scroll" style="border:none;border-radius:0">
+        <table>
+          <thead><tr>
+            <th class="text-left">#</th>
+            <th class="text-left">Denumire clasă</th>
+            <th class="text-left">Interval flotă</th>
+            <th>Nr. operatori</th>
+            <th>Nr. camioane</th>
+            <th>% Operatori</th>
+            <th class="bar-cell">Pondere operatori</th>
+          </tr></thead>
+          <tbody>
+            ${DATA.CLASES.map(c => `
+              <tr>
+                <td class="rank">${c.nr}</td>
+                <td class="text-left"><span class="class-badge"><span class="class-dot" style="background:${c.color}"></span>${c.den}</span></td>
+                <td class="text-left"><span class="range-pill">${c.range}</span></td>
+                <td>${fmt(c.operatori)}</td>
+                <td>${fmt(c.camioane)}</td>
+                <td style="font-weight:700;color:#0f2044">${c.pct}%</td>
+                <td class="bar-cell"><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${c.pct}%;background:${c.color}"></div></div></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+
+  if (claseChart) claseChart.destroy();
+  claseChart = new Chart(document.getElementById('claseChart'), {
+    type: 'bar',
+    data: {
+      labels: DATA.CLASES.map(c => c.den),
+      datasets: [
+        { label: 'Operatori', data: DATA.CLASES.map(c => c.operatori), backgroundColor: DATA.CLASES.map(c => c.color), yAxisID: 'y' },
+        { label: 'Camioane', data: DATA.CLASES.map(c => c.camioane), backgroundColor: DATA.CLASES.map(c => c.color+'80'), yAxisID: 'y' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 11 }, usePointStyle: true, padding: 14, color:'#5f6368' } },
+        tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y.toLocaleString('en-US')}` } }
+      },
+      scales: {
+        x: { ticks: { font: { size: 11 }, color: '#5f6368' }, grid: { display: false } },
+        y: { ticks: { font: { size: 11 }, color: '#5f6368', callback: v => v.toLocaleString('en-US') }, grid: { color: '#f4f5f7' } }
+      }
+    }
+  });
+}
+
+/* ════════ OPERATORI ════════ */
+function renderOperatori() {
+  const ROM = s => s.toLowerCase().replace(/ă/g,'a').replace(/â/g,'a').replace(/î/g,'i').replace(/ș/g,'s').replace(/ț/g,'t');
+  const panel = document.getElementById('sub-operatori');
+  panel.innerHTML = `
+    <div class="controls">
+      <div class="ctrl-group">
+        <div class="ctrl-label">Caută operator/oraș</div>
+        <input class="search-input" id="opSearch" value="${opState.search}" placeholder="ex: Mega Trucking, Cluj..." style="min-width:250px">
+      </div>
+    </div>
+    <div id="opTable"></div>
+  `;
+  document.getElementById('opSearch').oninput = e => { opState.search=e.target.value; drawOpTable(); };
+  drawOpTable();
+
+  function drawOpTable() {
+    const search = ROM(opState.search.trim());
+    let rows = DATA.OPERATORI.filter(o => !search || ROM(o.den).includes(search) || ROM(o.loc).includes(search) || (o.cf||'').toLowerCase().includes(search));
+    rows.sort((a,b) => {
+      if (opState.sortCol==='den') return opState.sortDir * a.den.localeCompare(b.den,'ro');
+      if (opState.sortCol==='loc') return opState.sortDir * a.loc.localeCompare(b.loc,'ro');
+      return opState.sortDir * ((a[opState.sortCol]||0)-(b[opState.sortCol]||0));
+    });
+    const maxVeh = Math.max(...rows.map(r=>r.veh),1);
+    const sIcon = (c) => opState.sortCol!==c ? '<span class="sort-icon">↕</span>' : (opState.sortDir>0?'<span class="sort-icon">↑</span>':'<span class="sort-icon">↓</span>');
+
+    document.getElementById('opTable').innerHTML = `
+      <div class="panel" style="padding:0;overflow:hidden">
+        <div style="padding:14px 18px;border-bottom:1px solid #e8eaed">
+          <div style="font-size:13px;font-weight:700;color:#0f2044">Top operatori mari (126+ camioane)</div>
+          <div style="font-size:11px;color:#9aa0a6;margin-top:2px">${rows.length} operatori afișați</div>
+        </div>
+        <div class="table-scroll" style="border:none;border-radius:0">
+          <table>
+            <thead><tr>
+              <th class="text-left">#</th>
+              <th class="text-left ${opState.sortCol==='den'?'sorted':''}" data-sort="den">Denumire firmă${sIcon('den')}</th>
+              <th class="text-left">CUI</th>
+              <th class="text-left ${opState.sortCol==='loc'?'sorted':''}" data-sort="loc">Localitate${sIcon('loc')}</th>
+              <th class="${opState.sortCol==='veh'?'sorted':''}" data-sort="veh">Camioane${sIcon('veh')}</th>
+              <th class="bar-cell">Flotă</th>
+            </tr></thead>
+            <tbody>
+              ${rows.map((r,i) => `
+                <tr>
+                  <td class="rank">${i+1}</td>
+                  <td class="text-left">${r.den}</td>
+                  <td class="text-left" style="color:#5f6368;font-family:'DM Mono',monospace;font-size:11px">${r.cf||''}</td>
+                  <td class="text-left" style="color:#5f6368">${r.loc}</td>
+                  <td style="font-weight:700;color:#0f2044">${fmt(r.veh)}</td>
+                  <td class="bar-cell"><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${(r.veh/maxVeh*100).toFixed(0)}%;background:linear-gradient(90deg,#7c3aed,#1a56db)"></div></div></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+    document.querySelectorAll('#opTable th[data-sort]').forEach(th => {
+      th.onclick = () => {
+        const col = th.dataset.sort;
+        if (opState.sortCol===col) opState.sortDir *= -1;
+        else { opState.sortCol=col; opState.sortDir=-1; }
+        drawOpTable();
+      };
+    });
+  }
+}
+
+/* ════════ GEO ════════ */
+function renderGeo() {
+  // Compute geo from operatori
+  const geoMap = {};
+  for (const op of DATA.OPERATORI) {
+    const l = op.loc.trim();
+    if (!geoMap[l]) geoMap[l] = { loc:l, ops:0, veh:0 };
+    geoMap[l].ops++;
+    geoMap[l].veh += op.veh;
+  }
+  const geoData = Object.values(geoMap);
+
+  const ROM = s => s.toLowerCase().replace(/ă/g,'a').replace(/â/g,'a').replace(/î/g,'i').replace(/ș/g,'s').replace(/ț/g,'t');
+
+  const panel = document.getElementById('sub-geo');
+  panel.innerHTML = `
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Localități cu operatori mari</div>
+        <div class="kpi-value">${geoData.length}</div>
+        <div class="kpi-sub">distinct localități</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Total operatori mari</div>
+        <div class="kpi-value">${DATA.OPERATORI.length}</div>
+        <div class="kpi-sub">126+ camioane</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Top localitate</div>
+        <div class="kpi-value" style="font-size:16px">${[...geoData].sort((a,b)=>b.ops-a.ops)[0]?.loc || '—'}</div>
+        <div class="kpi-sub">${[...geoData].sort((a,b)=>b.ops-a.ops)[0]?.ops || 0} operatori</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Total camioane top zone</div>
+        <div class="kpi-value">${fmt(geoData.reduce((s,g)=>s+g.veh,0))}</div>
+        <div class="kpi-sub">cumulat din operatori mari</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Top 15 localități după număr operatori mari</div>
+      <div class="chart-wrap"><canvas id="geoChart"></canvas></div>
+    </div>
+
+    <div class="controls">
+      <div class="ctrl-group">
+        <div class="ctrl-label">Caută localitate</div>
+        <input class="search-input" id="geoSearch" value="${geoState.search}" placeholder="ex: Cluj, Timișoara..." style="min-width:250px">
+      </div>
+    </div>
+    <div id="geoTable"></div>
+  `;
+
+  const top15 = [...geoData].sort((a,b)=>b.ops-a.ops).slice(0,15);
+  if (geoChart) geoChart.destroy();
+  geoChart = new Chart(document.getElementById('geoChart'), {
+    type: 'bar',
+    data: {
+      labels: top15.map(g=>g.loc),
+      datasets: [
+        { label: 'Operatori', data: top15.map(g=>g.ops), backgroundColor: '#1a56db', yAxisID: 'y' },
+        { label: 'Camioane', data: top15.map(g=>g.veh), backgroundColor: '#7c3aed', yAxisID: 'y1' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 11 }, usePointStyle: true, padding: 14, color: '#5f6368' } },
+        tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y.toLocaleString('en-US')}` } }
+      },
+      scales: {
+        x: { ticks: { font: { size: 10 }, color: '#5f6368', maxRotation: 35 }, grid: { display: false } },
+        y: { position: 'left', title: { display: true, text: 'Operatori', font: { size: 10 } }, ticks: { font: { size: 11 }, color: '#5f6368' }, grid: { color: '#f4f5f7' } },
+        y1: { position: 'right', title: { display: true, text: 'Camioane', font: { size: 10 } }, ticks: { font: { size: 11 }, color: '#5f6368', callback: v => v.toLocaleString('en-US') }, grid: { display: false } }
+      }
+    }
+  });
+
+  function drawGeoTable() {
+    const search = ROM(geoState.search.trim());
+    let rows = geoData.filter(g => !search || ROM(g.loc).includes(search));
+    rows.sort((a,b) => {
+      if (geoState.sortCol==='loc') return geoState.sortDir * a.loc.localeCompare(b.loc,'ro');
+      return geoState.sortDir * ((a[geoState.sortCol]||0)-(b[geoState.sortCol]||0));
+    });
+    const maxOps = Math.max(...rows.map(r=>r.ops),1);
+    const sIcon = (c) => geoState.sortCol!==c ? '<span class="sort-icon">↕</span>' : (geoState.sortDir>0?'<span class="sort-icon">↑</span>':'<span class="sort-icon">↓</span>');
+    document.getElementById('geoTable').innerHTML = `
+      <div class="panel" style="padding:0;overflow:hidden">
+        <div style="padding:14px 18px;border-bottom:1px solid #e8eaed">
+          <div style="font-size:13px;font-weight:700;color:#0f2044">Distribuție geografică a operatorilor mari</div>
+          <div style="font-size:11px;color:#9aa0a6;margin-top:2px">${rows.length} localități</div>
+        </div>
+        <div class="table-scroll" style="border:none;border-radius:0">
+          <table>
+            <thead><tr>
+              <th class="text-left">#</th>
+              <th class="text-left ${geoState.sortCol==='loc'?'sorted':''}" data-sort="loc">Localitate${sIcon('loc')}</th>
+              <th class="${geoState.sortCol==='ops'?'sorted':''}" data-sort="ops">Operatori${sIcon('ops')}</th>
+              <th class="${geoState.sortCol==='veh'?'sorted':''}" data-sort="veh">Camioane${sIcon('veh')}</th>
+              <th class="bar-cell">Pondere operatori</th>
+            </tr></thead>
+            <tbody>
+              ${rows.map((r,i) => `
+                <tr>
+                  <td class="rank">${i+1}</td>
+                  <td class="text-left">${r.loc}</td>
+                  <td style="font-weight:700;color:#0f2044">${r.ops}</td>
+                  <td>${fmt(r.veh)}</td>
+                  <td class="bar-cell"><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${(r.ops/maxOps*100).toFixed(0)}%;background:#1a56db"></div></div></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+    document.querySelectorAll('#geoTable th[data-sort]').forEach(th => {
+      th.onclick = () => {
+        const col = th.dataset.sort;
+        if (geoState.sortCol===col) geoState.sortDir *= -1;
+        else { geoState.sortCol=col; geoState.sortDir=-1; }
+        drawGeoTable();
+      };
+    });
+  }
+  document.getElementById('geoSearch').oninput = e => { geoState.search=e.target.value; drawGeoTable(); };
+  drawGeoTable();
+}
+
+/* ════════ OIL BULLETIN ════════ */
+function renderOil() {
+  const panel = document.getElementById('sub-oil');
+  const ymKeys = Object.keys(DATA.DIESEL_MONTHLY).sort();
+  const latest = DATA.DIESEL_LATEST;
+  const countries = Object.keys(DATA.COUNTRY_NAMES).sort((a,b)=>DATA.COUNTRY_NAMES[a].localeCompare(DATA.COUNTRY_NAMES[b],'ro'));
+
+  panel.innerHTML = `
+    <div class="controls">
+      <div class="ctrl-group">
+        <div class="ctrl-label">Țară</div>
+        <select id="oilCountry">
+          ${countries.map(c=>`<option value="${c}" ${oilState.country===c?'selected':''}>${DATA.COUNTRY_NAMES[c]} (${c})</option>`).join('')}
+        </select>
+      </div>
+      <div class="ctrl-group">
+        <div class="ctrl-label">Comparare cu</div>
+        <select id="oilCompare">
+          <option value="EU_AVG" ${oilState.compare==='EU_AVG'?'selected':''}>Media UE</option>
+          ${countries.map(c=>`<option value="${c}" ${oilState.compare===c?'selected':''}>${DATA.COUNTRY_NAMES[c]} (${c})</option>`).join('')}
+        </select>
+      </div>
+      <div class="ctrl-group">
+        <div class="ctrl-label">An început</div>
+        <select id="oilStart">
+          ${[2005,2010,2015,2020,2022,2024].map(y=>`<option value="${y}" ${oilState.startYear===y?'selected':''}>${y}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div id="oilKpi" class="kpi-grid"></div>
+    <div class="panel">
+      <div class="panel-title" id="oilTitle">Evoluție preț motorină</div>
+      <div class="chart-wrap"><canvas id="oilChart"></canvas></div>
+    </div>
+    <div class="panel" style="padding:0;overflow:hidden">
+      <div style="padding:14px 18px;border-bottom:1px solid #e8eaed">
+        <div style="font-size:13px;font-weight:700;color:#0f2044">Ultima săptămână — ${latest?.date || ''} (EUR/litru)</div>
+        <div style="font-size:11px;color:#9aa0a6;margin-top:2px">Toate țările UE — sortate descrescător după preț</div>
+      </div>
+      <div class="table-scroll" style="border:none;border-radius:0">
+        <table>
+          <thead><tr><th class="text-left">#</th><th class="text-left">Țară</th><th>Preț (EUR/L)</th><th>vs România</th></tr></thead>
+          <tbody id="oilLatestTbody"></tbody>
+        </table>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('oilCountry').onchange = e => { oilState.country=e.target.value; drawOil(); };
+  document.getElementById('oilCompare').onchange = e => { oilState.compare=e.target.value; drawOil(); };
+  document.getElementById('oilStart').onchange = e => { oilState.startYear=parseInt(e.target.value); drawOil(); };
+  drawOil();
+  drawOilTable();
+
+  function drawOil() {
+    const c = oilState.country, cmp = oilState.compare;
+    const labels = [], v1=[], v2=[];
+    for (const ym of ymKeys) {
+      const y = parseInt(ym.substring(0,4));
+      if (y < oilState.startYear) continue;
+      labels.push(ym);
+      v1.push(DATA.DIESEL_MONTHLY[ym][c] ?? null);
+      if (cmp === 'EU_AVG') {
+        const vals = countries.map(cc=>DATA.DIESEL_MONTHLY[ym][cc]).filter(v=>v!=null);
+        v2.push(vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null);
+      } else {
+        v2.push(DATA.DIESEL_MONTHLY[ym][cmp] ?? null);
+      }
+    }
+
+    document.getElementById('oilTitle').textContent = `Evoluție preț motorină — ${DATA.COUNTRY_NAMES[c]} vs ${cmp==='EU_AVG'?'Media UE':DATA.COUNTRY_NAMES[cmp]}`;
+
+    // KPI
+    const curr1 = v1[v1.length-1], curr2 = v2[v2.length-1];
+    const yearAgo1 = v1[v1.length-13] ?? null;
+    const yoy = (curr1!=null && yearAgo1!=null && yearAgo1>0) ? ((curr1-yearAgo1)/yearAgo1*100) : null;
+    const max1 = Math.max(...v1.filter(v=>v!=null));
+    const min1 = Math.min(...v1.filter(v=>v!=null));
+
+    document.getElementById('oilKpi').innerHTML = `
+      <div class="kpi-card">
+        <div class="kpi-label">Preț curent ${DATA.COUNTRY_NAMES[c]}</div>
+        <div class="kpi-value">${fmt2(curr1)}</div>
+        <div class="kpi-sub">EUR/litru (medie lunară)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">${cmp==='EU_AVG'?'Media UE':DATA.COUNTRY_NAMES[cmp]}</div>
+        <div class="kpi-value">${fmt2(curr2)}</div>
+        <div class="kpi-sub">EUR/litru (medie lunară)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Δ ${DATA.COUNTRY_NAMES[c]} vs comparație</div>
+        <div class="kpi-value" style="color:${(curr1<curr2)?'#0e7245':'#b91c1c'}">${curr1!=null&&curr2!=null?((curr1<curr2)?'−':'+')+Math.abs(curr1-curr2).toFixed(3):'—'}</div>
+        <div class="kpi-sub">EUR/litru (${curr1<curr2?'mai ieftin':'mai scump'})</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">YoY ${DATA.COUNTRY_NAMES[c]}</div>
+        <div class="kpi-value" style="color:${yoy>=0?'#b91c1c':'#0e7245'}">${yoy==null?'—':(yoy>=0?'+':'')+yoy.toFixed(1)+'%'}</div>
+        <div class="kpi-sub">vs aceeași lună acum 1 an</div>
+      </div>
+    `;
+
+    if (oilChart) oilChart.destroy();
+    oilChart = new Chart(document.getElementById('oilChart'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          { label: DATA.COUNTRY_NAMES[c], data: v1, borderColor: '#1a56db', backgroundColor: 'rgba(26,86,219,.1)', borderWidth: 2, tension: .3, pointRadius: 0, pointHoverRadius: 5, fill: false },
+          { label: cmp==='EU_AVG'?'Media UE':DATA.COUNTRY_NAMES[cmp], data: v2, borderColor: '#7c3aed', backgroundColor: 'rgba(124,58,237,.1)', borderWidth: 2, borderDash: [4,3], tension: .3, pointRadius: 0, pointHoverRadius: 5, fill: false }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { font: { size: 11 }, usePointStyle: true, padding: 14, color: '#5f6368' } },
+          tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y==null?'—':c.parsed.y.toFixed(3)} EUR/L` } }
+        },
+        scales: {
+          x: { ticks: { font: { size: 10 }, color: '#5f6368', maxRotation: 0, autoSkip: true, maxTicksLimit: 12 }, grid: { display: false } },
+          y: { ticks: { font: { size: 11 }, color: '#5f6368', callback: v => v.toFixed(2) }, grid: { color: '#f4f5f7' }, title: { display: true, text: 'EUR / litru', font: { size: 10 } } }
+        }
+      }
+    });
+  }
+
+  function drawOilTable() {
+    const ro = latest?.RO;
+    const rows = countries.map(c => ({ c, name: DATA.COUNTRY_NAMES[c], price: latest?.[c], delta: latest?.[c]!=null && ro!=null ? latest[c]-ro : null })).filter(r => r.price != null).sort((a,b)=>b.price-a.price);
+    document.getElementById('oilLatestTbody').innerHTML = rows.map((r,i) => `
+      <tr ${r.c==='RO'?'style="background:#fef9c3 !important;font-weight:600"':''}>
+        <td class="rank">${i+1}</td>
+        <td class="text-left">${r.name} <span style="color:#9aa0a6;font-family:'DM Mono',monospace;font-size:10px;margin-left:6px">${r.c}</span></td>
+        <td style="font-weight:700;color:#0f2044">${r.price.toFixed(3)}</td>
+        <td style="color:${r.delta==null||r.delta===0?'#9aa0a6':r.delta>0?'#b91c1c':'#0e7245'};font-weight:600">${r.delta==null?'—':(r.delta>0?'+':'')+r.delta.toFixed(3)}</td>
+      </tr>
+    `).join('');
+  }
+}
+</script>
+</body>
+</html>

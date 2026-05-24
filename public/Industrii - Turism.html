@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Turism — Sosiri | Platforma Date Publice</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', system-ui, sans-serif; font-size: 14px; background: #f4f5f7; color: #1a1f2e; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+button, select, input { font-family: inherit; }
+
+.navbar { background: #0f2044; height: 52px; display: flex; align-items: center; padding: 0 24px; gap: 24px; flex-shrink: 0; }
+.navbar-logo { font-size: 14px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+.navbar-links { display: flex; gap: 6px; flex: 1; justify-content: center; }
+.navbar-link { font-size: 12px; color: rgba(255,255,255,0.55); padding: 4px 10px; border-radius: 5px; border-bottom: 2px solid transparent; cursor: pointer; }
+.navbar-link.active { color: #fff; border-bottom-color: #1a56db; }
+.navbar-right { display: flex; gap: 10px; color: #fff; font-size: 12px; }
+.navbar-right span { opacity: 0.6; }
+.navbar-right span:last-child { opacity: 1; }
+
+.header { background: #fff; border-bottom: 1px solid #e8eaed; }
+.header-inner { max-width: 1200px; margin: 0 auto; padding: 14px 24px 0; }
+.breadcrumb { font-size: 11px; color: #5f6368; margin-bottom: 6px; }
+.breadcrumb .crumb-sub { color: #9aa0a6; }
+.breadcrumb .crumb-current { color: #1a1f2e; font-weight: 500; }
+.header-row { display: flex; align-items: center; gap: 14px; padding: 10px 0 12px; }
+.header-icon { width: 40px; height: 40px; background: #fef3c7; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.header-title { font-size: 18px; font-weight: 700; color: #0f2044; }
+.header-sub { font-size: 11px; color: #5f6368; }
+.header-link { margin-left: auto; font-size: 11px; color: #1a56db; text-decoration: none; border: 1px solid #1a56db; padding: 5px 12px; border-radius: 6px; }
+.tabs { display: flex; gap: 0; border-top: 1px solid #e8eaed; }
+.tab { padding: 10px 16px; font-size: 12px; font-weight: 400; cursor: pointer; border-bottom: 2px solid transparent; color: #5f6368; }
+.tab.active { border-bottom-color: #1a56db; color: #1a56db; font-weight: 600; }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 20px 24px; flex: 1; }
+
+.banner { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 12px 16px; display: flex; gap: 10px; align-items: flex-start; margin-bottom: 20px; }
+.banner svg { flex-shrink: 0; color: #1a56db; margin-top: 1px; }
+.banner p { font-size: 12px; color: #1d4ed8; line-height: 1.6; }
+
+.subtabs-bar { display: flex; gap: 0; border-bottom: 1px solid #e8eaed; margin-bottom: 20px; flex-wrap: wrap; }
+.subtab-btn { padding: 10px 18px; font-size: 12px; font-weight: 400; color: #5f6368; background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; margin-bottom: -1px; }
+.subtab-btn:hover { color: #1a1f2e; }
+.subtab-btn.active { color: #1a56db; font-weight: 600; border-bottom-color: #1a56db; }
+.sub-panel { display: none; }
+.sub-panel.active { display: block; }
+
+.controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; background: #fff; border: 1px solid #e8eaed; border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; }
+.ctrl-group { display: flex; flex-direction: column; gap: 5px; }
+.ctrl-label { font-size: 10px; font-weight: 600; color: #5f6368; text-transform: uppercase; letter-spacing: .05em; }
+select, .search-input { border: 1px solid #e8eaed; border-radius: 6px; padding: 6px 10px; font-size: 12px; color: #1a1f2e; background: #fff; outline: none; min-width: 180px; }
+select:focus, .search-input:focus { border-color: #1a56db; box-shadow: 0 0 0 2px rgba(26,86,219,.15); }
+
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.kpi-card { background: #fff; border: 1px solid #e8eaed; border-radius: 10px; padding: 14px 18px; }
+.kpi-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: #5f6368; margin-bottom: 6px; }
+.kpi-value { font-size: 22px; font-weight: 700; color: #0f2044; line-height: 1; font-family: 'DM Mono', monospace; }
+.kpi-sub { font-size: 11px; color: #9aa0a6; margin-top: 4px; }
+.kpi-delta { font-size: 11px; font-weight: 600; margin-top: 6px; }
+.kpi-delta.up { color: #0e7245; }
+.kpi-delta.down { color: #b91c1c; }
+
+.panel { background: #fff; border: 1px solid #e8eaed; border-radius: 10px; padding: 18px; margin-bottom: 16px; }
+.panel-title { font-size: 13px; font-weight: 700; color: #0f2044; margin-bottom: 14px; }
+.chart-wrap { position: relative; width: 100%; height: 320px; }
+
+.table-scroll { overflow-x: auto; border: 1px solid #e8eaed; border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+thead tr { background: #0f2044; }
+th { padding: 9px 12px; font-weight: 600; color: #fff; text-align: right; white-space: nowrap; font-size: 11px; cursor: pointer; user-select: none; }
+th:first-child, th.text-left { text-align: left; }
+th:hover { background: #1a2d56; }
+th .sort-icon { opacity: .5; margin-left: 3px; }
+th.sorted .sort-icon { opacity: 1; color: #93c5fd; }
+td { padding: 7px 12px; text-align: right; color: #1a1f2e; border-bottom: 1px solid #f4f5f7; font-family: 'DM Mono', monospace; }
+td.text-left { text-align: left; font-weight: 500; font-family: 'DM Sans', sans-serif; }
+td.total-col { color: #0f2044; font-weight: 700; }
+td.rank { color: #9aa0a6; text-align: center; }
+tbody tr:nth-child(odd) { background: #fafafa; }
+tbody tr:hover { background: #f0f7ff; }
+.total-row td { background: #fef9c3 !important; border-top: 2px solid #f59e0b; font-weight: 700; color: #0f2044; }
+
+.bar-cell { min-width: 80px; }
+.mini-bar-bg { background: #e8eaed; border-radius: 2px; height: 5px; overflow: hidden; }
+.mini-bar-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, #f59e0b, #1a56db); }
+
+.footer { border-top: 1px solid #e8eaed; background: #fff; padding: 10px 24px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.footer-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; }
+.footer-text { font-size: 11px; color: #5f6368; }
+.footer a { font-size: 11px; color: #1a56db; text-decoration: none; }
+.footer-sep { color: #e8eaed; }
+.footer-spacer { flex: 1; }
+.footer-meta { font-size: 11px; color: #9aa0a6; }
+
+.loading { padding: 60px; text-align: center; color: #9aa0a6; font-size: 13px; }
+.legend-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #5f6368; }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-logo">📊 DatePublice.ro</div>
+  <div class="navbar-links">
+    <div class="navbar-link active">Industrii</div>
+    <div class="navbar-link">Instituții</div>
+    <div class="navbar-link">Rapoarte</div>
+  </div>
+  <div class="navbar-right"><span>🔍</span><span>🔔</span><span>👤</span></div>
+</nav>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="breadcrumb">
+      <span class="crumb-sub">Acasă › Industrii › </span>
+      <span class="crumb-current">Turism</span>
+    </div>
+    <div class="header-row">
+      <div class="header-icon">🏨</div>
+      <div>
+        <div class="header-title">Turism</div>
+        <div class="header-sub">INS — Sosiri de turiști în structuri de cazare</div>
+      </div>
+      <a href="https://insse.ro" target="_blank" rel="noopener noreferrer" class="header-link">↗ Site oficial</a>
+    </div>
+    <div class="tabs">
+      <div class="tab active">Sosiri</div>
+    </div>
+  </div>
+</div>
+
+<div class="main" id="main-content"><div class="loading">Se încarcă datele...</div></div>
+
+<div class="footer">
+  <div class="footer-dot"></div>
+  <div class="footer-text">Sursa: INS — Sosiri în structuri de primire turistică (lunar)</div>
+  <span class="footer-sep">•</span>
+  <a href="http://statistici.insse.ro:8077/tempo-online/" target="_blank" rel="noopener noreferrer">🔗 insse.ro — Tempo Online</a>
+  <div class="footer-spacer"></div>
+  <div class="footer-meta">Date: 2025 complet + Ian-Mar 2026 • Frecvență: lunar</div>
+</div>
+
+<script>
+const MONTHS_RO = ['Ian','Feb','Mar','Apr','Mai','Iun','Iul','Aug','Sep','Oct','Nov','Dec'];
+const MONTHS_FULL = ['Ianuarie','Februarie','Martie','Aprilie','Mai','Iunie','Iulie','August','Septembrie','Octombrie','Noiembrie','Decembrie'];
+const fmt = (n) => n==null?'—':Math.round(n).toLocaleString('en-US');
+const fmtK = (n) => n==null?'—':(n/1000).toFixed(0)+'K';
+
+let DATA;
+let ovChart=null, jdChart=null, catChart=null;
+let ovState = { structura: 'Total', turisti: 'Total' };
+let jdState = { structura: 'Total', turisti: 'Total', sortCol: 'total2025', sortDir: -1, search: '' };
+let catState = { categorie: 'Total', turisti: 'Total' };
+
+fetch('turism_data.json').then(r=>r.json()).then(d => {
+  DATA = d;
+  renderShell();
+  renderOverview();
+}).catch(e => {
+  document.getElementById('main-content').innerHTML = '<div style="padding:30px;color:#b91c1c">Eroare: '+e+'</div>';
+});
+
+function renderShell() {
+  document.getElementById('main-content').innerHTML = `
+    <div class="banner">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <p>Date <strong>INS</strong> — sosiri de turiști în structurile de cazare pe tipuri, județe și categorii. Perioada: <strong>2025 complet + Ianuarie-Martie 2026</strong>.</p>
+    </div>
+    <div class="subtabs-bar">
+      <button class="subtab-btn active" data-tab="overview" onclick="switchSub('overview')">🇷🇴 Total național</button>
+      <button class="subtab-btn" data-tab="judete" onclick="switchSub('judete')">📍 Județe</button>
+      <button class="subtab-btn" data-tab="categorii" onclick="switchSub('categorii')">⭐ Categorii (stele/flori)</button>
+      <button class="subtab-btn" data-tab="localitati" onclick="switchSub('localitati')">🏘️ Localități</button>
+    </div>
+    <div id="sub-overview" class="sub-panel active"></div>
+    <div id="sub-judete" class="sub-panel"></div>
+    <div id="sub-categorii" class="sub-panel"></div>
+    <div id="sub-localitati" class="sub-panel"></div>
+  `;
+}
+
+function switchSub(name) {
+  document.querySelectorAll('.subtab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab===name));
+  document.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('sub-'+name).classList.add('active');
+  if (name==='overview') renderOverview();
+  else if (name==='judete') renderJudete();
+  else if (name==='categorii') renderCategorii();
+  else renderLocalitati();
+}
+
+/* ════════ LOCALITATI ════════ */
+let locState = { judet: '__ALL__', structura: 'Total', search: '', sortCol: 'total2025', sortDir: -1 };
+function renderLocalitati() {
+  const LOC = DATA.LOC_DATA;
+  if (!LOC) { document.getElementById('sub-localitati').innerHTML = '<div class="loading">Date indisponibile</div>'; return; }
+  const structuri = Object.keys(LOC);
+  const judete = ['__ALL__', ...Object.keys(LOC.Total).sort((a,b)=>a.localeCompare(b,'ro'))];
+  const panel = document.getElementById('sub-localitati');
+  panel.innerHTML = `
+    <div class="controls">
+      <div class="ctrl-group">
+        <div class="ctrl-label">Județ</div>
+        <select id="locJ">${judete.map(j=>`<option value="${j}" ${locState.judet===j?'selected':''}>${j==='__ALL__'?'Toate județele':j}</option>`).join('')}</select>
+      </div>
+      <div class="ctrl-group">
+        <div class="ctrl-label">Tip structură</div>
+        <select id="locS">${structuri.map(s=>`<option value="${s}" ${locState.structura===s?'selected':''}>${DATA.STRUCTURI_DISPLAY[s]||s}</option>`).join('')}</select>
+      </div>
+      <div class="ctrl-group">
+        <div class="ctrl-label">Caută localitate</div>
+        <input class="search-input" id="locSearch" value="${locState.search}" placeholder="ex: Brașov, Sinaia...">
+      </div>
+    </div>
+    <div id="locKpi" class="kpi-grid"></div>
+    <div id="locTable"></div>
+  `;
+  document.getElementById('locJ').onchange = e => { locState.judet = e.target.value; renderLocalitati(); };
+  document.getElementById('locS').onchange = e => { locState.structura = e.target.value; renderLocalitati(); };
+  document.getElementById('locSearch').oninput = e => { locState.search = e.target.value; drawLocTable(); };
+  drawLocTable();
+}
+
+function drawLocTable() {
+  const LOC = DATA.LOC_DATA;
+  const ROM = s => s.toLowerCase().replace(/ă/g,'a').replace(/â/g,'a').replace(/î/g,'i').replace(/ș/g,'s').replace(/ț/g,'t').replace(/-/g,' ');
+  const structData = LOC[locState.structura] || {};
+  const judeteToShow = locState.judet === '__ALL__' ? Object.keys(structData) : [locState.judet];
+
+  const merged = {};
+  judeteToShow.forEach(judet => {
+    const jData = structData[judet] || {};
+    Object.entries(jData).forEach(([loc, vals]) => {
+      if (locState.judet === '__ALL__' && loc === 'TOTAL') return;
+      const key = locState.judet === '__ALL__' ? `${judet}|||${loc}` : loc;
+      if (!merged[key]) {
+        merged[key] = {
+          key,
+          loc: loc.replace(/^\d+\s*/, ''),
+          judet,
+          displayLoc: locState.judet === '__ALL__' ? `${judet} · ${loc.replace(/^\d+\s*/, '')}` : loc.replace(/^\d+\s*/, ''),
+          y25: Array(12).fill(0),
+          y26: Array(3).fill(0)
+        };
+      }
+      (vals.y25||[]).forEach((x,i) => { merged[key].y25[i] += (x||0); });
+      (vals.y26||[]).forEach((x,i) => { merged[key].y26[i] += (x||0); });
+    });
+  });
+
+  let rows = Object.values(merged).map(r => ({
+    ...r,
+    total2025: r.y25.reduce((a,b)=>a+(b||0),0),
+    total2026: r.y26.reduce((a,b)=>a+(b||0),0),
+    ian2025: r.y25[0]||0,
+    ian2026: r.y26[0]||0,
+    yoyIan: (r.y25[0]>0) ? ((r.y26[0]-r.y25[0])/r.y25[0]*100) : null
+  }));
+
+  const search = ROM(locState.search.trim());
+  if (search) rows = rows.filter(r => ROM(r.loc).includes(search) || ROM(r.judet).includes(search));
+
+  rows.sort((a,b) => {
+    if (locState.sortCol==='loc') return locState.sortDir * a.displayLoc.localeCompare(b.displayLoc,'ro');
+    return locState.sortDir * ((a[locState.sortCol]||0)-(b[locState.sortCol]||0));
+  });
+
+  // Skip TOTAL entries in single-county view for top/total
+  const realRows = locState.judet==='__ALL__' ? rows : rows.filter(r => r.loc !== 'TOTAL');
+  const top = [...realRows].sort((a,b)=>b.total2025-a.total2025)[0];
+  const totJudet = locState.judet==='__ALL__'
+    ? realRows.reduce((s,r)=>s+r.total2025,0)
+    : (structData[locState.judet]?.['TOTAL']?.y25 || []).reduce((s,v)=>s+(v||0), 0);
+  const ian25Sum = realRows.reduce((s,r)=>s+r.ian2025,0);
+  const ian26Sum = realRows.reduce((s,r)=>s+r.ian2026,0);
+  const yoy = ian25Sum>0 ? ((ian26Sum-ian25Sum)/ian25Sum*100) : null;
+
+  document.getElementById('locKpi').innerHTML = `
+    <div class="kpi-card"><div class="kpi-label">Localitate fruntașă 2025</div><div class="kpi-value" style="font-size:14px">${top?.displayLoc || '—'}</div><div class="kpi-sub">${fmt(top?.total2025)} sosiri</div></div>
+    <div class="kpi-card"><div class="kpi-label">Total localități</div><div class="kpi-value">${realRows.length}</div><div class="kpi-sub">cu date cazare</div></div>
+    <div class="kpi-card"><div class="kpi-label">Total 2025</div><div class="kpi-value">${fmt(totJudet)}</div><div class="kpi-sub">${locState.judet==='__ALL__'?'toate judetele':locState.judet}</div></div>
+    <div class="kpi-card"><div class="kpi-label">Ian 2026 vs Ian 2025</div><div class="kpi-value" style="color:${yoy==null?'#5f6368':yoy>=0?'#0e7245':'#b91c1c'}">${yoy==null?'—':(yoy>=0?'+':'')+yoy.toFixed(1)+'%'}</div><div class="kpi-sub">YoY ianuarie</div></div>
+  `;
+
+  const sIcon = (c) => locState.sortCol!==c ? '<span class="sort-icon">↕</span>' : (locState.sortDir>0?'<span class="sort-icon">↑</span>':'<span class="sort-icon">↓</span>');
+  const maxVal = Math.max(...rows.map(r=>r.total2025),1);
+
+  document.getElementById('locTable').innerHTML = `
+    <div class="panel" style="padding:0;overflow:hidden">
+      <div style="padding:14px 18px;border-bottom:1px solid #e8eaed">
+        <div style="font-size:13px;font-weight:700;color:#0f2044">Sosiri pe localități — ${DATA.STRUCTURI_DISPLAY[locState.structura]||locState.structura}</div>
+        <div style="font-size:11px;color:#9aa0a6;margin-top:2px">${rows.length} localități • ${locState.judet==='__ALL__'?'toate județele':locState.judet}</div>
+      </div>
+      <div class="table-scroll" style="border:none;border-radius:0;max-height:600px;overflow-y:auto">
+        <table>
+          <thead><tr>
+            <th class="text-left">#</th>
+            <th class="text-left ${locState.sortCol==='loc'?'sorted':''}" data-sort="loc">Localitate${sIcon('loc')}</th>
+            <th class="${locState.sortCol==='total2025'?'sorted':''}" data-sort="total2025">2025${sIcon('total2025')}</th>
+            <th class="${locState.sortCol==='ian2025'?'sorted':''}" data-sort="ian2025">Ian 2025${sIcon('ian2025')}</th>
+            <th class="${locState.sortCol==='ian2026'?'sorted':''}" data-sort="ian2026">Ian 2026${sIcon('ian2026')}</th>
+            <th class="${locState.sortCol==='yoyIan'?'sorted':''}" data-sort="yoyIan">YoY %${sIcon('yoyIan')}</th>
+            <th class="bar-cell">Pondere 2025</th>
+          </tr></thead>
+          <tbody>
+            ${rows.slice(0,500).map((r,i) => `
+              <tr ${r.loc==='TOTAL'?'style="background:#fef9c3 !important;font-weight:600"':''}>
+                <td class="rank">${i+1}</td>
+                <td class="text-left">${r.displayLoc}</td>
+                <td class="total-col">${fmt(r.total2025)}</td>
+                <td>${fmt(r.ian2025)}</td>
+                <td>${fmt(r.ian2026)}</td>
+                <td style="color:${r.yoyIan==null?'#9aa0a6':r.yoyIan>=0?'#0e7245':'#b91c1c'};font-weight:600">${r.yoyIan==null?'—':(r.yoyIan>=0?'+':'')+r.yoyIan.toFixed(1)+'%'}</td>
+                <td class="bar-cell"><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${(r.total2025/maxVal*100).toFixed(0)}%"></div></div></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+      ${rows.length>500?`<div style="padding:10px 18px;font-size:11px;color:#9aa0a6;background:#fafafa;border-top:1px solid #e8eaed">Afișat primele 500 din ${rows.length} localități. Folosește filtrul de județ sau căutarea pentru a rafina.</div>`:''}
+    </div>
+  `;
+  document.querySelectorAll('#locTable th[data-sort]').forEach(th => {
+    th.onclick = () => {
+      const col = th.dataset.sort;
+      if (locState.sortCol===col) locState.sortDir *= -1;
+      else { locState.sortCol=col; locState.sortDir=-1; }
+      drawLocTable();
+    };
+  });
+}
+
+function sumArr(arr) { return arr ? arr.reduce((s,v)=>s+(v||0),0) : 0; }
+function sumMonths(arr, months) { return months.reduce((s,m)=>s+(arr?.[m]||0),0); }
+
+/* ════════ OVERVIEW ════════ */
+function renderOverview() {
+  const structuri = Object.keys(DATA.STRUCTURI_DISPLAY);
+  const panel = document.getElementById('sub-overview');
+  panel.innerHTML = `
+    <div class="controls">
+      <div class="ctrl-group">
+        <div class="ctrl-label">Tip structură cazare</div>
+        <select id="ovStr">${structuri.map(s=>`<option value="${s}" ${ovState.structura===s?'selected':''}>${DATA.STRUCTURI_DISPLAY[s]||s}</option>`).join('')}</select>
+      </div>
+      <div class="ctrl-group">
+        <div class="ctrl-label">Tip turist</div>
+        <select id="ovT">
+          <option value="Total" ${ovState.turisti==='Total'?'selected':''}>Toți turiștii</option>
+          <option value="Romani" ${ovState.turisti==='Romani'?'selected':''}>Turiști români</option>
+          <option value="Straini" ${ovState.turisti==='Straini'?'selected':''}>Turiști străini</option>
+        </select>
+      </div>
+    </div>
+    <div id="ovKpi" class="kpi-grid"></div>
+    <div class="panel">
+      <div class="panel-title" id="ovChartTitle">Evoluție sosiri lunare</div>
+      <div class="legend-row">
+        <div class="legend-item"><span class="legend-dot" style="background:#7c3aed"></span>2025</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#1a56db"></span>2026</div>
+      </div>
+      <div class="chart-wrap"><canvas id="ovChart"></canvas></div>
+    </div>
+    <div id="ovTable"></div>
+  `;
+  document.getElementById('ovStr').onchange = e => { ovState.structura = e.target.value; renderOverview(); };
+  document.getElementById('ovT').onchange = e => { ovState.turisti = e.target.value; renderOverview(); };
+  drawOverview();
+}
+
+function drawOverview() {
+  const data = DATA.CHART_DATA[ovState.structura]?.[ovState.turisti];
+  if (!data) return;
+  const v25 = data['2025'] || [];
+  const v26 = data['2026'] || [];
+  const t25 = sumArr(v25);
+  const months26 = v26.length;
+  const t26 = sumArr(v26);
+  const t25Comp = v25.slice(0, months26).reduce((s,v)=>s+(v||0),0);
+  const yoy = t25Comp>0 ? ((t26-t25Comp)/t25Comp*100) : 0;
+  const peakIdx = v25.indexOf(Math.max(...v25));
+  const peak25 = v25[peakIdx];
+
+  document.getElementById('ovChartTitle').textContent =
+    `Sosiri lunare — ${DATA.STRUCTURI_DISPLAY[ovState.structura]||ovState.structura} · ${ovState.turisti==='Total'?'Toți turiștii':ovState.turisti==='Romani'?'Turiști români':'Turiști străini'}`;
+
+  document.getElementById('ovKpi').innerHTML = `
+    <div class="kpi-card"><div class="kpi-label">Total 2025</div><div class="kpi-value">${fmt(t25)}</div><div class="kpi-sub">sosiri anuale</div></div>
+    <div class="kpi-card"><div class="kpi-label">Ian-Mar 2026</div><div class="kpi-value">${fmt(t26)}</div><div class="kpi-sub">primele ${months26} luni</div>
+      <div class="kpi-delta ${yoy>=0?'up':'down'}">${yoy>=0?'▲':'▼'} ${Math.abs(yoy).toFixed(1)}% vs Ian-Mar 2025</div></div>
+    <div class="kpi-card"><div class="kpi-label">Lună vârf 2025</div><div class="kpi-value" style="font-size:16px">${MONTHS_FULL[peakIdx]}</div><div class="kpi-sub">${fmt(peak25)} sosiri</div></div>
+    <div class="kpi-card"><div class="kpi-label">Medie lunară 2025</div><div class="kpi-value">${fmt(t25/12)}</div><div class="kpi-sub">sosiri / lună</div></div>
+  `;
+
+  if (ovChart) ovChart.destroy();
+  ovChart = new Chart(document.getElementById('ovChart'), {
+    type: 'bar',
+    data: {
+      labels: MONTHS_RO,
+      datasets: [
+        { label: '2025', data: v25, backgroundColor: 'rgba(124,58,237,.75)', borderColor: '#7c3aed', borderRadius: 3 },
+        { label: '2026', data: [...v26, ...Array(12-v26.length).fill(null)], backgroundColor: 'rgba(26,86,219,.85)', borderColor: '#1a56db', borderRadius: 3 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y==null?'—':c.parsed.y.toLocaleString('en-US')} sosiri` } } },
+      scales: { x: { ticks: { font: { size: 11 }, color: '#5f6368' }, grid: { display: false } }, y: { ticks: { font: { size: 11 }, color: '#5f6368', callback: v => (v/1000).toFixed(0)+'K' }, grid: { color: '#f4f5f7' } } }
+    }
+  });
+
+  // Lunar table
+  let rows = '';
+  for (let i=0; i<12; i++) {
+    const a = v25[i], b = v26[i];
+    const diff = (a!=null && b!=null) ? b-a : null;
+    const dp = (a!=null && a>0 && b!=null) ? ((b-a)/a*100) : null;
+    rows += `<tr>
+      <td class="text-left">${MONTHS_FULL[i]}</td>
+      <td>${a!=null?fmt(a):'—'}</td>
+      <td class="${b!=null?'total-col':''}">${b!=null?fmt(b):'—'}</td>
+      <td style="color:${diff==null?'#9aa0a6':diff>=0?'#0e7245':'#b91c1c'};font-weight:600">${diff!=null?(diff>=0?'+':'')+fmt(diff):'—'}</td>
+      <td style="color:${dp==null?'#9aa0a6':dp>=0?'#0e7245':'#b91c1c'};font-weight:600">${dp!=null?(dp>=0?'+':'')+dp.toFixed(1)+'%':'—'}</td>
+    </tr>`;
+  }
+  document.getElementById('ovTable').innerHTML = `
+    <div class="panel" style="padding:0;overflow:hidden">
+      <div style="padding:14px 18px;border-bottom:1px solid #e8eaed">
+        <div style="font-size:13px;font-weight:700;color:#0f2044">Defalcare lunară 2025 vs 2026</div>
+      </div>
+      <div class="table-scroll" style="border:none;border-radius:0">
+        <table>
+          <thead><tr><th class="text-left">Lună</th><th>2025</th><th>2026</th><th>Δ Absolut</th><th>Δ %</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+/* ════════ JUDETE ════════ */
+function renderJudete() {
+  const structuri = Object.keys(DATA.COUNTY_DATA);
+  const panel = document.getElementById('sub-judete');
+  panel.innerHTML = `
+    <div class="controls">
+      <div class="ctrl-group">
+        <div class="ctrl-label">Tip structură</div>
+        <select id="jdStr">${structuri.map(s=>`<option value="${s}" ${jdState.structura===s?'selected':''}>${DATA.STRUCTURI_DISPLAY[s]||s}</option>`).join('')}</select>
+      </div>
+      <div class="ctrl-group">
+        <div class="ctrl-label">Tip turist</div>
+        <select id="jdT">
+          <option value="Total" ${jdState.turisti==='Total'?'selected':''}>Toți turiștii</option>
+          <option value="Romani" ${jdState.turisti==='Romani'?'selected':''}>Turiști români</option>
+          <option value="Straini" ${jdState.turisti==='Straini'?'selected':''}>Turiști străini</option>
+        </select>
+      </div>
+      <div class="ctrl-group">
+        <div class="ctrl-label">Caută județ</div>
+        <input class="search-input" id="jdSearch" value="${jdState.search}" placeholder="ex: Cluj, Brașov...">
+      </div>
+    </div>
+    <div id="jdKpi" class="kpi-grid"></div>
+    <div class="panel">
+      <div class="panel-title" id="jdChartTitle">Top 15 județe după sosiri</div>
+      <div class="chart-wrap"><canvas id="jdChart"></canvas></div>
+    </div>
+    <div id="jdTable"></div>
+  `;
+  document.getElementById('jdStr').onchange = e => { jdState.structura=e.target.value; renderJudete(); };
+  document.getElementById('jdT').onchange = e => { jdState.turisti=e.target.value; renderJudete(); };
+  document.getElementById('jdSearch').oninput = e => { jdState.search=e.target.value; drawJdBody(); };
+  drawJdBody();
+}
+
+function drawJdBody() {
+  const ROM = s => s.toLowerCase().replace(/ă/g,'a').replace(/â/g,'a').replace(/î/g,'i').replace(/ș/g,'s').replace(/ț/g,'t').replace(/-/g,' ');
+  const dict = DATA.COUNTY_DATA[jdState.structura]?.[jdState.turisti] || {};
+  const judete = Object.keys(dict);
+
+  const rows = judete.map(j => {
+    const v25 = sumArr(dict[j]?.['2025']);
+    const v26 = sumArr(dict[j]?.['2026']);
+    const months26 = (dict[j]?.['2026']||[]).length;
+    const v25Comp = (dict[j]?.['2025']||[]).slice(0, months26).reduce((s,v)=>s+(v||0),0);
+    const yoy = v25Comp>0 ? ((v26-v25Comp)/v25Comp*100) : null;
+    return { judet: j, total2025: v25, total2026: v26, yoy };
+  });
+
+  const search = ROM(jdState.search.trim());
+  let filtered = rows.filter(r => !search || ROM(r.judet).includes(search));
+  filtered.sort((a,b) => {
+    if (jdState.sortCol==='judet') return jdState.sortDir * a.judet.localeCompare(b.judet,'ro');
+    return jdState.sortDir * ((a[jdState.sortCol]||0)-(b[jdState.sortCol]||0));
+  });
+
+  const total25 = filtered.reduce((s,r)=>s+r.total2025,0);
+  const total26 = filtered.reduce((s,r)=>s+r.total2026,0);
+  const top = [...filtered].sort((a,b)=>b.total2025-a.total2025)[0];
+
+  document.getElementById('jdKpi').innerHTML = `
+    <div class="kpi-card"><div class="kpi-label">Total județe</div><div class="kpi-value">${fmt(total25)}</div><div class="kpi-sub">sosiri 2025 (${filtered.length} județe)</div></div>
+    <div class="kpi-card"><div class="kpi-label">Top județ 2025</div><div class="kpi-value" style="font-size:16px">${top?.judet||'—'}</div><div class="kpi-sub">${fmt(top?.total2025)} sosiri</div></div>
+    <div class="kpi-card"><div class="kpi-label">Total Ian-Mar 2026</div><div class="kpi-value">${fmt(total26)}</div><div class="kpi-sub">primele 3 luni</div></div>
+    <div class="kpi-card"><div class="kpi-label">Medie / județ 2025</div><div class="kpi-value">${fmt(total25/filtered.length)}</div><div class="kpi-sub">sosiri medii</div></div>
+  `;
+
+  const top15 = [...filtered].sort((a,b)=>b.total2025-a.total2025).slice(0,15);
+  document.getElementById('jdChartTitle').textContent = `Top 15 județe — ${DATA.STRUCTURI_DISPLAY[jdState.structura]||jdState.structura}`;
+  if (jdChart) jdChart.destroy();
+  jdChart = new Chart(document.getElementById('jdChart'), {
+    type: 'bar',
+    data: { labels: top15.map(r=>r.judet), datasets: [{ label: 'Sosiri 2025', data: top15.map(r=>r.total2025), backgroundColor: 'rgba(26,86,219,.85)', borderColor: '#1a56db', borderRadius: 3 }] },
+    options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => `${c.parsed.x.toLocaleString('en-US')} sosiri` } } },
+      scales: { x: { ticks: { font: { size: 11 }, color: '#5f6368', callback: v => (v/1000).toFixed(0)+'K' }, grid: { color: '#f4f5f7' } }, y: { ticks: { font: { size: 11 }, color: '#1a1f2e' }, grid: { display: false } } }
+    }
+  });
+
+  const sIcon = (c) => jdState.sortCol!==c ? '<span class="sort-icon">↕</span>' : (jdState.sortDir>0?'<span class="sort-icon">↑</span>':'<span class="sort-icon">↓</span>');
+  const maxVal = Math.max(...filtered.map(r=>r.total2025),1);
+  document.getElementById('jdTable').innerHTML = `
+    <div class="panel" style="padding:0;overflow:hidden">
+      <div style="padding:14px 18px;border-bottom:1px solid #e8eaed">
+        <div style="font-size:13px;font-weight:700;color:#0f2044">Sosiri pe județe — ${DATA.STRUCTURI_DISPLAY[jdState.structura]||jdState.structura}</div>
+        <div style="font-size:11px;color:#9aa0a6;margin-top:2px">${filtered.length} județe • Click pe header pentru sortare</div>
+      </div>
+      <div class="table-scroll" style="border:none;border-radius:0">
+        <table>
+          <thead><tr>
+            <th class="text-left">#</th>
+            <th class="text-left ${jdState.sortCol==='judet'?'sorted':''}" data-sort="judet">Județ${sIcon('judet')}</th>
+            <th class="${jdState.sortCol==='total2025'?'sorted':''}" data-sort="total2025">2025${sIcon('total2025')}</th>
+            <th class="${jdState.sortCol==='total2026'?'sorted':''}" data-sort="total2026">Ian-Mar 2026${sIcon('total2026')}</th>
+            <th class="${jdState.sortCol==='yoy'?'sorted':''}" data-sort="yoy">YoY %${sIcon('yoy')}</th>
+            <th class="bar-cell">Pondere 2025</th>
+          </tr></thead>
+          <tbody>
+            ${filtered.map((r,i) => `
+              <tr>
+                <td class="rank">${i+1}</td>
+                <td class="text-left">${r.judet}</td>
+                <td class="total-col">${fmt(r.total2025)}</td>
+                <td>${fmt(r.total2026)}</td>
+                <td style="color:${r.yoy==null?'#9aa0a6':r.yoy>=0?'#0e7245':'#b91c1c'};font-weight:600">${r.yoy==null?'—':(r.yoy>=0?'+':'')+r.yoy.toFixed(1)+'%'}</td>
+                <td class="bar-cell"><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${(r.total2025/maxVal*100).toFixed(0)}%"></div></div></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+  document.querySelectorAll('#jdTable th[data-sort]').forEach(th => {
+    th.onclick = () => {
+      const col = th.dataset.sort;
+      if (jdState.sortCol===col) jdState.sortDir *= -1;
+      else { jdState.sortCol=col; jdState.sortDir=-1; }
+      drawJdBody();
+    };
+  });
+}
+
+/* ════════ CATEGORII ════════ */
+function renderCategorii() {
+  const panel = document.getElementById('sub-categorii');
+  panel.innerHTML = `
+    <div class="controls">
+      <div class="ctrl-group">
+        <div class="ctrl-label">Categorie</div>
+        <select id="catSel">${DATA.CATEGORII_ORDER.map(c=>`<option value="${c}" ${catState.categorie===c?'selected':''}>${c}</option>`).join('')}</select>
+      </div>
+      <div class="ctrl-group">
+        <div class="ctrl-label">Tip turist</div>
+        <select id="catT">
+          <option value="Total" ${catState.turisti==='Total'?'selected':''}>Toți turiștii</option>
+          <option value="Romani" ${catState.turisti==='Romani'?'selected':''}>Turiști români</option>
+          <option value="Straini" ${catState.turisti==='Straini'?'selected':''}>Turiști străini</option>
+        </select>
+      </div>
+    </div>
+    <div id="catKpi" class="kpi-grid"></div>
+    <div class="panel">
+      <div class="panel-title" id="catChartTitle">Distribuție sosiri pe categorii — 2025</div>
+      <div class="chart-wrap"><canvas id="catChart"></canvas></div>
+    </div>
+    <div id="catTable"></div>
+  `;
+  document.getElementById('catSel').onchange = e => { catState.categorie=e.target.value; renderCategorii(); };
+  document.getElementById('catT').onchange = e => { catState.turisti=e.target.value; renderCategorii(); };
+  drawCat();
+}
+
+function drawCat() {
+  // CAT_DATA structure: [structura?][categorie][turisti]['2025'|'2026'] = [arr]
+  // We'll iterate top-level "Total" structura, then per categorie aggregate
+  const root = DATA.CAT_DATA['Total'] || DATA.CAT_DATA[Object.keys(DATA.CAT_DATA)[0]];
+  const cats = DATA.CATEGORII_ORDER;
+  const rows = cats.map(c => {
+    const entry = root[c]?.[catState.turisti];
+    const v25 = sumArr(entry?.['2025']);
+    const v26 = sumArr(entry?.['2026']);
+    const months26 = (entry?.['2026']||[]).length;
+    const v25Comp = (entry?.['2025']||[]).slice(0,months26).reduce((s,v)=>s+(v||0),0);
+    const yoy = v25Comp>0 ? ((v26-v25Comp)/v25Comp*100) : null;
+    return { cat: c, v25, v26, yoy, arr25: entry?.['2025']||[], arr26: entry?.['2026']||[] };
+  });
+
+  const total25 = rows.find(r=>r.cat==='Total')?.v25 || 0;
+  const total26 = rows.find(r=>r.cat==='Total')?.v26 || 0;
+  const filtRows = rows.filter(r=>r.cat!=='Total');
+
+  // Selected category KPI
+  const sel = rows.find(r=>r.cat===catState.categorie) || rows[0];
+  const selPct = total25>0 ? (sel.v25/total25*100) : 0;
+
+  document.getElementById('catKpi').innerHTML = `
+    <div class="kpi-card"><div class="kpi-label">Total 2025 (toate categ.)</div><div class="kpi-value">${fmt(total25)}</div><div class="kpi-sub">sosiri anuale</div></div>
+    <div class="kpi-card"><div class="kpi-label">${catState.categorie} — 2025</div><div class="kpi-value">${fmt(sel.v25)}</div><div class="kpi-sub">${selPct.toFixed(1)}% din total</div></div>
+    <div class="kpi-card"><div class="kpi-label">${catState.categorie} — Ian-Mar 2026</div><div class="kpi-value">${fmt(sel.v26)}</div>
+      ${sel.yoy!=null?`<div class="kpi-delta ${sel.yoy>=0?'up':'down'}">${sel.yoy>=0?'▲':'▼'} ${Math.abs(sel.yoy).toFixed(1)}% vs Ian-Mar 2025</div>`:''}</div>
+    <div class="kpi-card"><div class="kpi-label">Total Ian-Mar 2026</div><div class="kpi-value">${fmt(total26)}</div><div class="kpi-sub">toate categoriile</div></div>
+  `;
+
+  document.getElementById('catChartTitle').textContent = `Distribuție sosiri 2025 pe categorii — ${catState.turisti==='Total'?'Toți turiștii':catState.turisti==='Romani'?'Turiști români':'Turiști străini'}`;
+  if (catChart) catChart.destroy();
+  const COLORS = ['#1a56db','#f59e0b','#0e7245','#7c3aed','#c2410c','#ec4899','#06b6d4','#84cc16','#d97706','#0891b2','#9aa0a6'];
+  catChart = new Chart(document.getElementById('catChart'), {
+    type: 'doughnut',
+    data: {
+      labels: filtRows.map(r=>r.cat),
+      datasets: [{ data: filtRows.map(r=>r.v25), backgroundColor: filtRows.map((_,i)=>COLORS[i%COLORS.length]), borderWidth: 2, borderColor: '#fff', hoverOffset: 6 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'right', labels: { font: { size: 11, family: "'DM Sans'" }, color: '#1a1f2e', padding: 10, usePointStyle: true } },
+        tooltip: { callbacks: { label: c => `${c.label}: ${fmt(c.parsed)} (${(c.parsed/total25*100).toFixed(1)}%)` } }
+      },
+      cutout: '55%'
+    }
+  });
+
+  // Table
+  let rowHtml = filtRows.map((r,i) => {
+    const pct = total25>0 ? (r.v25/total25*100) : 0;
+    return `<tr>
+      <td class="rank">${i+1}</td>
+      <td class="text-left">${r.cat}</td>
+      <td class="total-col">${fmt(r.v25)}</td>
+      <td>${pct.toFixed(2)}%</td>
+      <td>${fmt(r.v26)}</td>
+      <td style="color:${r.yoy==null?'#9aa0a6':r.yoy>=0?'#0e7245':'#b91c1c'};font-weight:600">${r.yoy==null?'—':(r.yoy>=0?'+':'')+r.yoy.toFixed(1)+'%'}</td>
+    </tr>`;
+  }).join('');
+  rowHtml += `<tr class="total-row">
+    <td class="rank">—</td>
+    <td class="text-left">TOTAL</td>
+    <td>${fmt(total25)}</td>
+    <td>100%</td>
+    <td>${fmt(total26)}</td>
+    <td></td>
+  </tr>`;
+
+  document.getElementById('catTable').innerHTML = `
+    <div class="panel" style="padding:0;overflow:hidden">
+      <div style="padding:14px 18px;border-bottom:1px solid #e8eaed">
+        <div style="font-size:13px;font-weight:700;color:#0f2044">Sosiri pe categorii (stele/flori) 2025-2026</div>
+      </div>
+      <div class="table-scroll" style="border:none;border-radius:0">
+        <table>
+          <thead><tr><th class="text-left">#</th><th class="text-left">Categorie</th><th>2025</th><th>% 2025</th><th>Ian-Mar 2026</th><th>YoY %</th></tr></thead>
+          <tbody>${rowHtml}</tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+</script>
+</body>
+</html>
