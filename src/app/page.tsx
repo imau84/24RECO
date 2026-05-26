@@ -1,165 +1,134 @@
-"use client";
-import Link from "next/link";
-import { useState } from "react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Link from 'next/link'
 
-const sectors = [
-  {
-    href: "/auto",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M7 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
-        <path d="M5 17H3v-4l2-5h11l2 5v4h-2M5 17h10"/>
-      </svg>
-    ),
-    iconBg: "#E1F5EE",
-    title: "Auto",
-    desc: "Inmatriculari lunare, parc auto national, top marci si modele inregistrate in Romania.",
-    tags: ["Inmatriculari", "Marci", "Judete"],
-    sursa: "DRPCIV / RAR",
-    reports: 4,
-  },
-  {
-    href: "/transport",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#185FA5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="1" y="3" width="15" height="13" rx="2"/>
-        <path d="M16 8h4l3 5v3h-7V8z"/>
-        <circle cx="5.5" cy="18.5" r="2.5"/>
-        <circle cx="18.5" cy="18.5" r="2.5"/>
-      </svg>
-    ),
-    iconBg: "#E6F1FB",
-    title: "Transport",
-    desc: "Statistici marfuri, pasageri si infrastructura de transport rutier, feroviar si aerian.",
-    tags: ["Marfuri", "Pasageri", "Infrastructura"],
-    sursa: "MT / INS",
-    reports: 3,
-  },
-  {
-    href: "/imobiliare",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#854F0B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-        <polyline points="9 22 9 12 15 12 15 22"/>
-      </svg>
-    ),
-    iconBg: "#FAEEDA",
-    title: "Imobiliare",
-    desc: "Tranzactii imobiliare, autorizatii de constructie si evolutia pietei rezidentiale pe judete.",
-    tags: ["Tranzactii", "Constructii", "ANCPI"],
-    sursa: "ANCPI / INS",
-    reports: 3,
-  },
-  {
-    href: "/institutii",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#534AB7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 22V12M21 22V12M12 22V2M3 12l9-10 9 10M3 22h18"/>
-      </svg>
-    ),
-    iconBg: "#EEEDFE",
-    title: "Institutii publice",
-    desc: "Cheltuieli publice, achizitii si date bugetare din transparenta institutionala.",
-    tags: ["Buget", "Achizitii", "Transparenta"],
-    sursa: "data.gov.ro",
-    reports: 3,
-  },
-];
-
-const stats = [
-  { val: "4", lbl: "Sectoare" },
-  { val: "12+", lbl: "Rapoarte" },
-  { val: "Lunar", lbl: "Actualizat" },
-  { val: "100%", lbl: "Date publice" },
-];
-
-function SectorCard({ s }: { s: typeof sectors[0] }) {
-  const [hovered, setHovered] = useState(false);
+export default function HomePage() {
   return (
-    <Link
-      href={s.href}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        display: "block", padding: 24,
-        border: `0.5px solid ${hovered ? "#9ca3af" : "#e5e7eb"}`,
-        borderRadius: 12, background: "#fff", transition: "border-color 0.15s",
-      }}
-    >
-      <div style={{ width: 36, height: 36, borderRadius: 8, background: s.iconBg, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 16 }}>
-        {s.icon}
+    <main style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 13, background: '#f4f5f7', color: '#1a1f2e', minHeight: '100vh' }}>
+
+      {/* NAVBAR */}
+      <nav style={{ background: '#0f2044', height: 48, display: 'flex', alignItems: 'center', padding: '0 24px', gap: 16 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#fff', letterSpacing: '-0.3px', whiteSpace: 'nowrap' }}>
+          📊 24reco.com
+        </div>
+        <div style={{ display: 'flex', gap: 2, flex: 1 }}>
+          {[
+            { label: 'Industrii', href: '#industrii' },
+            { label: 'Instituții publice', href: '#institutii' },
+            { label: 'Rapoarte', href: '#rapoarte' },
+          ].map(({ label, href }) => (
+            <a key={label} href={href} style={{ fontSize: 12, color: 'rgba(255,255,255,.55)', padding: '5px 12px', borderRadius: 5, textDecoration: 'none', transition: 'color .15s' }}
+              onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
+              onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,.55)')}>
+              {label}
+            </a>
+          ))}
+        </div>
+        <Link href="/despre" style={{ fontSize: 11, color: 'rgba(255,255,255,.5)', padding: '4px 10px', border: '1px solid rgba(255,255,255,.15)', borderRadius: 5, textDecoration: 'none' }}>
+          Despre · Contact
+        </Link>
+      </nav>
+
+      {/* HERO */}
+      <div style={{ background: '#0f2044', padding: '22px 24px 20px', borderBottom: '1px solid #1a2d5a' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <h1 style={{ fontSize: 22, fontWeight: 700, color: '#fff', lineHeight: 1.2, marginBottom: 5 }}>Date publice. Simplu.</h1>
+          <p style={{ fontSize: 12, color: 'rgba(255,255,255,.55)', lineHeight: 1.6 }}>Analizează industrii, instituții și rapoarte din România</p>
+        </div>
       </div>
-      <div style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 600, marginBottom: 6 }}>{s.title}</div>
-      <div style={{ fontSize: 13, color: "#6b7280", lineHeight: 1.55, marginBottom: 16 }}>{s.desc}</div>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-        {s.tags.map(t => (
-          <span key={t} style={{ fontSize: 11, padding: "3px 8px", border: "0.5px solid #e5e7eb", borderRadius: 4, color: "#6b7280", background: "#f9fafb" }}>{t}</span>
-        ))}
+
+      {/* MAIN */}
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '20px 24px' }}>
+
+        {/* INDUSTRII */}
+        <section id="industrii" style={{ marginBottom: 20 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#1a1f2e', whiteSpace: 'nowrap' }}>Industrii</span>
+            <div style={{ flex: 1, height: 1, background: '#e8eaed' }} />
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
+            {[
+              { icon: '🌾', title: 'Agricultură', sub: 'Producție · Suprafețe', href: '/Industrii - Agricultura.html' },
+              { icon: '🏗️', title: 'Construcții', sub: 'Autorizații · Lucrări', href: '/Industrii - Constructii.html' },
+              { icon: '🏠', title: 'Imobiliare', sub: 'Tranzacții · ANCPI', href: '/Industrii - Imobiliare.html' },
+              { icon: '🚛', title: 'Transport', sub: 'Marfă · Operatori', href: '/Industrii - Transport.html' },
+              { icon: '🏭', title: 'Industrie', sub: 'IPI · CAEN', href: '/Industrii - Industrie.html' },
+              { icon: '🛒', title: 'Comerț', sub: 'Retail · CA', href: '/Industrii - Comert.html' },
+              { icon: '✈️', title: 'Turism', sub: 'Sosiri · Cazare', href: '/Industrii - Turism.html' },
+            ].map(({ icon, title, sub, href }) => (
+              <Card key={title} icon={icon} title={title} sub={sub} href={href} />
+            ))}
+          </div>
+        </section>
+
+        {/* INSTITUTII */}
+        <section id="institutii" style={{ marginBottom: 20 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#1a1f2e', whiteSpace: 'nowrap' }}>Instituții Publice</span>
+            <div style={{ flex: 1, height: 1, background: '#e8eaed' }} />
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
+            {[
+              { icon: '🏦', title: 'BNR', sub: 'BPM6 · ISD · Credite', href: '/Institutii publice - BNR.html' },
+              { icon: '👴', title: 'Casa Pensii', sub: 'Pensionari · Medie', href: '/Institutii publice - Casa de Pensii.html' },
+              { icon: '📚', title: 'Min. Educației', sub: 'Elevi · Unități', href: '/Institutii publice - Ministerul Educatiei.html' },
+              { icon: '💰', title: 'Execuție Bugetară', sub: 'Venituri · Cheltuieli', href: '/Institutii publice - Ministerul Finantelor - Executie Bugetara.html' },
+              { icon: '📈', title: 'Datorie Publică', sub: 'Structură · Evoluție', href: '/Institutii publice - Ministerul Finantelor - Datorie Publica.html' },
+            ].map(({ icon, title, sub, href }) => (
+              <Card key={title} icon={icon} title={title} sub={sub} href={href} />
+            ))}
+          </div>
+        </section>
+
+        {/* RAPOARTE */}
+        <section id="rapoarte" style={{ marginBottom: 20 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#1a1f2e', whiteSpace: 'nowrap' }}>Rapoarte</span>
+            <div style={{ flex: 1, height: 1, background: '#e8eaed' }} />
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
+            {[
+              { icon: '📊', title: 'Situații Financiare', sub: 'Bilanț · Companii', href: '/Rapoarte - Situatii Financiare.html' },
+              { icon: '🗳️', title: 'Alegeri Locale 2024', sub: 'Județe · Comune', href: '/Rapoarte - Alegeri Locale 2024.html' },
+            ].map(({ icon, title, sub, href }) => (
+              <Card key={title} icon={icon} title={title} sub={sub} href={href} />
+            ))}
+          </div>
+        </section>
+
+        {/* FOOTER */}
+        <div style={{ borderTop: '1px solid #e8eaed', background: '#fff', padding: '10px 16px', display: 'flex', alignItems: 'center', gap: 8, borderRadius: 8 }}>
+          <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', flexShrink: 0 }} />
+          <span style={{ fontSize: 11, color: '#5f6368' }}>24reco.com — Date publice din România</span>
+          <div style={{ flex: 1 }} />
+          <span style={{ fontSize: 11, color: '#9aa0a6' }}>Surse: INS · BNR · MF · ME · ARR · AEP</span>
+        </div>
+
       </div>
-      <div style={{ marginTop: 16, paddingTop: 14, borderTop: "0.5px solid #e5e7eb", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <span style={{ fontSize: 11, color: "#9ca3af" }}>Sursa: {s.sursa}</span>
-        <span style={{ fontSize: 14, color: "#9ca3af" }}>→</span>
-      </div>
-    </Link>
-  );
+    </main>
+  )
 }
 
-export default function Home() {
+function Card({ icon, title, sub, href }: { icon: string; title: string; sub: string; href: string }) {
   return (
-    <main>
-      <Navbar />
-
-      {/* Hero */}
-      <section style={{ padding: "64px 32px 48px", maxWidth: 760 }}>
-        <p style={{ fontSize: 11, fontWeight: 500, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--green)", marginBottom: 14 }}>
-          Date publice Romania
-        </p>
-        <h1 style={{ fontSize: 44, lineHeight: 1.12, marginBottom: 16 }}>
-          Rapoarte bazate<br />pe date reale
-        </h1>
-        <p style={{ fontSize: 16, color: "#6b7280", lineHeight: 1.65, maxWidth: 520 }}>
-          Statistici lunare din surse publice oficiale — inmatriculari auto, tranzactii imobiliare, transport si institutii publice din Romania.
-        </p>
-      </section>
-
-      {/* Stats bar */}
-      <div style={{ display: "flex", gap: 40, padding: "18px 32px", borderTop: "0.5px solid #e5e7eb", borderBottom: "0.5px solid #e5e7eb", background: "#f9fafb" }}>
-        {stats.map(s => (
-          <div key={s.lbl}>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 700 }}>{s.val}</div>
-            <div style={{ fontSize: 11, color: "#9ca3af", textTransform: "uppercase", letterSpacing: "0.8px", marginTop: 2 }}>{s.lbl}</div>
-          </div>
-        ))}
+    <a href={href} style={{
+      background: '#fff', border: '1px solid #e8eaed', borderRadius: 8,
+      padding: '10px 12px', cursor: 'pointer', textDecoration: 'none',
+      display: 'flex', alignItems: 'center', gap: 9, transition: 'all .15s',
+    }}
+      onMouseEnter={e => {
+        e.currentTarget.style.borderColor = '#1a56db'
+        e.currentTarget.style.boxShadow = '0 2px 6px rgba(26,86,219,.08)'
+        e.currentTarget.style.transform = 'translateY(-1px)'
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.borderColor = '#e8eaed'
+        e.currentTarget.style.boxShadow = 'none'
+        e.currentTarget.style.transform = 'translateY(0)'
+      }}>
+      <div style={{ fontSize: 16, flexShrink: 0, width: 24, textAlign: 'center' }}>{icon}</div>
+      <div style={{ minWidth: 0 }}>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#0f2044', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{title}</div>
+        <div style={{ fontSize: 10, color: '#9aa0a6', marginTop: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{sub}</div>
       </div>
-
-      {/* Sectors */}
-      <section style={{ padding: "40px 32px" }}>
-        <p style={{ fontSize: 11, fontWeight: 500, letterSpacing: "1.5px", textTransform: "uppercase", color: "#9ca3af", marginBottom: 20 }}>Sectoare</p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
-          {sectors.map(s => <SectorCard key={s.href} s={s} />)}
-        </div>
-      </section>
-
-      {/* Latest report teaser */}
-      <section style={{ padding: "0 32px 48px" }}>
-        <div style={{ border: "0.5px solid #e5e7eb", borderRadius: 12, padding: 24, background: "#f9fafb" }}>
-          <p style={{ fontSize: 11, fontWeight: 500, textTransform: "uppercase", letterSpacing: "1px", color: "var(--green)", marginBottom: 10 }}>Ultimul raport</p>
-          <h2 style={{ fontSize: 19, fontWeight: 700, marginBottom: 6 }}>Inmatriculari auto — Martie 2025</h2>
-          <p style={{ fontSize: 13, color: "#6b7280", marginBottom: 20 }}>32.481 vehicule inmatriculate. Dacia conduce cu 18.4% cota de piata. Crestere de 6.2% fata de februarie.</p>
-          <Link href="/auto" style={{
-            display: "inline-flex", alignItems: "center", gap: 6,
-            fontSize: 13, padding: "8px 16px",
-            border: "0.5px solid #d1d5db", borderRadius: 6,
-            background: "#fff", color: "#1a1a1a",
-          }}>
-            Vezi raportul complet →
-          </Link>
-        </div>
-      </section>
-
-      <Footer />
-    </main>
-  );
+    </a>
+  )
 }
