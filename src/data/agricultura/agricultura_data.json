@@ -2,24 +2,262 @@
   "meta": {
     "sursa": "Bursa Română de Mărfuri (BRM)",
     "url": "https://brm.ro/cotatii-cereale/",
-    "actualizat": "S16 2026 (16-22 Apr)",
-    "frecventa": "saptamanal"
+    "actualizat": "S19 07-13 mai 2026",
+    "frecventa": "saptamanal",
+    "ultima_rulare": "2026-05-27"
   },
   "saptamani": [
-    { "nr": 2,  "label": "08-14 ian", "grau": { "VEST": 950,  "EST": 962,  "SUD": 941  }, "porumb": { "VEST": 1015, "EST": 944,  "SUD": 1027 } },
-    { "nr": 3,  "label": "15-21 ian", "grau": { "VEST": 948,  "EST": 1022, "SUD": 928  }, "porumb": { "VEST": 958,  "EST": 932,  "SUD": 995  } },
-    { "nr": 4,  "label": "22-28 ian", "grau": { "VEST": 964,  "EST": 952,  "SUD": 938  }, "porumb": { "VEST": 1002, "EST": 932,  "SUD": 1030 } },
-    { "nr": 5,  "label": "29ian-04feb","grau": { "VEST": 1003, "EST": 987,  "SUD": 953  }, "porumb": { "VEST": 927,  "EST": 957,  "SUD": 989  } },
-    { "nr": 6,  "label": "05-11 feb", "grau": { "VEST": 982,  "EST": 1025, "SUD": 939  }, "porumb": { "VEST": 990,  "EST": 937,  "SUD": 971  } },
-    { "nr": 7,  "label": "12-18 feb", "grau": { "VEST": 899,  "EST": 982,  "SUD": 925  }, "porumb": { "VEST": 965,  "EST": 943,  "SUD": 1015 } },
-    { "nr": 8,  "label": "19-25 feb", "grau": { "VEST": 991,  "EST": 985,  "SUD": 936  }, "porumb": { "VEST": 947,  "EST": 931,  "SUD": 999  } },
-    { "nr": 9,  "label": "26feb-04mar","grau": { "VEST": 938,  "EST": 986,  "SUD": 914  }, "porumb": { "VEST": 929,  "EST": 956,  "SUD": 1039 } },
-    { "nr": 10, "label": "05-11 mar", "grau": { "VEST": 973,  "EST": 1018, "SUD": 957  }, "porumb": { "VEST": 913,  "EST": 976,  "SUD": 1021 } },
-    { "nr": 11, "label": "12-18 mar", "grau": { "VEST": 964,  "EST": 1018, "SUD": 943  }, "porumb": { "VEST": 928,  "EST": 960,  "SUD": 1021 } },
-    { "nr": 12, "label": "19-25 mar", "grau": { "VEST": 901,  "EST": 983,  "SUD": 957  }, "porumb": { "VEST": 919,  "EST": 916,  "SUD": 1033 } },
-    { "nr": 13, "label": "26mar-01apr","grau": { "VEST": 970,  "EST": 962,  "SUD": 959  }, "porumb": { "VEST": 957,  "EST": 907,  "SUD": 998  } },
-    { "nr": 14, "label": "02-08 apr", "grau": { "VEST": 964,  "EST": 1040, "SUD": 956  }, "porumb": { "VEST": 937,  "EST": 980,  "SUD": 993  } },
-    { "nr": 15, "label": "09-15 apr", "grau": { "VEST": 900,  "EST": 1093, "SUD": 947  }, "porumb": { "VEST": 1075, "EST": 971,  "SUD": 990  } },
-    { "nr": 16, "label": "16-22 apr", "grau": { "VEST": 952,  "EST": 947,  "SUD": 946  }, "porumb": { "VEST": 976,  "EST": 992,  "SUD": 989  } }
+    {
+      "nr": 2,
+      "label": "08-14 ian",
+      "grau": {
+        "VEST": 950,
+        "EST": 962,
+        "SUD": 941
+      },
+      "porumb": {
+        "VEST": 1015,
+        "EST": 944,
+        "SUD": 1027
+      }
+    },
+    {
+      "nr": 3,
+      "label": "15-21 ian",
+      "grau": {
+        "VEST": 948,
+        "EST": 1022,
+        "SUD": 928
+      },
+      "porumb": {
+        "VEST": 958,
+        "EST": 932,
+        "SUD": 995
+      }
+    },
+    {
+      "nr": 4,
+      "label": "22-28 ian",
+      "grau": {
+        "VEST": 964,
+        "EST": 952,
+        "SUD": 938
+      },
+      "porumb": {
+        "VEST": 1002,
+        "EST": 932,
+        "SUD": 1030
+      }
+    },
+    {
+      "nr": 5,
+      "label": "29ian-04feb",
+      "grau": {
+        "VEST": 1003,
+        "EST": 987,
+        "SUD": 953
+      },
+      "porumb": {
+        "VEST": 927,
+        "EST": 957,
+        "SUD": 989
+      }
+    },
+    {
+      "nr": 6,
+      "label": "05-11 feb",
+      "grau": {
+        "VEST": 982,
+        "EST": 1025,
+        "SUD": 939
+      },
+      "porumb": {
+        "VEST": 990,
+        "EST": 937,
+        "SUD": 971
+      }
+    },
+    {
+      "nr": 7,
+      "label": "12-18 feb",
+      "grau": {
+        "VEST": 899,
+        "EST": 982,
+        "SUD": 925
+      },
+      "porumb": {
+        "VEST": 965,
+        "EST": 943,
+        "SUD": 1015
+      }
+    },
+    {
+      "nr": 8,
+      "label": "19-25 feb",
+      "grau": {
+        "VEST": 991,
+        "EST": 985,
+        "SUD": 936
+      },
+      "porumb": {
+        "VEST": 947,
+        "EST": 931,
+        "SUD": 999
+      }
+    },
+    {
+      "nr": 9,
+      "label": "26feb-04mar",
+      "grau": {
+        "VEST": 938,
+        "EST": 986,
+        "SUD": 914
+      },
+      "porumb": {
+        "VEST": 929,
+        "EST": 956,
+        "SUD": 1039
+      }
+    },
+    {
+      "nr": 10,
+      "label": "05-11 mar",
+      "grau": {
+        "VEST": 973,
+        "EST": 1018,
+        "SUD": 957
+      },
+      "porumb": {
+        "VEST": 913,
+        "EST": 976,
+        "SUD": 1021
+      }
+    },
+    {
+      "nr": 11,
+      "label": "12-18 mar",
+      "grau": {
+        "VEST": 964,
+        "EST": 1018,
+        "SUD": 943
+      },
+      "porumb": {
+        "VEST": 928,
+        "EST": 960,
+        "SUD": 1021
+      }
+    },
+    {
+      "nr": 12,
+      "label": "19-25 mar",
+      "grau": {
+        "VEST": 901,
+        "EST": 983,
+        "SUD": 957
+      },
+      "porumb": {
+        "VEST": 919,
+        "EST": 916,
+        "SUD": 1033
+      }
+    },
+    {
+      "nr": 13,
+      "label": "26mar-01apr",
+      "grau": {
+        "VEST": 970,
+        "EST": 962,
+        "SUD": 959
+      },
+      "porumb": {
+        "VEST": 957,
+        "EST": 907,
+        "SUD": 998
+      }
+    },
+    {
+      "nr": 14,
+      "label": "02-08 apr",
+      "grau": {
+        "VEST": 964,
+        "EST": 1040,
+        "SUD": 956
+      },
+      "porumb": {
+        "VEST": 937,
+        "EST": 980,
+        "SUD": 993
+      }
+    },
+    {
+      "nr": 15,
+      "label": "09-15 apr",
+      "grau": {
+        "VEST": 900,
+        "EST": 1093,
+        "SUD": 947
+      },
+      "porumb": {
+        "VEST": 1075,
+        "EST": 971,
+        "SUD": 990
+      }
+    },
+    {
+      "nr": 16,
+      "label": "16-22 apr",
+      "grau": {
+        "VEST": 952,
+        "EST": 947,
+        "SUD": 946
+      },
+      "porumb": {
+        "VEST": 976,
+        "EST": 992,
+        "SUD": 989
+      }
+    },
+    {
+      "nr": 17,
+      "label": "23-29 aprilie 2026",
+      "grau": {
+        "VEST": 972,
+        "EST": 1100,
+        "SUD": 927
+      },
+      "porumb": {
+        "VEST": 977,
+        "EST": 942,
+        "SUD": 980
+      }
+    },
+    {
+      "nr": 18,
+      "label": "30 aprilie-06 mai 2026",
+      "grau": {
+        "VEST": 963,
+        "EST": 1085,
+        "SUD": 971
+      },
+      "porumb": {
+        "VEST": 976,
+        "EST": 979,
+        "SUD": 1014
+      }
+    },
+    {
+      "nr": 19,
+      "label": "07-13 mai 2026",
+      "grau": {
+        "VEST": 957,
+        "EST": 1079,
+        "SUD": 945
+      },
+      "porumb": {
+        "VEST": 975,
+        "EST": 990,
+        "SUD": 1004
+      }
+    }
   ]
 }
