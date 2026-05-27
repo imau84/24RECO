@@ -3,7 +3,7 @@
 import Link from 'next/link'
 
 const INDUSTRII = [
-  { icon: '🌾', title: 'Agricultură', sub: 'Producție · Suprafețe', href: '/Industrii - Agricultura.html' },
+  { icon: '🌾', title: 'Agricultură', sub: 'Producție · Suprafețe', href: '/industrii/agricultura' },
   { icon: '🏗️', title: 'Construcții', sub: 'Autorizații · Lucrări', href: '/Industrii - Constructii.html' },
   { icon: '🏠', title: 'Imobiliare', sub: 'Tranzacții · ANCPI', href: '/Industrii - Imobiliare.html' },
   { icon: '🚛', title: 'Transport', sub: 'Marfă · Operatori', href: '/Industrii - Transport.html' },
