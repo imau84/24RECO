@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Script: fetch_agricultura.py - v3 cu debug complet
+Script: fetch_agricultura.py - v5 final
+Extrage Grâu Panificație + Porumb din tabelele BRM Cereale.
 """
 
 import json
@@ -13,10 +14,10 @@ JSON_PATH = Path("src/data/agricultura/agricultura_data.json")
 URL = "https://brm.ro/cotatii-cereale/"
 
 def parse_value(text: str):
+    """Extrage valoare numerică validă (500-5000) din text."""
     if not text:
         return None
     text = text.strip().replace('\xa0', '').replace(' ', '').replace(',', '')
-    # Eliminăm punctele ca separator mii
     text = re.sub(r'(\d)\.(\d{3})', r'\1\2', text)
     m = re.search(r'\b(\d{3,4})\b', text)
     if m:
@@ -37,116 +38,117 @@ def scrape_with_playwright() -> list[dict]:
         )
         print(f"📡 Navigare la {URL}")
         page.goto(URL, wait_until="networkidle", timeout=60000)
-        page.wait_for_timeout(4000)
+        page.wait_for_timeout(3000)
 
-        # DEBUG: printăm tot textul paginii pentru primele 3000 chars
-        full_text = page.inner_text("body")
-        print("=== PREVIEW TEXT PAGINA (primele 2000 chars) ===")
-        print(full_text[:2000])
-        print("=== END PREVIEW ===")
+        # Click pe tab "Cotații săptămânale" dacă există
+        try:
+            tab = page.get_by_text("Cotații săptămânale", exact=False)
+            tab.first.click()
+            page.wait_for_timeout(2000)
+            print("✅ Click tab săptămânal")
+        except:
+            pass
 
-        # Căutăm toate elementele care conțin "SAPTAMANA"
-        elements = page.query_selector_all("*")
-        saptamana_elements = []
-        for el in elements:
-            try:
-                txt = el.inner_text()
-                if re.search(r'SAPTAMANA\s+\d+', txt, re.IGNORECASE) and len(txt) < 500:
-                    saptamana_elements.append(txt.strip())
-            except:
-                pass
-
-        print(f"\n=== ELEMENTE CU 'SAPTAMANA' ({len(saptamana_elements)}) ===")
-        for e in saptamana_elements[:10]:
-            print(f"  >> {e[:200]}")
-        print("=== END ===\n")
-
-        # Extragem toate tabelele și printăm conținutul
         tables = page.query_selector_all("table")
         print(f"📊 Tabele găsite: {len(tables)}")
 
-        for ti, table in enumerate(tables):
-            rows = table.query_selector_all("tr")
-            print(f"\n--- TABEL {ti+1} ({len(rows)} rânduri) ---")
-            for ri, row in enumerate(rows[:30]):
-                cells = [c.inner_text().strip() for c in row.query_selector_all("td, th")]
-                if any(cells):
-                    print(f"  R{ri+1}: {cells}")
-
-        # Acum parsăm efectiv
-        # Strategie: căutăm în tot textul paginii pattern-ul săptămânilor
-        # BRM folosește format: "SAPTAMANA XX/YYYY" urmat de date
-        
-        # Găsim toate săptămânile din textul complet
-        week_matches = list(re.finditer(
-            r'SAPTAMANA\s+(\d+)/(\d+)\s*\(?([^)]*)\)?',
-            full_text, re.IGNORECASE
-        ))
-        print(f"\n📅 Săptămâni găsite în text: {[(m.group(1), m.group(3)[:20]) for m in week_matches]}")
-
-        # Parsăm tabelele cu strategie îmbunătățită
         for table in tables:
             rows = table.query_selector_all("tr")
             current_nr = None
             current_label = None
-            current_grau = {}
-            current_porumb = {}
+            grau = {}
+            porumb = {}
+            in_first_subtable = False  # Prima subtabelă = Grâu + Porumb
 
             for row in rows:
                 cells = [c.inner_text().strip().replace('\n', ' ') for c in row.query_selector_all("td, th")]
-                if not cells:
+                if not cells or not any(cells):
                     continue
+
                 full = " ".join(cells)
 
-                # Header săptămână
-                m = re.search(r'SAPTAMANA\s+(\d+)/\d+', full, re.IGNORECASE)
+                # Header săptămână: "SAPTAMANA 19/2026 (Saptamana 07 - 13 mai 2026)"
+                m = re.search(r'SAPTAMANA\s+(\d+)/(\d+)', full, re.IGNORECASE)
                 if m:
-                    if current_nr and (current_grau or current_porumb):
-                        results.append({"nr": current_nr, "label": current_label or "", "grau": current_grau, "porumb": current_porumb})
+                    # Salvăm săptămâna precedentă
+                    if current_nr and grau and porumb:
+                        results.append({
+                            "nr": current_nr,
+                            "label": current_label or "",
+                            "grau": grau,
+                            "porumb": porumb,
+                        })
+                        print(f"  ✅ S{current_nr}: grâu={grau}, porumb={porumb}")
+
                     current_nr = int(m.group(1))
                     m2 = re.search(r'\(([^)]+)\)', full)
-                    current_label = m2.group(1).strip() if m2 else f"S{current_nr}"
-                    current_grau = {}
-                    current_porumb = {}
+                    raw_label = m2.group(1).strip() if m2 else ""
+                    # Scurtăm: "Saptamana 07 - 13 mai 2026" -> "07-13 mai 2026"
+                    raw_label = re.sub(r'[Ss]aptamana\s+', '', raw_label)
+                    current_label = raw_label.strip()
+                    grau = {}
+                    porumb = {}
+                    in_first_subtable = True
                     continue
 
                 if not current_nr:
                     continue
 
-                # Grâu
-                if re.search(r'gr[aâ]u', full, re.IGNORECASE):
-                    vals = [parse_value(c) for c in cells]
-                    vals = [v for v in vals if v]
-                    print(f"  Grâu row: {cells} -> vals: {vals}")
-                    if len(vals) >= 3:
-                        current_grau = {"VEST": vals[0], "EST": vals[1], "SUD": vals[2]}
+                # Header subgrup: "ZONA DE LIVRARE/PRODUSUL  GRAU PT PANIFICATIE  Var.%  GRAU FURAJER..."
+                # Prima apariție = grâu+porumb, a doua = orz+floarea — ignorăm a doua
+                if re.search(r'ZONA DE LIVRARE', full, re.IGNORECASE):
+                    # Dacă avem deja grâu, înseamnă că e al doilea subgrup — îl ignorăm
+                    if grau:
+                        in_first_subtable = False
+                    continue
 
-                # Porumb
-                if re.search(r'porumb', full, re.IGNORECASE):
-                    vals = [parse_value(c) for c in cells]
-                    vals = [v for v in vals if v]
-                    print(f"  Porumb row: {cells} -> vals: {vals}")
-                    if len(vals) >= 3:
-                        current_porumb = {"VEST": vals[0], "EST": vals[1], "SUD": vals[2]}
+                if not in_first_subtable:
+                    continue
 
-            if current_nr and (current_grau or current_porumb):
-                results.append({"nr": current_nr, "label": current_label or "", "grau": current_grau, "porumb": current_porumb})
+                # Rânduri cu date: VEST / EST / SUD
+                zone_match = re.match(r'^(VEST|EST|SUD)\b', full, re.IGNORECASE)
+                if zone_match:
+                    zona = zone_match.group(1).upper()
+                    vals = [parse_value(c) for c in cells[1:]]  # Sărim coloana zonei
+                    vals = [v for v in vals if v]
+                    print(f"    {zona}: cells={cells}, vals={vals}")
+
+                    # Structura coloane: [Grâu Panif, Var%, Grâu Furajer, Var%, Porumb, Var%]
+                    # Valorile numerice valide în ordine: grâu_panif, grâu_furajer, porumb
+                    if len(vals) >= 3:
+                        grau[zona] = vals[0]   # Grâu Panificație
+                        porumb[zona] = vals[2]  # Porumb (poziția 3)
+                    elif len(vals) == 2:
+                        grau[zona] = vals[0]
+                        porumb[zona] = vals[1]
+                    elif len(vals) == 1:
+                        grau[zona] = vals[0]
+
+            # Ultima săptămână
+            if current_nr and grau and porumb:
+                results.append({
+                    "nr": current_nr,
+                    "label": current_label or "",
+                    "grau": grau,
+                    "porumb": porumb,
+                })
+                print(f"  ✅ S{current_nr}: grâu={grau}, porumb={porumb}")
 
         browser.close()
 
     return results
 
 def merge(existing: list, new_data: list) -> tuple[list, bool]:
-    existing_nrs = {s["nr"]: i for i, s in enumerate(existing)}
+    existing_map = {s["nr"]: i for i, s in enumerate(existing)}
     result = list(existing)
     changed = False
     for s in new_data:
-        if s["nr"] not in existing_nrs:
+        if s["nr"] not in existing_map:
             result.append(s)
             changed = True
-            print(f"✅ Adăugat S{s['nr']}: {s}")
+            print(f"✅ Adăugat S{s['nr']}")
         else:
-            idx = existing_nrs[s["nr"]]
+            idx = existing_map[s["nr"]]
             if result[idx].get("grau") != s.get("grau") or result[idx].get("porumb") != s.get("porumb"):
                 result[idx] = s
                 changed = True
@@ -155,7 +157,7 @@ def merge(existing: list, new_data: list) -> tuple[list, bool]:
     return result, changed
 
 def main():
-    print(f"🌾 fetch_agricultura.py v3 — {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+    print(f"🌾 fetch_agricultura.py v5 — {datetime.now().strftime('%Y-%m-%d %H:%M')}")
 
     if JSON_PATH.exists():
         with open(JSON_PATH, "r", encoding="utf-8") as f:
@@ -176,7 +178,7 @@ def main():
         traceback.print_exc()
         sys.exit(1)
 
-    print(f"\n📊 Săptămâni parsate: {[s['nr'] for s in new_data]}")
+    print(f"📊 Săptămâni parsate: {[s['nr'] for s in new_data]}")
 
     if not new_data:
         print("⚠️  Nu s-au găsit date.")
@@ -201,7 +203,7 @@ def main():
     with open(JSON_PATH, "w", encoding="utf-8") as f:
         json.dump({"meta": meta, "saptamani": merged}, f, ensure_ascii=False, indent=2)
 
-    print(f"💾 Salvat: {len(merged)} săptămâni, ultima: S{latest['nr']}")
+    print(f"💾 Salvat: {len(merged)} săptămâni, ultima: S{latest['nr']} — {latest['label']}")
 
 if __name__ == "__main__":
     main()
