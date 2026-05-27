@@ -57,34 +57,79 @@ export default function HomePage() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        html{-webkit-text-size-adjust:100%}
         body{font-family:'DM Sans',system-ui,sans-serif;font-size:13px;background:#f4f5f7;color:#1a1f2e;-webkit-font-smoothing:antialiased}
-        .hp-nav{background:#0f2044;height:48px;display:flex;align-items:center;padding:0 24px;gap:16px}
+
+        /* NAVBAR */
+        .hp-nav{background:#0f2044;height:48px;display:flex;align-items:center;padding:0 20px;gap:12px;position:sticky;top:0;z-index:100}
         .hp-logo{font-size:14px;font-weight:700;color:#fff;letter-spacing:-0.3px;white-space:nowrap;text-decoration:none}
-        .hp-navlinks{display:flex;gap:2px;flex:1}
-        .hp-navlink{font-size:12px;color:rgba(255,255,255,.55);padding:5px 12px;border-radius:5px;text-decoration:none;transition:color .15s}
+        .hp-navlinks{display:flex;gap:2px;flex:1;overflow:hidden}
+        .hp-navlink{font-size:12px;color:rgba(255,255,255,.55);padding:5px 10px;border-radius:5px;text-decoration:none;transition:color .15s;white-space:nowrap}
         .hp-navlink:hover{color:#fff}
-        .hp-about{font-size:11px;color:rgba(255,255,255,.5);padding:4px 10px;border:1px solid rgba(255,255,255,.15);border-radius:5px;text-decoration:none;transition:all .15s}
+        .hp-about{font-size:11px;color:rgba(255,255,255,.5);padding:4px 10px;border:1px solid rgba(255,255,255,.15);border-radius:5px;text-decoration:none;transition:all .15s;white-space:nowrap;flex-shrink:0}
         .hp-about:hover{color:#fff;border-color:rgba(255,255,255,.35)}
-        .hp-hero{background:#0f2044;padding:22px 24px 20px;border-bottom:1px solid #1a2d5a}
+
+        /* HERO */
+        .hp-hero{background:#0f2044;padding:24px 20px 22px;border-bottom:1px solid #1a2d5a}
         .hp-hero-inner{max-width:1200px;margin:0 auto}
         .hp-hero h1{font-size:22px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:5px}
         .hp-hero p{font-size:12px;color:rgba(255,255,255,.55);line-height:1.6}
-        .hp-main{max-width:1200px;margin:0 auto;padding:20px 24px}
+
+        /* MAIN */
+        .hp-main{max-width:1200px;margin:0 auto;padding:20px 20px}
         .hp-section{margin-bottom:20px}
         .hp-sec-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
         .hp-sec-title{font-size:12px;font-weight:700;color:#1a1f2e;white-space:nowrap}
         .hp-sec-line{flex:1;height:1px;background:#e8eaed}
-        .hp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+
+        /* GRID — responsive */
+        .hp-grid{display:grid;gap:8px;grid-template-columns:repeat(4,1fr)}
+
+        /* CARD */
         .hp-card{background:#fff;border:1px solid #e8eaed;border-radius:8px;padding:10px 12px;text-decoration:none;display:flex;align-items:center;gap:9px;transition:all .15s}
         .hp-card:hover{border-color:#1a56db;box-shadow:0 2px 6px rgba(26,86,219,.08);transform:translateY(-1px)}
         .hp-card-icon{font-size:16px;flex-shrink:0;width:24px;text-align:center}
         .hp-card-body{display:flex;flex-direction:column;min-width:0}
         .hp-card-title{font-size:12px;font-weight:600;color:#0f2044;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
         .hp-card-sub{font-size:10px;color:#9aa0a6;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-        .hp-footer{border-top:1px solid #e8eaed;background:#fff;padding:10px 16px;display:flex;align-items:center;gap:8px;border-radius:8px;margin-top:4px}
+
+        /* FOOTER */
+        .hp-footer{border-top:1px solid #e8eaed;background:#fff;padding:10px 16px;display:flex;align-items:center;gap:8px;border-radius:8px;margin-top:4px;flex-wrap:wrap;row-gap:4px}
         .hp-footer-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;flex-shrink:0}
         .hp-footer-text{font-size:11px;color:#5f6368}
         .hp-footer-meta{font-size:11px;color:#9aa0a6;margin-left:auto}
+
+        /* TABLET: 768px - 1024px → 3 coloane */
+        @media(max-width:1024px){
+          .hp-grid{grid-template-columns:repeat(3,1fr)}
+          .hp-hero h1{font-size:20px}
+        }
+
+        /* TABLET MIC: 600px - 768px → 2 coloane */
+        @media(max-width:768px){
+          .hp-grid{grid-template-columns:repeat(2,1fr)}
+          .hp-nav{padding:0 16px}
+          .hp-main{padding:16px}
+          .hp-hero{padding:20px 16px 18px}
+          .hp-hero h1{font-size:18px}
+          .hp-navlinks{gap:0}
+          .hp-navlink{font-size:11px;padding:5px 8px}
+          .hp-footer-meta{margin-left:0;width:100%}
+        }
+
+        /* MOBIL: < 480px → 1 coloană, navbar simplificat */
+        @media(max-width:480px){
+          .hp-grid{grid-template-columns:1fr 1fr}
+          .hp-card{padding:10px}
+          .hp-card-title{font-size:11px}
+          .hp-navlinks{display:none}
+          .hp-hero h1{font-size:17px}
+          .hp-about{font-size:10px;padding:3px 8px}
+        }
+
+        @media(max-width:360px){
+          .hp-grid{grid-template-columns:1fr}
+        }
       `}</style>
 
       <nav className="hp-nav">
