@@ -2,14 +2,13 @@ name: Actualizare Date Agricultura BRM
 
 on:
   schedule:
-    # Luni dimineața la 08:00 ora României (06:00 UTC)
-    - cron: '0 6 * * 1'
-  workflow_dispatch:  # permite rulare manuală din GitHub Actions
+    - cron: '0 6 * * 1'  # Luni 08:00 Romania (06:00 UTC)
+  workflow_dispatch:
 
 jobs:
   update-agricultura:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -21,9 +20,11 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Instalare dependențe
-        run: |
-          pip install requests beautifulsoup4
+      - name: Instalare dependențe Python
+        run: pip install playwright requests
+
+      - name: Instalare Playwright Chromium
+        run: python -m playwright install chromium --with-deps
 
       - name: Rulare script fetch
         run: python scripts/fetch_agricultura.py
@@ -33,13 +34,13 @@ jobs:
         run: |
           if git diff --quiet src/data/agricultura/agricultura_data.json; then
             echo "changed=false" >> $GITHUB_OUTPUT
-            echo "ℹ️ Nicio modificare în date"
+            echo "ℹ️ Nicio modificare"
           else
             echo "changed=true" >> $GITHUB_OUTPUT
             echo "✅ Date noi detectate"
           fi
 
-      - name: Commit și push date noi
+      - name: Commit și push
         if: steps.check_changes.outputs.changed == 'true'
         run: |
           git config --global user.name "github-actions[bot]"
