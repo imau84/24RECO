@@ -35,7 +35,7 @@ jobs:
           name: debug-brm
           path: |
             debug_brm.json
-            debug_frame_*.txt
+            debug_page.html
           retention-days: 1
 
       - name: Verificare modificări
