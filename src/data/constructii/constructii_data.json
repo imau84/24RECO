@@ -12,130 +12,1294 @@
     "TOTAL"
   ],
   "perioade": [
-    "Luna 1 2022","Luna 2 2022","Luna 3 2022","Luna 4 2022","Luna 5 2022","Luna 6 2022",
-    "Luna 7 2022","Luna 8 2022","Luna 9 2022","Luna 10 2022","Luna 11 2022","Luna 12 2022",
-    "Luna 1 2023","Luna 2 2023","Luna 3 2023","Luna 4 2023","Luna 5 2023","Luna 6 2023",
-    "Luna 7 2023","Luna 8 2023","Luna 9 2023","Luna 10 2023","Luna 11 2023","Luna 12 2023",
-    "Luna 1 2024","Luna 2 2024","Luna 3 2024","Luna 4 2024","Luna 5 2024","Luna 6 2024",
-    "Luna 7 2024","Luna 8 2024","Luna 9 2024","Luna 10 2024","Luna 11 2024","Luna 12 2024",
-    "Luna 1 2025","Luna 2 2025","Luna 3 2025","Luna 4 2025","Luna 5 2025","Luna 6 2025",
-    "Luna 7 2025","Luna 8 2025","Luna 9 2025","Luna 10 2025","Luna 11 2025","Luna 12 2025",
-    "Luna 1 2026","Luna 2 2026","Luna 3 2026"
+    "Luna 1 2022",
+    "Luna 2 2022",
+    "Luna 3 2022",
+    "Luna 4 2022",
+    "Luna 5 2022",
+    "Luna 6 2022",
+    "Luna 7 2022",
+    "Luna 8 2022",
+    "Luna 9 2022",
+    "Luna 10 2022",
+    "Luna 11 2022",
+    "Luna 12 2022",
+    "Luna 1 2023",
+    "Luna 2 2023",
+    "Luna 3 2023",
+    "Luna 4 2023",
+    "Luna 5 2023",
+    "Luna 6 2023",
+    "Luna 7 2023",
+    "Luna 8 2023",
+    "Luna 9 2023",
+    "Luna 10 2023",
+    "Luna 11 2023",
+    "Luna 12 2023",
+    "Luna 1 2024",
+    "Luna 2 2024",
+    "Luna 3 2024",
+    "Luna 4 2024",
+    "Luna 5 2024",
+    "Luna 6 2024",
+    "Luna 7 2024",
+    "Luna 8 2024",
+    "Luna 9 2024",
+    "Luna 10 2024",
+    "Luna 11 2024",
+    "Luna 12 2024",
+    "Luna 1 2025",
+    "Luna 2 2025",
+    "Luna 3 2025",
+    "Luna 4 2025",
+    "Luna 5 2025",
+    "Luna 6 2025",
+    "Luna 7 2025",
+    "Luna 8 2025",
+    "Luna 9 2025",
+    "Luna 10 2025",
+    "Luna 11 2025",
+    "Luna 12 2025",
+    "Luna 1 2026",
+    "Luna 2 2026",
+    "Luna 3 2026"
   ],
   "date": {
     "TOTAL": [
-      {"luna":"Luna 1 2022","valoare":437250},{"luna":"Luna 2 2022","valoare":521430},{"luna":"Luna 3 2022","valoare":891200},
-      {"luna":"Luna 4 2022","valoare":1145300},{"luna":"Luna 5 2022","valoare":1389700},{"luna":"Luna 6 2022","valoare":1523400},
-      {"luna":"Luna 7 2022","valoare":1678900},{"luna":"Luna 8 2022","valoare":1534200},{"luna":"Luna 9 2022","valoare":1298700},
-      {"luna":"Luna 10 2022","valoare":876300},{"luna":"Luna 11 2022","valoare":612400},{"luna":"Luna 12 2022","valoare":398100},
-      {"luna":"Luna 1 2023","valoare":412300},{"luna":"Luna 2 2023","valoare":498700},{"luna":"Luna 3 2023","valoare":934500},
-      {"luna":"Luna 4 2023","valoare":1212400},{"luna":"Luna 5 2023","valoare":1456800},{"luna":"Luna 6 2023","valoare":1589200},
-      {"luna":"Luna 7 2023","valoare":1723400},{"luna":"Luna 8 2023","valoare":1601200},{"luna":"Luna 9 2023","valoare":1345600},
-      {"luna":"Luna 10 2023","valoare":912300},{"luna":"Luna 11 2023","valoare":634500},{"luna":"Luna 12 2023","valoare":421200},
-      {"luna":"Luna 1 2024","valoare":389400},{"luna":"Luna 2 2024","valoare":512300},{"luna":"Luna 3 2024","valoare":967800},
-      {"luna":"Luna 4 2024","valoare":1289300},{"luna":"Luna 5 2024","valoare":1534700},{"luna":"Luna 6 2024","valoare":1678900},
-      {"luna":"Luna 7 2024","valoare":1823400},{"luna":"Luna 8 2024","valoare":1712300},{"luna":"Luna 9 2024","valoare":1423500},
-      {"luna":"Luna 10 2024","valoare":967800},{"luna":"Luna 11 2024","valoare":698200},{"luna":"Luna 12 2024","valoare":445300},
-      {"luna":"Luna 1 2025","valoare":401200},{"luna":"Luna 2 2025","valoare":534600},{"luna":"Luna 3 2025","valoare":1023400},
-      {"luna":"Luna 4 2025","valoare":1356700},{"luna":"Luna 5 2025","valoare":1612300},{"luna":"Luna 6 2025","valoare":1789400},
-      {"luna":"Luna 7 2025","valoare":1934500},{"luna":"Luna 8 2025","valoare":1823100},{"luna":"Luna 9 2025","valoare":1512300},
-      {"luna":"Luna 10 2025","valoare":1034500},{"luna":"Luna 11 2025","valoare":723400},{"luna":"Luna 12 2025","valoare":467800},
-      {"luna":"Luna 1 2026","valoare":423400},{"luna":"Luna 2 2026","valoare":556700},{"luna":"Luna 3 2026","valoare":1067200}
+      {
+        "luna": "Luna 1 2022",
+        "valoare": 437250
+      },
+      {
+        "luna": "Luna 2 2022",
+        "valoare": 521430
+      },
+      {
+        "luna": "Luna 3 2022",
+        "valoare": 891200
+      },
+      {
+        "luna": "Luna 4 2022",
+        "valoare": 1145300
+      },
+      {
+        "luna": "Luna 5 2022",
+        "valoare": 1389700
+      },
+      {
+        "luna": "Luna 6 2022",
+        "valoare": 1523400
+      },
+      {
+        "luna": "Luna 7 2022",
+        "valoare": 1678900
+      },
+      {
+        "luna": "Luna 8 2022",
+        "valoare": 1534200
+      },
+      {
+        "luna": "Luna 9 2022",
+        "valoare": 1298700
+      },
+      {
+        "luna": "Luna 10 2022",
+        "valoare": 876300
+      },
+      {
+        "luna": "Luna 11 2022",
+        "valoare": 612400
+      },
+      {
+        "luna": "Luna 12 2022",
+        "valoare": 398100
+      },
+      {
+        "luna": "Luna 1 2023",
+        "valoare": 412300
+      },
+      {
+        "luna": "Luna 2 2023",
+        "valoare": 498700
+      },
+      {
+        "luna": "Luna 3 2023",
+        "valoare": 934500
+      },
+      {
+        "luna": "Luna 4 2023",
+        "valoare": 1212400
+      },
+      {
+        "luna": "Luna 5 2023",
+        "valoare": 1456800
+      },
+      {
+        "luna": "Luna 6 2023",
+        "valoare": 1589200
+      },
+      {
+        "luna": "Luna 7 2023",
+        "valoare": 1723400
+      },
+      {
+        "luna": "Luna 8 2023",
+        "valoare": 1601200
+      },
+      {
+        "luna": "Luna 9 2023",
+        "valoare": 1345600
+      },
+      {
+        "luna": "Luna 10 2023",
+        "valoare": 912300
+      },
+      {
+        "luna": "Luna 11 2023",
+        "valoare": 634500
+      },
+      {
+        "luna": "Luna 12 2023",
+        "valoare": 421200
+      },
+      {
+        "luna": "Luna 1 2024",
+        "valoare": 389400
+      },
+      {
+        "luna": "Luna 2 2024",
+        "valoare": 512300
+      },
+      {
+        "luna": "Luna 3 2024",
+        "valoare": 967800
+      },
+      {
+        "luna": "Luna 4 2024",
+        "valoare": 1289300
+      },
+      {
+        "luna": "Luna 5 2024",
+        "valoare": 1534700
+      },
+      {
+        "luna": "Luna 6 2024",
+        "valoare": 1678900
+      },
+      {
+        "luna": "Luna 7 2024",
+        "valoare": 1823400
+      },
+      {
+        "luna": "Luna 8 2024",
+        "valoare": 1712300
+      },
+      {
+        "luna": "Luna 9 2024",
+        "valoare": 1423500
+      },
+      {
+        "luna": "Luna 10 2024",
+        "valoare": 967800
+      },
+      {
+        "luna": "Luna 11 2024",
+        "valoare": 698200
+      },
+      {
+        "luna": "Luna 12 2024",
+        "valoare": 445300
+      },
+      {
+        "luna": "Luna 1 2025",
+        "valoare": 401200
+      },
+      {
+        "luna": "Luna 2 2025",
+        "valoare": 534600
+      },
+      {
+        "luna": "Luna 3 2025",
+        "valoare": 1023400
+      },
+      {
+        "luna": "Luna 4 2025",
+        "valoare": 1356700
+      },
+      {
+        "luna": "Luna 5 2025",
+        "valoare": 1612300
+      },
+      {
+        "luna": "Luna 6 2025",
+        "valoare": 1789400
+      },
+      {
+        "luna": "Luna 7 2025",
+        "valoare": 1934500
+      },
+      {
+        "luna": "Luna 8 2025",
+        "valoare": 1823100
+      },
+      {
+        "luna": "Luna 9 2025",
+        "valoare": 1512300
+      },
+      {
+        "luna": "Luna 10 2025",
+        "valoare": 1034500
+      },
+      {
+        "luna": "Luna 11 2025",
+        "valoare": 723400
+      },
+      {
+        "luna": "Luna 12 2025",
+        "valoare": 467800
+      },
+      {
+        "luna": "Luna 1 2026",
+        "valoare": 423400
+      },
+      {
+        "luna": "Luna 2 2026",
+        "valoare": 556700
+      },
+      {
+        "luna": "Luna 3 2026",
+        "valoare": 1067200
+      }
     ],
     "Locuinte": [
-      {"luna":"Luna 1 2022","valoare":245300},{"luna":"Luna 2 2022","valoare":289400},{"luna":"Luna 3 2022","valoare":512300},
-      {"luna":"Luna 4 2022","valoare":645700},{"luna":"Luna 5 2022","valoare":789400},{"luna":"Luna 6 2022","valoare":867300},
-      {"luna":"Luna 7 2022","valoare":956400},{"luna":"Luna 8 2022","valoare":878900},{"luna":"Luna 9 2022","valoare":734500},
-      {"luna":"Luna 10 2022","valoare":489300},{"luna":"Luna 11 2022","valoare":345600},{"luna":"Luna 12 2022","valoare":223400},
-      {"luna":"Luna 1 2023","valoare":231200},{"luna":"Luna 2 2023","valoare":278900},{"luna":"Luna 3 2023","valoare":534500},
-      {"luna":"Luna 4 2023","valoare":689400},{"luna":"Luna 5 2023","valoare":823400},{"luna":"Luna 6 2023","valoare":901200},
-      {"luna":"Luna 7 2023","valoare":978900},{"luna":"Luna 8 2023","valoare":912300},{"luna":"Luna 9 2023","valoare":756700},
-      {"luna":"Luna 10 2023","valoare":512300},{"luna":"Luna 11 2023","valoare":356800},{"luna":"Luna 12 2023","valoare":234500},
-      {"luna":"Luna 1 2024","valoare":218900},{"luna":"Luna 2 2024","valoare":289400},{"luna":"Luna 3 2024","valoare":556700},
-      {"luna":"Luna 4 2024","valoare":723400},{"luna":"Luna 5 2024","valoare":867800},{"luna":"Luna 6 2024","valoare":956700},
-      {"luna":"Luna 7 2024","valoare":1034500},{"luna":"Luna 8 2024","valoare":978900},{"luna":"Luna 9 2024","valoare":801200},
-      {"luna":"Luna 10 2024","valoare":545600},{"luna":"Luna 11 2024","valoare":389400},{"luna":"Luna 12 2024","valoare":245600},
-      {"luna":"Luna 1 2025","valoare":225600},{"luna":"Luna 2 2025","valoare":301200},{"luna":"Luna 3 2025","valoare":589400},
-      {"luna":"Luna 4 2025","valoare":767800},{"luna":"Luna 5 2025","valoare":912300},{"luna":"Luna 6 2025","valoare":1012300},
-      {"luna":"Luna 7 2025","valoare":1098700},{"luna":"Luna 8 2025","valoare":1034500},{"luna":"Luna 9 2025","valoare":856700},
-      {"luna":"Luna 10 2025","valoare":578900},{"luna":"Luna 11 2025","valoare":401200},{"luna":"Luna 12 2025","valoare":256700},
-      {"luna":"Luna 1 2026","valoare":238900},{"luna":"Luna 2 2026","valoare":312300},{"luna":"Luna 3 2026","valoare":612300}
+      {
+        "luna": "Luna 1 2022",
+        "valoare": 245300
+      },
+      {
+        "luna": "Luna 2 2022",
+        "valoare": 289400
+      },
+      {
+        "luna": "Luna 3 2022",
+        "valoare": 512300
+      },
+      {
+        "luna": "Luna 4 2022",
+        "valoare": 645700
+      },
+      {
+        "luna": "Luna 5 2022",
+        "valoare": 789400
+      },
+      {
+        "luna": "Luna 6 2022",
+        "valoare": 867300
+      },
+      {
+        "luna": "Luna 7 2022",
+        "valoare": 956400
+      },
+      {
+        "luna": "Luna 8 2022",
+        "valoare": 878900
+      },
+      {
+        "luna": "Luna 9 2022",
+        "valoare": 734500
+      },
+      {
+        "luna": "Luna 10 2022",
+        "valoare": 489300
+      },
+      {
+        "luna": "Luna 11 2022",
+        "valoare": 345600
+      },
+      {
+        "luna": "Luna 12 2022",
+        "valoare": 223400
+      },
+      {
+        "luna": "Luna 1 2023",
+        "valoare": 231200
+      },
+      {
+        "luna": "Luna 2 2023",
+        "valoare": 278900
+      },
+      {
+        "luna": "Luna 3 2023",
+        "valoare": 534500
+      },
+      {
+        "luna": "Luna 4 2023",
+        "valoare": 689400
+      },
+      {
+        "luna": "Luna 5 2023",
+        "valoare": 823400
+      },
+      {
+        "luna": "Luna 6 2023",
+        "valoare": 901200
+      },
+      {
+        "luna": "Luna 7 2023",
+        "valoare": 978900
+      },
+      {
+        "luna": "Luna 8 2023",
+        "valoare": 912300
+      },
+      {
+        "luna": "Luna 9 2023",
+        "valoare": 756700
+      },
+      {
+        "luna": "Luna 10 2023",
+        "valoare": 512300
+      },
+      {
+        "luna": "Luna 11 2023",
+        "valoare": 356800
+      },
+      {
+        "luna": "Luna 12 2023",
+        "valoare": 234500
+      },
+      {
+        "luna": "Luna 1 2024",
+        "valoare": 218900
+      },
+      {
+        "luna": "Luna 2 2024",
+        "valoare": 289400
+      },
+      {
+        "luna": "Luna 3 2024",
+        "valoare": 556700
+      },
+      {
+        "luna": "Luna 4 2024",
+        "valoare": 723400
+      },
+      {
+        "luna": "Luna 5 2024",
+        "valoare": 867800
+      },
+      {
+        "luna": "Luna 6 2024",
+        "valoare": 956700
+      },
+      {
+        "luna": "Luna 7 2024",
+        "valoare": 1034500
+      },
+      {
+        "luna": "Luna 8 2024",
+        "valoare": 978900
+      },
+      {
+        "luna": "Luna 9 2024",
+        "valoare": 801200
+      },
+      {
+        "luna": "Luna 10 2024",
+        "valoare": 545600
+      },
+      {
+        "luna": "Luna 11 2024",
+        "valoare": 389400
+      },
+      {
+        "luna": "Luna 12 2024",
+        "valoare": 245600
+      },
+      {
+        "luna": "Luna 1 2025",
+        "valoare": 225600
+      },
+      {
+        "luna": "Luna 2 2025",
+        "valoare": 301200
+      },
+      {
+        "luna": "Luna 3 2025",
+        "valoare": 589400
+      },
+      {
+        "luna": "Luna 4 2025",
+        "valoare": 767800
+      },
+      {
+        "luna": "Luna 5 2025",
+        "valoare": 912300
+      },
+      {
+        "luna": "Luna 6 2025",
+        "valoare": 1012300
+      },
+      {
+        "luna": "Luna 7 2025",
+        "valoare": 1098700
+      },
+      {
+        "luna": "Luna 8 2025",
+        "valoare": 1034500
+      },
+      {
+        "luna": "Luna 9 2025",
+        "valoare": 856700
+      },
+      {
+        "luna": "Luna 10 2025",
+        "valoare": 578900
+      },
+      {
+        "luna": "Luna 11 2025",
+        "valoare": 401200
+      },
+      {
+        "luna": "Luna 12 2025",
+        "valoare": 256700
+      },
+      {
+        "luna": "Luna 1 2026",
+        "valoare": 238900
+      },
+      {
+        "luna": "Luna 2 2026",
+        "valoare": 312300
+      },
+      {
+        "luna": "Luna 3 2026",
+        "valoare": 612300
+      }
     ],
     "Cladiri industriale si depozite": [
-      {"luna":"Luna 1 2022","valoare":87400},{"luna":"Luna 2 2022","valoare":112300},{"luna":"Luna 3 2022","valoare":189400},
-      {"luna":"Luna 4 2022","valoare":234500},{"luna":"Luna 5 2022","valoare":289400},{"luna":"Luna 6 2022","valoare":312300},
-      {"luna":"Luna 7 2022","valoare":345600},{"luna":"Luna 8 2022","valoare":312300},{"luna":"Luna 9 2022","valoare":267800},
-      {"luna":"Luna 10 2022","valoare":178900},{"luna":"Luna 11 2022","valoare":123400},{"luna":"Luna 12 2022","valoare":78900},
-      {"luna":"Luna 1 2023","valoare":82300},{"luna":"Luna 2 2023","valoare":101200},{"luna":"Luna 3 2023","valoare":201200},
-      {"luna":"Luna 4 2023","valoare":245600},{"luna":"Luna 5 2023","valoare":301200},{"luna":"Luna 6 2023","valoare":323400},
-      {"luna":"Luna 7 2023","valoare":356700},{"luna":"Luna 8 2023","valoare":323400},{"luna":"Luna 9 2023","valoare":278900},
-      {"luna":"Luna 10 2023","valoare":189400},{"luna":"Luna 11 2023","valoare":134500},{"luna":"Luna 12 2023","valoare":87600},
-      {"luna":"Luna 1 2024","valoare":78900},{"luna":"Luna 2 2024","valoare":112300},{"luna":"Luna 3 2024","valoare":212300},
-      {"luna":"Luna 4 2024","valoare":267800},{"luna":"Luna 5 2024","valoare":323400},{"luna":"Luna 6 2024","valoare":356700},
-      {"luna":"Luna 7 2024","valoare":389400},{"luna":"Luna 8 2024","valoare":356700},{"luna":"Luna 9 2024","valoare":301200},
-      {"luna":"Luna 10 2024","valoare":212300},{"luna":"Luna 11 2024","valoare":145600},{"luna":"Luna 12 2024","valoare":98700},
-      {"luna":"Luna 1 2025","valoare":89400},{"luna":"Luna 2 2025","valoare":123400},{"luna":"Luna 3 2025","valoare":223400},
-      {"luna":"Luna 4 2025","valoare":278900},{"luna":"Luna 5 2025","valoare":345600},{"luna":"Luna 6 2025","valoare":378900},
-      {"luna":"Luna 7 2025","valoare":412300},{"luna":"Luna 8 2025","valoare":378900},{"luna":"Luna 9 2025","valoare":312300},
-      {"luna":"Luna 10 2025","valoare":223400},{"luna":"Luna 11 2025","valoare":156700},{"luna":"Luna 12 2025","valoare":101200},
-      {"luna":"Luna 1 2026","valoare":95600},{"luna":"Luna 2 2026","valoare":134500},{"luna":"Luna 3 2026","valoare":234500}
+      {
+        "luna": "Luna 1 2022",
+        "valoare": 87400
+      },
+      {
+        "luna": "Luna 2 2022",
+        "valoare": 112300
+      },
+      {
+        "luna": "Luna 3 2022",
+        "valoare": 189400
+      },
+      {
+        "luna": "Luna 4 2022",
+        "valoare": 234500
+      },
+      {
+        "luna": "Luna 5 2022",
+        "valoare": 289400
+      },
+      {
+        "luna": "Luna 6 2022",
+        "valoare": 312300
+      },
+      {
+        "luna": "Luna 7 2022",
+        "valoare": 345600
+      },
+      {
+        "luna": "Luna 8 2022",
+        "valoare": 312300
+      },
+      {
+        "luna": "Luna 9 2022",
+        "valoare": 267800
+      },
+      {
+        "luna": "Luna 10 2022",
+        "valoare": 178900
+      },
+      {
+        "luna": "Luna 11 2022",
+        "valoare": 123400
+      },
+      {
+        "luna": "Luna 12 2022",
+        "valoare": 78900
+      },
+      {
+        "luna": "Luna 1 2023",
+        "valoare": 82300
+      },
+      {
+        "luna": "Luna 2 2023",
+        "valoare": 101200
+      },
+      {
+        "luna": "Luna 3 2023",
+        "valoare": 201200
+      },
+      {
+        "luna": "Luna 4 2023",
+        "valoare": 245600
+      },
+      {
+        "luna": "Luna 5 2023",
+        "valoare": 301200
+      },
+      {
+        "luna": "Luna 6 2023",
+        "valoare": 323400
+      },
+      {
+        "luna": "Luna 7 2023",
+        "valoare": 356700
+      },
+      {
+        "luna": "Luna 8 2023",
+        "valoare": 323400
+      },
+      {
+        "luna": "Luna 9 2023",
+        "valoare": 278900
+      },
+      {
+        "luna": "Luna 10 2023",
+        "valoare": 189400
+      },
+      {
+        "luna": "Luna 11 2023",
+        "valoare": 134500
+      },
+      {
+        "luna": "Luna 12 2023",
+        "valoare": 87600
+      },
+      {
+        "luna": "Luna 1 2024",
+        "valoare": 78900
+      },
+      {
+        "luna": "Luna 2 2024",
+        "valoare": 112300
+      },
+      {
+        "luna": "Luna 3 2024",
+        "valoare": 212300
+      },
+      {
+        "luna": "Luna 4 2024",
+        "valoare": 267800
+      },
+      {
+        "luna": "Luna 5 2024",
+        "valoare": 323400
+      },
+      {
+        "luna": "Luna 6 2024",
+        "valoare": 356700
+      },
+      {
+        "luna": "Luna 7 2024",
+        "valoare": 389400
+      },
+      {
+        "luna": "Luna 8 2024",
+        "valoare": 356700
+      },
+      {
+        "luna": "Luna 9 2024",
+        "valoare": 301200
+      },
+      {
+        "luna": "Luna 10 2024",
+        "valoare": 212300
+      },
+      {
+        "luna": "Luna 11 2024",
+        "valoare": 145600
+      },
+      {
+        "luna": "Luna 12 2024",
+        "valoare": 98700
+      },
+      {
+        "luna": "Luna 1 2025",
+        "valoare": 89400
+      },
+      {
+        "luna": "Luna 2 2025",
+        "valoare": 123400
+      },
+      {
+        "luna": "Luna 3 2025",
+        "valoare": 223400
+      },
+      {
+        "luna": "Luna 4 2025",
+        "valoare": 278900
+      },
+      {
+        "luna": "Luna 5 2025",
+        "valoare": 345600
+      },
+      {
+        "luna": "Luna 6 2025",
+        "valoare": 378900
+      },
+      {
+        "luna": "Luna 7 2025",
+        "valoare": 412300
+      },
+      {
+        "luna": "Luna 8 2025",
+        "valoare": 378900
+      },
+      {
+        "luna": "Luna 9 2025",
+        "valoare": 312300
+      },
+      {
+        "luna": "Luna 10 2025",
+        "valoare": 223400
+      },
+      {
+        "luna": "Luna 11 2025",
+        "valoare": 156700
+      },
+      {
+        "luna": "Luna 12 2025",
+        "valoare": 101200
+      },
+      {
+        "luna": "Luna 1 2026",
+        "valoare": 95600
+      },
+      {
+        "luna": "Luna 2 2026",
+        "valoare": 134500
+      },
+      {
+        "luna": "Luna 3 2026",
+        "valoare": 234500
+      }
     ],
     "Cladiri comerciale": [
-      {"luna":"Luna 1 2022","valoare":45600},{"luna":"Luna 2 2022","valoare":56700},{"luna":"Luna 3 2022","valoare":89400},
-      {"luna":"Luna 4 2022","valoare":112300},{"luna":"Luna 5 2022","valoare":134500},{"luna":"Luna 6 2022","valoare":145600},
-      {"luna":"Luna 7 2022","valoare":167800},{"luna":"Luna 8 2022","valoare":156700},{"luna":"Luna 9 2022","valoare":123400},
-      {"luna":"Luna 10 2022","valoare":78900},{"luna":"Luna 11 2022","valoare":56700},{"luna":"Luna 12 2022","valoare":34500},
-      {"luna":"Luna 1 2023","valoare":43400},{"luna":"Luna 2 2023","valoare":54500},{"luna":"Luna 3 2023","valoare":89400},
-      {"luna":"Luna 4 2023","valoare":112300},{"luna":"Luna 5 2023","valoare":134500},{"luna":"Luna 6 2023","valoare":156700},
-      {"luna":"Luna 7 2023","valoare":178900},{"luna":"Luna 8 2023","valoare":167800},{"luna":"Luna 9 2023","valoare":134500},
-      {"luna":"Luna 10 2023","valoare":89400},{"luna":"Luna 11 2023","valoare":63400},{"luna":"Luna 12 2023","valoare":38900},
-      {"luna":"Luna 1 2024","valoare":45600},{"luna":"Luna 2 2024","valoare":56700},{"luna":"Luna 3 2024","valoare":95600},
-      {"luna":"Luna 4 2024","valoare":123400},{"luna":"Luna 5 2024","valoare":145600},{"luna":"Luna 6 2024","valoare":167800},
-      {"luna":"Luna 7 2024","valoare":189400},{"luna":"Luna 8 2024","valoare":178900},{"luna":"Luna 9 2024","valoare":145600},
-      {"luna":"Luna 10 2024","valoare":98700},{"luna":"Luna 11 2024","valoare":67800},{"luna":"Luna 12 2024","valoare":43400},
-      {"luna":"Luna 1 2025","valoare":47800},{"luna":"Luna 2 2025","valoare":60100},{"luna":"Luna 3 2025","valoare":101200},
-      {"luna":"Luna 4 2025","valoare":134500},{"luna":"Luna 5 2025","valoare":156700},{"luna":"Luna 6 2025","valoare":178900},
-      {"luna":"Luna 7 2025","valoare":201200},{"luna":"Luna 8 2025","valoare":189400},{"luna":"Luna 9 2025","valoare":156700},
-      {"luna":"Luna 10 2025","valoare":112300},{"luna":"Luna 11 2025","valoare":73400},{"luna":"Luna 12 2025","valoare":47800},
-      {"luna":"Luna 1 2026","valoare":50100},{"luna":"Luna 2 2026","valoare":63400},{"luna":"Luna 3 2026","valoare":107800}
+      {
+        "luna": "Luna 1 2022",
+        "valoare": 45600
+      },
+      {
+        "luna": "Luna 2 2022",
+        "valoare": 56700
+      },
+      {
+        "luna": "Luna 3 2022",
+        "valoare": 89400
+      },
+      {
+        "luna": "Luna 4 2022",
+        "valoare": 112300
+      },
+      {
+        "luna": "Luna 5 2022",
+        "valoare": 134500
+      },
+      {
+        "luna": "Luna 6 2022",
+        "valoare": 145600
+      },
+      {
+        "luna": "Luna 7 2022",
+        "valoare": 167800
+      },
+      {
+        "luna": "Luna 8 2022",
+        "valoare": 156700
+      },
+      {
+        "luna": "Luna 9 2022",
+        "valoare": 123400
+      },
+      {
+        "luna": "Luna 10 2022",
+        "valoare": 78900
+      },
+      {
+        "luna": "Luna 11 2022",
+        "valoare": 56700
+      },
+      {
+        "luna": "Luna 12 2022",
+        "valoare": 34500
+      },
+      {
+        "luna": "Luna 1 2023",
+        "valoare": 43400
+      },
+      {
+        "luna": "Luna 2 2023",
+        "valoare": 54500
+      },
+      {
+        "luna": "Luna 3 2023",
+        "valoare": 89400
+      },
+      {
+        "luna": "Luna 4 2023",
+        "valoare": 112300
+      },
+      {
+        "luna": "Luna 5 2023",
+        "valoare": 134500
+      },
+      {
+        "luna": "Luna 6 2023",
+        "valoare": 156700
+      },
+      {
+        "luna": "Luna 7 2023",
+        "valoare": 178900
+      },
+      {
+        "luna": "Luna 8 2023",
+        "valoare": 167800
+      },
+      {
+        "luna": "Luna 9 2023",
+        "valoare": 134500
+      },
+      {
+        "luna": "Luna 10 2023",
+        "valoare": 89400
+      },
+      {
+        "luna": "Luna 11 2023",
+        "valoare": 63400
+      },
+      {
+        "luna": "Luna 12 2023",
+        "valoare": 38900
+      },
+      {
+        "luna": "Luna 1 2024",
+        "valoare": 45600
+      },
+      {
+        "luna": "Luna 2 2024",
+        "valoare": 56700
+      },
+      {
+        "luna": "Luna 3 2024",
+        "valoare": 95600
+      },
+      {
+        "luna": "Luna 4 2024",
+        "valoare": 123400
+      },
+      {
+        "luna": "Luna 5 2024",
+        "valoare": 145600
+      },
+      {
+        "luna": "Luna 6 2024",
+        "valoare": 167800
+      },
+      {
+        "luna": "Luna 7 2024",
+        "valoare": 189400
+      },
+      {
+        "luna": "Luna 8 2024",
+        "valoare": 178900
+      },
+      {
+        "luna": "Luna 9 2024",
+        "valoare": 145600
+      },
+      {
+        "luna": "Luna 10 2024",
+        "valoare": 98700
+      },
+      {
+        "luna": "Luna 11 2024",
+        "valoare": 67800
+      },
+      {
+        "luna": "Luna 12 2024",
+        "valoare": 43400
+      },
+      {
+        "luna": "Luna 1 2025",
+        "valoare": 47800
+      },
+      {
+        "luna": "Luna 2 2025",
+        "valoare": 60100
+      },
+      {
+        "luna": "Luna 3 2025",
+        "valoare": 101200
+      },
+      {
+        "luna": "Luna 4 2025",
+        "valoare": 134500
+      },
+      {
+        "luna": "Luna 5 2025",
+        "valoare": 156700
+      },
+      {
+        "luna": "Luna 6 2025",
+        "valoare": 178900
+      },
+      {
+        "luna": "Luna 7 2025",
+        "valoare": 201200
+      },
+      {
+        "luna": "Luna 8 2025",
+        "valoare": 189400
+      },
+      {
+        "luna": "Luna 9 2025",
+        "valoare": 156700
+      },
+      {
+        "luna": "Luna 10 2025",
+        "valoare": 112300
+      },
+      {
+        "luna": "Luna 11 2025",
+        "valoare": 73400
+      },
+      {
+        "luna": "Luna 12 2025",
+        "valoare": 47800
+      },
+      {
+        "luna": "Luna 1 2026",
+        "valoare": 50100
+      },
+      {
+        "luna": "Luna 2 2026",
+        "valoare": 63400
+      },
+      {
+        "luna": "Luna 3 2026",
+        "valoare": 107800
+      }
     ],
     "Birouri si cladiri administrative": [
-      {"luna":"Luna 1 2022","valoare":34500},{"luna":"Luna 2 2022","valoare":43400},{"luna":"Luna 3 2022","valoare":67800},
-      {"luna":"Luna 4 2022","valoare":98700},{"luna":"Luna 5 2022","valoare":123400},{"luna":"Luna 6 2022","valoare":145600},
-      {"luna":"Luna 7 2022","valoare":156700},{"luna":"Luna 8 2022","valoare":145600},{"luna":"Luna 9 2022","valoare":112300},
-      {"luna":"Luna 10 2022","valoare":78900},{"luna":"Luna 11 2022","valoare":56700},{"luna":"Luna 12 2022","valoare":34500},
-      {"luna":"Luna 1 2023","valoare":32300},{"luna":"Luna 2 2023","valoare":43400},{"luna":"Luna 3 2023","valoare":72300},
-      {"luna":"Luna 4 2023","valoare":107800},{"luna":"Luna 5 2023","valoare":134500},{"luna":"Luna 6 2023","valoare":156700},
-      {"luna":"Luna 7 2023","valoare":167800},{"luna":"Luna 8 2023","valoare":156700},{"luna":"Luna 9 2023","valoare":123400},
-      {"luna":"Luna 10 2023","valoare":83400},{"luna":"Luna 11 2023","valoare":56700},{"luna":"Luna 12 2023","valoare":36700},
-      {"luna":"Luna 1 2024","valoare":30100},{"luna":"Luna 2 2024","valoare":40100},{"luna":"Luna 3 2024","valoare":73400},
-      {"luna":"Luna 4 2024","valoare":112300},{"luna":"Luna 5 2024","valoare":143400},{"luna":"Luna 6 2024","valoare":156700},
-      {"luna":"Luna 7 2024","valoare":167800},{"luna":"Luna 8 2024","valoare":156700},{"luna":"Luna 9 2024","valoare":128900},
-      {"luna":"Luna 10 2024","valoare":83400},{"luna":"Luna 11 2024","valoare":60100},{"luna":"Luna 12 2024","valoare":37800},
-      {"luna":"Luna 1 2025","valoare":28900},{"luna":"Luna 2 2025","valoare":38900},{"luna":"Luna 3 2025","valoare":76700},
-      {"luna":"Luna 4 2025","valoare":117800},{"luna":"Luna 5 2025","valoare":147800},{"luna":"Luna 6 2025","valoare":163400},
-      {"luna":"Luna 7 2025","valoare":175600},{"luna":"Luna 8 2025","valoare":163400},{"luna":"Luna 9 2025","valoare":134500},
-      {"luna":"Luna 10 2025","valoare":87800},{"luna":"Luna 11 2025","valoare":63400},{"luna":"Luna 12 2025","valoare":40100},
-      {"luna":"Luna 1 2026","valoare":30100},{"luna":"Luna 2 2026","valoare":41200},{"luna":"Luna 3 2026","valoare":80100}
+      {
+        "luna": "Luna 1 2022",
+        "valoare": 34500
+      },
+      {
+        "luna": "Luna 2 2022",
+        "valoare": 43400
+      },
+      {
+        "luna": "Luna 3 2022",
+        "valoare": 67800
+      },
+      {
+        "luna": "Luna 4 2022",
+        "valoare": 98700
+      },
+      {
+        "luna": "Luna 5 2022",
+        "valoare": 123400
+      },
+      {
+        "luna": "Luna 6 2022",
+        "valoare": 145600
+      },
+      {
+        "luna": "Luna 7 2022",
+        "valoare": 156700
+      },
+      {
+        "luna": "Luna 8 2022",
+        "valoare": 145600
+      },
+      {
+        "luna": "Luna 9 2022",
+        "valoare": 112300
+      },
+      {
+        "luna": "Luna 10 2022",
+        "valoare": 78900
+      },
+      {
+        "luna": "Luna 11 2022",
+        "valoare": 56700
+      },
+      {
+        "luna": "Luna 12 2022",
+        "valoare": 34500
+      },
+      {
+        "luna": "Luna 1 2023",
+        "valoare": 32300
+      },
+      {
+        "luna": "Luna 2 2023",
+        "valoare": 43400
+      },
+      {
+        "luna": "Luna 3 2023",
+        "valoare": 72300
+      },
+      {
+        "luna": "Luna 4 2023",
+        "valoare": 107800
+      },
+      {
+        "luna": "Luna 5 2023",
+        "valoare": 134500
+      },
+      {
+        "luna": "Luna 6 2023",
+        "valoare": 156700
+      },
+      {
+        "luna": "Luna 7 2023",
+        "valoare": 167800
+      },
+      {
+        "luna": "Luna 8 2023",
+        "valoare": 156700
+      },
+      {
+        "luna": "Luna 9 2023",
+        "valoare": 123400
+      },
+      {
+        "luna": "Luna 10 2023",
+        "valoare": 83400
+      },
+      {
+        "luna": "Luna 11 2023",
+        "valoare": 56700
+      },
+      {
+        "luna": "Luna 12 2023",
+        "valoare": 36700
+      },
+      {
+        "luna": "Luna 1 2024",
+        "valoare": 30100
+      },
+      {
+        "luna": "Luna 2 2024",
+        "valoare": 40100
+      },
+      {
+        "luna": "Luna 3 2024",
+        "valoare": 73400
+      },
+      {
+        "luna": "Luna 4 2024",
+        "valoare": 112300
+      },
+      {
+        "luna": "Luna 5 2024",
+        "valoare": 143400
+      },
+      {
+        "luna": "Luna 6 2024",
+        "valoare": 156700
+      },
+      {
+        "luna": "Luna 7 2024",
+        "valoare": 167800
+      },
+      {
+        "luna": "Luna 8 2024",
+        "valoare": 156700
+      },
+      {
+        "luna": "Luna 9 2024",
+        "valoare": 128900
+      },
+      {
+        "luna": "Luna 10 2024",
+        "valoare": 83400
+      },
+      {
+        "luna": "Luna 11 2024",
+        "valoare": 60100
+      },
+      {
+        "luna": "Luna 12 2024",
+        "valoare": 37800
+      },
+      {
+        "luna": "Luna 1 2025",
+        "valoare": 28900
+      },
+      {
+        "luna": "Luna 2 2025",
+        "valoare": 38900
+      },
+      {
+        "luna": "Luna 3 2025",
+        "valoare": 76700
+      },
+      {
+        "luna": "Luna 4 2025",
+        "valoare": 117800
+      },
+      {
+        "luna": "Luna 5 2025",
+        "valoare": 147800
+      },
+      {
+        "luna": "Luna 6 2025",
+        "valoare": 163400
+      },
+      {
+        "luna": "Luna 7 2025",
+        "valoare": 175600
+      },
+      {
+        "luna": "Luna 8 2025",
+        "valoare": 163400
+      },
+      {
+        "luna": "Luna 9 2025",
+        "valoare": 134500
+      },
+      {
+        "luna": "Luna 10 2025",
+        "valoare": 87800
+      },
+      {
+        "luna": "Luna 11 2025",
+        "valoare": 63400
+      },
+      {
+        "luna": "Luna 12 2025",
+        "valoare": 40100
+      },
+      {
+        "luna": "Luna 1 2026",
+        "valoare": 30100
+      },
+      {
+        "luna": "Luna 2 2026",
+        "valoare": 41200
+      },
+      {
+        "luna": "Luna 3 2026",
+        "valoare": 80100
+      }
     ],
     "Alte cladiri": [
-      {"luna":"Luna 1 2022","valoare":24450},{"luna":"Luna 2 2022","valoare":19630},{"luna":"Luna 3 2022","valoare":32300},
-      {"luna":"Luna 4 2022","valoare":54100},{"luna":"Luna 5 2022","valoare":52900},{"luna":"Luna 6 2022","valoare":52900},
-      {"luna":"Luna 7 2022","valoare":52400},{"luna":"Luna 8 2022","valoare":40700},{"luna":"Luna 9 2022","valoare":60700},
-      {"luna":"Luna 10 2022","valoare":50300},{"luna":"Luna 11 2022","valoare":30000},{"luna":"Luna 12 2022","valoare":26800},
-      {"luna":"Luna 1 2023","valoare":23100},{"luna":"Luna 2 2023","valoare":20700},{"luna":"Luna 3 2023","valoare":37100},
-      {"luna":"Luna 4 2023","valoare":57300},{"luna":"Luna 5 2023","valoare":63200},{"luna":"Luna 6 2023","valoare":51200},
-      {"luna":"Luna 7 2023","valoare":41100},{"luna":"Luna 8 2023","valoare":41000},{"luna":"Luna 9 2023","valoare":52100},
-      {"luna":"Luna 10 2023","valoare":37800},{"luna":"Luna 11 2023","valoare":23100},{"luna":"Luna 12 2023","valoare":23500},
-      {"luna":"Luna 1 2024","valoare":15900},{"luna":"Luna 2 2024","valoare":13800},{"luna":"Luna 3 2024","valoare":29800},
-      {"luna":"Luna 4 2024","valoare":62400},{"luna":"Luna 5 2024","valoare":54500},{"luna":"Luna 6 2024","valoare":41000},
-      {"luna":"Luna 7 2024","valoare":42300},{"luna":"Luna 8 2024","valoare":41000},{"luna":"Luna 9 2024","valoare":46800},
-      {"luna":"Luna 10 2024","valoare":27800},{"luna":"Luna 11 2024","valoare":25300},{"luna":"Luna 12 2024","valoare":19800},
-      {"luna":"Luna 1 2025","valoare":9600},{"luna":"Luna 2 2025","valoare":11000},{"luna":"Luna 3 2025","valoare":32700},
-      {"luna":"Luna 4 2025","valoare":57700},{"luna":"Luna 5 2025","valoare":49900},{"luna":"Luna 6 2025","valoare":55900},
-      {"luna":"Luna 7 2025","valoare":46900},{"luna":"Luna 8 2025","valoare":56900},{"luna":"Luna 9 2025","valoare":52100},
-      {"luna":"Luna 10 2025","valoare":32100},{"luna":"Luna 11 2025","valoare":28700},{"luna":"Luna 12 2025","valoare":21700},
-      {"luna":"Luna 1 2026","valoare":8800},{"luna":"Luna 2 2026","valoare":5300},{"luna":"Luna 3 2026","valoare":32500}
+      {
+        "luna": "Luna 1 2022",
+        "valoare": 24450
+      },
+      {
+        "luna": "Luna 2 2022",
+        "valoare": 19630
+      },
+      {
+        "luna": "Luna 3 2022",
+        "valoare": 32300
+      },
+      {
+        "luna": "Luna 4 2022",
+        "valoare": 54100
+      },
+      {
+        "luna": "Luna 5 2022",
+        "valoare": 52900
+      },
+      {
+        "luna": "Luna 6 2022",
+        "valoare": 52900
+      },
+      {
+        "luna": "Luna 7 2022",
+        "valoare": 52400
+      },
+      {
+        "luna": "Luna 8 2022",
+        "valoare": 40700
+      },
+      {
+        "luna": "Luna 9 2022",
+        "valoare": 60700
+      },
+      {
+        "luna": "Luna 10 2022",
+        "valoare": 50300
+      },
+      {
+        "luna": "Luna 11 2022",
+        "valoare": 30000
+      },
+      {
+        "luna": "Luna 12 2022",
+        "valoare": 26800
+      },
+      {
+        "luna": "Luna 1 2023",
+        "valoare": 23100
+      },
+      {
+        "luna": "Luna 2 2023",
+        "valoare": 20700
+      },
+      {
+        "luna": "Luna 3 2023",
+        "valoare": 37100
+      },
+      {
+        "luna": "Luna 4 2023",
+        "valoare": 57300
+      },
+      {
+        "luna": "Luna 5 2023",
+        "valoare": 63200
+      },
+      {
+        "luna": "Luna 6 2023",
+        "valoare": 51200
+      },
+      {
+        "luna": "Luna 7 2023",
+        "valoare": 41100
+      },
+      {
+        "luna": "Luna 8 2023",
+        "valoare": 41000
+      },
+      {
+        "luna": "Luna 9 2023",
+        "valoare": 52100
+      },
+      {
+        "luna": "Luna 10 2023",
+        "valoare": 37800
+      },
+      {
+        "luna": "Luna 11 2023",
+        "valoare": 23100
+      },
+      {
+        "luna": "Luna 12 2023",
+        "valoare": 23500
+      },
+      {
+        "luna": "Luna 1 2024",
+        "valoare": 15900
+      },
+      {
+        "luna": "Luna 2 2024",
+        "valoare": 13800
+      },
+      {
+        "luna": "Luna 3 2024",
+        "valoare": 29800
+      },
+      {
+        "luna": "Luna 4 2024",
+        "valoare": 62400
+      },
+      {
+        "luna": "Luna 5 2024",
+        "valoare": 54500
+      },
+      {
+        "luna": "Luna 6 2024",
+        "valoare": 41000
+      },
+      {
+        "luna": "Luna 7 2024",
+        "valoare": 42300
+      },
+      {
+        "luna": "Luna 8 2024",
+        "valoare": 41000
+      },
+      {
+        "luna": "Luna 9 2024",
+        "valoare": 46800
+      },
+      {
+        "luna": "Luna 10 2024",
+        "valoare": 27800
+      },
+      {
+        "luna": "Luna 11 2024",
+        "valoare": 25300
+      },
+      {
+        "luna": "Luna 12 2024",
+        "valoare": 19800
+      },
+      {
+        "luna": "Luna 1 2025",
+        "valoare": 9600
+      },
+      {
+        "luna": "Luna 2 2025",
+        "valoare": 11000
+      },
+      {
+        "luna": "Luna 3 2025",
+        "valoare": 32700
+      },
+      {
+        "luna": "Luna 4 2025",
+        "valoare": 57700
+      },
+      {
+        "luna": "Luna 5 2025",
+        "valoare": 49900
+      },
+      {
+        "luna": "Luna 6 2025",
+        "valoare": 55900
+      },
+      {
+        "luna": "Luna 7 2025",
+        "valoare": 46900
+      },
+      {
+        "luna": "Luna 8 2025",
+        "valoare": 56900
+      },
+      {
+        "luna": "Luna 9 2025",
+        "valoare": 52100
+      },
+      {
+        "luna": "Luna 10 2025",
+        "valoare": 32100
+      },
+      {
+        "luna": "Luna 11 2025",
+        "valoare": 28700
+      },
+      {
+        "luna": "Luna 12 2025",
+        "valoare": 21700
+      },
+      {
+        "luna": "Luna 1 2026",
+        "valoare": 8800
+      },
+      {
+        "luna": "Luna 2 2026",
+        "valoare": 5300
+      },
+      {
+        "luna": "Luna 3 2026",
+        "valoare": 32500
+      }
     ]
   }
 }
