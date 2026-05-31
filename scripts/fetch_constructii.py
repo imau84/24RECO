@@ -3,8 +3,6 @@
 Script: fetch_constructii.py
 Preia date LOC108A (Autorizatii construire - suprafata utila mp) de la INSSE TEMPO-Online
 si actualizeaza src/data/constructii/constructii_data.json
-
-Ruleaza automat prin GitHub Actions in prima zi a fiecarei luni.
 """
 
 import json
@@ -15,26 +13,10 @@ import sys
 from datetime import datetime
 
 OUTPUT_PATH = "src/data/constructii/constructii_data.json"
-
-# Dimensiunile LOC108A:
-# - Categorii de cladiri (Locuinte / Industriale / Comerciale / Birouri / Alte)
-# - Luna (format: "Luna X YYYY")
-# Vom cere toate categoriile, ultimii 3 ani
-
 MATRIX_NAME = "LOC108A"
 BASE_URL = "http://statistici.insse.ro:8077/tempo-ins"
 
-CATEGORII_IDS = {
-    "Locuinte": "LOC",
-    "Cladiri industriale": "IND", 
-    "Cladiri comerciale": "COM",
-    "Birouri": "BIR",
-    "Alte cladiri": "ALT",
-    "TOTAL": "TOT"
-}
-
 def get_matrix_metadata():
-    """Obtine metadata matricei LOC108A pentru a afla dimensiunile disponibile."""
     url = f"{BASE_URL}/matrix/{MATRIX_NAME}"
     req = urllib.request.Request(
         url,
@@ -47,14 +29,12 @@ def get_matrix_metadata():
         return json.loads(r.read())
 
 def get_data(dim_ids_payload):
-    """Face POST catre INSSE pentru datele efective."""
     url = f"{BASE_URL}/matrix/dataSet/{MATRIX_NAME}"
     payload = json.dumps({
         "language": "ro",
         "arr": dim_ids_payload,
         "matrixName": MATRIX_NAME
     }).encode("utf-8")
-    
     req = urllib.request.Request(
         url,
         data=payload,
@@ -69,120 +49,150 @@ def get_data(dim_ids_payload):
 
 def build_payload_from_metadata(meta):
     """
-    Construieste payload-ul pentru POST din metadata.
-    LOC108A are 2 dimensiuni: Categorii + Perioade
-    Luam toate categoriile si ultimele 36 luni.
+    dimensionsMap poate fi dict SAU lista — tratam ambele cazuri.
+    Fiecare dimensiune are: label, nomItems (lista de {id, text, ...})
+    Luam toate elementele din fiecare dimensiune.
     """
-    dims = meta.get("dimensionsMap", {})
+    dims_raw = meta.get("dimensionsMap", {})
+
+    # Normalizam la lista de dict-uri
+    if isinstance(dims_raw, dict):
+        dims = list(dims_raw.values())
+    elif isinstance(dims_raw, list):
+        dims = dims_raw
+    else:
+        dims = []
+
+    print(f"  → {len(dims)} dimensiuni gasite in metadata")
+    for i, dim in enumerate(dims):
+        label = dim.get("label", dim.get("dimensionLabel", "?"))
+        items = dim.get("nomItems", dim.get("nomItem", []))
+        print(f"     [{i}] '{label}' — {len(items)} elemente")
+
     arr = []
-    
-    for dim_key, dim_info in dims.items():
-        elements = dim_info.get("nomItems", [])
-        if not elements:
+    for dim in dims:
+        items = dim.get("nomItems", dim.get("nomItem", []))
+        if not items:
             continue
-        
-        dim_label = dim_info.get("label", "").lower()
-        
-        if "categor" in dim_label or "tip" in dim_label:
-            # Toate categoriile
-            arr.append([{
-                "label": el.get("text", ""),
-                "nomItemId": el.get("id"),
-                "offset": 1,
-                "parentId": None
-            } for el in elements])
-        elif "luna" in dim_label or "period" in dim_label or "timp" in dim_label:
-            # Ultimele 36 luni disponibile
-            sorted_els = sorted(elements, key=lambda x: x.get("id", 0), reverse=True)
-            recent = sorted_els[:36]
-            arr.append([{
-                "label": el.get("text", ""),
-                "nomItemId": el.get("id"),
-                "offset": 1,
-                "parentId": None
-            } for el in recent])
+        label = (dim.get("label", "") or dim.get("dimensionLabel", "")).lower()
+
+        # Perioade: luam ultimele 48 luni (limita 30k celule)
+        if any(kw in label for kw in ["luna", "period", "timp", "luni", "date"]):
+            sorted_items = sorted(items, key=lambda x: x.get("id", 0), reverse=True)
+            selected = sorted_items[:48]
         else:
-            # Orice alta dimensiune: primul element (national)
-            arr.append([{
-                "label": elements[0].get("text", ""),
-                "nomItemId": elements[0].get("id"),
-                "offset": 1,
-                "parentId": None
-            }])
-    
+            # Toate elementele din dimensiune
+            selected = items
+
+        arr.append([{
+            "label": el.get("text", el.get("label", "")),
+            "nomItemId": el.get("id", el.get("nomItemId")),
+            "offset": 1,
+            "parentId": None
+        } for el in selected])
+
     return arr
 
+def find_dim_by_keyword(dims, keywords):
+    """Gaseste o dimensiune dupa cuvinte cheie in label."""
+    for dim in dims:
+        label = (dim.get("label", "") or dim.get("dimensionLabel", "")).lower()
+        if any(kw in label for kw in keywords):
+            return dim
+    return None
+
 def parse_response_to_json(raw_data, meta):
-    """
-    Transforma raspunsul brut INSSE intr-un JSON structurat:
-    {
-      "ultima_actualizare": "...",
-      "unitate": "mp suprafata utila",
-      "sursa": "INS Romania, LOC108A",
-      "categorii": ["Locuinte", "Cladiri industriale", ...],
-      "date": {
-        "Locuinte": [{"luna": "Luna 1 2023", "valoare": 12345}, ...],
-        ...
-      }
-    }
-    """
-    dims = meta.get("dimensionsMap", {})
-    
-    # Identificam ce dimensiune e categorie si ce e timp
-    cat_dim = None
-    timp_dim = None
-    for dk, dv in dims.items():
-        label = dv.get("label", "").lower()
-        if "categor" in label or "tip" in label:
-            cat_dim = dv
-        elif "luna" in label or "period" in label:
-            timp_dim = dv
-    
+    dims_raw = meta.get("dimensionsMap", {})
+    if isinstance(dims_raw, dict):
+        dims = list(dims_raw.values())
+    elif isinstance(dims_raw, list):
+        dims = dims_raw
+    else:
+        dims = []
+
+    # Identificam dimensiunile
+    cat_dim = find_dim_by_keyword(dims, ["categor", "tip cladire", "tip de", "felul"])
+    timp_dim = find_dim_by_keyword(dims, ["luna", "period", "timp", "luni", "date"])
+
+    # Fallback: prima dim = categorii, a doua = timp (sau invers)
+    if not cat_dim and not timp_dim:
+        if len(dims) >= 2:
+            cat_dim = dims[0]
+            timp_dim = dims[1]
+        elif len(dims) == 1:
+            timp_dim = dims[0]
+
     categorii = []
     if cat_dim:
-        categorii = [el.get("text", "") for el in cat_dim.get("nomItems", [])]
-    
+        items = cat_dim.get("nomItems", cat_dim.get("nomItem", []))
+        categorii = [el.get("text", "") for el in items]
+
     perioade = []
     if timp_dim:
-        els = sorted(timp_dim.get("nomItems", []), key=lambda x: x.get("id", 0))
-        perioade = [el.get("text", "") for el in els]
-    
-    # Construim structura de date
-    # raw_data["data"] e de obicei o lista de liste sau dict
-    date_out = {}
-    
-    # Incercam sa parsam formatul INSSE
-    raw = raw_data.get("data", raw_data)
-    
-    if isinstance(raw, list):
-        # Format: lista de randuri, fiecare rand = [cat_index, timp_index, valoare]
-        for cat in categorii:
-            date_out[cat] = []
-        
-        for row in raw:
-            if len(row) >= 3:
-                try:
-                    cat_idx = int(row[0]) if isinstance(row[0], (int, str)) else 0
-                    timp_idx = int(row[1]) if isinstance(row[1], (int, str)) else 0
-                    val = float(str(row[-1]).replace(",", ".")) if row[-1] not in [None, "", "-"] else None
-                    
-                    cat_name = categorii[cat_idx] if cat_idx < len(categorii) else "Unknown"
-                    luna = perioade[timp_idx] if timp_idx < len(perioade) else ""
-                    
-                    if cat_name not in date_out:
-                        date_out[cat_name] = []
-                    date_out[cat_name].append({"luna": luna, "valoare": val})
-                except (ValueError, IndexError):
-                    pass
-    elif isinstance(raw, dict):
-        # Alt format posibil
-        for cat, values in raw.items():
-            date_out[cat] = values
-    
-    # Sortam fiecare categorie dupa luna
+        items = timp_dim.get("nomItems", timp_dim.get("nomItem", []))
+        sorted_items = sorted(items, key=lambda x: x.get("id", 0))
+        perioade = [el.get("text", "") for el in sorted_items]
+
+    print(f"  → Categorii: {categorii}")
+    print(f"  → Perioade (primele 5): {perioade[:5]}")
+
+    # Parsam datele brute
+    # Formatul INSSE: {"data": [[val1, val2, ...], ...]} sau o matrice plata
+    raw = raw_data
+    if isinstance(raw_data, dict):
+        raw = raw_data.get("data", raw_data.get("matrixData", raw_data))
+
+    date_out = {cat: [] for cat in categorii}
+
+    if isinstance(raw, list) and len(raw) > 0:
+        first = raw[0]
+
+        if isinstance(first, list):
+            # Matrice 2D: raw[cat_idx][timp_idx] = valoare
+            # Sau raw[i] = [cat_idx, timp_idx, valoare]
+            if len(first) == 3 and isinstance(first[0], (int, float)):
+                # Format triplet [cat_idx, timp_idx, val]
+                for row in raw:
+                    try:
+                        ci = int(row[0])
+                        ti = int(row[1])
+                        val_raw = row[2]
+                        val = float(str(val_raw).replace(",", ".")) if val_raw not in [None, "", "-", " "] else None
+                        cat = categorii[ci] if ci < len(categorii) else f"Cat{ci}"
+                        luna = perioade[ti] if ti < len(perioade) else f"P{ti}"
+                        if cat not in date_out:
+                            date_out[cat] = []
+                        date_out[cat].append({"luna": luna, "valoare": val})
+                    except (ValueError, IndexError, TypeError):
+                        pass
+            else:
+                # Matrice 2D: raw[cat_idx] = [val_t0, val_t1, ...]
+                for ci, row in enumerate(raw):
+                    cat = categorii[ci] if ci < len(categorii) else f"Cat{ci}"
+                    if cat not in date_out:
+                        date_out[cat] = []
+                    for ti, val_raw in enumerate(row):
+                        val = float(str(val_raw).replace(",", ".")) if val_raw not in [None, "", "-", " "] else None
+                        luna = perioade[ti] if ti < len(perioade) else f"P{ti}"
+                        date_out[cat].append({"luna": luna, "valoare": val})
+        elif isinstance(first, (int, float, str)):
+            # Lista plata — o singura dimensiune (sau TOTAL)
+            cat = categorii[0] if categorii else "TOTAL"
+            if cat not in date_out:
+                date_out[cat] = []
+            for ti, val_raw in enumerate(raw):
+                val = float(str(val_raw).replace(",", ".")) if val_raw not in [None, "", "-", " "] else None
+                luna = perioade[ti] if ti < len(perioade) else f"P{ti}"
+                date_out[cat].append({"luna": luna, "valoare": val})
+
+    # Sortam dupa luna
     for cat in date_out:
         date_out[cat].sort(key=lambda x: x.get("luna", ""))
-    
+
+    # Verificare
+    total_pts = sum(len(v) for v in date_out.values())
+    print(f"  → Total puncte de date parsate: {total_pts}")
+
     return {
         "ultima_actualizare": datetime.now().strftime("%Y-%m-%d"),
         "unitate": "mp suprafata utila",
@@ -206,40 +216,49 @@ def save_json(data):
 
 def main():
     print(f"[{datetime.now().isoformat()}] Incep preluarea date LOC108A de la INSSE...")
-    
+
     existing = load_existing()
-    old_update = existing.get("ultima_actualizare", "")
-    
+    old_update = existing.get("ultima_actualizare", "necunoscut")
+
     try:
         print("  → Preiau metadata LOC108A...")
         meta = get_matrix_metadata()
-        print("  ✓ Metadata primita")
-        
+        # Debug: afisam structura top-level
+        top_keys = list(meta.keys()) if isinstance(meta, dict) else type(meta).__name__
+        print(f"  ✓ Metadata primita — chei: {top_keys}")
+
         print("  → Construiesc payload cerere date...")
         payload = build_payload_from_metadata(meta)
-        
+        print(f"  ✓ Payload: {len(payload)} dimensiuni")
+
         print("  → Cer datele efective (POST)...")
         raw_data = get_data(payload)
-        print("  ✓ Date primite")
-        
+        raw_keys = list(raw_data.keys()) if isinstance(raw_data, dict) else type(raw_data).__name__
+        print(f"  ✓ Date primite — chei: {raw_keys}")
+
         print("  → Parsez si structurez datele...")
         result = parse_response_to_json(raw_data, meta)
-        
-        num_categorii = len(result.get("categorii", []))
-        num_perioade = len(result.get("perioade", []))
-        print(f"  ✓ {num_categorii} categorii, {num_perioade} perioade")
-        
-        # Verificam daca sunt date noi
+
+        num_cat = len(result.get("categorii", []))
+        num_per = len(result.get("perioade", []))
+        print(f"  ✓ {num_cat} categorii, {num_per} perioade")
+
+        if not result.get("date") or all(len(v) == 0 for v in result["date"].values()):
+            print("⚠️  Nu s-au putut parsa date. Salvez structura de debug:")
+            result["debug_meta_keys"] = list(meta.keys()) if isinstance(meta, dict) else str(type(meta))
+            result["debug_raw_type"] = str(type(raw_data))
+            result["debug_raw_sample"] = str(raw_data)[:500]
+
         if result.get("perioade") == existing.get("perioade") and result.get("date") == existing.get("date"):
             print("⚠️  Nu sunt date noi fata de versiunea existenta.")
-            print(f"Modificat: false")
+            print("Modificat: false")
             return
-        
+
         save_json(result)
         print(f"✅ Salvat: {OUTPUT_PATH}")
         print(f"   Ultima actualizare: {old_update} → {result['ultima_actualizare']}")
-        print(f"Modificat: true")
-        
+        print("Modificat: true")
+
     except urllib.error.URLError as e:
         print(f"❌ Eroare retea INSSE: {e}")
         sys.exit(1)
