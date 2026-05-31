@@ -267,9 +267,7 @@ export default function AgriculturaPage() {
             </a>
           </div>
           <div className="ag-subtabs">
-            {['Prețuri Cereale', 'Suprafețe Cultivate', 'Producții', 'Exporturi'].map((t, i) => (
-              <button key={t} className={`ag-subtab${i === 0 ? ' active' : ''}`}>{t}</button>
-            ))}
+            <button className="ag-subtab active">Prețuri Cereale</button>
           </div>
         </div>
       </div>
