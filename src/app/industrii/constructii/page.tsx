@@ -13,6 +13,7 @@ interface ConstructiiData {
   ultima_actualizare: string;
   unitate: string;
   sursa: string;
+  matrice?: string;
   categorii: string[];
   perioade: string[];
   date: Record<string, DataPoint[]>;
