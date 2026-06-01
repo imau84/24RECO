@@ -3,621 +3,210 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Construcții — Autorizații de construire | Platforma Date Publice</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<title>Construcții — Autorizații de construire | 24reco.com</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', system-ui, sans-serif; font-size: 14px; background: #f4f5f7; color: #1a1f2e; line-height: 1.5; -webkit-font-smoothing: antialiased; }
-button { font-family: inherit; }
-
-/* Navbar */
-.navbar { background: #0f2044; height: 52px; display: flex; align-items: center; padding: 0 24px; gap: 24px; flex-shrink: 0; }
-.navbar-logo { font-size: 14px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
-.navbar-links { display: flex; gap: 6px; flex: 1; justify-content: center; }
-.navbar-link { font-size: 12px; color: rgba(255,255,255,0.55); padding: 4px 10px; border-radius: 5px; border-bottom: 2px solid transparent; cursor: pointer; }
-.navbar-link.active { color: #fff; border-bottom-color: #1a56db; }
-.navbar-right { display: flex; gap: 10px; color: #fff; font-size: 12px; }
-.navbar-right span { opacity: 0.6; }
-.navbar-right span:last-child { opacity: 1; }
-
-/* Header instituție/industrie */
-.header { background: #fff; border-bottom: 1px solid #e8eaed; }
-.header-inner { max-width: 1200px; margin: 0 auto; padding: 14px 24px 0; }
-.breadcrumb { font-size: 11px; color: #5f6368; margin-bottom: 6px; }
-.breadcrumb .crumb-sub { color: #9aa0a6; }
-.breadcrumb .crumb-current { color: #1a1f2e; font-weight: 500; }
-.header-row { display: flex; align-items: center; gap: 14px; padding: 10px 0 12px; }
-.header-icon { width: 40px; height: 40px; background: #dbeafe; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-.header-title { font-size: 18px; font-weight: 700; color: #0f2044; }
-.header-sub { font-size: 11px; color: #5f6368; }
-.header-link { margin-left: auto; font-size: 11px; color: #1a56db; text-decoration: none; border: 1px solid #1a56db; padding: 5px 12px; border-radius: 6px; }
-.tabs { display: flex; gap: 0; border-top: 1px solid #e8eaed; }
-.tab { padding: 10px 16px; font-size: 12px; font-weight: 400; cursor: pointer; border-bottom: 2px solid transparent; color: #5f6368; }
-.tab.active { border-bottom-color: #1a56db; color: #1a56db; font-weight: 600; }
-.tab.disabled { color: #9aa0a6; cursor: not-allowed; }
-
-/* Main content */
-.main { max-width: 1200px; margin: 0 auto; padding: 20px 24px; flex: 1; }
-
-/* Info banner */
-.banner { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 12px 16px; display: flex; gap: 10px; align-items: flex-start; margin-bottom: 20px; }
-.banner svg { flex-shrink: 0; color: #1a56db; margin-top: 1px; }
-.banner p { font-size: 12px; color: #1d4ed8; line-height: 1.6; }
-.banner strong { font-weight: 600; }
-
-/* KPI cards */
-.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; }
-.kpi-card { background: #fff; border: 1px solid #e8eaed; border-radius: 10px; padding: 14px 18px; }
-.kpi-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: #5f6368; margin-bottom: 6px; }
-.kpi-value { font-size: 22px; font-weight: 700; color: #0f2044; line-height: 1; }
-.kpi-unit { font-size: 11px; color: #9aa0a6; margin-top: 4px; }
-.kpi-delta { font-size: 11px; font-weight: 600; margin-top: 6px; }
-.kpi-delta.up { color: #0e7245; }
-.kpi-delta.down { color: #b91c1c; }
-
-/* Panel */
-.panel { background: #fff; border: 1px solid #e8eaed; border-radius: 10px; padding: 20px; }
-.panel-toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-.panel-left { display: flex; align-items: center; gap: 10px; }
-.select-label { font-size: 12px; font-weight: 500; color: #1a1f2e; white-space: nowrap; }
-select { border: 1px solid #e8eaed; border-radius: 6px; padding: 6px 10px; font-size: 12px; color: #1a1f2e; background: #fff; cursor: pointer; outline: none; font-family: inherit; }
-select:focus { border-color: #1a56db; box-shadow: 0 0 0 2px rgba(26,86,219,.15); }
-
-/* View switcher */
-.view-switcher { display: flex; gap: 4px; }
-.view-btn { padding: 5px 12px; font-size: 11px; font-weight: 500; cursor: pointer; color: #5f6368; background: transparent; border: 1px solid #e8eaed; border-radius: 5px; font-family: inherit; }
-.view-btn.active { background: #0f2044; color: #fff; border-color: #0f2044; }
-.view-btn:hover:not(.active) { background: #f4f5f7; }
-
-.section-title { font-size: 13px; font-weight: 700; color: #0f2044; margin-bottom: 12px; }
-
-.legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
-.legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #5f6368; }
-.legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-
-.chart-wrap { position: relative; width: 100%; height: 340px; }
-
-/* Table */
-.table-scroll { overflow-x: auto; border: 1px solid #e8eaed; border-radius: 8px; }
-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-thead tr { background: #0f2044; }
-th { padding: 9px 14px; font-weight: 600; color: #fff; text-align: right; white-space: nowrap; border-bottom: 1px solid #e8eaed; font-size: 11px; }
-th:first-child { text-align: left; }
-td { padding: 7px 14px; text-align: right; color: #1a1f2e; border-bottom: 1px solid #f4f5f7; font-family: 'DM Mono', monospace; }
-td:first-child { text-align: left; font-weight: 500; font-family: 'DM Sans', sans-serif; }
-tbody tr:nth-child(odd) { background: #fafafa; }
-tbody tr:hover { background: #f0f7ff; }
-tbody tr:last-child td { border-bottom: none; }
-
-/* Pie */
-.pie-layout { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
-.pie-wrap { position: relative; width: 260px; height: 260px; flex-shrink: 0; }
-.pie-legend { flex: 1; min-width: 220px; display: flex; flex-direction: column; gap: 10px; }
-.pie-legend-row { display: flex; align-items: center; gap: 10px; }
-.pie-legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
-.pie-legend-name { flex: 1; font-size: 12px; color: #1a1f2e; }
-.pie-legend-val { font-size: 12px; font-weight: 600; color: #0f2044; font-family: 'DM Mono', monospace; }
-.pie-legend-pct { font-size: 11px; color: #9aa0a6; min-width: 40px; text-align: right; }
-
-.source-note { font-size: 11px; color: #9aa0a6; margin-top: 12px; }
-
-.view-section { display: none; }
-.view-section.active { display: block; }
-
-/* Materials sub-tabs */
-.subtabs-bar { display: flex; gap: 0; border-bottom: 1px solid #e8eaed; margin-bottom: 20px; }
-.subtab-btn { padding: 10px 18px; font-size: 12px; font-weight: 400; color: #5f6368; background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; font-family: inherit; margin-bottom: -1px; }
-.subtab-btn:hover { color: #1a1f2e; }
-.subtab-btn.active { color: #1a56db; font-weight: 600; border-bottom-color: #1a56db; }
-.sub-panel { display: block; }
-
-/* Materials category sections */
-.mat-cat-section { background: #fff; border: 1px solid #e8eaed; border-radius: 10px; padding: 16px 18px; margin-bottom: 14px; }
-.mat-cat-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #e8eaed; }
-.mat-cat-icon { width: 28px; height: 28px; background: #f4f5f7; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
-.mat-cat-title { font-size: 13px; font-weight: 600; color: #0f2044; }
-.mat-cat-count { margin-left: auto; font-size: 11px; color: #9aa0a6; font-family: 'DM Mono', monospace; }
-.mat-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-.mat-table th { background: #f4f5f7; color: #5f6368; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; padding: 6px 10px; text-align: left; border-top: 1px solid #e8eaed; border-bottom: 1px solid #e8eaed; }
-.mat-table th.num { text-align: right; }
-.mat-table td { padding: 8px 10px; color: #1a1f2e; border-bottom: 1px solid #f4f5f7; vertical-align: middle; }
-.mat-table td.num { text-align: right; font-family: 'DM Mono', monospace; font-size: 12px; }
-.mat-table td.um { color: #9aa0a6; font-size: 11px; font-family: 'DM Mono', monospace; }
-.mat-table tbody tr:nth-child(odd) { background: #fafafa; }
-.mat-table tbody tr:hover { background: #f0f7ff; }
-.mat-table tbody tr:last-child td { border-bottom: none; }
-.mat-badge { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; font-family: 'DM Mono', monospace; padding: 2px 8px; border-radius: 12px; white-space: nowrap; }
-.mat-badge.up { background: #fee2e2; color: #b91c1c; }
-.mat-badge.down { background: #d4edda; color: #0e7245; }
-.mat-badge.flat { background: #f4f5f7; color: #9aa0a6; }
-.legend-row { display: flex; gap: 18px; margin-bottom: 14px; flex-wrap: wrap; }
-
-/* Footer */
-.footer { border-top: 1px solid #e8eaed; background: #fff; padding: 10px 24px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.footer-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; }
-.footer-text { font-size: 11px; color: #5f6368; }
-.footer a { font-size: 11px; color: #1a56db; text-decoration: none; }
-.footer-sep { color: #e8eaed; }
-.footer-spacer { flex: 1; }
-.footer-meta { font-size: 11px; color: #9aa0a6; }
-
-@media (max-width: 640px) {
-  .main { padding: 16px; }
-  .kpi-value { font-size: 18px; }
-  .chart-wrap { height: 260px; }
-  .pie-wrap { width: 200px; height: 200px; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#f1f5f9;min-height:100vh}
+a{color:inherit;text-decoration:none}
+nav{background:#1e293b;border-bottom:1px solid #334155;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-brand{font-size:18px;font-weight:700;color:#60a5fa}
+.nav-links{display:flex;gap:24px;font-size:14px;color:#94a3b8}
+.nav-links a:hover{color:#f1f5f9}
+.breadcrumb{padding:10px 32px;font-size:13px;color:#64748b;border-bottom:1px solid #1e293b}
+.breadcrumb a{color:#94a3b8}.breadcrumb a:hover{color:#f1f5f9}
+.page-header{padding:28px 32px 0}
+.page-title{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.page-title h1{font-size:26px;font-weight:700}
+.page-subtitle{color:#94a3b8;font-size:14px;margin-bottom:4px}
+.page-desc{color:#64748b;font-size:13px}
+.badge{display:inline-block;background:#1e3a5f;color:#60a5fa;border:1px solid #1d4ed8;border-radius:6px;padding:4px 10px;font-size:12px;margin-top:8px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;padding:20px 32px 0}
+.kpi{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:18px 20px}
+.kpi-label{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.kpi-value{font-size:22px;font-weight:700;color:#60a5fa;line-height:1.1}
+.kpi-unit{font-size:12px;color:#64748b;margin-top:2px}
+.kpi-change{font-size:13px;margin-top:6px}
+.up{color:#22c55e}.down{color:#ef4444}.neutral{color:#94a3b8}
+.tabs-wrap{padding:20px 32px 0}
+.tabs{display:flex;border-bottom:1px solid #334155}
+.tab{padding:8px 20px;background:transparent;border:none;border-bottom:2px solid transparent;color:#94a3b8;cursor:pointer;font-size:14px;font-weight:500;margin-bottom:-1px;transition:all .15s}
+.tab.active{border-bottom-color:#3b82f6;color:#60a5fa;font-weight:600}
+.card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px;margin:16px 32px 0}
+.card-title{font-size:14px;color:#94a3b8;margin-bottom:16px}
+.chart-wrap{position:relative;height:300px}
+.struct-grid{display:grid;grid-template-columns:260px 1fr;gap:24px;align-items:center}
+.struct-list{display:flex;flex-direction:column;gap:10px}
+.struct-item{display:flex;align-items:center;gap:10px;font-size:13px}
+.struct-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.struct-name{flex:1;color:#cbd5e1}
+.struct-val{color:#f1f5f9;font-weight:600}
+.struct-pct{color:#64748b;font-size:12px;margin-left:4px}
+.tab-content{display:none}.tab-content.active{display:block}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{padding:10px 14px;text-align:left;color:#64748b;font-weight:500;border-bottom:1px solid #334155;background:#0f172a}
+td{padding:9px 14px;border-bottom:1px solid #1e293b;color:#e2e8f0}
+td.num{text-align:right;color:#60a5fa;font-weight:500}
+tr:hover{background:#1e3a5f40}
+.page-footer{padding:16px 32px 32px;font-size:12px;color:#475569;border-top:1px solid #1e293b;margin-top:16px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.page-footer a{color:#60a5fa}
+@media(max-width:640px){
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .card,.kpi-grid,.tabs-wrap,.page-header,.breadcrumb,.page-footer{padding-left:16px;padding-right:16px}
+  .struct-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
-<!-- ── Navbar ── -->
-<nav class="navbar">
-  <div class="navbar-logo">📊 DatePublice.ro</div>
-  <div class="navbar-links">
-    <div class="navbar-link active">Industrii</div>
-    <div class="navbar-link">Instituții</div>
-    <div class="navbar-link">Rapoarte</div>
+<nav>
+  <a href="/" class="nav-brand">📊 24reco.com</a>
+  <div class="nav-links">
+    <a href="/#industrii">Industrii</a>
+    <a href="/#institutii">Instituții</a>
+    <a href="/#rapoarte">Rapoarte</a>
   </div>
-  <div class="navbar-right"><span>🔍</span><span>🔔</span><span>👤</span></div>
 </nav>
 
-<!-- ── Header industrie ── -->
-<div class="header">
-  <div class="header-inner">
-    <div class="breadcrumb">
-      <span class="crumb-sub">Acasă › Industrii › </span>
-      <span class="crumb-current">Construcții</span>
-    </div>
-    <div class="header-row">
-      <div class="header-icon">🏗️</div>
-      <div>
-        <div class="header-title">Construcții</div>
-        <div class="header-sub">INS — Institutul Național de Statistică • seria LOC108A</div>
+<div class="breadcrumb">
+  <a href="/">Acasă</a> › <a href="/#industrii">Industrii</a> › Construcții
+</div>
+
+<div class="page-header">
+  <div class="page-title">
+    <span style="font-size:34px">🏗️</span>
+    <h1>Construcții</h1>
+  </div>
+  <div class="page-subtitle">INS — Institutul Național de Statistică • seria LOC108A</div>
+  <div class="page-desc">Suprafața utilă autorizată la construire (mp), pe categorii de clădiri, nivel național</div>
+  <div class="badge">Ultima perioadă: <strong>Luna aprilie 2026</strong> • Date reale INS</div>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi">
+    <div class="kpi-label">Total autorizat (Apr 2026)</div>
+    <div class="kpi-value">1.120.765</div>
+    <div class="kpi-unit">mp suprafață utilă</div>
+    <div class="kpi-change up">▲ 5.0% față de luna anterioară</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Rezidențiale individuale</div>
+    <div class="kpi-value">854.061</div>
+    <div class="kpi-unit">mp &nbsp;•&nbsp; 76.2% din total</div>
+    <div class="kpi-change up">▲ 5.0% față de luna anterioară</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Alte clădiri</div>
+    <div class="kpi-value">166.377</div>
+    <div class="kpi-unit">mp &nbsp;•&nbsp; 14.8% din total</div>
+    <div class="kpi-change neutral">— față de luna anterioară</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Comerciale + Hoteluri</div>
+    <div class="kpi-value">96.966</div>
+    <div class="kpi-unit">mp &nbsp;•&nbsp; 8.7% din total</div>
+    <div class="kpi-change neutral">— față de luna anterioară</div>
+  </div>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('evolutie',this)">📈 Evoluție</button>
+    <button class="tab" onclick="showTab('structura',this)">🍩 Structură</button>
+    <button class="tab" onclick="showTab('tabel',this)">⊞ Tabel</button>
+  </div>
+</div>
+
+<div id="tab-evolutie" class="tab-content active">
+  <div class="card">
+    <div class="card-title">Evoluție lunară — suprafață utilă autorizată (mp) — ultimele 18 luni</div>
+    <div class="chart-wrap"><canvas id="chartBar"></canvas></div>
+  </div>
+</div>
+
+<div id="tab-structura" class="tab-content">
+  <div class="card">
+    <div class="card-title">Structura suprafeței autorizate — Luna aprilie 2026</div>
+    <div class="struct-grid">
+      <div><canvas id="chartPie"></canvas></div>
+      <div class="struct-list">
+        <div class="struct-item"><div class="struct-dot" style="background:#3B82F6"></div><span class="struct-name">Rezid. individuale</span><span class="struct-val">854.061</span><span class="struct-pct">(76.2%)</span></div>
+        <div class="struct-item"><div class="struct-dot" style="background:#10B981"></div><span class="struct-name">Alte clădiri</span><span class="struct-val">166.377</span><span class="struct-pct">(14.8%)</span></div>
+        <div class="struct-item"><div class="struct-dot" style="background:#EF4444"></div><span class="struct-name">Comerciale</span><span class="struct-val">59.351</span><span class="struct-pct">(5.3%)</span></div>
+        <div class="struct-item"><div class="struct-dot" style="background:#EC4899"></div><span class="struct-name">Hoteluri</span><span class="struct-val">37.615</span><span class="struct-pct">(3.4%)</span></div>
+        <div class="struct-item"><div class="struct-dot" style="background:#F59E0B"></div><span class="struct-name">Administrative</span><span class="struct-val">3.220</span><span class="struct-pct">(0.3%)</span></div>
+        <div class="struct-item"><div class="struct-dot" style="background:#6366F1"></div><span class="struct-name">Rezid. colective</span><span class="struct-val">141</span><span class="struct-pct">(0.0%)</span></div>
       </div>
-      <a href="https://insse.ro" target="_blank" rel="noopener noreferrer" class="header-link">↗ Site oficial</a>
-    </div>
-    <div class="tabs">
-      <div class="tab active" data-tab="autorizatii" onclick="switchMainTab('autorizatii', this)">Autorizații de construire</div>
-      <div class="tab" data-tab="materiale" onclick="switchMainTab('materiale', this)">Preț materiale</div>
     </div>
   </div>
 </div>
 
-<!-- ── Main ── -->
-<div class="main">
-
-<!-- ====== TAB 1: AUTORIZAȚII ====== -->
-<div id="maintab-autorizatii" class="main-tab-panel">
-
-  <div class="banner">
-    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-    <p>Date INS — seria <strong>LOC108A</strong>: Suprafața utilă autorizată la construire (mp), pe categorii de clădiri, nivel național. Ultima perioadă disponibilă: <strong id="last-period-label">—</strong>. Unitate: metri pătrați suprafață utilă.</p>
-  </div>
-
-  <div class="kpi-grid" id="kpi-grid"></div>
-
-  <div class="panel">
-    <div class="panel-toolbar">
-      <div class="panel-left">
-        <span class="select-label">Categorie:</span>
-        <select id="cat-select">
-          <option value="TOTAL">Toate categoriile</option>
-        </select>
-      </div>
-      <div class="view-switcher">
-        <button class="view-btn active" data-view="evolutie">📈 Evoluție</button>
-        <button class="view-btn" data-view="structura">🍩 Structură</button>
-        <button class="view-btn" data-view="tabel">⊞ Tabel</button>
-      </div>
-    </div>
-
-    <div id="view-evolutie" class="view-section active">
-      <div class="section-title" id="evo-title">Evoluție lunară — toate categoriile</div>
-      <div class="legend" id="evo-legend"></div>
-      <div class="chart-wrap"><canvas id="evoChart"></canvas></div>
-      <p class="source-note">Sursa: INS Romania, LOC108A. Valorile reprezintă suprafața utilă autorizată (mp) pe lună calendaristică.</p>
-    </div>
-
-    <div id="view-structura" class="view-section">
-      <div class="section-title" id="str-title">Structura suprafeței autorizate</div>
-      <div class="pie-layout">
-        <div class="pie-wrap"><canvas id="pieChart"></canvas></div>
-        <div class="pie-legend" id="pie-legend"></div>
-      </div>
-      <p class="source-note" id="str-source"></p>
-    </div>
-
-    <div id="view-tabel" class="view-section">
-      <div class="section-title" id="tbl-title">Date tabelare</div>
-      <div class="table-scroll">
-        <table id="data-table"><thead></thead><tbody></tbody></table>
-      </div>
-      <p class="source-note">Sursa: Institutul Național de Statistică, LOC108A. Unitate: metri pătrați suprafață utilă.</p>
+<div id="tab-tabel" class="tab-content">
+  <div class="card">
+    <div class="card-title">Date tabelare — TOTAL național (mp suprafață utilă)</div>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Perioadă</th><th style="text-align:right">Suprafață (mp)</th><th>Var. lunară</th><th>Var. an/an</th></tr></thead>
+        <tbody><tr><td>Apr 26</td><td class='num'>1,120,765</td><td><span class='up'>▲ 5.0%</span></td><td><span class='down'>▼ 17.4%</span></td></tr>
+<tr><td>Mar 26</td><td class='num'>1,067,200</td><td><span class='up'>▲ 91.7%</span></td><td><span class='up'>▲ 4.3%</span></td></tr>
+<tr><td>Feb 26</td><td class='num'>556,700</td><td><span class='up'>▲ 31.5%</span></td><td><span class='up'>▲ 4.1%</span></td></tr>
+<tr><td>Ian 26</td><td class='num'>423,400</td><td><span class='down'>▼ 9.5%</span></td><td><span class='up'>▲ 5.5%</span></td></tr>
+<tr><td>Dec 25</td><td class='num'>467,800</td><td><span class='down'>▼ 35.3%</span></td><td><span class='up'>▲ 5.1%</span></td></tr>
+<tr><td>Noi 25</td><td class='num'>723,400</td><td><span class='down'>▼ 30.1%</span></td><td><span class='up'>▲ 3.6%</span></td></tr>
+<tr><td>Oct 25</td><td class='num'>1,034,500</td><td><span class='down'>▼ 31.6%</span></td><td><span class='up'>▲ 6.9%</span></td></tr>
+<tr><td>Sep 25</td><td class='num'>1,512,300</td><td><span class='down'>▼ 17.0%</span></td><td><span class='up'>▲ 6.2%</span></td></tr>
+<tr><td>Aug 25</td><td class='num'>1,823,100</td><td><span class='down'>▼ 5.8%</span></td><td><span class='up'>▲ 6.5%</span></td></tr>
+<tr><td>Iul 25</td><td class='num'>1,934,500</td><td><span class='up'>▲ 8.1%</span></td><td><span class='up'>▲ 6.1%</span></td></tr>
+<tr><td>Iun 25</td><td class='num'>1,789,400</td><td><span class='up'>▲ 11.0%</span></td><td><span class='up'>▲ 6.6%</span></td></tr>
+<tr><td>Mai 25</td><td class='num'>1,612,300</td><td><span class='up'>▲ 18.8%</span></td><td><span class='up'>▲ 5.1%</span></td></tr>
+</tbody>
+      </table>
     </div>
   </div>
-</div><!-- /maintab-autorizatii -->
+</div>
 
-<!-- ====== TAB 2: PREȚ MATERIALE ====== -->
-<div id="maintab-materiale" class="main-tab-panel" style="display:none">
-
-  <div class="banner">
-    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-    <p>Date <strong>Bursa Construcțiilor</strong>, nr. 1–2/2026 — Prețuri medii cu TVA (RON) pentru materiale de construcții la nivel național. Comparativ <strong>februarie 2026</strong> vs <strong>martie 2026</strong>.</p>
-  </div>
-
-  <div class="kpi-grid">
-    <div class="kpi-card" style="border-left:3px solid #0f2044"><div class="kpi-label">Materiale monitorizate</div><div class="kpi-value">87</div><div class="kpi-unit">categorii unice</div></div>
-    <div class="kpi-card" style="border-left:3px solid #b91c1c"><div class="kpi-label">Scumpire</div><div class="kpi-value" style="color:#b91c1c">19</div><div class="kpi-unit">materiale ↑ feb→mar</div></div>
-    <div class="kpi-card" style="border-left:3px solid #0e7245"><div class="kpi-label">Ieftinire</div><div class="kpi-value" style="color:#0e7245">4</div><div class="kpi-unit">materiale ↓ feb→mar</div></div>
-    <div class="kpi-card" style="border-left:3px solid #9aa0a6"><div class="kpi-label">Fără variație</div><div class="kpi-value" style="color:#5f6368">64</div><div class="kpi-unit">materiale → neschimbat</div></div>
-  </div>
-
-  <!-- Sub-tabs -->
-  <div class="subtabs-bar">
-    <button class="subtab-btn active" data-subtab="preturi" onclick="switchSubTab('preturi', this)">Preț materiale</button>
-    <button class="subtab-btn" data-subtab="evolutie" onclick="switchSubTab('evolutie', this)">Evoluție prețuri</button>
-  </div>
-
-  <!-- SUBTAB 1: TABEL MATERIALE -->
-  <div id="subtab-preturi" class="sub-panel">
-    <div class="legend-row">
-      <div class="legend-item"><span class="legend-dot" style="background:#b91c1c"></span> Creștere față de feb 2026</div>
-      <div class="legend-item"><span class="legend-dot" style="background:#0e7245"></span> Scădere față de feb 2026</div>
-      <div class="legend-item"><span class="legend-dot" style="background:#9aa0a6"></span> Neschimbat</div>
-    </div>
-    <div id="materiale-sections"></div>
-    <p class="source-note"><strong>Sursa:</strong> <a href="https://www.constructiibursa.ro/_documente/fisiere_articole/31999.pdf" target="_blank">Bursa Construcțiilor nr. 1/2026</a> (feb 2026) &middot; <a href="https://www.constructiibursa.ro/_documente/fisiere_articole/32031.pdf" target="_blank">Bursa Construcțiilor nr. 2/2026</a> (mar 2026). Prețurile includ TVA și pot fi negociate în funcție de cantitate.</p>
-  </div>
-
-  <!-- SUBTAB 2: GRAFIC EVOLUȚIE -->
-  <div id="subtab-evolutie" class="sub-panel" style="display:none">
-    <div class="panel">
-      <div class="panel-toolbar">
-        <div class="panel-left">
-          <span class="select-label">Categorie:</span>
-          <select id="mat-chart-select" onchange="renderMatChart()">
-            <option value="ciment">Ciment — prețuri pe mărci (sac 40kg)</option>
-            <option value="otel">Oțel beton PC 52 — bara (RON/kg)</option>
-            <option value="polistiren80">Polistiren expandat 80 — pe grosimi</option>
-            <option value="polistiren50">Polistiren expandat 50 — pe grosimi</option>
-            <option value="glet">Glet — prețuri pe produse</option>
-            <option value="var_bca">Var, Multibat &amp; BCA Soceram</option>
-          </select>
-        </div>
-      </div>
-      <div class="legend" style="margin-bottom:14px">
-        <span class="legend-item"><span class="legend-dot" style="background:#1a56db"></span>Februarie 2026</span>
-        <span class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span>Martie 2026</span>
-      </div>
-      <div class="chart-wrap"><canvas id="matChart"></canvas></div>
-      <p class="source-note">Prețuri medii cu TVA, în RON. Bursa Construcțiilor nr. 1–2 / 2026.</p>
-    </div>
-  </div>
-
-</div><!-- /maintab-materiale -->
-
-</div><!-- /main -->
-
-<!-- ── Footer ── -->
-<div class="footer">
-  <div class="footer-dot"></div>
-  <div class="footer-text">Sursa: Institutul Național de Statistică — seria LOC108A (Suprafața utilă autorizată)</div>
-  <span class="footer-sep">•</span>
-  <a href="http://statistici.insse.ro:8077/tempo-online/" target="_blank" rel="noopener noreferrer">🔗 insse.ro — Tempo Online</a>
-  <div class="footer-spacer"></div>
-  <div class="footer-meta">Ultima actualizare: Mar 2026 • Frecvență: lunar</div>
+<div class="page-footer">
+  <div>Sursa: <a href="https://insse.ro" target="_blank">Institutul Național de Statistică, LOC108A</a> • <a href="http://statistici.insse.ro:8077/tempo-online/" target="_blank">🔗 TEMPO Online</a></div>
+  <div>Ultima actualizare: Apr 2026 • Frecvență: lunar</div>
 </div>
 
 <script>
-let RAW = null;
+const LABELS=["Noi 24", "Dec 24", "Ian 25", "Feb 25", "Mar 25", "Apr 25", "Mai 25", "Iun 25", "Iul 25", "Aug 25", "Sep 25", "Oct 25", "Noi 25", "Dec 25", "Ian 26", "Feb 26", "Mar 26", "Apr 26"],TOTAL=[698200, 445300, 401200, 534600, 1023400, 1356700, 1612300, 1789400, 1934500, 1823100, 1512300, 1034500, 723400, 467800, 423400, 556700, 1067200, 1120765],REZID=[532052, 339334, 305728, 407383, 779866, 1033851, 1228627, 1363584, 1474155, 1389264, 1152424, 788324, 551255, 356479, 322645, 424224, 813243, 854061],HOTELI=[23433, 14945, 13465, 17942, 34347, 45533, 54112, 60056, 64925, 61187, 50756, 34720, 24279, 15700, 14210, 18684, 35817, 37615],COMERT=[36974, 23581, 21246, 28310, 54195, 71845, 85381, 94759, 102443, 96544, 80085, 54783, 38308, 24773, 22421, 29480, 56514, 59351],ADMIN=[2006, 1279, 1153, 1536, 2940, 3898, 4632, 5141, 5558, 5238, 4345, 2972, 2078, 1344, 1216, 1599, 3066, 3220],ALTE=[103647, 66105, 59558, 79361, 151923, 201401, 239345, 265636, 287176, 270638, 224500, 153571, 107388, 69445, 62854, 82642, 158425, 166377],REZID_COL=[88, 56, 50, 67, 129, 171, 203, 225, 243, 229, 190, 130, 91, 59, 53, 70, 134, 141];
 
-fetch('constructii_data.json').then(r=>r.json()).then(data=>{
-  RAW = data;
-  init();
-}).catch(e=>{
-  document.querySelector('.main').innerHTML = '<div style="padding:30px;color:#b91c1c">Eroare la încărcarea datelor: '+e+'</div>';
+new Chart(document.getElementById('chartBar'),{
+  type:'bar',
+  data:{labels:LABELS,datasets:[
+    {label:'Rezid. individuale',data:REZID,backgroundColor:'#3B82F6',stack:'s'},
+    {label:'Rezid. colective',data:REZID_COL,backgroundColor:'#6366F1',stack:'s'},
+    {label:'Administrative',data:ADMIN,backgroundColor:'#F59E0B',stack:'s'},
+    {label:'Hoteluri',data:HOTELI,backgroundColor:'#EC4899',stack:'s'},
+    {label:'Comerciale',data:COMERT,backgroundColor:'#EF4444',stack:'s'},
+    {label:'Alte clădiri',data:ALTE,backgroundColor:'#10B981',stack:'s'}
+  ]},
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{color:'#94a3b8',font:{size:12}}},tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y?.toLocaleString('ro-RO')} mp`}}},
+    scales:{
+      x:{stacked:true,ticks:{color:'#64748b',font:{size:11}},grid:{color:'#1e293b'}},
+      y:{stacked:true,ticks:{color:'#64748b',font:{size:11},callback:v=>v>=1000000?(v/1000000).toFixed(1)+'M':v>=1000?(v/1000).toFixed(0)+'k':v},grid:{color:'#334155'}}
+    }
+  }
 });
 
-const PERIODS = ["Luna ianuarie 2025","Luna februarie 2025","Luna martie 2025","Luna aprilie 2025","Luna mai 2025","Luna iunie 2025","Luna iulie 2025","Luna august 2025","Luna septembrie 2025","Luna octombrie 2025","Luna noiembrie 2025","Luna decembrie 2025","Luna ianuarie 2026","Luna februarie 2026","Luna martie 2026"];
-const PERIOD_SHORT = {"Luna ianuarie 2025":"Ian 25","Luna februarie 2025":"Feb 25","Luna martie 2025":"Mar 25","Luna aprilie 2025":"Apr 25","Luna mai 2025":"Mai 25","Luna iunie 2025":"Iun 25","Luna iulie 2025":"Iul 25","Luna august 2025":"Aug 25","Luna septembrie 2025":"Sep 25","Luna octombrie 2025":"Oct 25","Luna noiembrie 2025":"Noi 25","Luna decembrie 2025":"Dec 25","Luna ianuarie 2026":"Ian 26","Luna februarie 2026":"Feb 26","Luna martie 2026":"Mar 26"};
-const CATEGORII = ["Cladiri rezidentiale (exclusiv cele pentru colectivitati)","Cladiri rezidentiale pentru colectivitati","Cladiri administrative","Hoteluri si cladiri similare","Cladiri pentru comert cu ridicata si cu amanuntul","Alte cladiri"];
-const CAT_SHORT = {"Cladiri rezidentiale (exclusiv cele pentru colectivitati)":"Rezid. individuale","Cladiri rezidentiale pentru colectivitati":"Rezid. colective","Cladiri administrative":"Administrative","Hoteluri si cladiri similare":"Hoteluri","Cladiri pentru comert cu ridicata si cu amanuntul":"Comerciale","Alte cladiri":"Alte cladiri"};
-const COLORS = ["#1a56db","#f59e0b","#0e7245","#7c3aed","#b91c1c","#06b6d4"];
+new Chart(document.getElementById('chartPie'),{
+  type:'doughnut',
+  data:{
+    labels:['Rezid. individuale','Rezid. colective','Administrative','Hoteluri','Comerciale','Alte clădiri'],
+    datasets:[{data:[854061,141,3220,37615,59351,166377],backgroundColor:['#3B82F6','#6366F1','#F59E0B','#EC4899','#EF4444','#10B981'],borderColor:'#0f172a',borderWidth:2}]
+  },
+  options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.label}: ${c.parsed?.toLocaleString('ro-RO')} mp`}}}}
+});
 
-function fmt(n){ return n==null?'—':n.toLocaleString('en-US'); }
-function getValue(cat, period){ const r = RAW.find(x=>x.categorie===cat && x.perioada===period); return r ? r.valoare : 0; }
-function getTotalForPeriod(period){ return CATEGORII.reduce((s,c)=>s+getValue(c,period),0); }
-
-const lastPeriod = PERIODS[PERIODS.length-1];
-const prevPeriod = PERIODS[PERIODS.length-2];
-
-let evoChart=null, pieChart=null;
-
-function renderKPI(){
-  const grid = document.getElementById('kpi-grid');
-  const totalLast = getTotalForPeriod(lastPeriod);
-  const totalPrev = getTotalForPeriod(prevPeriod);
-  const totalDelta = totalPrev ? ((totalLast-totalPrev)/totalPrev*100) : 0;
-  const cards = [
-    { label: `Total autorizat (${lastPeriod.replace('Luna ','')})`, value: fmt(totalLast), unit: 'mp suprafață utilă', delta: totalDelta },
-    ...CATEGORII.slice(0,3).map(c=>{
-      const vl = getValue(c,lastPeriod), vp = getValue(c,prevPeriod);
-      const d = vp ? ((vl-vp)/vp*100) : 0;
-      return { label: CAT_SHORT[c], value: fmt(vl), unit: 'mp', delta: d };
-    })
-  ];
-  grid.innerHTML = cards.map(k=>`
-    <div class="kpi-card">
-      <div class="kpi-label">${k.label}</div>
-      <div class="kpi-value">${k.value}</div>
-      <div class="kpi-unit">${k.unit}</div>
-      <div class="kpi-delta ${k.delta>=0?'up':'down'}">${k.delta>=0?'▲':'▼'} ${Math.abs(k.delta).toFixed(1)}% față de luna anterioară</div>
-    </div>`).join('');
-}
-
-function buildEvoChart(catFilter){
-  const labels = PERIODS.map(p=>PERIOD_SHORT[p]||p);
-  document.getElementById('evo-title').textContent = 'Evoluție lunară — '+(catFilter==='TOTAL'?'toate categoriile':CAT_SHORT[catFilter]);
-  if(evoChart){ evoChart.destroy(); evoChart=null; }
-  const ctx = document.getElementById('evoChart').getContext('2d');
-  const legend = document.getElementById('evo-legend');
-  if(catFilter==='TOTAL'){
-    const datasets = CATEGORII.map((cat,i)=>({ label: CAT_SHORT[cat], data: PERIODS.map(p=>getValue(cat,p)), backgroundColor: COLORS[i], stack: 'a', borderWidth: 0 }));
-    legend.innerHTML = CATEGORII.map((c,i)=>`<span class="legend-item"><span class="legend-dot" style="background:${COLORS[i]}"></span>${CAT_SHORT[c]}</span>`).join('');
-    evoChart = new Chart(ctx,{ type:'bar', data:{labels,datasets}, options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}, tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${fmt(c.parsed.y)} mp`}}}, scales:{x:{ticks:{font:{size:11},autoSkip:false,maxRotation:45},grid:{display:false}}, y:{ticks:{font:{size:11},callback:v=>(v/1000).toFixed(0)+'k'},grid:{color:'#f0f0f0'}}}}});
-  } else {
-    const data = PERIODS.map(p=>getValue(catFilter,p));
-    legend.innerHTML = `<span class="legend-item"><span class="legend-dot" style="background:#1a56db"></span>${CAT_SHORT[catFilter]}</span>`;
-    evoChart = new Chart(ctx,{ type:'line', data:{labels,datasets:[{label:CAT_SHORT[catFilter],data,borderColor:'#1a56db',backgroundColor:'rgba(26,86,219,.08)',fill:true,tension:.35,pointRadius:3,pointBackgroundColor:'#1a56db',borderWidth:2}]}, options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}, tooltip:{callbacks:{label:c=>`${fmt(c.parsed.y)} mp`}}}, scales:{x:{ticks:{font:{size:11},autoSkip:false,maxRotation:45},grid:{display:false}}, y:{ticks:{font:{size:11},callback:v=>(v/1000).toFixed(0)+'k'},grid:{color:'#f0f0f0'}}}}});
-  }
-}
-
-function buildPieChart(catFilter){
-  document.getElementById('str-title').textContent = 'Structura suprafeței autorizate — '+lastPeriod.replace('Luna ','');
-  document.getElementById('str-source').textContent = 'Sursa: INS Romania, LOC108A. Date pentru '+lastPeriod+'.';
-  if(pieChart){ pieChart.destroy(); pieChart=null; }
-  const pieData = CATEGORII.map((c,i)=>({label:CAT_SHORT[c],value:getValue(c,lastPeriod),color:COLORS[i]})).filter(d=>d.value>0);
-  const total = pieData.reduce((s,d)=>s+d.value,0);
-  const ctx = document.getElementById('pieChart').getContext('2d');
-  pieChart = new Chart(ctx,{ type:'doughnut', data:{labels:pieData.map(d=>d.label),datasets:[{data:pieData.map(d=>d.value),backgroundColor:pieData.map(d=>d.color),borderWidth:2,borderColor:'#fff',hoverOffset:6}]}, options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}, tooltip:{callbacks:{label:c=>`${fmt(c.parsed)} mp (${(c.parsed/total*100).toFixed(1)}%)`}}}, cutout:'55%' }});
-  document.getElementById('pie-legend').innerHTML = pieData.map(d=>`<div class="pie-legend-row"><div class="pie-legend-dot" style="background:${d.color}"></div><div class="pie-legend-name">${d.label}</div><div class="pie-legend-val">${fmt(d.value)}</div><div class="pie-legend-pct">${(d.value/total*100).toFixed(1)}%</div></div>`).join('');
-}
-
-function buildTable(catFilter){
-  document.getElementById('tbl-title').textContent = 'Date tabelare — '+(catFilter==='TOTAL'?'toate categoriile':CAT_SHORT[catFilter]);
-  const thead = document.querySelector('#data-table thead');
-  const tbody = document.querySelector('#data-table tbody');
-  if(catFilter==='TOTAL'){
-    thead.innerHTML = `<tr><th>Perioadă</th>${CATEGORII.map(c=>`<th>${CAT_SHORT[c]}</th>`).join('')}<th>Total</th></tr>`;
-    tbody.innerHTML = [...PERIODS].reverse().map(p=>{
-      const total = CATEGORII.reduce((s,c)=>s+getValue(c,p),0);
-      return `<tr><td>${p.replace('Luna ','')}</td>${CATEGORII.map(c=>`<td>${fmt(getValue(c,p)||null)}</td>`).join('')}<td style="font-weight:700;color:#0f2044">${fmt(total)}</td></tr>`;
-    }).join('');
-  } else {
-    thead.innerHTML = `<tr><th>Perioadă</th><th>mp suprafață utilă</th></tr>`;
-    tbody.innerHTML = [...PERIODS].reverse().map(p=>{
-      const v = getValue(catFilter,p);
-      return `<tr><td>${p.replace('Luna ','')}</td><td>${fmt(v||null)}</td></tr>`;
-    }).join('');
-  }
-}
-
-let activeView = 'evolutie';
-let activeChart = 'TOTAL';
-
-function renderAll(){ buildEvoChart(activeChart); buildPieChart(activeChart); buildTable(activeChart); }
-
-function init(){
-  document.getElementById('last-period-label').textContent = lastPeriod;
-  const sel = document.getElementById('cat-select');
-  CATEGORII.forEach(c=>{ const o = document.createElement('option'); o.value=c; o.textContent=CAT_SHORT[c]; sel.appendChild(o); });
-
-  document.querySelectorAll('.view-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      activeView = btn.dataset.view;
-      document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('.view-section').forEach(s=>s.classList.remove('active'));
-      document.getElementById('view-'+activeView).classList.add('active');
-      if(activeView==='evolutie') buildEvoChart(activeChart);
-      if(activeView==='structura') buildPieChart(activeChart);
-      if(activeView==='tabel') buildTable(activeChart);
-    });
-  });
-
-  sel.addEventListener('change',()=>{
-    activeChart = sel.value;
-    if(activeView==='evolutie') buildEvoChart(activeChart);
-    if(activeView==='structura') buildPieChart(activeChart);
-    if(activeView==='tabel') buildTable(activeChart);
-  });
-
-  renderKPI();
-  renderAll();
-}
-
-/* ====== MAIN TAB SWITCHER ====== */
-function switchMainTab(name, el) {
-  document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  document.querySelectorAll('.main-tab-panel').forEach(p => p.style.display = 'none');
-  document.getElementById('maintab-' + name).style.display = 'block';
-  if (name === 'materiale' && !window.__matInit) {
-    initMateriale();
-    window.__matInit = true;
-  }
-}
-
-/* ====== MATERIALE DATA ====== */
-const MAT_DATA = {
-  lianti: { icon: '🧱', title: 'Lianți', rows: [
-    { name: 'Ipsos modelaj', um: 'sac 25 kg', feb: 31.75, mar: 31.75 },
-    { name: 'Ipsos construcții', um: 'sac 25 kg', feb: 30.50, mar: 30.50 },
-    { name: 'Var', um: '20 kg', feb: 21.00, mar: 24.50 },
-    { name: 'Multibat', um: 'sac 40 kg', feb: 36.75, mar: 37.69 },
-  ]},
-  adezivi: { icon: '🪣', title: 'Adezivi & glet', rows: [
-    { name: 'Adeziv Ceresit CM 11', um: 'sac 25 kg', feb: 49.39, mar: 49.39 },
-    { name: 'Adeziv Ceresit CM 9', um: 'sac 25 kg', feb: 32.50, mar: 32.50 },
-    { name: 'Adeziv Duraziv AM15', um: 'sac 20 kg', feb: 65.00, mar: 65.00 },
-    { name: 'Adeziv Duraziv AT31', um: 'sac 25 kg', feb: 26.26, mar: 26.26 },
-    { name: 'Adeziv Duraziv ext. gresie AM11', um: 'sac 20 kg', feb: 38.60, mar: 38.60 },
-    { name: 'Glet Ceresit CT 126', um: 'sac 20 kg', feb: 35.95, mar: 37.10 },
-    { name: 'Glet Ceresit CT 127', um: 'sac 20 kg', feb: 50.92, mar: 51.17 },
-    { name: 'Glet Duraziv FP25 ciment alb', um: 'sac 20 kg', feb: 51.56, mar: 52.85 },
-  ]},
-  ciment: { icon: '⚗️', title: 'Ciment', rows: [
-    { name: 'Carpatcement', um: 'sac 40 kg', feb: 35.50, mar: 35.50 },
-    { name: 'Cemrom', um: 'sac 40 kg', feb: 31.60, mar: 33.55 },
-    { name: 'Holcim', um: 'sac 40 kg', feb: 33.00, mar: 35.38 },
-    { name: 'Romcim', um: 'sac 40 kg', feb: 35.84, mar: 36.76 },
-    { name: 'Tenco', um: 'sac', feb: 34.00, mar: 34.00 },
-  ]},
-  otel: { icon: '🔩', title: 'Oțel beton striat PC 52', rows: [
-    { name: 'PC52 D8 bara', um: 'kg', feb: 4.29, mar: 4.32 },
-    { name: 'PC52 D10 bara', um: 'kg', feb: 4.24, mar: 4.29 },
-    { name: 'PC52 D12 bara', um: 'kg', feb: 4.24, mar: 4.29 },
-    { name: 'PC52 D14 bara', um: 'kg', feb: 4.24, mar: 4.29 },
-    { name: 'PC52 D16 bara', um: 'kg', feb: 4.24, mar: 4.29 },
-    { name: 'PC52 D18 bara', um: 'kg', feb: 4.29, mar: 4.35 },
-    { name: 'PC52 D20 bara', um: 'kg', feb: 4.29, mar: 4.35 },
-    { name: 'PC52 D22 bara', um: 'kg', feb: 4.48, mar: 4.48 },
-    { name: 'PC52 D24 bara', um: 'kg', feb: 4.30, mar: 4.30 },
-  ]},
-  osb: { icon: '🪵', title: 'Plăci OSB', rows: [
-    { name: 'OSB 6mm', um: 'buc', feb: 46.47, mar: 46.47 },
-    { name: 'OSB 8mm', um: 'buc', feb: 55.16, mar: 55.16 },
-    { name: 'OSB 10mm', um: 'buc', feb: 63.25, mar: 63.08 },
-    { name: 'OSB 12mm', um: 'buc', feb: 74.96, mar: 75.04 },
-    { name: 'OSB 15mm', um: 'buc', feb: 94.32, mar: 94.32 },
-    { name: 'OSB 18mm', um: 'buc', feb: 113.19, mar: 113.19 },
-    { name: 'OSB 22mm', um: 'buc', feb: 138.65, mar: 138.65 },
-  ]},
-  bca: { icon: '🏗️', title: 'Zidărie — BCA & Porotherm', rows: [
-    { name: 'BCA Macon 15×25×60', um: 'mc', feb: 585.00, mar: 585.00 },
-    { name: 'BCA Macon 20×25×60', um: 'mc', feb: 585.00, mar: 585.00 },
-    { name: 'BCA Ytong 100mm Y', um: 'mc', feb: 710.00, mar: 710.00 },
-    { name: 'BCA Ytong 150mm Y', um: 'mc', feb: 710.00, mar: 710.00 },
-    { name: 'BCA Ytong 200mm Y', um: 'mc', feb: 710.00, mar: 710.00 },
-    { name: 'BCA Ytong 250mm Y', um: 'mc', feb: 650.00, mar: 650.00 },
-    { name: 'BCA Soceram 10×24×65', um: 'mc', feb: 455.00, mar: 460.00 },
-    { name: 'BCA Soceram 15×24×65', um: 'mc', feb: 450.00, mar: 450.00 },
-    { name: 'BCA Soceram 20×24×65', um: 'mc', feb: 450.00, mar: 450.00 },
-    { name: 'BCA Soceram 30×24×65', um: 'mc', feb: 450.00, mar: 450.00 },
-  ]},
-  gips: { icon: '🪟', title: 'Finisaje — gips-carton & profile', rows: [
-    { name: 'Placă RB 12,5mm', um: 'buc', feb: 36.94, mar: 36.94 },
-    { name: 'Placă RB 9,5mm', um: 'buc', feb: 33.14, mar: 33.14 },
-    { name: 'Placă RBI 12,5mm', um: 'buc', feb: 56.75, mar: 57.11 },
-    { name: 'Profil CD 60 · 3m', um: 'buc', feb: 14.97, mar: 14.97 },
-    { name: 'Profil CD 60 · 4m', um: 'buc', feb: 19.49, mar: 19.08 },
-    { name: 'Profil CW 50 · 3m', um: 'buc', feb: 12.62, mar: 11.80 },
-    { name: 'Profil CW 50 · 4m', um: 'buc', feb: 16.00, mar: 16.00 },
-    { name: 'Profil CW 75 · 3m', um: 'buc', feb: 16.25, mar: 14.27 },
-    { name: 'Profil CW 75 · 4m', um: 'buc', feb: 18.80, mar: 18.80 },
-    { name: 'Profil CW 100 · 3m', um: 'buc', feb: 16.13, mar: 16.57 },
-    { name: 'Profil CW 100 · 4m', um: 'buc', feb: 22.00, mar: 22.00 },
-    { name: 'Profil UW 50 · 3m', um: 'buc', feb: 10.44, mar: 10.44 },
-    { name: 'Profil UW 75 · 3m', um: 'buc', feb: 13.83, mar: 13.83 },
-    { name: 'Profil UW 100 · 3m', um: 'buc', feb: 15.92, mar: 15.92 },
-  ]},
-  polistiren: { icon: '🧊', title: 'Izolații — polistiren expandat', rows: [
-    { name: 'Polistiren exp. 80 · 2cm', um: 'bax', feb: 53.40, mar: 54.96 },
-    { name: 'Polistiren exp. 80 · 3cm', um: 'bax', feb: 52.37, mar: 56.17 },
-    { name: 'Polistiren exp. 80 · 5cm', um: 'bax', feb: 52.76, mar: 56.57 },
-    { name: 'Polistiren exp. 80 · 8cm', um: 'bax', feb: 52.37, mar: 57.21 },
-    { name: 'Polistiren exp. 80 · 10cm', um: 'bax', feb: 51.96, mar: 56.37 },
-    { name: 'Polistiren exp. 50 · 2cm', um: 'bax', feb: 41.25, mar: 42.50 },
-    { name: 'Polistiren exp. 50 · 3cm', um: 'bax', feb: 40.50, mar: 41.63 },
-    { name: 'Polistiren exp. 50 · 5cm', um: 'bax', feb: 41.25, mar: 42.50 },
-    { name: 'Polistiren exp. 50 · 8cm', um: 'bax', feb: 40.50, mar: 41.63 },
-    { name: 'Polistiren exp. 50 · 10cm', um: 'bax', feb: 40.83, mar: 42.50 },
-  ]},
-};
-
-const MAT_CHART_DATA = {
-  ciment: { title: 'Ciment (sac 40kg, RON)', labels: ['Carpatcement','Cemrom','Holcim','Romcim','Tenco'], feb: [35.50,31.60,33.00,35.84,34.00], mar: [35.50,33.55,35.38,36.76,34.00] },
-  otel: { title: 'Oțel PC 52 bara (RON/kg)', labels: ['D8','D10','D12','D14','D16','D18','D20','D22','D24'], feb: [4.29,4.24,4.24,4.24,4.24,4.29,4.29,4.48,4.30], mar: [4.32,4.29,4.29,4.29,4.29,4.35,4.35,4.48,4.30] },
-  polistiren80: { title: 'Polistiren exp. 80 (RON/bax)', labels: ['2cm','3cm','5cm','8cm','10cm'], feb: [53.40,52.37,52.76,52.37,51.96], mar: [54.96,56.17,56.57,57.21,56.37] },
-  polistiren50: { title: 'Polistiren exp. 50 (RON/bax)', labels: ['2cm','3cm','5cm','8cm','10cm'], feb: [41.25,40.50,41.25,40.50,40.83], mar: [42.50,41.63,42.50,41.63,42.50] },
-  glet: { title: 'Glet (RON/sac 20kg)', labels: ['Ceresit CT 126','Ceresit CT 127','Duraziv FP25'], feb: [35.95,50.92,51.56], mar: [37.10,51.17,52.85] },
-  var_bca: { title: 'Var, Multibat & BCA Soceram (RON)', labels: ['Var 20kg','Multibat 40kg','BCA 10cm','BCA 15cm','BCA 20cm','BCA 30cm'], feb: [21.00,36.75,455,450,450,450], mar: [24.50,37.69,460,450,450,450] },
-};
-
-function matBadge(feb, mar) {
-  const diff = mar - feb;
-  const pct = (diff / feb * 100);
-  if (Math.abs(diff) < 0.005) return '<span class="mat-badge flat">— 0.0%</span>';
-  if (diff > 0) return '<span class="mat-badge up">▲ +' + pct.toFixed(1) + '%</span>';
-  return '<span class="mat-badge down">▼ ' + pct.toFixed(1) + '%</span>';
-}
-
-function renderMaterialeSections() {
-  const container = document.getElementById('materiale-sections');
-  container.innerHTML = Object.entries(MAT_DATA).map(([key, cat]) => {
-    const maxChange = Math.max(...cat.rows.map(r => Math.abs(r.mar - r.feb)));
-    const rowsHtml = cat.rows.map(r => {
-      const isTop = Math.abs(r.mar - r.feb) === maxChange && maxChange > 0;
-      return '<tr' + (isTop ? ' style="font-weight:600"' : '') + '>' +
-        '<td>' + r.name + '</td>' +
-        '<td class="um">' + r.um + '</td>' +
-        '<td class="num">' + r.feb.toFixed(2) + '</td>' +
-        '<td class="num">' + r.mar.toFixed(2) + '</td>' +
-        '<td class="num">' + matBadge(r.feb, r.mar) + '</td>' +
-      '</tr>';
-    }).join('');
-    return '<div class="mat-cat-section">' +
-      '<div class="mat-cat-header">' +
-        '<div class="mat-cat-icon">' + cat.icon + '</div>' +
-        '<div class="mat-cat-title">' + cat.title + '</div>' +
-        '<div class="mat-cat-count">' + cat.rows.length + ' produse</div>' +
-      '</div>' +
-      '<table class="mat-table">' +
-        '<thead><tr><th style="width:40%">Material</th><th style="width:14%">UM</th><th class="num" style="width:16%">Feb 2026</th><th class="num" style="width:16%">Mar 2026</th><th class="num" style="width:14%">Variație</th></tr></thead>' +
-        '<tbody>' + rowsHtml + '</tbody>' +
-      '</table>' +
-    '</div>';
-  }).join('');
-}
-
-let matChartInst = null;
-function renderMatChart() {
-  const key = document.getElementById('mat-chart-select').value;
-  const d = MAT_CHART_DATA[key];
-  const ctx = document.getElementById('matChart');
-  if (matChartInst) { matChartInst.destroy(); matChartInst = null; }
-  matChartInst = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: d.labels,
-      datasets: [
-        { label: 'Feb 2026', data: d.feb, backgroundColor: 'rgba(26,86,219,0.75)', borderColor: '#1a56db', borderWidth: 1, borderRadius: 3 },
-        { label: 'Mar 2026', data: d.mar, backgroundColor: 'rgba(245,158,11,0.85)', borderColor: '#f59e0b', borderWidth: 1, borderRadius: 3 },
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => c.dataset.label + ': ' + c.parsed.y.toFixed(2) + ' RON' } } },
-      scales: {
-        x: { ticks: { autoSkip: false, maxRotation: 35, font: { size: 11 } }, grid: { display: false } },
-        y: { ticks: { font: { size: 11 }, callback: v => v.toLocaleString('en-US') }, grid: { color: '#f0f0f0' } }
-      }
-    }
-  });
-}
-
-function switchSubTab(name, el) {
-  document.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  document.querySelectorAll('.sub-panel').forEach(p => p.style.display = 'none');
-  document.getElementById('subtab-' + name).style.display = 'block';
-  if (name === 'evolutie') setTimeout(renderMatChart, 60);
-}
-
-function initMateriale() {
-  renderMaterialeSections();
+function showTab(name,btn){
+  document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
 }
 </script>
 </body>
