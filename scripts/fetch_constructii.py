@@ -1,15 +1,24 @@
 #!/usr/bin/env python3
 """
-Script: fetch_constructii.py - fix final
-Structura confirmata din log:
-  dim[0] Categorii: nomItemId=17745 (primul)
-  dim[1] Medii de rezidenta: nomItemId=100 "Total"
-  dim[2] Macroregiuni/judete: nomItemId=112 "TOTAL"
-  dim[3] Perioade: nomItemId=4475 "Anul 2002" (primul)
-  dim[4] UM: nomItemId=9669 "Numar" (primul) / al doilea = "Metri patrati suprafata utila"
+Script: fetch_constructii.py - versiunea FINALA cu payload corect din browser.
 
-NullPointerException = UM trimis gresit. Solutie: trimitem FARA dimensiunea UM
-(sau cu al doilea element al UM).
+Payload real (vazut in DevTools):
+{
+  "language": "ro",
+  "arr": [[{"label":"Cladiri rezidentiale...","nomitemid":17745,"offset":1,"parentId":null}, ...],
+          [{"label":"Total","nomitemid":100,"offset":1,"parentId":null}],
+          [{"label":"TOTAL","nomitemid":112,"offset":1,"parentId":null}, ...judete...],
+          [{"label":"Luna aprilie 2026","nomitemid":4941,"offset":316,"parentId":null}],
+          [{"label":"Metri patrati suprafata utila","nomitemid":17749,"offset":2,"parentId":null}]],
+  "matrixName": "Autorizatii de construire eliberate...",  <- numele lung!
+  "matrixDetails": {"nomJud":0,"nomLoc":0,"matMaxDim":5,"matUMSpec":0,"matSiruta":0,"matCaen1":0,"matCaen2":0,"matRegJ":2,...}
+}
+
+Diferente fata de ce trimiteam:
+1. "nomitemid" (lowercase 'i') nu "nomItemId"
+2. matrixName = numele complet al matricei, NU codul "LOC108A"
+3. matrixDetails e obligatoriu
+4. offset = pozitia elementului in lista (1-based), nu mereu 1
 """
 
 import json
@@ -31,31 +40,38 @@ LUNI_RO = {
 
 def get_metadata():
     url = f"{BASE_URL}/matrix/{MATRIX_NAME}"
-    req = urllib.request.Request(url, headers={"Accept": "application/json", "User-Agent": "Mozilla/5.0"})
+    req = urllib.request.Request(url, headers={
+        "Accept": "application/json",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    })
     with urllib.request.urlopen(req, timeout=30) as r:
         return json.loads(r.read())
 
-def post_data(arr_payload):
+def post_data(payload):
     url = f"{BASE_URL}/matrix/dataSet/{MATRIX_NAME}"
-    body = json.dumps({"language": "ro", "arr": arr_payload, "matrixName": MATRIX_NAME}).encode("utf-8")
+    body = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(url, data=body, headers={
-        "Content-Type": "application/json", "Accept": "application/json", "User-Agent": "Mozilla/5.0"
+        "Content-Type": "application/json",
+        "Accept": "application/json, text/plain, */*",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "Referer": "http://statistici.insse.ro:8077/tempo-online/",
+        "Origin": "http://statistici.insse.ro:8077"
     })
     try:
         with urllib.request.urlopen(req, timeout=60) as r:
             return json.loads(r.read()), None
     except urllib.error.HTTPError as e:
-        try: err_body = e.read().decode("utf-8")[:200]
-        except: err_body = str(e)
-        return None, f"HTTP {e.code}: {err_body}"
+        try: err = e.read().decode("utf-8")[:300]
+        except: err = str(e)
+        return None, f"HTTP {e.code}: {err}"
 
 def parse_luna_option(label):
     parts = label.strip().lower().split()
     try:
         if parts[0] == "luna":
             an = int(parts[2])
-            luna_part = parts[1]
-            return (an, LUNI_RO.get(luna_part, int(luna_part) if luna_part.isdigit() else 0))
+            lp = parts[1]
+            return (an, LUNI_RO.get(lp, int(lp) if lp.isdigit() else 0))
         elif parts[0] in ("anul", "an"):
             return (int(parts[1]), 0)
     except: pass
@@ -65,6 +81,11 @@ def parse_luna_json(label):
     parts = label.strip().split()
     try: return (int(parts[2]), int(parts[1]))
     except: return (0, 0)
+
+def to_float(v):
+    if v in [None, "", "-", " ", ":", "..."]: return None
+    try: return float(str(v).replace(",",".").replace(" ",""))
+    except: return None
 
 def load_existing():
     if os.path.exists(OUTPUT_PATH):
@@ -77,32 +98,20 @@ def save_json(data):
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
-def make_arr(dims, luna_opt, cat_opts, mediu_opts, reg_opts, um_opts, skip_um=False):
-    arr = []
-    for dim in dims:
-        lbl = dim.get("label", "").lower()
-        opts = dim.get("options", [])
-        if "um:" in lbl:
-            if skip_um:
-                continue  # sarim complet dimensiunea UM
-            else:
-                arr.append(um_opts or opts[:1])
-        elif "categor" in lbl:
-            arr.append(cat_opts)
-        elif "perioad" in lbl:
-            arr.append([luna_opt])
-        elif "mediu" in lbl or "rezident" in lbl:
-            arr.append(mediu_opts or opts[:1])
-        elif "macroreg" in lbl or "regiuni" in lbl:
-            arr.append(reg_opts or opts[:1])
-        else:
-            arr.append(opts[:1])
-    return arr
+def make_item(opt):
+    """Construieste un item pentru arr folosind 'nomitemid' (lowercase) si offset din options."""
+    return {
+        "label": opt.get("label", ""),
+        "nomitemid": opt.get("nomItemId", opt.get("nomitemid", opt.get("id"))),
+        "offset": opt.get("offset", 1),
+        "parentId": opt.get("parentId", None)
+    }
 
 def main():
     print(f"[{datetime.now().isoformat()}] Start LOC108A...")
     existing = load_existing()
 
+    # Ultima luna din JSON
     ultima_key = (0, 0)
     for vals in existing.get("date", {}).values():
         for d in vals:
@@ -117,6 +126,19 @@ def main():
         if isinstance(dims, dict):
             dims = list(dims.values())
 
+        # Numele complet al matricei (obligatoriu in payload)
+        matrix_name_full = meta.get("matrixName", MATRIX_NAME)
+        print(f"  matrixName complet: {matrix_name_full[:60]}...")
+
+        # matrixDetails din metadata
+        matrix_details = meta.get("matrixDetails", {
+            "nomJud": 0, "nomLoc": 0, "matMaxDim": 5,
+            "matUMSpec": 0, "matSiruta": 0, "matCaen1": 0,
+            "matCaen2": 0, "matRegJ": 2, "matCharge": 0,
+            "matViews": 0, "matDownloads": 0, "matActive": 1, "matTime": 4
+        })
+
+        # Identificam dimensiunile
         cat_dim = timp_dim = mediu_dim = regiune_dim = um_dim = None
         for dim in dims:
             lbl = dim.get("label", "").lower()
@@ -126,6 +148,7 @@ def main():
             elif "macroreg" in lbl or "regiuni" in lbl: regiune_dim = dim
             elif "um:" in lbl: um_dim = dim
 
+        # Luni noi de adaugat
         missing = [
             o for o in timp_dim.get("options", [])
             if parse_luna_option(o.get("label",""))[1] > 0
@@ -136,108 +159,115 @@ def main():
             print("Datele sunt la zi. Modificat: false")
             return
 
-        cat_opts  = cat_dim.get("options", []) if cat_dim else []
-        mediu_opts = mediu_dim.get("options", [])[:1] if mediu_dim else []
-        reg_opts   = regiune_dim.get("options", [])[:1] if regiune_dim else []
+        # Selectii fixe
+        cat_opts = cat_dim.get("options", []) if cat_dim else []
+        mediu_total = mediu_dim.get("options", [])[:1] if mediu_dim else []
+        reg_total = regiune_dim.get("options", [])[:1] if regiune_dim else []
 
-        # UM: "Metri patrati suprafata utila" = al doilea element (confirmat din log: primul e "Numar")
-        um_opts_mp = []
-        um_opts_nr = []
+        # UM: "Metri patrati suprafata utila" - al doilea element (offset=2)
+        um_mp = []
         if um_dim:
             all_um = um_dim.get("options", [])
-            print(f"  UM optiuni: {[o.get('label') for o in all_um]}")
+            print(f"  UM optiuni: {[(o.get('label'), o.get('offset')) for o in all_um]}")
             for o in all_um:
                 lbl = o.get("label","").lower()
-                if "metri" in lbl or "suprafat" in lbl or "mp" in lbl or "patrati" in lbl:
-                    um_opts_mp = [o]
-                elif "numar" in lbl or "număr" in lbl:
-                    um_opts_nr = [o]
-            if not um_opts_mp and len(all_um) >= 2:
-                um_opts_mp = [all_um[1]]  # al doilea element = mp
+                if "metri" in lbl or "patrati" in lbl or "suprafat" in lbl:
+                    um_mp = [o]
+                    break
+            if not um_mp and len(all_um) >= 2:
+                um_mp = [all_um[1]]
 
-        print(f"  UM mp selectat: {um_opts_mp[0].get('label') if um_opts_mp else 'none'}")
+        print(f"  UM selectat: {um_mp[0].get('label') if um_mp else 'none'}")
 
         date_out = existing.get("date", {})
         cats_out = existing.get("categorii", [])
-        adaugat_ceva = False
+        adaugat = False
 
         for luna_opt in missing:
             luna_label = luna_opt.get("label","")
             print(f"\n  === {luna_label} ===")
 
-            # Incercam in ordine:
-            # 1. Cu UM=mp (al doilea element)
-            # 2. Fara dimensiunea UM complet
-            # 3. Cu UM=numar (primul element)
-            tentative = [
-                ("cu UM=mp", make_arr(dims, luna_opt, cat_opts, mediu_opts, reg_opts, um_opts_mp, skip_um=False)),
-                ("fara UM",  make_arr(dims, luna_opt, cat_opts, mediu_opts, reg_opts, [],         skip_um=True)),
-                ("cu UM=nr", make_arr(dims, luna_opt, cat_opts, mediu_opts, reg_opts, um_opts_nr, skip_um=False)),
-            ]
+            # Construim arr in ordinea exacta a dimensiunilor
+            arr = []
+            for dim in dims:
+                lbl = dim.get("label","").lower()
+                opts = dim.get("options", [])
+                if "categor" in lbl:
+                    arr.append([make_item(o) for o in cat_opts])
+                elif "perioad" in lbl:
+                    arr.append([make_item(luna_opt)])
+                elif "mediu" in lbl or "rezident" in lbl:
+                    sel = mediu_total or opts[:1]
+                    arr.append([make_item(o) for o in sel])
+                elif "macroreg" in lbl or "regiuni" in lbl:
+                    sel = reg_total or opts[:1]
+                    arr.append([make_item(o) for o in sel])
+                elif "um:" in lbl:
+                    sel = um_mp or opts[:1]
+                    arr.append([make_item(o) for o in sel])
+                else:
+                    arr.append([make_item(o) for o in opts[:1]])
 
-            resp_data = None
-            for name, arr in tentative:
-                print(f"  → Incerc {name} ({len(arr)} dim)...")
-                resp, err = post_data(arr)
-                if resp is not None:
-                    print(f"  ✓ Succes cu '{name}'!")
-                    resp_data = resp
-                    break
-                print(f"  ✗ {err[:120]}")
+            payload = {
+                "language": "ro",
+                "arr": arr,
+                "matrixName": matrix_name_full,
+                "matrixDetails": matrix_details
+            }
 
-            if resp_data is None:
-                print(f"  ❌ Toate variantele au esuat pentru {luna_label}")
+            print(f"  → POST cu {len(arr)} dimensiuni...")
+            resp, err = post_data(payload)
+
+            if err:
+                print(f"  ✗ {err[:150]}")
                 continue
 
-            raw = resp_data
-            if isinstance(resp_data, dict):
-                raw = resp_data.get("data", resp_data.get("matrixData", resp_data.get("dataset", [])))
+            print(f"  ✓ Succes!")
+            raw = resp
+            if isinstance(resp, dict):
+                raw = resp.get("data", resp.get("matrixData", resp.get("dataset", [])))
 
             print(f"  Raw: {type(raw).__name__}, len={len(raw) if hasattr(raw,'__len__') else '?'}")
-            if raw and hasattr(raw, '__len__') and len(raw) > 0:
+            if raw and hasattr(raw,'__len__') and len(raw) > 0:
                 print(f"  Sample[0]: {str(raw[0])[:150]}")
 
             if isinstance(raw, list) and raw:
                 first = raw[0]
-                rows = raw
-
-                # Detectam formatul: matrice 2D sau lista plata
                 if isinstance(first, list):
-                    # raw[cat_idx] = [val_per_luna]  (o singura luna selectata)
-                    for ci, row in enumerate(rows):
+                    for ci, row in enumerate(raw):
                         cat = cat_opts[ci].get("label", f"Cat{ci}") if ci < len(cat_opts) else f"Cat{ci}"
                         if cat not in date_out: date_out[cat] = []
                         if cat not in cats_out: cats_out.append(cat)
                         val_raw = row[0] if isinstance(row, list) and row else row
-                        val = _to_float(val_raw)
+                        val = to_float(val_raw)
                         if luna_label not in [d["luna"] for d in date_out[cat]]:
                             date_out[cat].append({"luna": luna_label, "valoare": val})
-                            adaugat_ceva = True
+                            adaugat = True
                             print(f"     + {cat}: {val}")
-
                 elif isinstance(first, (int, float, str, type(None))):
-                    # lista plata: raw[cat_idx] = valoare
-                    for ci, val_raw in enumerate(rows):
+                    for ci, val_raw in enumerate(raw):
                         cat = cat_opts[ci].get("label", f"Cat{ci}") if ci < len(cat_opts) else f"Cat{ci}"
                         if cat not in date_out: date_out[cat] = []
                         if cat not in cats_out: cats_out.append(cat)
-                        val = _to_float(val_raw)
+                        val = to_float(val_raw)
                         if luna_label not in [d["luna"] for d in date_out[cat]]:
                             date_out[cat].append({"luna": luna_label, "valoare": val})
-                            adaugat_ceva = True
+                            adaugat = True
                             print(f"     + {cat}: {val}")
 
-        if not adaugat_ceva:
-            print("\n⚠️  Nu s-a adaugat nimic nou. Modificat: false")
+        if not adaugat:
+            print("\n⚠️  Nu s-a adaugat nimic. Modificat: false")
             return
 
         for cat in date_out:
             date_out[cat].sort(key=lambda d: parse_luna_option(d.get("luna","")))
 
-        toate = sorted({d["luna"] for v in date_out.values() for d in v}, key=parse_luna_option)
+        toate = sorted(
+            {d["luna"] for v in date_out.values() for d in v},
+            key=parse_luna_option
+        )
 
-        save_json({
-            **existing,
+        save_json({**existing,
             "ultima_actualizare": datetime.now().strftime("%Y-%m-%d"),
             "categorii": cats_out,
             "perioade": toate,
@@ -250,14 +280,6 @@ def main():
         print(f"❌ Eroare retea: {e}"); sys.exit(1)
     except Exception as e:
         import traceback; traceback.print_exc(); sys.exit(1)
-
-def _to_float(val_raw):
-    if val_raw in [None, "", "-", " ", ":", "..."]:
-        return None
-    try:
-        return float(str(val_raw).replace(",",".").replace(" ",""))
-    except:
-        return None
 
 if __name__ == "__main__":
     main()
