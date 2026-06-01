@@ -2,7 +2,7 @@ name: Actualizare Date Constructii INSSE
 
 on:
   schedule:
-    - cron: '0 8 2 * *'  # A 2-a zi a lunii la 08:00 UTC (INSSE publica pe 1)
+    - cron: '0 8 2 * *'
   workflow_dispatch:
 
 jobs:
@@ -29,15 +29,21 @@ jobs:
       - name: Run fetch script
         run: python scripts/fetch_constructii.py
 
+      - name: Upload debug screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-screenshots
+          path: /tmp/debug_*.png
+          if-no-files-found: ignore
+
       - name: Check if data changed
         id: check_changes
         run: |
           if git diff --quiet src/data/constructii/constructii_data.json; then
             echo "changed=false" >> $GITHUB_OUTPUT
-            echo "Nu sunt date noi."
           else
             echo "changed=true" >> $GITHUB_OUTPUT
-            echo "Date noi detectate!"
           fi
 
       - name: Commit and push if changed
