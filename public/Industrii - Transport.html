@@ -1,628 +1,1047 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Transport rutier marfă | Platforma Date Publice</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', system-ui, sans-serif; font-size: 14px; background: #f4f5f7; color: #1a1f2e; line-height: 1.5; -webkit-font-smoothing: antialiased; }
-button, select, input { font-family: inherit; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transport rutier marfă | 24reco.com</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --surface: #13161d;
+      --surface2: #1a1e28;
+      --border: #252a38;
+      --accent: #e85a2a;
+      --accent2: #f0a045;
+      --text: #e8eaf0;
+      --text-muted: #7a8099;
+      --text-dim: #4a5068;
+      --green: #3ecf8e;
+      --blue: #4a9eff;
+      --red: #ff5f5f;
+    }
 
-.navbar { background: #0f2044; height: 52px; display: flex; align-items: center; padding: 0 24px; gap: 24px; flex-shrink: 0; }
-.navbar-logo { font-size: 14px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
-.navbar-links { display: flex; gap: 6px; flex: 1; justify-content: center; }
-.navbar-link { font-size: 12px; color: rgba(255,255,255,0.55); padding: 4px 10px; border-radius: 5px; border-bottom: 2px solid transparent; cursor: pointer; }
-.navbar-link.active { color: #fff; border-bottom-color: #1a56db; }
-.navbar-right { display: flex; gap: 10px; color: #fff; font-size: 12px; }
-.navbar-right span { opacity: 0.6; }
-.navbar-right span:last-child { opacity: 1; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-.header { background: #fff; border-bottom: 1px solid #e8eaed; }
-.header-inner { max-width: 1200px; margin: 0 auto; padding: 14px 24px 0; }
-.breadcrumb { font-size: 11px; color: #5f6368; margin-bottom: 6px; }
-.breadcrumb .crumb-sub { color: #9aa0a6; }
-.breadcrumb .crumb-current { color: #1a1f2e; font-weight: 500; }
-.header-row { display: flex; align-items: center; gap: 14px; padding: 10px 0 12px; }
-.header-icon { width: 40px; height: 40px; background: #dbeafe; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-.header-title { font-size: 18px; font-weight: 700; color: #0f2044; }
-.header-sub { font-size: 11px; color: #5f6368; }
-.header-link { margin-left: auto; font-size: 11px; color: #1a56db; text-decoration: none; border: 1px solid #1a56db; padding: 5px 12px; border-radius: 6px; }
-.tabs { display: flex; gap: 0; border-top: 1px solid #e8eaed; }
-.tab { padding: 10px 16px; font-size: 12px; font-weight: 400; cursor: pointer; border-bottom: 2px solid transparent; color: #5f6368; }
-.tab.active { border-bottom-color: #1a56db; color: #1a56db; font-weight: 600; }
+    html { scroll-behavior: smooth; }
 
-.main { max-width: 1200px; margin: 0 auto; padding: 20px 24px; flex: 1; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.6;
+    }
 
-.banner { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 12px 16px; display: flex; gap: 10px; align-items: flex-start; margin-bottom: 20px; }
-.banner svg { flex-shrink: 0; color: #1a56db; margin-top: 1px; }
-.banner p { font-size: 12px; color: #1d4ed8; line-height: 1.6; }
-.banner strong { font-weight: 600; }
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,15,20,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
 
-.subtabs-bar { display: flex; gap: 0; border-bottom: 1px solid #e8eaed; margin-bottom: 20px; flex-wrap: wrap; }
-.subtab-btn { padding: 10px 18px; font-size: 12px; font-weight: 400; color: #5f6368; background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; margin-bottom: -1px; }
-.subtab-btn:hover { color: #1a1f2e; }
-.subtab-btn.active { color: #1a56db; font-weight: 600; border-bottom-color: #1a56db; }
-.sub-panel { display: none; }
-.sub-panel.active { display: block; }
+    .nav-brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .nav-brand span { color: var(--accent); }
 
-.controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; background: #fff; border: 1px solid #e8eaed; border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; }
-.ctrl-group { display: flex; flex-direction: column; gap: 5px; }
-.ctrl-label { font-size: 10px; font-weight: 600; color: #5f6368; text-transform: uppercase; letter-spacing: .05em; }
-select, .search-input { border: 1px solid #e8eaed; border-radius: 6px; padding: 6px 10px; font-size: 12px; color: #1a1f2e; background: #fff; outline: none; min-width: 160px; }
-select:focus, .search-input:focus { border-color: #1a56db; box-shadow: 0 0 0 2px rgba(26,86,219,.15); }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
 
-.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
-.kpi-card { background: #fff; border: 1px solid #e8eaed; border-radius: 10px; padding: 14px 18px; }
-.kpi-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: #5f6368; margin-bottom: 6px; }
-.kpi-value { font-size: 22px; font-weight: 700; color: #0f2044; line-height: 1; font-family: 'DM Mono', monospace; }
-.kpi-sub { font-size: 11px; color: #9aa0a6; margin-top: 4px; }
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      padding: 14px 24px;
+      font-size: 12px;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .breadcrumb a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb .sep { color: var(--text-dim); }
+    .breadcrumb .current { color: var(--text); }
 
-.panel { background: #fff; border: 1px solid #e8eaed; border-radius: 10px; padding: 18px; margin-bottom: 16px; }
-.panel-title { font-size: 13px; font-weight: 700; color: #0f2044; margin-bottom: 14px; }
-.chart-wrap { position: relative; width: 100%; height: 320px; }
+    /* ── HERO ── */
+    .hero {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 36px 24px 28px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
 
-.table-scroll { overflow-x: auto; border: 1px solid #e8eaed; border-radius: 8px; }
-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-thead tr { background: #0f2044; }
-th { padding: 9px 12px; font-weight: 600; color: #fff; text-align: right; white-space: nowrap; font-size: 11px; cursor: pointer; user-select: none; }
-th:first-child, th.text-left { text-align: left; }
-th:hover { background: #1a2d56; }
-th .sort-icon { opacity: .5; margin-left: 3px; }
-th.sorted .sort-icon { opacity: 1; color: #93c5fd; }
-td { padding: 7px 12px; text-align: right; color: #1a1f2e; border-bottom: 1px solid #f4f5f7; font-family: 'DM Mono', monospace; }
-td.text-left { text-align: left; font-weight: 500; font-family: 'DM Sans', sans-serif; }
-td.rank { color: #9aa0a6; text-align: center; }
-tbody tr:nth-child(odd) { background: #fafafa; }
-tbody tr:hover { background: #f0f7ff; }
+    .hero-left { flex: 1; min-width: 280px; }
 
-.bar-cell { min-width: 100px; }
-.mini-bar-bg { background: #e8eaed; border-radius: 2px; height: 6px; overflow: hidden; }
-.mini-bar-fill { height: 100%; border-radius: 2px; }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(232,90,42,0.12);
+      border: 1px solid rgba(232,90,42,0.25);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
 
-.class-badge { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; }
-.class-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-.range-pill { display: inline-block; background: #f4f5f7; border: 1px solid #e8eaed; border-radius: 12px; padding: 2px 10px; font-size: 11px; color: #5f6368; }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(26px, 4vw, 42px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
 
-.footer { border-top: 1px solid #e8eaed; background: #fff; padding: 10px 24px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.footer-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; }
-.footer-text { font-size: 11px; color: #5f6368; }
-.footer a { font-size: 11px; color: #1a56db; text-decoration: none; }
-.footer-sep { color: #e8eaed; }
-.footer-spacer { flex: 1; }
-.footer-meta { font-size: 11px; color: #9aa0a6; }
+    .hero-subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 300;
+    }
 
-.loading { padding: 60px; text-align: center; color: #9aa0a6; font-size: 13px; }
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      padding-top: 8px;
+    }
 
-.flag-cell { display: inline-flex; align-items: center; gap: 8px; }
-.flag-icon { width: 18px; height: 13px; border-radius: 2px; background-size: cover; background-position: center; border: 1px solid #e8eaed; flex-shrink: 0; }
-</style>
+    .update-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .update-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .source-link {
+      font-size: 11px;
+      color: var(--text-dim);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 10px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .source-link:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── GRID STATS ── */
+    .stats-row {
+      max-width: 1280px;
+      margin: 0 auto 32px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      transition: border-color 0.2s;
+    }
+    .stat-card:hover { border-color: var(--accent); }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .stat-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-sub { font-size: 12px; color: var(--text-dim); }
+    .stat-change {
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+    .up { color: var(--green); }
+    .down { color: var(--red); }
+
+    /* ── TABS ── */
+    .tabs-wrapper {
+      max-width: 1280px;
+      margin: 0 auto 24px;
+      padding: 0 24px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 2px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 4px;
+      width: fit-content;
+    }
+
+    .tab-btn {
+      padding: 7px 18px;
+      border-radius: 7px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn.active {
+      background: var(--surface2);
+      color: var(--text);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+    .tab-btn:hover:not(.active) { color: var(--text); }
+
+    /* ── CONTENT PANELS ── */
+    .panel {
+      display: none;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px 40px;
+    }
+    .panel.active { display: block; }
+
+    /* ── CHARTS GRID ── */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    @media (max-width: 900px) {
+      .charts-grid { grid-template-columns: 1fr; }
+    }
+
+    .chart-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+    .chart-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+    .chart-desc { font-size: 12px; color: var(--text-muted); }
+
+    .chart-wrap { position: relative; }
+    .chart-wrap canvas { max-height: 280px; }
+
+    /* ── TABLE ── */
+    .table-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .table-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 12px;
+    }
+    .search-box input {
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      width: 200px;
+    }
+    .search-box input::placeholder { color: var(--text-dim); }
+    .search-icon { color: var(--text-dim); font-size: 14px; }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .data-table th {
+      background: var(--surface2);
+      padding: 10px 16px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .data-table th:hover { color: var(--text); }
+    .data-table td {
+      padding: 10px 16px;
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      color: var(--text);
+    }
+    .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-active { background: rgba(62,207,142,0.12); color: var(--green); }
+    .badge-type { background: rgba(74,158,255,0.12); color: var(--blue); }
+
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .page-btns { display: flex; gap: 4px; }
+    .page-btn {
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.15s;
+    }
+    .page-btn:hover, .page-btn.active { background: var(--surface2); color: var(--text); }
+    .page-btn:disabled { opacity: 0.3; cursor: default; }
+
+    /* ── OIL BULLETIN ── */
+    .fuel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .fuel-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .fuel-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .fuel-icon.diesel { background: rgba(232,90,42,0.12); }
+    .fuel-icon.petrol { background: rgba(74,158,255,0.12); }
+    .fuel-info { flex: 1; }
+    .fuel-country { font-size: 11px; color: var(--text-muted); margin-bottom: 2px; }
+    .fuel-price {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--text);
+    }
+    .fuel-change { font-size: 11px; margin-top: 2px; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 24px;
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-left { font-size: 12px; color: var(--text-dim); }
+    .footer-left strong { color: var(--text-muted); }
+    .footer-right { font-size: 11px; color: var(--text-dim); }
+
+    /* ── LOADING ── */
+    .loading-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+    .spinner {
+      width: 32px; height: 32px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .hero { flex-direction: column; }
+      .hero-meta { align-items: flex-start; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      nav .nav-links { display: none; }
+      .search-box input { width: 140px; }
+    }
+  </style>
 </head>
 <body>
 
-<nav class="navbar">
-  <div class="navbar-logo">📊 DatePublice.ro</div>
-  <div class="navbar-links">
-    <div class="navbar-link active">Industrii</div>
-    <div class="navbar-link">Instituții</div>
-    <div class="navbar-link">Rapoarte</div>
-  </div>
-  <div class="navbar-right"><span>🔍</span><span>🔔</span><span>👤</span></div>
+<!-- ── NAV ── -->
+<nav>
+  <a class="nav-brand" href="index.html">24<span>reco</span>.com</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Acasă</a></li>
+    <li><a href="#">Industrii</a></li>
+    <li><a href="#">Instituții</a></li>
+    <li><a href="#">Rapoarte</a></li>
+  </ul>
 </nav>
 
-<div class="header">
-  <div class="header-inner">
-    <div class="breadcrumb">
-      <span class="crumb-sub">Acasă › Industrii › </span>
-      <span class="crumb-current">Transport</span>
+<!-- ── BREADCRUMB ── -->
+<div class="breadcrumb">
+  <a href="index.html">Acasă</a>
+  <span class="sep">›</span>
+  <a href="#">Industrii</a>
+  <span class="sep">›</span>
+  <span class="current">Transport</span>
+</div>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">🚛 Date publice</div>
+    <h1>Transport rutier<br>de marfă</h1>
+    <p class="hero-subtitle">Operatori autorizați · Prețuri carburanți UE (Oil Bulletin)</p>
+  </div>
+  <div class="hero-meta">
+    <div class="update-badge">
+      <div class="update-dot"></div>
+      <span id="last-update">Se actualizează automat lunar</span>
     </div>
-    <div class="header-row">
-      <div class="header-icon">🚛</div>
-      <div>
-        <div class="header-title">Transport rutier de marfă</div>
-        <div class="header-sub">Operatori autorizați + prețuri carburanți UE (Oil Bulletin)</div>
+    <a class="source-link" href="https://autorizatiiauto.ro" target="_blank" rel="noopener">↗ autorizatiiauto.ro</a>
+    <a class="source-link" href="https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_en" target="_blank" rel="noopener">↗ EU Oil Bulletin</a>
+  </div>
+</div>
+
+<!-- ── STATS ── -->
+<div class="stats-row" id="stats-row">
+  <div class="stat-card">
+    <div class="stat-label">Operatori activi</div>
+    <div class="stat-value" id="stat-total">—</div>
+    <div class="stat-sub">la nivel național</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Vehicule autorizate</div>
+    <div class="stat-value" id="stat-vehicles">—</div>
+    <div class="stat-sub">total flotă</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Diesel RO</div>
+    <div class="stat-value" id="stat-diesel">—</div>
+    <div class="stat-sub" id="stat-diesel-sub">EUR/L</div>
+    <div class="stat-change" id="stat-diesel-change"></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Diesel UE mediu</div>
+    <div class="stat-value" id="stat-diesel-eu">—</div>
+    <div class="stat-sub">EUR/L (medie ponderată)</div>
+  </div>
+</div>
+
+<!-- ── TABS ── -->
+<div class="tabs-wrapper">
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="operatori">Operatori</button>
+    <button class="tab-btn" data-tab="evolutie">Evoluție</button>
+    <button class="tab-btn" data-tab="carburanti">Carburanți UE</button>
+  </div>
+</div>
+
+<!-- ── PANEL: OPERATORI ── -->
+<div class="panel active" id="panel-operatori">
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Top județe — operatori</div>
+          <div class="chart-desc">Număr operatori autorizați pe județ</div>
+        </div>
       </div>
-      <a href="https://autorizatiiauto.ro" target="_blank" rel="noopener noreferrer" class="header-link">↗ Site oficial</a>
+      <div class="chart-wrap">
+        <canvas id="chart-judete"></canvas>
+      </div>
     </div>
-    <div class="tabs">
-      <div class="tab active">Transport</div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Tip autorizație</div>
+          <div class="chart-desc">Distribuție după tip licență</div>
+        </div>
+      </div>
+      <div class="chart-wrap" style="display:flex;align-items:center;justify-content:center;min-height:200px;">
+        <canvas id="chart-tip" style="max-height:220px;max-width:220px;"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-header">
+      <div>
+        <div class="chart-title">Operatori autorizați</div>
+        <div class="chart-desc" id="table-count">Se încarcă...</div>
+      </div>
+      <div class="search-box">
+        <span class="search-icon">⌕</span>
+        <input type="text" id="search-input" placeholder="Caută denumire, județ...">
+      </div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="data-table" id="main-table">
+        <thead>
+          <tr>
+            <th data-col="denumire">Denumire ▾</th>
+            <th data-col="judet">Județ</th>
+            <th data-col="tip">Tip</th>
+            <th data-col="vehicule" style="text-align:right;">Vehicule</th>
+            <th data-col="status">Status</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <tr><td colspan="5"><div class="loading-state"><div class="spinner"></div>Se încarcă datele...</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+</div>
+
+<!-- ── PANEL: EVOLUTIE ── -->
+<div class="panel" id="panel-evolutie">
+  <div class="chart-card" style="margin-bottom:16px;">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Evoluție lunară operatori</div>
+        <div class="chart-desc">Total operatori autorizați activi în timp</div>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="chart-evolutie"></canvas>
+    </div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Evoluție flotă vehicule</div>
+        <div class="chart-desc">Total vehicule autorizate în timp</div>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="chart-flota"></canvas>
     </div>
   </div>
 </div>
 
-<div class="main" id="main-content">
-  <div class="loading">Se încarcă datele...</div>
+<!-- ── PANEL: CARBURANTI ── -->
+<div class="panel" id="panel-carburanti">
+  <div class="fuel-grid" id="fuel-grid">
+    <div class="loading-state" style="grid-column:1/-1;"><div class="spinner"></div>Se încarcă prețurile...</div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Diesel — comparație țări UE</div>
+        <div class="chart-desc">Prețuri medii săptămânale, EUR/L (fără taxe)</div>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="chart-fuel-bar"></canvas>
+    </div>
+  </div>
 </div>
 
-<div class="footer">
-  <div class="footer-dot"></div>
-  <div class="footer-text">Sursa: autorizatiiauto.ro + EU Weekly Oil Bulletin (DG ENER)</div>
-  <span class="footer-sep">•</span>
-  <a href="https://autorizatiiauto.ro" target="_blank" rel="noopener noreferrer">🔗 autorizatiiauto.ro</a>
-  <div class="footer-spacer"></div>
-  <div class="footer-meta">Aprilie 2025 (operatori) • Mai 2026 (Oil Bulletin)</div>
-</div>
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-left">
+    Surse: <strong>autorizatiiauto.ro</strong> · <strong>EU Weekly Oil Bulletin (DG ENER)</strong><br>
+    Date actualizate automat în prima zi a fiecărei luni.
+  </div>
+  <div class="footer-right">© 2025 24reco.com</div>
+</footer>
 
 <script>
-const MONTHS_RO = ['Ian','Feb','Mar','Apr','Mai','Iun','Iul','Aug','Sep','Oct','Nov','Dec'];
-const fmt = (n) => n==null?'—':n.toLocaleString('en-US');
-const fmt2 = (n) => n==null?'—':n.toFixed(3);
-let DATA, claseChart=null, oilChart=null, geoChart=null;
-let opState = { search:'', sortCol:'veh', sortDir:-1 };
-let oilState = { country: 'RO', compare: 'EU_AVG', startYear: 2020 };
-let geoState = { search:'', sortCol:'ops', sortDir:-1 };
+// ── DATA LAYER ──
+// Fetch de la /public/transport-data.json generat de GitHub Actions
+// Fallback la date exemplu dacă fișierul nu există încă
 
-fetch('transport_data.json').then(r=>r.json()).then(d => {
-  DATA = d;
-  renderShell();
-  renderClase();
-}).catch(e => {
-  document.getElementById('main-content').innerHTML = '<div style="padding:30px;color:#b91c1c">Eroare: '+e+'</div>';
-});
+const DATA_URL = '/public/transport-data.json';
 
-function renderShell() {
-  document.getElementById('main-content').innerHTML = `
-    <div class="banner">
-      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-      <p>Date <strong>autorizatiiauto.ro</strong> (Aprilie 2025) — operatori autorizați transport rutier de marfă, plus prețuri săptămânale diesel UE (<strong>EU Weekly Oil Bulletin</strong>) 2005-2026.</p>
-    </div>
-    <div class="subtabs-bar">
-      <button class="subtab-btn active" data-tab="clase" onclick="switchSub('clase')">📊 Clase transportatori</button>
-      <button class="subtab-btn" data-tab="operatori" onclick="switchSub('operatori')">🚚 Operatori mari</button>
-      <button class="subtab-btn" data-tab="geo" onclick="switchSub('geo')">📍 Distribuție geografică</button>
-      <button class="subtab-btn" data-tab="oil" onclick="switchSub('oil')">⛽ Oil Bulletin (diesel UE)</button>
-    </div>
-    <div id="sub-clase" class="sub-panel active"></div>
-    <div id="sub-operatori" class="sub-panel"></div>
-    <div id="sub-geo" class="sub-panel"></div>
-    <div id="sub-oil" class="sub-panel"></div>
-  `;
+// Fallback data pentru preview
+const FALLBACK = {
+  lastUpdate: "Mai 2025",
+  operatori: [
+    { denumire: "TRANS CARGO SRL", judet: "Timiș", tip: "Internațional", vehicule: 45, status: "Activ" },
+    { denumire: "FAST LOGISTICS SRL", judet: "Cluj", tip: "Intern", vehicule: 12, status: "Activ" },
+    { denumire: "ROMTRANS SA", judet: "Ilfov", tip: "Internațional", vehicule: 120, status: "Activ" },
+    { denumire: "CARGO EXPRESS SRL", judet: "Prahova", tip: "Internațional", vehicule: 33, status: "Activ" },
+    { denumire: "NATIONAL TRANS SRL", judet: "Bihor", tip: "Intern", vehicule: 8, status: "Activ" },
+    { denumire: "EUROTRANS GROUP SRL", judet: "Constanța", tip: "Internațional", vehicule: 78, status: "Activ" },
+    { denumire: "MOLDOVA TRANS SRL", judet: "Bacău", tip: "Intern", vehicule: 19, status: "Activ" },
+    { denumire: "ARGEȘ CARGO SRL", judet: "Argeș", tip: "Intern", vehicule: 6, status: "Activ" },
+    { denumire: "DUNĂREA TRANS SRL", judet: "Galați", tip: "Internațional", vehicule: 41, status: "Activ" },
+    { denumire: "TRANSILVANIA LOG SRL", judet: "Brașov", tip: "Internațional", vehicule: 55, status: "Activ" },
+    { denumire: "DACIA CAMION SRL", judet: "Dâmbovița", tip: "Intern", vehicule: 14, status: "Activ" },
+    { denumire: "VEST TRANS SRL", judet: "Arad", tip: "Internațional", vehicule: 29, status: "Activ" },
+  ],
+  evolutieLunara: [
+    { luna: "Ian 2024", operatori: 14200, vehicule: 182000 },
+    { luna: "Feb 2024", operatori: 14350, vehicule: 183500 },
+    { luna: "Mar 2024", operatori: 14420, vehicule: 184200 },
+    { luna: "Apr 2024", operatori: 14510, vehicule: 185000 },
+    { luna: "Mai 2024", operatori: 14600, vehicule: 186100 },
+    { luna: "Iun 2024", operatori: 14680, vehicule: 186800 },
+    { luna: "Iul 2024", operatori: 14720, vehicule: 187500 },
+    { luna: "Aug 2024", operatori: 14750, vehicule: 188000 },
+    { luna: "Sep 2024", operatori: 14800, vehicule: 188600 },
+    { luna: "Oct 2024", operatori: 14860, vehicule: 189200 },
+    { luna: "Nov 2024", operatori: 14900, vehicule: 189800 },
+    { luna: "Dec 2024", operatori: 14930, vehicule: 190100 },
+    { luna: "Ian 2025", operatori: 14970, vehicule: 190500 },
+    { luna: "Feb 2025", operatori: 15010, vehicule: 191000 },
+  ],
+  carburanti: {
+    dieselRO: { pret: 1.285, varPct: -1.2 },
+    dieselEUMediu: 1.342,
+    tariUE: [
+      { tara: "RO", flag: "🇷🇴", diesel: 1.285, benzina: 1.310 },
+      { tara: "BG", flag: "🇧🇬", diesel: 1.218, benzina: 1.280 },
+      { tara: "HU", flag: "🇭🇺", diesel: 1.356, benzina: 1.398 },
+      { tara: "PL", flag: "🇵🇱", diesel: 1.290, benzina: 1.342 },
+      { tara: "DE", flag: "🇩🇪", diesel: 1.521, benzina: 1.678 },
+      { tara: "FR", flag: "🇫🇷", diesel: 1.489, benzina: 1.610 },
+      { tara: "NL", flag: "🇳🇱", diesel: 1.562, benzina: 1.720 },
+      { tara: "ES", flag: "🇪🇸", diesel: 1.388, benzina: 1.490 },
+      { tara: "IT", flag: "🇮🇹", diesel: 1.451, benzina: 1.598 },
+      { tara: "AT", flag: "🇦🇹", diesel: 1.412, benzina: 1.524 },
+    ]
+  }
+};
+
+let allData = null;
+let filteredData = [];
+let sortCol = 'vehicule';
+let sortDir = -1;
+let currentPage = 1;
+const PAGE_SIZE = 15;
+let charts = {};
+
+// ── INIT ──
+async function init() {
+  try {
+    const resp = await fetch(DATA_URL + '?v=' + Date.now());
+    if (!resp.ok) throw new Error('no json');
+    allData = await resp.json();
+  } catch {
+    allData = FALLBACK;
+  }
+  render();
 }
 
-function switchSub(name) {
-  document.querySelectorAll('.subtab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab===name));
-  document.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('sub-'+name).classList.add('active');
-  if (name==='clase') renderClase();
-  else if (name==='operatori') renderOperatori();
-  else if (name==='geo') renderGeo();
-  else renderOil();
+function render() {
+  const d = allData;
+  const ops = d.operatori || [];
+  const totalOps = ops.length;
+  const totalVehs = ops.reduce((s, o) => s + (o.vehicule || 0), 0);
+
+  // Stats
+  document.getElementById('stat-total').textContent = totalOps.toLocaleString('ro-RO');
+  document.getElementById('stat-vehicles').textContent = totalVehs.toLocaleString('ro-RO');
+  const diesel = d.carburanti?.dieselRO;
+  if (diesel) {
+    document.getElementById('stat-diesel').textContent = diesel.pret.toFixed(3);
+    const chg = document.getElementById('stat-diesel-change');
+    if (diesel.varPct !== undefined) {
+      const sign = diesel.varPct >= 0 ? '+' : '';
+      chg.textContent = sign + diesel.varPct.toFixed(1) + '% față de luna trecută';
+      chg.className = 'stat-change ' + (diesel.varPct >= 0 ? 'up' : 'down');
+    }
+  }
+  const euMed = d.carburanti?.dieselEUMediu;
+  if (euMed) document.getElementById('stat-diesel-eu').textContent = euMed.toFixed(3);
+
+  if (d.lastUpdate) {
+    document.getElementById('last-update').textContent = 'Actualizat: ' + d.lastUpdate;
+  }
+
+  filteredData = [...ops];
+  renderTable();
+  renderJudeteChart(ops);
+  renderTipChart(ops);
+  renderEvolutieCharts(d.evolutieLunara || []);
+  renderFuelSection(d.carburanti || {});
 }
 
-/* ════════ CLASE ════════ */
-function renderClase() {
-  const totals = DATA.CLASES.reduce((s,c) => ({ops: s.ops+c.operatori, veh: s.veh+c.camioane}), {ops:0,veh:0});
-  const avgFlota = (totals.veh/totals.ops).toFixed(1);
-  const maxFlota = Math.max(...DATA.OPERATORI.map(o=>o.veh));
+// ── TABLE ──
+function renderTable() {
+  const tbody = document.getElementById('table-body');
+  const sorted = [...filteredData].sort((a, b) => {
+    const av = a[sortCol] ?? '', bv = b[sortCol] ?? '';
+    if (typeof av === 'number') return sortDir * (av - bv);
+    return sortDir * String(av).localeCompare(String(bv), 'ro');
+  });
 
-  const panel = document.getElementById('sub-clase');
-  panel.innerHTML = `
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="kpi-label">Total operatori</div>
-        <div class="kpi-value">${fmt(totals.ops)}</div>
-        <div class="kpi-sub">autorizați activi</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Total camioane</div>
-        <div class="kpi-value">${fmt(totals.veh)}</div>
-        <div class="kpi-sub">vehicule înregistrate</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Flotă medie</div>
-        <div class="kpi-value">${avgFlota}</div>
-        <div class="kpi-sub">camioane / operator</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Flotă maximă</div>
-        <div class="kpi-value">${fmt(maxFlota)}</div>
-        <div class="kpi-sub">camioane (cel mai mare)</div>
-      </div>
-    </div>
+  const total = sorted.length;
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const page = sorted.slice(start, start + PAGE_SIZE);
 
-    <div class="panel">
-      <div class="panel-title">Distribuție operatori și camioane pe clase</div>
-      <div class="chart-wrap"><canvas id="claseChart"></canvas></div>
-    </div>
+  document.getElementById('table-count').textContent =
+    total.toLocaleString('ro-RO') + ' operatori';
 
-    <div class="panel" style="padding:0;overflow:hidden">
-      <div style="padding:14px 18px;border-bottom:1px solid #e8eaed">
-        <div style="font-size:13px;font-weight:700;color:#0f2044">Clase transportatori după mărimea flotei</div>
-      </div>
-      <div class="table-scroll" style="border:none;border-radius:0">
-        <table>
-          <thead><tr>
-            <th class="text-left">#</th>
-            <th class="text-left">Denumire clasă</th>
-            <th class="text-left">Interval flotă</th>
-            <th>Nr. operatori</th>
-            <th>Nr. camioane</th>
-            <th>% Operatori</th>
-            <th class="bar-cell">Pondere operatori</th>
-          </tr></thead>
-          <tbody>
-            ${DATA.CLASES.map(c => `
-              <tr>
-                <td class="rank">${c.nr}</td>
-                <td class="text-left"><span class="class-badge"><span class="class-dot" style="background:${c.color}"></span>${c.den}</span></td>
-                <td class="text-left"><span class="range-pill">${c.range}</span></td>
-                <td>${fmt(c.operatori)}</td>
-                <td>${fmt(c.camioane)}</td>
-                <td style="font-weight:700;color:#0f2044">${c.pct}%</td>
-                <td class="bar-cell"><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${c.pct}%;background:${c.color}"></div></div></td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
+  tbody.innerHTML = page.map(o => `
+    <tr>
+      <td>${escHtml(o.denumire)}</td>
+      <td>${escHtml(o.judet)}</td>
+      <td><span class="badge badge-type">${escHtml(o.tip)}</span></td>
+      <td style="text-align:right;font-family:'Syne',sans-serif;font-weight:600;">${(o.vehicule||0).toLocaleString('ro-RO')}</td>
+      <td><span class="badge badge-active">${escHtml(o.status||'Activ')}</span></td>
+    </tr>
+  `).join('') || `<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text-dim);">Niciun rezultat</td></tr>`;
+
+  renderPagination(total, start, page.length);
+}
+
+function renderPagination(total, start, count) {
+  const totalPages = Math.ceil(total / PAGE_SIZE);
+  const pag = document.getElementById('pagination');
+  if (totalPages <= 1) { pag.innerHTML = `<span>${count} din ${total}</span>`; return; }
+  pag.innerHTML = `
+    <span>${start+1}–${start+count} din ${total.toLocaleString('ro-RO')}</span>
+    <div class="page-btns">
+      <button class="page-btn" id="btn-prev" ${currentPage===1?'disabled':''}>‹</button>
+      ${[...Array(Math.min(5, totalPages))].map((_,i) => {
+        const p = i+1; return `<button class="page-btn ${p===currentPage?'active':''}" data-p="${p}">${p}</button>`;
+      }).join('')}
+      ${totalPages > 5 ? `<span style="color:var(--text-dim);padding:0 4px;">…</span><button class="page-btn ${totalPages===currentPage?'active':''}" data-p="${totalPages}">${totalPages}</button>` : ''}
+      <button class="page-btn" id="btn-next" ${currentPage===totalPages?'disabled':''}>›</button>
     </div>
   `;
+  pag.querySelector('#btn-prev')?.addEventListener('click', () => { currentPage--; renderTable(); });
+  pag.querySelector('#btn-next')?.addEventListener('click', () => { currentPage++; renderTable(); });
+  pag.querySelectorAll('[data-p]').forEach(b => b.addEventListener('click', () => {
+    currentPage = +b.dataset.p; renderTable();
+  }));
+}
 
-  if (claseChart) claseChart.destroy();
-  claseChart = new Chart(document.getElementById('claseChart'), {
+// ── CHARTS ──
+const ACCENT_COLORS = ['#e85a2a','#f0a045','#4a9eff','#3ecf8e','#a78bfa','#f472b6','#60e3b0','#fbbf24','#38bdf8','#fb923c'];
+
+function mkChart(id, cfg) {
+  if (charts[id]) charts[id].destroy();
+  const ctx = document.getElementById(id)?.getContext('2d');
+  if (!ctx) return;
+  charts[id] = new Chart(ctx, cfg);
+}
+
+function renderJudeteChart(ops) {
+  const judetCount = {};
+  ops.forEach(o => { judetCount[o.judet] = (judetCount[o.judet] || 0) + 1; });
+  const sorted = Object.entries(judetCount).sort((a,b) => b[1]-a[1]).slice(0, 15);
+
+  mkChart('chart-judete', {
     type: 'bar',
     data: {
-      labels: DATA.CLASES.map(c => c.den),
-      datasets: [
-        { label: 'Operatori', data: DATA.CLASES.map(c => c.operatori), backgroundColor: DATA.CLASES.map(c => c.color), yAxisID: 'y' },
-        { label: 'Camioane', data: DATA.CLASES.map(c => c.camioane), backgroundColor: DATA.CLASES.map(c => c.color+'80'), yAxisID: 'y' }
-      ]
+      labels: sorted.map(x => x[0]),
+      datasets: [{
+        data: sorted.map(x => x[1]),
+        backgroundColor: ACCENT_COLORS[0] + 'cc',
+        borderColor: ACCENT_COLORS[0],
+        borderWidth: 1,
+        borderRadius: 4,
+      }]
     },
     options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { position: 'bottom', labels: { font: { size: 11 }, usePointStyle: true, padding: 14, color:'#5f6368' } },
-        tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y.toLocaleString('en-US')}` } }
-      },
+      responsive: true, maintainAspectRatio: true,
+      plugins: { legend: { display: false } },
       scales: {
-        x: { ticks: { font: { size: 11 }, color: '#5f6368' }, grid: { display: false } },
-        y: { ticks: { font: { size: 11 }, color: '#5f6368', callback: v => v.toLocaleString('en-US') }, grid: { color: '#f4f5f7' } }
+        x: { ticks: { color: '#7a8099', font: { size: 11 } }, grid: { color: '#252a38' } },
+        y: { ticks: { color: '#7a8099', font: { size: 11 } }, grid: { color: '#252a38' } }
       }
     }
   });
 }
 
-/* ════════ OPERATORI ════════ */
-function renderOperatori() {
-  const ROM = s => s.toLowerCase().replace(/ă/g,'a').replace(/â/g,'a').replace(/î/g,'i').replace(/ș/g,'s').replace(/ț/g,'t');
-  const panel = document.getElementById('sub-operatori');
-  panel.innerHTML = `
-    <div class="controls">
-      <div class="ctrl-group">
-        <div class="ctrl-label">Caută operator/oraș</div>
-        <input class="search-input" id="opSearch" value="${opState.search}" placeholder="ex: Mega Trucking, Cluj..." style="min-width:250px">
-      </div>
-    </div>
-    <div id="opTable"></div>
-  `;
-  document.getElementById('opSearch').oninput = e => { opState.search=e.target.value; drawOpTable(); };
-  drawOpTable();
+function renderTipChart(ops) {
+  const tipCount = {};
+  ops.forEach(o => { tipCount[o.tip] = (tipCount[o.tip] || 0) + 1; });
+  const entries = Object.entries(tipCount);
 
-  function drawOpTable() {
-    const search = ROM(opState.search.trim());
-    let rows = DATA.OPERATORI.filter(o => !search || ROM(o.den).includes(search) || ROM(o.loc).includes(search) || (o.cf||'').toLowerCase().includes(search));
-    rows.sort((a,b) => {
-      if (opState.sortCol==='den') return opState.sortDir * a.den.localeCompare(b.den,'ro');
-      if (opState.sortCol==='loc') return opState.sortDir * a.loc.localeCompare(b.loc,'ro');
-      return opState.sortDir * ((a[opState.sortCol]||0)-(b[opState.sortCol]||0));
-    });
-    const maxVeh = Math.max(...rows.map(r=>r.veh),1);
-    const sIcon = (c) => opState.sortCol!==c ? '<span class="sort-icon">↕</span>' : (opState.sortDir>0?'<span class="sort-icon">↑</span>':'<span class="sort-icon">↓</span>');
-
-    document.getElementById('opTable').innerHTML = `
-      <div class="panel" style="padding:0;overflow:hidden">
-        <div style="padding:14px 18px;border-bottom:1px solid #e8eaed">
-          <div style="font-size:13px;font-weight:700;color:#0f2044">Top operatori mari (126+ camioane)</div>
-          <div style="font-size:11px;color:#9aa0a6;margin-top:2px">${rows.length} operatori afișați</div>
-        </div>
-        <div class="table-scroll" style="border:none;border-radius:0">
-          <table>
-            <thead><tr>
-              <th class="text-left">#</th>
-              <th class="text-left ${opState.sortCol==='den'?'sorted':''}" data-sort="den">Denumire firmă${sIcon('den')}</th>
-              <th class="text-left">CUI</th>
-              <th class="text-left ${opState.sortCol==='loc'?'sorted':''}" data-sort="loc">Localitate${sIcon('loc')}</th>
-              <th class="${opState.sortCol==='veh'?'sorted':''}" data-sort="veh">Camioane${sIcon('veh')}</th>
-              <th class="bar-cell">Flotă</th>
-            </tr></thead>
-            <tbody>
-              ${rows.map((r,i) => `
-                <tr>
-                  <td class="rank">${i+1}</td>
-                  <td class="text-left">${r.den}</td>
-                  <td class="text-left" style="color:#5f6368;font-family:'DM Mono',monospace;font-size:11px">${r.cf||''}</td>
-                  <td class="text-left" style="color:#5f6368">${r.loc}</td>
-                  <td style="font-weight:700;color:#0f2044">${fmt(r.veh)}</td>
-                  <td class="bar-cell"><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${(r.veh/maxVeh*100).toFixed(0)}%;background:linear-gradient(90deg,#7c3aed,#1a56db)"></div></div></td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    `;
-    document.querySelectorAll('#opTable th[data-sort]').forEach(th => {
-      th.onclick = () => {
-        const col = th.dataset.sort;
-        if (opState.sortCol===col) opState.sortDir *= -1;
-        else { opState.sortCol=col; opState.sortDir=-1; }
-        drawOpTable();
-      };
-    });
-  }
-}
-
-/* ════════ GEO ════════ */
-function renderGeo() {
-  // Compute geo from operatori
-  const geoMap = {};
-  for (const op of DATA.OPERATORI) {
-    const l = op.loc.trim();
-    if (!geoMap[l]) geoMap[l] = { loc:l, ops:0, veh:0 };
-    geoMap[l].ops++;
-    geoMap[l].veh += op.veh;
-  }
-  const geoData = Object.values(geoMap);
-
-  const ROM = s => s.toLowerCase().replace(/ă/g,'a').replace(/â/g,'a').replace(/î/g,'i').replace(/ș/g,'s').replace(/ț/g,'t');
-
-  const panel = document.getElementById('sub-geo');
-  panel.innerHTML = `
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="kpi-label">Localități cu operatori mari</div>
-        <div class="kpi-value">${geoData.length}</div>
-        <div class="kpi-sub">distinct localități</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Total operatori mari</div>
-        <div class="kpi-value">${DATA.OPERATORI.length}</div>
-        <div class="kpi-sub">126+ camioane</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Top localitate</div>
-        <div class="kpi-value" style="font-size:16px">${[...geoData].sort((a,b)=>b.ops-a.ops)[0]?.loc || '—'}</div>
-        <div class="kpi-sub">${[...geoData].sort((a,b)=>b.ops-a.ops)[0]?.ops || 0} operatori</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Total camioane top zone</div>
-        <div class="kpi-value">${fmt(geoData.reduce((s,g)=>s+g.veh,0))}</div>
-        <div class="kpi-sub">cumulat din operatori mari</div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-title">Top 15 localități după număr operatori mari</div>
-      <div class="chart-wrap"><canvas id="geoChart"></canvas></div>
-    </div>
-
-    <div class="controls">
-      <div class="ctrl-group">
-        <div class="ctrl-label">Caută localitate</div>
-        <input class="search-input" id="geoSearch" value="${geoState.search}" placeholder="ex: Cluj, Timișoara..." style="min-width:250px">
-      </div>
-    </div>
-    <div id="geoTable"></div>
-  `;
-
-  const top15 = [...geoData].sort((a,b)=>b.ops-a.ops).slice(0,15);
-  if (geoChart) geoChart.destroy();
-  geoChart = new Chart(document.getElementById('geoChart'), {
-    type: 'bar',
+  mkChart('chart-tip', {
+    type: 'doughnut',
     data: {
-      labels: top15.map(g=>g.loc),
-      datasets: [
-        { label: 'Operatori', data: top15.map(g=>g.ops), backgroundColor: '#1a56db', yAxisID: 'y' },
-        { label: 'Camioane', data: top15.map(g=>g.veh), backgroundColor: '#7c3aed', yAxisID: 'y1' }
-      ]
+      labels: entries.map(x => x[0]),
+      datasets: [{
+        data: entries.map(x => x[1]),
+        backgroundColor: ACCENT_COLORS.slice(0, entries.length).map(c => c + 'cc'),
+        borderColor: ACCENT_COLORS.slice(0, entries.length),
+        borderWidth: 1,
+      }]
     },
     options: {
-      responsive: true, maintainAspectRatio: false,
+      responsive: true, maintainAspectRatio: true,
+      cutout: '60%',
       plugins: {
-        legend: { position: 'bottom', labels: { font: { size: 11 }, usePointStyle: true, padding: 14, color: '#5f6368' } },
-        tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y.toLocaleString('en-US')}` } }
-      },
-      scales: {
-        x: { ticks: { font: { size: 10 }, color: '#5f6368', maxRotation: 35 }, grid: { display: false } },
-        y: { position: 'left', title: { display: true, text: 'Operatori', font: { size: 10 } }, ticks: { font: { size: 11 }, color: '#5f6368' }, grid: { color: '#f4f5f7' } },
-        y1: { position: 'right', title: { display: true, text: 'Camioane', font: { size: 10 } }, ticks: { font: { size: 11 }, color: '#5f6368', callback: v => v.toLocaleString('en-US') }, grid: { display: false } }
-      }
-    }
-  });
-
-  function drawGeoTable() {
-    const search = ROM(geoState.search.trim());
-    let rows = geoData.filter(g => !search || ROM(g.loc).includes(search));
-    rows.sort((a,b) => {
-      if (geoState.sortCol==='loc') return geoState.sortDir * a.loc.localeCompare(b.loc,'ro');
-      return geoState.sortDir * ((a[geoState.sortCol]||0)-(b[geoState.sortCol]||0));
-    });
-    const maxOps = Math.max(...rows.map(r=>r.ops),1);
-    const sIcon = (c) => geoState.sortCol!==c ? '<span class="sort-icon">↕</span>' : (geoState.sortDir>0?'<span class="sort-icon">↑</span>':'<span class="sort-icon">↓</span>');
-    document.getElementById('geoTable').innerHTML = `
-      <div class="panel" style="padding:0;overflow:hidden">
-        <div style="padding:14px 18px;border-bottom:1px solid #e8eaed">
-          <div style="font-size:13px;font-weight:700;color:#0f2044">Distribuție geografică a operatorilor mari</div>
-          <div style="font-size:11px;color:#9aa0a6;margin-top:2px">${rows.length} localități</div>
-        </div>
-        <div class="table-scroll" style="border:none;border-radius:0">
-          <table>
-            <thead><tr>
-              <th class="text-left">#</th>
-              <th class="text-left ${geoState.sortCol==='loc'?'sorted':''}" data-sort="loc">Localitate${sIcon('loc')}</th>
-              <th class="${geoState.sortCol==='ops'?'sorted':''}" data-sort="ops">Operatori${sIcon('ops')}</th>
-              <th class="${geoState.sortCol==='veh'?'sorted':''}" data-sort="veh">Camioane${sIcon('veh')}</th>
-              <th class="bar-cell">Pondere operatori</th>
-            </tr></thead>
-            <tbody>
-              ${rows.map((r,i) => `
-                <tr>
-                  <td class="rank">${i+1}</td>
-                  <td class="text-left">${r.loc}</td>
-                  <td style="font-weight:700;color:#0f2044">${r.ops}</td>
-                  <td>${fmt(r.veh)}</td>
-                  <td class="bar-cell"><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${(r.ops/maxOps*100).toFixed(0)}%;background:#1a56db"></div></div></td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    `;
-    document.querySelectorAll('#geoTable th[data-sort]').forEach(th => {
-      th.onclick = () => {
-        const col = th.dataset.sort;
-        if (geoState.sortCol===col) geoState.sortDir *= -1;
-        else { geoState.sortCol=col; geoState.sortDir=-1; }
-        drawGeoTable();
-      };
-    });
-  }
-  document.getElementById('geoSearch').oninput = e => { geoState.search=e.target.value; drawGeoTable(); };
-  drawGeoTable();
-}
-
-/* ════════ OIL BULLETIN ════════ */
-function renderOil() {
-  const panel = document.getElementById('sub-oil');
-  const ymKeys = Object.keys(DATA.DIESEL_MONTHLY).sort();
-  const latest = DATA.DIESEL_LATEST;
-  const countries = Object.keys(DATA.COUNTRY_NAMES).sort((a,b)=>DATA.COUNTRY_NAMES[a].localeCompare(DATA.COUNTRY_NAMES[b],'ro'));
-
-  panel.innerHTML = `
-    <div class="controls">
-      <div class="ctrl-group">
-        <div class="ctrl-label">Țară</div>
-        <select id="oilCountry">
-          ${countries.map(c=>`<option value="${c}" ${oilState.country===c?'selected':''}>${DATA.COUNTRY_NAMES[c]} (${c})</option>`).join('')}
-        </select>
-      </div>
-      <div class="ctrl-group">
-        <div class="ctrl-label">Comparare cu</div>
-        <select id="oilCompare">
-          <option value="EU_AVG" ${oilState.compare==='EU_AVG'?'selected':''}>Media UE</option>
-          ${countries.map(c=>`<option value="${c}" ${oilState.compare===c?'selected':''}>${DATA.COUNTRY_NAMES[c]} (${c})</option>`).join('')}
-        </select>
-      </div>
-      <div class="ctrl-group">
-        <div class="ctrl-label">An început</div>
-        <select id="oilStart">
-          ${[2005,2010,2015,2020,2022,2024].map(y=>`<option value="${y}" ${oilState.startYear===y?'selected':''}>${y}</option>`).join('')}
-        </select>
-      </div>
-    </div>
-    <div id="oilKpi" class="kpi-grid"></div>
-    <div class="panel">
-      <div class="panel-title" id="oilTitle">Evoluție preț motorină</div>
-      <div class="chart-wrap"><canvas id="oilChart"></canvas></div>
-    </div>
-    <div class="panel" style="padding:0;overflow:hidden">
-      <div style="padding:14px 18px;border-bottom:1px solid #e8eaed">
-        <div style="font-size:13px;font-weight:700;color:#0f2044">Ultima săptămână — ${latest?.date || ''} (EUR/litru)</div>
-        <div style="font-size:11px;color:#9aa0a6;margin-top:2px">Toate țările UE — sortate descrescător după preț</div>
-      </div>
-      <div class="table-scroll" style="border:none;border-radius:0">
-        <table>
-          <thead><tr><th class="text-left">#</th><th class="text-left">Țară</th><th>Preț (EUR/L)</th><th>vs România</th></tr></thead>
-          <tbody id="oilLatestTbody"></tbody>
-        </table>
-      </div>
-    </div>
-  `;
-
-  document.getElementById('oilCountry').onchange = e => { oilState.country=e.target.value; drawOil(); };
-  document.getElementById('oilCompare').onchange = e => { oilState.compare=e.target.value; drawOil(); };
-  document.getElementById('oilStart').onchange = e => { oilState.startYear=parseInt(e.target.value); drawOil(); };
-  drawOil();
-  drawOilTable();
-
-  function drawOil() {
-    const c = oilState.country, cmp = oilState.compare;
-    const labels = [], v1=[], v2=[];
-    for (const ym of ymKeys) {
-      const y = parseInt(ym.substring(0,4));
-      if (y < oilState.startYear) continue;
-      labels.push(ym);
-      v1.push(DATA.DIESEL_MONTHLY[ym][c] ?? null);
-      if (cmp === 'EU_AVG') {
-        const vals = countries.map(cc=>DATA.DIESEL_MONTHLY[ym][cc]).filter(v=>v!=null);
-        v2.push(vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null);
-      } else {
-        v2.push(DATA.DIESEL_MONTHLY[ym][cmp] ?? null);
-      }
-    }
-
-    document.getElementById('oilTitle').textContent = `Evoluție preț motorină — ${DATA.COUNTRY_NAMES[c]} vs ${cmp==='EU_AVG'?'Media UE':DATA.COUNTRY_NAMES[cmp]}`;
-
-    // KPI
-    const curr1 = v1[v1.length-1], curr2 = v2[v2.length-1];
-    const yearAgo1 = v1[v1.length-13] ?? null;
-    const yoy = (curr1!=null && yearAgo1!=null && yearAgo1>0) ? ((curr1-yearAgo1)/yearAgo1*100) : null;
-    const max1 = Math.max(...v1.filter(v=>v!=null));
-    const min1 = Math.min(...v1.filter(v=>v!=null));
-
-    document.getElementById('oilKpi').innerHTML = `
-      <div class="kpi-card">
-        <div class="kpi-label">Preț curent ${DATA.COUNTRY_NAMES[c]}</div>
-        <div class="kpi-value">${fmt2(curr1)}</div>
-        <div class="kpi-sub">EUR/litru (medie lunară)</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">${cmp==='EU_AVG'?'Media UE':DATA.COUNTRY_NAMES[cmp]}</div>
-        <div class="kpi-value">${fmt2(curr2)}</div>
-        <div class="kpi-sub">EUR/litru (medie lunară)</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Δ ${DATA.COUNTRY_NAMES[c]} vs comparație</div>
-        <div class="kpi-value" style="color:${(curr1<curr2)?'#0e7245':'#b91c1c'}">${curr1!=null&&curr2!=null?((curr1<curr2)?'−':'+')+Math.abs(curr1-curr2).toFixed(3):'—'}</div>
-        <div class="kpi-sub">EUR/litru (${curr1<curr2?'mai ieftin':'mai scump'})</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">YoY ${DATA.COUNTRY_NAMES[c]}</div>
-        <div class="kpi-value" style="color:${yoy>=0?'#b91c1c':'#0e7245'}">${yoy==null?'—':(yoy>=0?'+':'')+yoy.toFixed(1)+'%'}</div>
-        <div class="kpi-sub">vs aceeași lună acum 1 an</div>
-      </div>
-    `;
-
-    if (oilChart) oilChart.destroy();
-    oilChart = new Chart(document.getElementById('oilChart'), {
-      type: 'line',
-      data: {
-        labels,
-        datasets: [
-          { label: DATA.COUNTRY_NAMES[c], data: v1, borderColor: '#1a56db', backgroundColor: 'rgba(26,86,219,.1)', borderWidth: 2, tension: .3, pointRadius: 0, pointHoverRadius: 5, fill: false },
-          { label: cmp==='EU_AVG'?'Media UE':DATA.COUNTRY_NAMES[cmp], data: v2, borderColor: '#7c3aed', backgroundColor: 'rgba(124,58,237,.1)', borderWidth: 2, borderDash: [4,3], tension: .3, pointRadius: 0, pointHoverRadius: 5, fill: false }
-        ]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: {
-          legend: { position: 'bottom', labels: { font: { size: 11 }, usePointStyle: true, padding: 14, color: '#5f6368' } },
-          tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y==null?'—':c.parsed.y.toFixed(3)} EUR/L` } }
-        },
-        scales: {
-          x: { ticks: { font: { size: 10 }, color: '#5f6368', maxRotation: 0, autoSkip: true, maxTicksLimit: 12 }, grid: { display: false } },
-          y: { ticks: { font: { size: 11 }, color: '#5f6368', callback: v => v.toFixed(2) }, grid: { color: '#f4f5f7' }, title: { display: true, text: 'EUR / litru', font: { size: 10 } } }
+        legend: {
+          position: 'bottom',
+          labels: { color: '#7a8099', font: { size: 11 }, padding: 12 }
         }
       }
-    });
-  }
-
-  function drawOilTable() {
-    const ro = latest?.RO;
-    const rows = countries.map(c => ({ c, name: DATA.COUNTRY_NAMES[c], price: latest?.[c], delta: latest?.[c]!=null && ro!=null ? latest[c]-ro : null })).filter(r => r.price != null).sort((a,b)=>b.price-a.price);
-    document.getElementById('oilLatestTbody').innerHTML = rows.map((r,i) => `
-      <tr ${r.c==='RO'?'style="background:#fef9c3 !important;font-weight:600"':''}>
-        <td class="rank">${i+1}</td>
-        <td class="text-left">${r.name} <span style="color:#9aa0a6;font-family:'DM Mono',monospace;font-size:10px;margin-left:6px">${r.c}</span></td>
-        <td style="font-weight:700;color:#0f2044">${r.price.toFixed(3)}</td>
-        <td style="color:${r.delta==null||r.delta===0?'#9aa0a6':r.delta>0?'#b91c1c':'#0e7245'};font-weight:600">${r.delta==null?'—':(r.delta>0?'+':'')+r.delta.toFixed(3)}</td>
-      </tr>
-    `).join('');
-  }
+    }
+  });
 }
+
+function renderEvolutieCharts(evolutie) {
+  const labels = evolutie.map(e => e.luna);
+  const defOpts = {
+    responsive: true, maintainAspectRatio: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { ticks: { color: '#7a8099', font: { size: 11 }, maxTicksLimit: 8 }, grid: { color: '#1a1e28' } },
+      y: { ticks: { color: '#7a8099', font: { size: 11 } }, grid: { color: '#252a38' } }
+    }
+  };
+
+  mkChart('chart-evolutie', {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        data: evolutie.map(e => e.operatori),
+        borderColor: ACCENT_COLORS[0],
+        backgroundColor: ACCENT_COLORS[0] + '18',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 3,
+        pointBackgroundColor: ACCENT_COLORS[0],
+      }]
+    },
+    options: defOpts
+  });
+
+  mkChart('chart-flota', {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        data: evolutie.map(e => e.vehicule),
+        borderColor: ACCENT_COLORS[2],
+        backgroundColor: ACCENT_COLORS[2] + '18',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 3,
+        pointBackgroundColor: ACCENT_COLORS[2],
+      }]
+    },
+    options: defOpts
+  });
+}
+
+function renderFuelSection(carb) {
+  const tari = carb.tariUE || [];
+  const fuelGrid = document.getElementById('fuel-grid');
+  fuelGrid.innerHTML = tari.map(t => `
+    <div class="fuel-card">
+      <div class="fuel-icon diesel" style="font-size:22px;">${t.flag}</div>
+      <div class="fuel-info">
+        <div class="fuel-country">${t.tara} — Diesel</div>
+        <div class="fuel-price">${t.diesel.toFixed(3)} <small style="font-size:13px;font-weight:400;color:var(--text-muted)">EUR/L</small></div>
+        <div class="fuel-change" style="color:var(--text-dim);">Benzină: ${t.benzina.toFixed(3)}</div>
+      </div>
+    </div>
+  `).join('');
+
+  if (!tari.length) return;
+  const sorted = [...tari].sort((a,b) => a.diesel - b.diesel);
+  mkChart('chart-fuel-bar', {
+    type: 'bar',
+    data: {
+      labels: sorted.map(t => t.flag + ' ' + t.tara),
+      datasets: [
+        {
+          label: 'Diesel',
+          data: sorted.map(t => t.diesel),
+          backgroundColor: ACCENT_COLORS[0] + 'cc',
+          borderColor: ACCENT_COLORS[0],
+          borderWidth: 1,
+          borderRadius: 4,
+        },
+        {
+          label: 'Benzină',
+          data: sorted.map(t => t.benzina),
+          backgroundColor: ACCENT_COLORS[2] + 'cc',
+          borderColor: ACCENT_COLORS[2],
+          borderWidth: 1,
+          borderRadius: 4,
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: true,
+      plugins: {
+        legend: { labels: { color: '#7a8099', font: { size: 12 } } }
+      },
+      scales: {
+        x: { ticks: { color: '#7a8099', font: { size: 11 } }, grid: { color: '#252a38' } },
+        y: {
+          min: 1.0,
+          ticks: { color: '#7a8099', font: { size: 11 }, callback: v => v.toFixed(2) },
+          grid: { color: '#252a38' }
+        }
+      }
+    }
+  });
+}
+
+// ── SEARCH & SORT ──
+document.getElementById('search-input').addEventListener('input', function() {
+  const q = this.value.toLowerCase();
+  filteredData = (allData?.operatori || []).filter(o =>
+    o.denumire?.toLowerCase().includes(q) ||
+    o.judet?.toLowerCase().includes(q) ||
+    o.tip?.toLowerCase().includes(q)
+  );
+  currentPage = 1;
+  renderTable();
+});
+
+document.querySelectorAll('.data-table th[data-col]').forEach(th => {
+  th.addEventListener('click', () => {
+    const col = th.dataset.col;
+    if (sortCol === col) sortDir *= -1;
+    else { sortCol = col; sortDir = -1; }
+    renderTable();
+  });
+});
+
+// ── TABS ──
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+    // Resize charts on tab switch
+    setTimeout(() => Object.values(charts).forEach(c => c.resize()), 50);
+  });
+});
+
+// ── UTILS ──
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── START ──
+init();
 </script>
 </body>
 </html>
