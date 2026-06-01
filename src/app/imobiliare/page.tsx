@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 // ─── types ───────────────────────────────────────────────────────────────────
 interface JudetData {
@@ -552,6 +554,7 @@ export default function ImobiliarePage() {
         .subtab-btn.active { color:#1a56db; font-weight:600; border-bottom-color:#1a56db; }
       `}</style>
 
+      <Navbar />
       <main style={{minHeight:"100vh", background:"#f4f5f7", fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:14, color:"#1a1f2e"}}>
         {/* Header */}
         <div style={{background:"#fff", borderBottom:"1px solid #e8eaed"}}>
@@ -634,19 +637,8 @@ export default function ImobiliarePage() {
             </>
           )}
         </div>
-
-        {/* Footer */}
-        <div style={{borderTop:"1px solid #e8eaed",background:"#fff",padding:"10px 24px",display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}}>
-          <div style={{width:7,height:7,borderRadius:"50%",background:"#22c55e"}}></div>
-          <div style={{fontSize:11,color:"#5f6368"}}>Sursa: ANCPI — Date lunare oficiale tranzacții imobiliare</div>
-          <span style={{color:"#e8eaed"}}>•</span>
-          <a href="https://www.ancpi.ro" target="_blank" rel="noopener noreferrer" style={{fontSize:11,color:"#1a56db",textDecoration:"none"}}>🔗 ancpi.ro</a>
-          <div style={{flex:1}}></div>
-          <div style={{fontSize:11,color:"#9aa0a6"}}>
-            Ultima actualizare: {lastUpdate} • Frecvență: lunar
-          </div>
-        </div>
       </main>
+      <Footer />
     </>
   );
 }
