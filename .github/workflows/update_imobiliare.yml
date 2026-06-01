@@ -1,0 +1,42 @@
+name: Update Imobiliare ANCPI
+
+on:
+  schedule:
+    # Rulează în fiecare Luni la 07:00 UTC (09:00 ora României)
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+    # Permite și rulare manuală din GitHub Actions tab
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # necesar pentru git push
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install openpyxl requests
+
+      - name: Run update script
+        run: python scripts/update_imobiliare.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/imobiliare_data.json
+          if git diff --staged --quiet; then
+            echo "Nicio modificare în date, skip commit."
+          else
+            UPDATED=$(date +"%Y-%m-%d")
+            git commit -m "data: actualizare automată imobiliare ANCPI ($UPDATED)"
+            git push
+          fi
