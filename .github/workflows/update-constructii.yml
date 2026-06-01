@@ -2,8 +2,7 @@ name: Actualizare Date Constructii INSSE
 
 on:
   schedule:
-    # Prima zi a fiecarei luni la 07:00 UTC (10:00 Romania)
-    - cron: '0 7 1 * *'
+    - cron: '0 8 2 * *'  # A 2-a zi a lunii la 08:00 UTC (INSSE publica pe 1)
   workflow_dispatch:
 
 jobs:
@@ -21,8 +20,11 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
-        run: pip install requests
+      - name: Install Playwright + dependencies
+        run: |
+          pip install playwright
+          playwright install chromium
+          playwright install-deps chromium
 
       - name: Run fetch script
         run: python scripts/fetch_constructii.py
@@ -32,8 +34,10 @@ jobs:
         run: |
           if git diff --quiet src/data/constructii/constructii_data.json; then
             echo "changed=false" >> $GITHUB_OUTPUT
+            echo "Nu sunt date noi."
           else
             echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Date noi detectate!"
           fi
 
       - name: Commit and push if changed
