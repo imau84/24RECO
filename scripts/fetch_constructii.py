@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
 """
 Script: fetch_constructii.py
-Foloseste Playwright pentru a accesa INSSE TEMPO-Online ca un browser real,
-selecteaza LOC108A cu filtrele corecte si extrage datele din tabel.
+Navigare exacta confirmata:
+1. tempo-online → B. STATISTICA ECONOMICA → LOCUINTE → LOC108A
+2. Selecteaza: toate categoriile, Total mediu, TOTAL regiune, luna noua, Metri patrati suprafata utila
+3. CAUTA → captura raspuns API sau DOM
 """
 
 import json
 import os
 import sys
-import re
 from datetime import datetime
-from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeout
+from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
 
 OUTPUT_PATH = "src/data/constructii/constructii_data.json"
-INSSE_URL = "http://statistici.insse.ro:8077/tempo-online/#/pages/tables/insse-table"
+TEMPO_URL = "http://statistici.insse.ro:8077/tempo-online/#/pages/tables/insse-table"
 
 LUNI_RO = {
     "ianuarie": 1, "februarie": 2, "martie": 3, "aprilie": 4,
@@ -21,33 +22,28 @@ LUNI_RO = {
     "septembrie": 9, "octombrie": 10, "noiembrie": 11, "decembrie": 12
 }
 
-def parse_luna(label):
+def parse_luna_option(label):
     parts = label.strip().lower().split()
     try:
         if parts[0] == "luna":
             an = int(parts[2])
             lp = parts[1]
-            return (an, LUNI_RO.get(lp, int(lp) if lp.isdigit() else 0))
+            return (an, LUNI_RO.get(lp, 0))
         elif parts[0] in ("anul", "an"):
             return (int(parts[1]), 0)
-    except:
-        pass
+    except: pass
     return (0, 0)
 
 def parse_luna_json(label):
+    # "Luna 3 2026" → (2026, 3)
     parts = label.strip().split()
-    try:
-        return (int(parts[2]), int(parts[1]))
-    except:
-        return (0, 0)
+    try: return (int(parts[2]), int(parts[1]))
+    except: return (0, 0)
 
 def to_float(v):
-    if not v or str(v).strip() in ["-", ":", "..."]:
-        return None
-    try:
-        return float(str(v).replace(".", "").replace(",", ".").strip())
-    except:
-        return None
+    if not v or str(v).strip() in ["-", ":", "...", ""]: return None
+    try: return float(str(v).replace(".", "").replace(",", ".").strip())
+    except: return None
 
 def load_existing():
     if os.path.exists(OUTPUT_PATH):
@@ -60,8 +56,7 @@ def save_json(data):
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
-def get_new_months(existing):
-    """Returneaza lista de luni lipsa fata de JSON-ul existent."""
+def get_ultima_luna(existing):
     ultima_key = (0, 0)
     for vals in existing.get("date", {}).values():
         for d in vals:
@@ -70,214 +65,287 @@ def get_new_months(existing):
                 ultima_key = k
     return ultima_key
 
-def scrape_with_playwright(missing_months_keys):
-    """
-    Deschide TEMPO-Online, selecteaza LOC108A, selecteaza lunile lipsa
-    una cate una si extrage datele din tabel.
-    Returneaza dict: {luna_label: {categorie: valoare}}
-    """
-    results = {}
-
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        context = browser.new_context(
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            locale="ro-RO"
-        )
-        page = context.new_page()
-
-        # Interceptam request-urile API pentru a captura datele JSON direct
-        api_responses = []
-
-        def handle_response(response):
-            if "dataSet/LOC108A" in response.url or "matrix/dataSet" in response.url:
-                try:
-                    data = response.json()
-                    api_responses.append(data)
-                    print(f"  [API] Capturat raspuns de la: {response.url[:80]}")
-                except:
-                    pass
-
-        page.on("response", handle_response)
-
-        print(f"  → Deschid TEMPO-Online...")
-        page.goto(INSSE_URL, timeout=60000, wait_until="networkidle")
-        page.wait_for_timeout(2000)
-
-        # Cauta LOC108A
-        print(f"  → Caut LOC108A...")
-        try:
-            search_input = page.locator("input[placeholder*='auta'], input[type='search'], input[placeholder*='earch']").first
-            search_input.fill("LOC108A")
-            page.wait_for_timeout(1000)
-
-            # Apasa Enter sau buton search
-            search_input.press("Enter")
-            page.wait_for_timeout(2000)
-        except:
-            print("  → Input cautare negasit, incerc navigare directa...")
-
-        # Incearca sa gaseasca si sa clickeze pe LOC108A
-        try:
-            loc_link = page.locator("text=LOC108A").first
-            loc_link.click(timeout=10000)
-            page.wait_for_timeout(3000)
-        except:
-            print("  → Link LOC108A negasit direct")
-
-        print(f"  → URL curent: {page.url[:80]}")
-
-        # Asteapta sa apara filtrele (checkboxuri cu categorii)
-        try:
-            page.wait_for_selector("text=Categorii de constructii", timeout=15000)
-            print("  ✓ Pagina LOC108A incarcata")
-        except PlaywrightTimeout:
-            print("  ✗ Timeout asteptand pagina LOC108A")
-            # Screenshot pentru debug
-            page.screenshot(path="/tmp/debug_screenshot.png")
-            browser.close()
-            return {}
-
-        # Procesam fiecare luna lipsa
-        for luna_key in missing_months_keys:
-            an, luna_nr = luna_key
-            # Gasim label-ul lunii in romana
-            luna_ro = {v: k for k, v in LUNI_RO.items()}.get(luna_nr, str(luna_nr))
-            luna_label = f"Luna {luna_ro} {an}"
-            print(f"\n  === Procesez: {luna_label} ===")
-
-            # Debifam toate lunile selectate
-            try:
-                # Gasim checkboxurile din coloana Perioade
-                perioade_section = page.locator("text=Perioade").locator("..")
-                checked_boxes = page.locator("input[type='checkbox']:checked")
-                count = checked_boxes.count()
-                print(f"  → {count} checkboxuri bifate")
-            except:
-                pass
-
-            # Selectam: toate categoriile, Total mediu, TOTAL regiune, luna noua, mp suprafata
-            # Mai intai deselect tot si reselect ce vrem
-            try:
-                # Bifam luna dorita
-                luna_checkbox = page.locator(f"text={luna_label}").locator("..").locator("input[type='checkbox']")
-                if luna_checkbox.count() > 0:
-                    # Debifam Anul curent daca e bifat
-                    an_checkbox = page.locator(f"text=Anul {an}").locator("..").locator("input[type='checkbox']")
-                    if an_checkbox.is_checked():
-                        an_checkbox.uncheck()
-
-                    luna_checkbox.check()
-                    print(f"  ✓ Bifat: {luna_label}")
-                else:
-                    print(f"  ✗ Checkbox negasit pentru {luna_label}")
-                    continue
-            except Exception as e:
-                print(f"  ✗ Eroare bifat luna: {e}")
-                continue
-
-            # Apasam CAUTA
-            api_responses.clear()
-            try:
-                cauta_btn = page.locator("button:has-text('CAUTA'), button:has-text('Cauta'), button:has-text('CĂUTA')").first
-                cauta_btn.click()
-                print("  → Apasam CAUTA...")
-
-                # Asteptam raspunsul API
-                page.wait_for_timeout(5000)
-            except Exception as e:
-                print(f"  ✗ Eroare CAUTA: {e}")
-                continue
-
-            # Extragem datele din tabel sau din API response capturat
-            if api_responses:
-                print(f"  ✓ {len(api_responses)} raspunsuri API capturate")
-                raw = api_responses[-1]
-                if isinstance(raw, dict):
-                    raw = raw.get("data", raw.get("matrixData", []))
-
-                results[luna_label] = {}
-                # raw[0] = prima categorie, raw[1] = a doua, etc.
-                # Categoriile sunt in ordinea din tabel
-                print(f"  Raw sample: {str(raw)[:200]}")
-            else:
-                # Extragem din DOM
-                print("  → Nu s-a capturat API, extrag din DOM...")
-                try:
-                    rows = page.locator("table tbody tr").all()
-                    print(f"  → {len(rows)} randuri in tabel")
-                    results[luna_label] = {}
-                    for row in rows[:10]:
-                        cells = row.locator("td").all()
-                        if len(cells) >= 2:
-                            cat = cells[0].inner_text().strip()
-                            val_text = cells[-1].inner_text().strip()
-                            val = to_float(val_text)
-                            if cat and val is not None:
-                                results[luna_label][cat] = val
-                                print(f"     {cat[:40]}: {val}")
-                except Exception as e:
-                    print(f"  ✗ Eroare extragere DOM: {e}")
-
-        browser.close()
-
-    return results
-
 def main():
     print(f"[{datetime.now().isoformat()}] Start LOC108A cu Playwright...")
     existing = load_existing()
-    ultima_key = get_new_months(existing)
-    print(f"  Ultima luna JSON: an={ultima_key[0]}, luna={ultima_key[1]}")
-
-    # Calculam ce luni sunt lipsa (maxim ultimele 3 luni ca sa nu fie prea lung)
-    now = datetime.now()
-    missing_keys = []
-    for an in range(ultima_key[0], now.year + 1):
-        start_luna = ultima_key[1] + 1 if an == ultima_key[0] else 1
-        end_luna = now.month if an == now.year else 12
-        for luna in range(start_luna, end_luna + 1):
-            missing_keys.append((an, luna))
-
-    # Limitam la 3 luni per rulare
-    missing_keys = missing_keys[:3]
-    print(f"  Luni de verificat: {missing_keys}")
-
-    if not missing_keys:
-        print("Datele sunt la zi. Modificat: false")
-        return
-
-    results = scrape_with_playwright(missing_keys)
-
-    if not results:
-        print("Nu s-au obtinut date noi. Modificat: false")
-        return
+    ultima_key = get_ultima_luna(existing)
+    print(f"  Ultima luna in JSON: an={ultima_key[0]}, luna={ultima_key[1]}")
 
     date_out = existing.get("date", {})
     cats_out = existing.get("categorii", [])
     adaugat = False
 
-    for luna_label, cat_vals in results.items():
-        for cat, val in cat_vals.items():
-            if cat not in date_out:
-                date_out[cat] = []
-            if cat not in cats_out:
-                cats_out.append(cat)
-            existing_luni = [d["luna"] for d in date_out[cat]]
-            if luna_label not in existing_luni:
-                date_out[cat].append({"luna": luna_label, "valoare": val})
-                adaugat = True
-                print(f"  + {cat[:40]}: {val} ({luna_label})")
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True, args=["--no-sandbox"])
+        context = browser.new_context(
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            locale="ro-RO",
+            viewport={"width": 1280, "height": 900}
+        )
+        page = context.new_page()
+
+        # Capturam raspunsurile API
+        api_data = {}  # {luna_label: raw_response}
+
+        def on_response(response):
+            url = response.url
+            if "dataSet" in url and "LOC108A" in url:
+                try:
+                    data = response.json()
+                    print(f"  [API] Capturat: {url[-50:]}")
+                    api_data["last"] = data
+                except:
+                    pass
+
+        page.on("response", on_response)
+
+        # PASUL 1: Deschide TEMPO-Online
+        print("  → Pas 1: Deschid TEMPO-Online...")
+        page.goto(TEMPO_URL, timeout=60000, wait_until="domcontentloaded")
+        page.wait_for_timeout(3000)
+
+        # PASUL 2: Click pe "B. STATISTICA ECONOMICA"
+        print("  → Pas 2: Click B. STATISTICA ECONOMICA...")
+        try:
+            page.click("text=B. STATISTICA ECONOMICA", timeout=10000)
+            page.wait_for_timeout(2000)
+        except PWTimeout:
+            # Incearca varianta cu spatiu diferit
+            try:
+                page.click("text=STATISTICA ECONOMICA", timeout=5000)
+                page.wait_for_timeout(2000)
+            except:
+                print("  ✗ Nu am gasit B. STATISTICA ECONOMICA")
+                page.screenshot(path="debug1.png")
+
+        # PASUL 3: Click pe "LOCUINTE"
+        print("  → Pas 3: Click LOCUINTE...")
+        try:
+            # Gasim link-ul "LOCUINTE" din meniu (nu "CONSTRUCTII" ci sectiunea 10)
+            page.click("text=LOCUINTE", timeout=10000)
+            page.wait_for_timeout(2000)
+        except PWTimeout:
+            print("  ✗ Nu am gasit LOCUINTE")
+            page.screenshot(path="debug2.png")
+
+        # PASUL 4: Click pe LOC108A
+        print("  → Pas 4: Click LOC108A...")
+        try:
+            page.click("text=LOC108A", timeout=10000)
+            page.wait_for_timeout(3000)
+        except PWTimeout:
+            print("  ✗ Nu am gasit LOC108A")
+            page.screenshot(path="debug3.png")
+            browser.close()
+            return
+
+        # Asteptam sa apara filtrele
+        print("  → Astept filtrele LOC108A...")
+        try:
+            page.wait_for_selector("text=CATEGORII DE CONSTRUCTII", timeout=15000)
+            print("  ✓ Filtrele LOC108A sunt vizibile")
+        except PWTimeout:
+            print("  ✗ Filtrele nu au aparut")
+            page.screenshot(path="debug4.png")
+            browser.close()
+            return
+
+        # Gasim lunile disponibile si le comparam cu ce avem
+        print("  → Verific lunile disponibile...")
+        
+        # Gasim toate checkbox-urile din sectiunea Perioade
+        # Dupa structura din screenshot: lista cu "Luna ianuarie 2025", etc.
+        luna_checkboxes = page.locator("text=/^Luna (ianuarie|februarie|martie|aprilie|mai|iunie|iulie|august|septembrie|octombrie|noiembrie|decembrie) \\d{4}$/").all()
+        
+        luni_disponibile = []
+        for cb_text in luna_checkboxes:
+            label = cb_text.inner_text().strip()
+            key = parse_luna_option(label)
+            if key[1] > 0:
+                luni_disponibile.append((key, label))
+        
+        print(f"  → {len(luni_disponibile)} luni gasite in UI")
+        
+        # Luni noi = disponibile la INSSE dar nu in JSON-ul nostru
+        luni_noi = [(k, l) for k, l in luni_disponibile if k > ultima_key]
+        print(f"  → Luni noi de adaugat: {[l for _, l in luni_noi]}")
+
+        if not luni_noi:
+            print("  ✅ Datele sunt la zi. Modificat: false")
+            browser.close()
+            return
+
+        # Procesam fiecare luna noua
+        for luna_key, luna_label in luni_noi:
+            print(f"\n  === Procesez: {luna_label} ===")
+            api_data.clear()
+
+            # Asiguram selectia corecta:
+            # - Toate categoriile (sunt deja bifate implicit)
+            # - Medii: Total
+            # - Regiuni: TOTAL
+            # - Perioade: DOAR luna curenta
+            # - UM: Metri patrati suprafata utila
+
+            # 1. Debifam toate lunile bifate si bifam doar luna noua
+            print("  → Selectez luna...")
+            
+            # Debifam "Anul X" daca e bifat
+            try:
+                an = luna_key[0]
+                an_loc = page.locator(f"label:has-text('Anul {an}'), span:has-text('Anul {an}')").first
+                parent = an_loc.locator("xpath=../input[@type='checkbox']")
+                if parent.count() > 0 and parent.is_checked():
+                    parent.uncheck()
+                    page.wait_for_timeout(300)
+            except: pass
+
+            # Bifam luna noua
+            try:
+                # Gasim checkbox-ul langa text-ul lunii
+                luna_loc = page.locator(f"label:has-text('{luna_label}')").first
+                checkbox = luna_loc.locator("xpath=../input[@type='checkbox']")
+                if checkbox.count() == 0:
+                    # Incearca alt selector
+                    checkbox = page.locator(f"input[type='checkbox']").filter(
+                        has=page.locator(f"text={luna_label}")
+                    ).first
+                
+                if not checkbox.is_checked():
+                    checkbox.check()
+                    page.wait_for_timeout(500)
+                print(f"  ✓ Bifat: {luna_label}")
+            except Exception as e:
+                print(f"  ✗ Eroare bifat luna: {e}")
+                # Incercam click direct pe text
+                try:
+                    page.locator(f"text={luna_label}").first.click()
+                    page.wait_for_timeout(500)
+                    print(f"  ✓ Click direct pe: {luna_label}")
+                except Exception as e2:
+                    print(f"  ✗ Si click direct a esuat: {e2}")
+                    continue
+
+            # 2. UM: Metri patrati suprafata utila (debifam Numar, bifam mp)
+            try:
+                # Debifam "Numar"
+                numar_cb = page.locator("label:has-text('Numar')").locator("xpath=../input[@type='checkbox']").first
+                if numar_cb.count() > 0 and numar_cb.is_checked():
+                    numar_cb.uncheck()
+                    page.wait_for_timeout(200)
+                
+                # Bifam "Metri patrati suprafata utila"
+                mp_cb = page.locator("label:has-text('Metri patrati suprafata utila')").locator("xpath=../input[@type='checkbox']").first
+                if mp_cb.count() > 0 and not mp_cb.is_checked():
+                    mp_cb.check()
+                    page.wait_for_timeout(200)
+            except Exception as e:
+                print(f"  ⚠ UM selectie: {e}")
+
+            # 3. CAUTA
+            print("  → Click CAUTA...")
+            try:
+                page.click("button:has-text('CAUTA')", timeout=5000)
+                page.wait_for_timeout(6000)  # Asteptam raspunsul
+            except Exception as e:
+                print(f"  ✗ CAUTA: {e}")
+                try:
+                    page.locator("text=CAUTA").first.click()
+                    page.wait_for_timeout(6000)
+                except: pass
+
+            # 4. Extragem datele
+            if "last" in api_data:
+                print("  ✓ Date capturate din API!")
+                raw = api_data["last"]
+                if isinstance(raw, dict):
+                    raw = raw.get("data", raw.get("matrixData", []))
+                
+                print(f"  Raw tip: {type(raw).__name__}, len={len(raw) if hasattr(raw,'__len__') else '?'}")
+                
+                # Categoriile din LOC108A (ordinea din UI):
+                # 0: Cladiri rezidentiale (exclusiv cele pentru colectivitati)
+                # 1: Cladiri rezidentiale pentru colectivitati  
+                # 2: Cladiri administrative
+                # 3: Alte cladiri (hoteluri si cladiri similare, cladiri ptr comert...)
+                # 4: Hoteluri si cladiri similare
+                # 5: Cladiri pentru comert cu ridicata si cu amanuntul
+                # 6: Alte cladiri
+                categorii_insse = [
+                    "Cladiri rezidentiale (exclusiv cele pentru colectivitati)",
+                    "Cladiri rezidentiale pentru colectivitati",
+                    "Cladiri administrative",
+                    "Alte cladiri (hoteluri, comert, etc)",
+                    "Hoteluri si cladiri similare",
+                    "Cladiri pentru comert cu ridicata si cu amanuntul",
+                    "Alte cladiri"
+                ]
+
+                if isinstance(raw, list):
+                    first = raw[0] if raw else None
+                    if isinstance(first, list):
+                        for ci, row in enumerate(raw):
+                            cat = categorii_insse[ci] if ci < len(categorii_insse) else f"Cat{ci}"
+                            val_raw = row[0] if row else None
+                            val = to_float(val_raw)
+                            if cat not in date_out: date_out[cat] = []
+                            if cat not in cats_out: cats_out.append(cat)
+                            if luna_label not in [d["luna"] for d in date_out[cat]]:
+                                date_out[cat].append({"luna": luna_label, "valoare": val})
+                                adaugat = True
+                                print(f"     + {cat[:45]}: {val}")
+                    elif isinstance(first, (int, float, str, type(None))):
+                        for ci, val_raw in enumerate(raw):
+                            cat = categorii_insse[ci] if ci < len(categorii_insse) else f"Cat{ci}"
+                            val = to_float(val_raw)
+                            if cat not in date_out: date_out[cat] = []
+                            if cat not in cats_out: cats_out.append(cat)
+                            if luna_label not in [d["luna"] for d in date_out[cat]]:
+                                date_out[cat].append({"luna": luna_label, "valoare": val})
+                                adaugat = True
+                                print(f"     + {cat[:45]}: {val}")
+            else:
+                # Fallback: extragem din tabelul DOM
+                print("  → API nu capturat, extrag din tabel DOM...")
+                try:
+                    page.wait_for_selector("table", timeout=5000)
+                    rows = page.locator("table tr").all()
+                    print(f"  → {len(rows)} randuri in tabel")
+                    
+                    for ri, row in enumerate(rows):
+                        cells = row.locator("td").all()
+                        if len(cells) < 2: continue
+                        cat_text = cells[0].inner_text().strip()
+                        # Ultima coloana = Metri patrati
+                        val_text = cells[-1].inner_text().strip()
+                        val = to_float(val_text)
+                        
+                        if not cat_text or cat_text == "-": continue
+                        if "MACROREGIUNEA" in cat_text or "Regiunea" in cat_text: continue
+                        if cat_text in ["Categorii de constructii", "Medii de rezidenta"]: continue
+                        
+                        if cat_text not in date_out: date_out[cat_text] = []
+                        if cat_text not in cats_out: cats_out.append(cat_text)
+                        if luna_label not in [d["luna"] for d in date_out[cat_text]]:
+                            date_out[cat_text].append({"luna": luna_label, "valoare": val})
+                            adaugat = True
+                            print(f"     + {cat_text[:45]}: {val}")
+                except Exception as e:
+                    print(f"  ✗ Eroare extragere DOM: {e}")
+
+        browser.close()
 
     if not adaugat:
-        print("Nu s-au adaugat date noi. Modificat: false")
+        print("\n⚠ Nu s-a adaugat nimic nou. Modificat: false")
         return
 
+    # Sortam si salvam
     for cat in date_out:
-        date_out[cat].sort(key=lambda d: parse_luna(d.get("luna", "")))
+        date_out[cat].sort(key=lambda d: parse_luna_option(d.get("luna", "")))
 
     toate = sorted(
         {d["luna"] for v in date_out.values() for d in v},
-        key=parse_luna
+        key=parse_luna_option
     )
 
     save_json({
