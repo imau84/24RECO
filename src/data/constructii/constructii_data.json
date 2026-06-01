@@ -1,1304 +1,1541 @@
 {
-  "ultima_actualizare": "2026-05-31",
+  "ultima_actualizare": "2026-06-01",
   "unitate": "mp suprafata utila",
   "sursa": "INS Romania, LOC108A",
   "matrice": "LOC108A",
+  "nota": "Date istorice 2022-2026 estimate proportional. Luna aprilie 2026: date reale INS.",
   "categorii": [
-    "Locuinte",
-    "Cladiri industriale si depozite",
-    "Cladiri comerciale",
-    "Birouri si cladiri administrative",
+    "Cladiri rezidentiale (exclusiv cele pentru colectivitati)",
+    "Cladiri rezidentiale pentru colectivitati",
+    "Cladiri administrative",
+    "Hoteluri si cladiri similare",
+    "Cladiri pentru comert cu ridicata si cu amanuntul",
     "Alte cladiri",
     "TOTAL"
   ],
   "perioade": [
-    "Luna 1 2022",
-    "Luna 2 2022",
-    "Luna 3 2022",
-    "Luna 4 2022",
-    "Luna 5 2022",
-    "Luna 6 2022",
-    "Luna 7 2022",
-    "Luna 8 2022",
-    "Luna 9 2022",
-    "Luna 10 2022",
-    "Luna 11 2022",
-    "Luna 12 2022",
-    "Luna 1 2023",
-    "Luna 2 2023",
-    "Luna 3 2023",
-    "Luna 4 2023",
-    "Luna 5 2023",
-    "Luna 6 2023",
-    "Luna 7 2023",
-    "Luna 8 2023",
-    "Luna 9 2023",
-    "Luna 10 2023",
-    "Luna 11 2023",
-    "Luna 12 2023",
-    "Luna 1 2024",
-    "Luna 2 2024",
-    "Luna 3 2024",
-    "Luna 4 2024",
-    "Luna 5 2024",
-    "Luna 6 2024",
-    "Luna 7 2024",
-    "Luna 8 2024",
-    "Luna 9 2024",
-    "Luna 10 2024",
-    "Luna 11 2024",
-    "Luna 12 2024",
-    "Luna 1 2025",
-    "Luna 2 2025",
-    "Luna 3 2025",
-    "Luna 4 2025",
-    "Luna 5 2025",
-    "Luna 6 2025",
-    "Luna 7 2025",
-    "Luna 8 2025",
-    "Luna 9 2025",
-    "Luna 10 2025",
-    "Luna 11 2025",
-    "Luna 12 2025",
-    "Luna 1 2026",
-    "Luna 2 2026",
-    "Luna 3 2026"
+    "Luna ianuarie 2022",
+    "Luna februarie 2022",
+    "Luna martie 2022",
+    "Luna aprilie 2022",
+    "Luna mai 2022",
+    "Luna iunie 2022",
+    "Luna iulie 2022",
+    "Luna august 2022",
+    "Luna septembrie 2022",
+    "Luna octombrie 2022",
+    "Luna noiembrie 2022",
+    "Luna decembrie 2022",
+    "Luna ianuarie 2023",
+    "Luna februarie 2023",
+    "Luna martie 2023",
+    "Luna aprilie 2023",
+    "Luna mai 2023",
+    "Luna iunie 2023",
+    "Luna iulie 2023",
+    "Luna august 2023",
+    "Luna septembrie 2023",
+    "Luna octombrie 2023",
+    "Luna noiembrie 2023",
+    "Luna decembrie 2023",
+    "Luna ianuarie 2024",
+    "Luna februarie 2024",
+    "Luna martie 2024",
+    "Luna aprilie 2024",
+    "Luna mai 2024",
+    "Luna iunie 2024",
+    "Luna iulie 2024",
+    "Luna august 2024",
+    "Luna septembrie 2024",
+    "Luna octombrie 2024",
+    "Luna noiembrie 2024",
+    "Luna decembrie 2024",
+    "Luna ianuarie 2025",
+    "Luna februarie 2025",
+    "Luna martie 2025",
+    "Luna aprilie 2025",
+    "Luna mai 2025",
+    "Luna iunie 2025",
+    "Luna iulie 2025",
+    "Luna august 2025",
+    "Luna septembrie 2025",
+    "Luna octombrie 2025",
+    "Luna noiembrie 2025",
+    "Luna decembrie 2025",
+    "Luna ianuarie 2026",
+    "Luna februarie 2026",
+    "Luna martie 2026",
+    "Luna aprilie 2026"
   ],
   "date": {
-    "TOTAL": [
+    "Cladiri rezidentiale (exclusiv cele pentru colectivitati)": [
       {
-        "luna": "Luna 1 2022",
-        "valoare": 437250
+        "luna": "Luna ianuarie 2022",
+        "valoare": 333199
       },
       {
-        "luna": "Luna 2 2022",
-        "valoare": 521430
+        "luna": "Luna februarie 2022",
+        "valoare": 397347
       },
       {
-        "luna": "Luna 3 2022",
-        "valoare": 891200
+        "luna": "Luna martie 2022",
+        "valoare": 679125
       },
       {
-        "luna": "Luna 4 2022",
-        "valoare": 1145300
+        "luna": "Luna aprilie 2022",
+        "valoare": 872758
       },
       {
-        "luna": "Luna 5 2022",
-        "valoare": 1389700
+        "luna": "Luna mai 2022",
+        "valoare": 1058999
       },
       {
-        "luna": "Luna 6 2022",
-        "valoare": 1523400
+        "luna": "Luna iunie 2022",
+        "valoare": 1160883
       },
       {
-        "luna": "Luna 7 2022",
-        "valoare": 1678900
+        "luna": "Luna iulie 2022",
+        "valoare": 1279379
       },
       {
-        "luna": "Luna 8 2022",
-        "valoare": 1534200
+        "luna": "Luna august 2022",
+        "valoare": 1169113
       },
       {
-        "luna": "Luna 9 2022",
-        "valoare": 1298700
+        "luna": "Luna septembrie 2022",
+        "valoare": 989654
       },
       {
-        "luna": "Luna 10 2022",
-        "valoare": 876300
+        "luna": "Luna octombrie 2022",
+        "valoare": 667770
       },
       {
-        "luna": "Luna 11 2022",
-        "valoare": 612400
+        "luna": "Luna noiembrie 2022",
+        "valoare": 466670
       },
       {
-        "luna": "Luna 12 2022",
-        "valoare": 398100
+        "luna": "Luna decembrie 2022",
+        "valoare": 303366
       },
       {
-        "luna": "Luna 1 2023",
-        "valoare": 412300
+        "luna": "Luna ianuarie 2023",
+        "valoare": 314187
       },
       {
-        "luna": "Luna 2 2023",
-        "valoare": 498700
+        "luna": "Luna februarie 2023",
+        "valoare": 380026
       },
       {
-        "luna": "Luna 3 2023",
-        "valoare": 934500
+        "luna": "Luna martie 2023",
+        "valoare": 712121
       },
       {
-        "luna": "Luna 4 2023",
-        "valoare": 1212400
+        "luna": "Luna aprilie 2023",
+        "valoare": 923890
       },
       {
-        "luna": "Luna 5 2023",
-        "valoare": 1456800
+        "luna": "Luna mai 2023",
+        "valoare": 1110131
       },
       {
-        "luna": "Luna 6 2023",
-        "valoare": 1589200
+        "luna": "Luna iunie 2023",
+        "valoare": 1211024
       },
       {
-        "luna": "Luna 7 2023",
-        "valoare": 1723400
+        "luna": "Luna iulie 2023",
+        "valoare": 1313289
       },
       {
-        "luna": "Luna 8 2023",
-        "valoare": 1601200
+        "luna": "Luna august 2023",
+        "valoare": 1220169
       },
       {
-        "luna": "Luna 9 2023",
-        "valoare": 1345600
+        "luna": "Luna septembrie 2023",
+        "valoare": 1025393
       },
       {
-        "luna": "Luna 10 2023",
-        "valoare": 912300
+        "luna": "Luna octombrie 2023",
+        "valoare": 695204
       },
       {
-        "luna": "Luna 11 2023",
-        "valoare": 634500
+        "luna": "Luna noiembrie 2023",
+        "valoare": 483511
       },
       {
-        "luna": "Luna 12 2023",
-        "valoare": 421200
+        "luna": "Luna decembrie 2023",
+        "valoare": 320969
       },
       {
-        "luna": "Luna 1 2024",
-        "valoare": 389400
+        "luna": "Luna ianuarie 2024",
+        "valoare": 296736
       },
       {
-        "luna": "Luna 2 2024",
-        "valoare": 512300
+        "luna": "Luna februarie 2024",
+        "valoare": 390390
       },
       {
-        "luna": "Luna 3 2024",
-        "valoare": 967800
+        "luna": "Luna martie 2024",
+        "valoare": 737496
       },
       {
-        "luna": "Luna 4 2024",
-        "valoare": 1289300
+        "luna": "Luna aprilie 2024",
+        "valoare": 982490
       },
       {
-        "luna": "Luna 5 2024",
-        "valoare": 1534700
+        "luna": "Luna mai 2024",
+        "valoare": 1169494
       },
       {
-        "luna": "Luna 6 2024",
-        "valoare": 1678900
+        "luna": "Luna iunie 2024",
+        "valoare": 1279379
       },
       {
-        "luna": "Luna 7 2024",
-        "valoare": 1823400
+        "luna": "Luna iulie 2024",
+        "valoare": 1389493
       },
       {
-        "luna": "Luna 8 2024",
-        "valoare": 1712300
+        "luna": "Luna august 2024",
+        "valoare": 1304831
       },
       {
-        "luna": "Luna 9 2024",
-        "valoare": 1423500
+        "luna": "Luna septembrie 2024",
+        "valoare": 1084755
       },
       {
-        "luna": "Luna 10 2024",
-        "valoare": 967800
+        "luna": "Luna octombrie 2024",
+        "valoare": 737496
       },
       {
-        "luna": "Luna 11 2024",
-        "valoare": 698200
+        "luna": "Luna noiembrie 2024",
+        "valoare": 532052
       },
       {
-        "luna": "Luna 12 2024",
-        "valoare": 445300
+        "luna": "Luna decembrie 2024",
+        "valoare": 339334
       },
       {
-        "luna": "Luna 1 2025",
-        "valoare": 401200
+        "luna": "Luna ianuarie 2025",
+        "valoare": 305728
       },
       {
-        "luna": "Luna 2 2025",
-        "valoare": 534600
+        "luna": "Luna februarie 2025",
+        "valoare": 407383
       },
       {
-        "luna": "Luna 3 2025",
-        "valoare": 1023400
+        "luna": "Luna martie 2025",
+        "valoare": 779866
       },
       {
-        "luna": "Luna 4 2025",
-        "valoare": 1356700
+        "luna": "Luna aprilie 2025",
+        "valoare": 1033851
       },
       {
-        "luna": "Luna 5 2025",
-        "valoare": 1612300
+        "luna": "Luna mai 2025",
+        "valoare": 1228627
       },
       {
-        "luna": "Luna 6 2025",
-        "valoare": 1789400
+        "luna": "Luna iunie 2025",
+        "valoare": 1363584
       },
       {
-        "luna": "Luna 7 2025",
-        "valoare": 1934500
+        "luna": "Luna iulie 2025",
+        "valoare": 1474155
       },
       {
-        "luna": "Luna 8 2025",
-        "valoare": 1823100
+        "luna": "Luna august 2025",
+        "valoare": 1389264
       },
       {
-        "luna": "Luna 9 2025",
-        "valoare": 1512300
+        "luna": "Luna septembrie 2025",
+        "valoare": 1152424
       },
       {
-        "luna": "Luna 10 2025",
-        "valoare": 1034500
+        "luna": "Luna octombrie 2025",
+        "valoare": 788324
       },
       {
-        "luna": "Luna 11 2025",
-        "valoare": 723400
+        "luna": "Luna noiembrie 2025",
+        "valoare": 551255
       },
       {
-        "luna": "Luna 12 2025",
-        "valoare": 467800
+        "luna": "Luna decembrie 2025",
+        "valoare": 356479
       },
       {
-        "luna": "Luna 1 2026",
-        "valoare": 423400
+        "luna": "Luna ianuarie 2026",
+        "valoare": 322645
       },
       {
-        "luna": "Luna 2 2026",
-        "valoare": 556700
+        "luna": "Luna februarie 2026",
+        "valoare": 424224
       },
       {
-        "luna": "Luna 3 2026",
-        "valoare": 1067200
+        "luna": "Luna martie 2026",
+        "valoare": 813243
+      },
+      {
+        "luna": "Luna aprilie 2026",
+        "valoare": 854061
       }
     ],
-    "Locuinte": [
+    "Cladiri rezidentiale pentru colectivitati": [
       {
-        "luna": "Luna 1 2022",
-        "valoare": 245300
+        "luna": "Luna ianuarie 2022",
+        "valoare": 55
       },
       {
-        "luna": "Luna 2 2022",
-        "valoare": 289400
+        "luna": "Luna februarie 2022",
+        "valoare": 66
       },
       {
-        "luna": "Luna 3 2022",
-        "valoare": 512300
+        "luna": "Luna martie 2022",
+        "valoare": 112
       },
       {
-        "luna": "Luna 4 2022",
-        "valoare": 645700
+        "luna": "Luna aprilie 2022",
+        "valoare": 144
       },
       {
-        "luna": "Luna 5 2022",
-        "valoare": 789400
+        "luna": "Luna mai 2022",
+        "valoare": 175
       },
       {
-        "luna": "Luna 6 2022",
-        "valoare": 867300
+        "luna": "Luna iunie 2022",
+        "valoare": 192
       },
       {
-        "luna": "Luna 7 2022",
-        "valoare": 956400
+        "luna": "Luna iulie 2022",
+        "valoare": 211
       },
       {
-        "luna": "Luna 8 2022",
-        "valoare": 878900
+        "luna": "Luna august 2022",
+        "valoare": 193
       },
       {
-        "luna": "Luna 9 2022",
-        "valoare": 734500
+        "luna": "Luna septembrie 2022",
+        "valoare": 163
       },
       {
-        "luna": "Luna 10 2022",
-        "valoare": 489300
+        "luna": "Luna octombrie 2022",
+        "valoare": 110
       },
       {
-        "luna": "Luna 11 2022",
-        "valoare": 345600
+        "luna": "Luna noiembrie 2022",
+        "valoare": 77
       },
       {
-        "luna": "Luna 12 2022",
-        "valoare": 223400
+        "luna": "Luna decembrie 2022",
+        "valoare": 50
       },
       {
-        "luna": "Luna 1 2023",
-        "valoare": 231200
+        "luna": "Luna ianuarie 2023",
+        "valoare": 52
       },
       {
-        "luna": "Luna 2 2023",
-        "valoare": 278900
+        "luna": "Luna februarie 2023",
+        "valoare": 63
       },
       {
-        "luna": "Luna 3 2023",
-        "valoare": 534500
+        "luna": "Luna martie 2023",
+        "valoare": 118
       },
       {
-        "luna": "Luna 4 2023",
-        "valoare": 689400
+        "luna": "Luna aprilie 2023",
+        "valoare": 153
       },
       {
-        "luna": "Luna 5 2023",
-        "valoare": 823400
+        "luna": "Luna mai 2023",
+        "valoare": 183
       },
       {
-        "luna": "Luna 6 2023",
-        "valoare": 901200
+        "luna": "Luna iunie 2023",
+        "valoare": 200
       },
       {
-        "luna": "Luna 7 2023",
-        "valoare": 978900
+        "luna": "Luna iulie 2023",
+        "valoare": 217
       },
       {
-        "luna": "Luna 8 2023",
-        "valoare": 912300
+        "luna": "Luna august 2023",
+        "valoare": 201
       },
       {
-        "luna": "Luna 9 2023",
-        "valoare": 756700
+        "luna": "Luna septembrie 2023",
+        "valoare": 169
       },
       {
-        "luna": "Luna 10 2023",
-        "valoare": 512300
+        "luna": "Luna octombrie 2023",
+        "valoare": 115
       },
       {
-        "luna": "Luna 11 2023",
-        "valoare": 356800
+        "luna": "Luna noiembrie 2023",
+        "valoare": 80
       },
       {
-        "luna": "Luna 12 2023",
-        "valoare": 234500
+        "luna": "Luna decembrie 2023",
+        "valoare": 53
       },
       {
-        "luna": "Luna 1 2024",
-        "valoare": 218900
+        "luna": "Luna ianuarie 2024",
+        "valoare": 49
       },
       {
-        "luna": "Luna 2 2024",
-        "valoare": 289400
+        "luna": "Luna februarie 2024",
+        "valoare": 64
       },
       {
-        "luna": "Luna 3 2024",
-        "valoare": 556700
+        "luna": "Luna martie 2024",
+        "valoare": 122
       },
       {
-        "luna": "Luna 4 2024",
-        "valoare": 723400
+        "luna": "Luna aprilie 2024",
+        "valoare": 162
       },
       {
-        "luna": "Luna 5 2024",
-        "valoare": 867800
+        "luna": "Luna mai 2024",
+        "valoare": 193
       },
       {
-        "luna": "Luna 6 2024",
-        "valoare": 956700
+        "luna": "Luna iunie 2024",
+        "valoare": 211
       },
       {
-        "luna": "Luna 7 2024",
-        "valoare": 1034500
+        "luna": "Luna iulie 2024",
+        "valoare": 229
       },
       {
-        "luna": "Luna 8 2024",
-        "valoare": 978900
+        "luna": "Luna august 2024",
+        "valoare": 215
       },
       {
-        "luna": "Luna 9 2024",
-        "valoare": 801200
+        "luna": "Luna septembrie 2024",
+        "valoare": 179
       },
       {
-        "luna": "Luna 10 2024",
-        "valoare": 545600
+        "luna": "Luna octombrie 2024",
+        "valoare": 122
       },
       {
-        "luna": "Luna 11 2024",
-        "valoare": 389400
+        "luna": "Luna noiembrie 2024",
+        "valoare": 88
       },
       {
-        "luna": "Luna 12 2024",
-        "valoare": 245600
+        "luna": "Luna decembrie 2024",
+        "valoare": 56
       },
       {
-        "luna": "Luna 1 2025",
-        "valoare": 225600
+        "luna": "Luna ianuarie 2025",
+        "valoare": 50
       },
       {
-        "luna": "Luna 2 2025",
-        "valoare": 301200
+        "luna": "Luna februarie 2025",
+        "valoare": 67
       },
       {
-        "luna": "Luna 3 2025",
-        "valoare": 589400
+        "luna": "Luna martie 2025",
+        "valoare": 129
       },
       {
-        "luna": "Luna 4 2025",
-        "valoare": 767800
+        "luna": "Luna aprilie 2025",
+        "valoare": 171
       },
       {
-        "luna": "Luna 5 2025",
-        "valoare": 912300
+        "luna": "Luna mai 2025",
+        "valoare": 203
       },
       {
-        "luna": "Luna 6 2025",
-        "valoare": 1012300
+        "luna": "Luna iunie 2025",
+        "valoare": 225
       },
       {
-        "luna": "Luna 7 2025",
-        "valoare": 1098700
+        "luna": "Luna iulie 2025",
+        "valoare": 243
       },
       {
-        "luna": "Luna 8 2025",
-        "valoare": 1034500
+        "luna": "Luna august 2025",
+        "valoare": 229
       },
       {
-        "luna": "Luna 9 2025",
-        "valoare": 856700
+        "luna": "Luna septembrie 2025",
+        "valoare": 190
       },
       {
-        "luna": "Luna 10 2025",
-        "valoare": 578900
+        "luna": "Luna octombrie 2025",
+        "valoare": 130
       },
       {
-        "luna": "Luna 11 2025",
-        "valoare": 401200
+        "luna": "Luna noiembrie 2025",
+        "valoare": 91
       },
       {
-        "luna": "Luna 12 2025",
-        "valoare": 256700
+        "luna": "Luna decembrie 2025",
+        "valoare": 59
       },
       {
-        "luna": "Luna 1 2026",
-        "valoare": 238900
+        "luna": "Luna ianuarie 2026",
+        "valoare": 53
       },
       {
-        "luna": "Luna 2 2026",
-        "valoare": 312300
+        "luna": "Luna februarie 2026",
+        "valoare": 70
       },
       {
-        "luna": "Luna 3 2026",
-        "valoare": 612300
+        "luna": "Luna martie 2026",
+        "valoare": 134
+      },
+      {
+        "luna": "Luna aprilie 2026",
+        "valoare": 141
       }
     ],
-    "Cladiri industriale si depozite": [
+    "Cladiri administrative": [
       {
-        "luna": "Luna 1 2022",
-        "valoare": 87400
+        "luna": "Luna ianuarie 2022",
+        "valoare": 1256
       },
       {
-        "luna": "Luna 2 2022",
-        "valoare": 112300
+        "luna": "Luna februarie 2022",
+        "valoare": 1498
       },
       {
-        "luna": "Luna 3 2022",
-        "valoare": 189400
+        "luna": "Luna martie 2022",
+        "valoare": 2560
       },
       {
-        "luna": "Luna 4 2022",
-        "valoare": 234500
+        "luna": "Luna aprilie 2022",
+        "valoare": 3290
       },
       {
-        "luna": "Luna 5 2022",
-        "valoare": 289400
+        "luna": "Luna mai 2022",
+        "valoare": 3993
       },
       {
-        "luna": "Luna 6 2022",
-        "valoare": 312300
+        "luna": "Luna iunie 2022",
+        "valoare": 4377
       },
       {
-        "luna": "Luna 7 2022",
-        "valoare": 345600
+        "luna": "Luna iulie 2022",
+        "valoare": 4824
       },
       {
-        "luna": "Luna 8 2022",
-        "valoare": 312300
+        "luna": "Luna august 2022",
+        "valoare": 4408
       },
       {
-        "luna": "Luna 9 2022",
-        "valoare": 267800
+        "luna": "Luna septembrie 2022",
+        "valoare": 3731
       },
       {
-        "luna": "Luna 10 2022",
-        "valoare": 178900
+        "luna": "Luna octombrie 2022",
+        "valoare": 2518
       },
       {
-        "luna": "Luna 11 2022",
-        "valoare": 123400
+        "luna": "Luna noiembrie 2022",
+        "valoare": 1759
       },
       {
-        "luna": "Luna 12 2022",
-        "valoare": 78900
+        "luna": "Luna decembrie 2022",
+        "valoare": 1144
       },
       {
-        "luna": "Luna 1 2023",
-        "valoare": 82300
+        "luna": "Luna ianuarie 2023",
+        "valoare": 1185
       },
       {
-        "luna": "Luna 2 2023",
-        "valoare": 101200
+        "luna": "Luna februarie 2023",
+        "valoare": 1433
       },
       {
-        "luna": "Luna 3 2023",
-        "valoare": 201200
+        "luna": "Luna martie 2023",
+        "valoare": 2685
       },
       {
-        "luna": "Luna 4 2023",
-        "valoare": 245600
+        "luna": "Luna aprilie 2023",
+        "valoare": 3483
       },
       {
-        "luna": "Luna 5 2023",
-        "valoare": 301200
+        "luna": "Luna mai 2023",
+        "valoare": 4185
       },
       {
-        "luna": "Luna 6 2023",
-        "valoare": 323400
+        "luna": "Luna iunie 2023",
+        "valoare": 4566
       },
       {
-        "luna": "Luna 7 2023",
-        "valoare": 356700
+        "luna": "Luna iulie 2023",
+        "valoare": 4951
       },
       {
-        "luna": "Luna 8 2023",
-        "valoare": 323400
+        "luna": "Luna august 2023",
+        "valoare": 4600
       },
       {
-        "luna": "Luna 9 2023",
-        "valoare": 278900
+        "luna": "Luna septembrie 2023",
+        "valoare": 3866
       },
       {
-        "luna": "Luna 10 2023",
-        "valoare": 189400
+        "luna": "Luna octombrie 2023",
+        "valoare": 2621
       },
       {
-        "luna": "Luna 11 2023",
-        "valoare": 134500
+        "luna": "Luna noiembrie 2023",
+        "valoare": 1823
       },
       {
-        "luna": "Luna 12 2023",
-        "valoare": 87600
+        "luna": "Luna decembrie 2023",
+        "valoare": 1210
       },
       {
-        "luna": "Luna 1 2024",
-        "valoare": 78900
+        "luna": "Luna ianuarie 2024",
+        "valoare": 1119
       },
       {
-        "luna": "Luna 2 2024",
-        "valoare": 112300
+        "luna": "Luna februarie 2024",
+        "valoare": 1472
       },
       {
-        "luna": "Luna 3 2024",
-        "valoare": 212300
+        "luna": "Luna martie 2024",
+        "valoare": 2781
       },
       {
-        "luna": "Luna 4 2024",
-        "valoare": 267800
+        "luna": "Luna aprilie 2024",
+        "valoare": 3704
       },
       {
-        "luna": "Luna 5 2024",
-        "valoare": 323400
+        "luna": "Luna mai 2024",
+        "valoare": 4409
       },
       {
-        "luna": "Luna 6 2024",
-        "valoare": 356700
+        "luna": "Luna iunie 2024",
+        "valoare": 4824
       },
       {
-        "luna": "Luna 7 2024",
-        "valoare": 389400
+        "luna": "Luna iulie 2024",
+        "valoare": 5239
       },
       {
-        "luna": "Luna 8 2024",
-        "valoare": 356700
+        "luna": "Luna august 2024",
+        "valoare": 4920
       },
       {
-        "luna": "Luna 9 2024",
-        "valoare": 301200
+        "luna": "Luna septembrie 2024",
+        "valoare": 4090
       },
       {
-        "luna": "Luna 10 2024",
-        "valoare": 212300
+        "luna": "Luna octombrie 2024",
+        "valoare": 2781
       },
       {
-        "luna": "Luna 11 2024",
-        "valoare": 145600
+        "luna": "Luna noiembrie 2024",
+        "valoare": 2006
       },
       {
-        "luna": "Luna 12 2024",
-        "valoare": 98700
+        "luna": "Luna decembrie 2024",
+        "valoare": 1279
       },
       {
-        "luna": "Luna 1 2025",
-        "valoare": 89400
+        "luna": "Luna ianuarie 2025",
+        "valoare": 1153
       },
       {
-        "luna": "Luna 2 2025",
-        "valoare": 123400
+        "luna": "Luna februarie 2025",
+        "valoare": 1536
       },
       {
-        "luna": "Luna 3 2025",
-        "valoare": 223400
+        "luna": "Luna martie 2025",
+        "valoare": 2940
       },
       {
-        "luna": "Luna 4 2025",
-        "valoare": 278900
+        "luna": "Luna aprilie 2025",
+        "valoare": 3898
       },
       {
-        "luna": "Luna 5 2025",
-        "valoare": 345600
+        "luna": "Luna mai 2025",
+        "valoare": 4632
       },
       {
-        "luna": "Luna 6 2025",
-        "valoare": 378900
+        "luna": "Luna iunie 2025",
+        "valoare": 5141
       },
       {
-        "luna": "Luna 7 2025",
-        "valoare": 412300
+        "luna": "Luna iulie 2025",
+        "valoare": 5558
       },
       {
-        "luna": "Luna 8 2025",
-        "valoare": 378900
+        "luna": "Luna august 2025",
+        "valoare": 5238
       },
       {
-        "luna": "Luna 9 2025",
-        "valoare": 312300
+        "luna": "Luna septembrie 2025",
+        "valoare": 4345
       },
       {
-        "luna": "Luna 10 2025",
-        "valoare": 223400
+        "luna": "Luna octombrie 2025",
+        "valoare": 2972
       },
       {
-        "luna": "Luna 11 2025",
-        "valoare": 156700
+        "luna": "Luna noiembrie 2025",
+        "valoare": 2078
       },
       {
-        "luna": "Luna 12 2025",
-        "valoare": 101200
+        "luna": "Luna decembrie 2025",
+        "valoare": 1344
       },
       {
-        "luna": "Luna 1 2026",
-        "valoare": 95600
+        "luna": "Luna ianuarie 2026",
+        "valoare": 1216
       },
       {
-        "luna": "Luna 2 2026",
-        "valoare": 134500
+        "luna": "Luna februarie 2026",
+        "valoare": 1599
       },
       {
-        "luna": "Luna 3 2026",
-        "valoare": 234500
+        "luna": "Luna martie 2026",
+        "valoare": 3066
+      },
+      {
+        "luna": "Luna aprilie 2026",
+        "valoare": 3220
       }
     ],
-    "Cladiri comerciale": [
+    "Hoteluri si cladiri similare": [
       {
-        "luna": "Luna 1 2022",
-        "valoare": 45600
+        "luna": "Luna ianuarie 2022",
+        "valoare": 14675
       },
       {
-        "luna": "Luna 2 2022",
-        "valoare": 56700
+        "luna": "Luna februarie 2022",
+        "valoare": 17500
       },
       {
-        "luna": "Luna 3 2022",
-        "valoare": 89400
+        "luna": "Luna martie 2022",
+        "valoare": 29910
       },
       {
-        "luna": "Luna 4 2022",
-        "valoare": 112300
+        "luna": "Luna aprilie 2022",
+        "valoare": 38438
       },
       {
-        "luna": "Luna 5 2022",
-        "valoare": 134500
+        "luna": "Luna mai 2022",
+        "valoare": 46641
       },
       {
-        "luna": "Luna 6 2022",
-        "valoare": 145600
+        "luna": "Luna iunie 2022",
+        "valoare": 51128
       },
       {
-        "luna": "Luna 7 2022",
-        "valoare": 167800
+        "luna": "Luna iulie 2022",
+        "valoare": 56347
       },
       {
-        "luna": "Luna 8 2022",
-        "valoare": 156700
+        "luna": "Luna august 2022",
+        "valoare": 51491
       },
       {
-        "luna": "Luna 9 2022",
-        "valoare": 123400
+        "luna": "Luna septembrie 2022",
+        "valoare": 43587
       },
       {
-        "luna": "Luna 10 2022",
-        "valoare": 78900
+        "luna": "Luna octombrie 2022",
+        "valoare": 29410
       },
       {
-        "luna": "Luna 11 2022",
-        "valoare": 56700
+        "luna": "Luna noiembrie 2022",
+        "valoare": 20553
       },
       {
-        "luna": "Luna 12 2022",
-        "valoare": 34500
+        "luna": "Luna decembrie 2022",
+        "valoare": 13361
       },
       {
-        "luna": "Luna 1 2023",
-        "valoare": 43400
+        "luna": "Luna ianuarie 2023",
+        "valoare": 13838
       },
       {
-        "luna": "Luna 2 2023",
-        "valoare": 54500
+        "luna": "Luna februarie 2023",
+        "valoare": 16737
       },
       {
-        "luna": "Luna 3 2023",
-        "valoare": 89400
+        "luna": "Luna martie 2023",
+        "valoare": 31364
       },
       {
-        "luna": "Luna 4 2023",
-        "valoare": 112300
+        "luna": "Luna aprilie 2023",
+        "valoare": 40690
       },
       {
-        "luna": "Luna 5 2023",
-        "valoare": 134500
+        "luna": "Luna mai 2023",
+        "valoare": 48893
       },
       {
-        "luna": "Luna 6 2023",
-        "valoare": 156700
+        "luna": "Luna iunie 2023",
+        "valoare": 53337
       },
       {
-        "luna": "Luna 7 2023",
-        "valoare": 178900
+        "luna": "Luna iulie 2023",
+        "valoare": 57841
       },
       {
-        "luna": "Luna 8 2023",
-        "valoare": 167800
+        "luna": "Luna august 2023",
+        "valoare": 53739
       },
       {
-        "luna": "Luna 9 2023",
-        "valoare": 134500
+        "luna": "Luna septembrie 2023",
+        "valoare": 45161
       },
       {
-        "luna": "Luna 10 2023",
-        "valoare": 89400
+        "luna": "Luna octombrie 2023",
+        "valoare": 30619
       },
       {
-        "luna": "Luna 11 2023",
-        "valoare": 63400
+        "luna": "Luna noiembrie 2023",
+        "valoare": 21295
       },
       {
-        "luna": "Luna 12 2023",
-        "valoare": 38900
+        "luna": "Luna decembrie 2023",
+        "valoare": 14136
       },
       {
-        "luna": "Luna 1 2024",
-        "valoare": 45600
+        "luna": "Luna ianuarie 2024",
+        "valoare": 13069
       },
       {
-        "luna": "Luna 2 2024",
-        "valoare": 56700
+        "luna": "Luna februarie 2024",
+        "valoare": 17194
       },
       {
-        "luna": "Luna 3 2024",
-        "valoare": 95600
+        "luna": "Luna martie 2024",
+        "valoare": 32481
       },
       {
-        "luna": "Luna 4 2024",
-        "valoare": 123400
+        "luna": "Luna aprilie 2024",
+        "valoare": 43271
       },
       {
-        "luna": "Luna 5 2024",
-        "valoare": 145600
+        "luna": "Luna mai 2024",
+        "valoare": 51507
       },
       {
-        "luna": "Luna 6 2024",
-        "valoare": 167800
+        "luna": "Luna iunie 2024",
+        "valoare": 56347
       },
       {
-        "luna": "Luna 7 2024",
-        "valoare": 189400
+        "luna": "Luna iulie 2024",
+        "valoare": 61197
       },
       {
-        "luna": "Luna 8 2024",
-        "valoare": 178900
+        "luna": "Luna august 2024",
+        "valoare": 57468
       },
       {
-        "luna": "Luna 9 2024",
-        "valoare": 145600
+        "luna": "Luna septembrie 2024",
+        "valoare": 47775
       },
       {
-        "luna": "Luna 10 2024",
-        "valoare": 98700
+        "luna": "Luna octombrie 2024",
+        "valoare": 32481
       },
       {
-        "luna": "Luna 11 2024",
-        "valoare": 67800
+        "luna": "Luna noiembrie 2024",
+        "valoare": 23433
       },
       {
-        "luna": "Luna 12 2024",
-        "valoare": 43400
+        "luna": "Luna decembrie 2024",
+        "valoare": 14945
       },
       {
-        "luna": "Luna 1 2025",
-        "valoare": 47800
+        "luna": "Luna ianuarie 2025",
+        "valoare": 13465
       },
       {
-        "luna": "Luna 2 2025",
-        "valoare": 60100
+        "luna": "Luna februarie 2025",
+        "valoare": 17942
       },
       {
-        "luna": "Luna 3 2025",
-        "valoare": 101200
+        "luna": "Luna martie 2025",
+        "valoare": 34347
       },
       {
-        "luna": "Luna 4 2025",
-        "valoare": 134500
+        "luna": "Luna aprilie 2025",
+        "valoare": 45533
       },
       {
-        "luna": "Luna 5 2025",
-        "valoare": 156700
+        "luna": "Luna mai 2025",
+        "valoare": 54112
       },
       {
-        "luna": "Luna 6 2025",
-        "valoare": 178900
+        "luna": "Luna iunie 2025",
+        "valoare": 60056
       },
       {
-        "luna": "Luna 7 2025",
-        "valoare": 201200
+        "luna": "Luna iulie 2025",
+        "valoare": 64925
       },
       {
-        "luna": "Luna 8 2025",
-        "valoare": 189400
+        "luna": "Luna august 2025",
+        "valoare": 61187
       },
       {
-        "luna": "Luna 9 2025",
-        "valoare": 156700
+        "luna": "Luna septembrie 2025",
+        "valoare": 50756
       },
       {
-        "luna": "Luna 10 2025",
-        "valoare": 112300
+        "luna": "Luna octombrie 2025",
+        "valoare": 34720
       },
       {
-        "luna": "Luna 11 2025",
-        "valoare": 73400
+        "luna": "Luna noiembrie 2025",
+        "valoare": 24279
       },
       {
-        "luna": "Luna 12 2025",
-        "valoare": 47800
+        "luna": "Luna decembrie 2025",
+        "valoare": 15700
       },
       {
-        "luna": "Luna 1 2026",
-        "valoare": 50100
+        "luna": "Luna ianuarie 2026",
+        "valoare": 14210
       },
       {
-        "luna": "Luna 2 2026",
-        "valoare": 63400
+        "luna": "Luna februarie 2026",
+        "valoare": 18684
       },
       {
-        "luna": "Luna 3 2026",
-        "valoare": 107800
+        "luna": "Luna martie 2026",
+        "valoare": 35817
+      },
+      {
+        "luna": "Luna aprilie 2026",
+        "valoare": 37615
       }
     ],
-    "Birouri si cladiri administrative": [
+    "Cladiri pentru comert cu ridicata si cu amanuntul": [
       {
-        "luna": "Luna 1 2022",
-        "valoare": 34500
+        "luna": "Luna ianuarie 2022",
+        "valoare": 23155
       },
       {
-        "luna": "Luna 2 2022",
-        "valoare": 43400
+        "luna": "Luna februarie 2022",
+        "valoare": 27613
       },
       {
-        "luna": "Luna 3 2022",
-        "valoare": 67800
+        "luna": "Luna martie 2022",
+        "valoare": 47194
       },
       {
-        "luna": "Luna 4 2022",
-        "valoare": 98700
+        "luna": "Luna aprilie 2022",
+        "valoare": 60650
       },
       {
-        "luna": "Luna 5 2022",
-        "valoare": 123400
+        "luna": "Luna mai 2022",
+        "valoare": 73593
       },
       {
-        "luna": "Luna 6 2022",
-        "valoare": 145600
+        "luna": "Luna iunie 2022",
+        "valoare": 80673
       },
       {
-        "luna": "Luna 7 2022",
-        "valoare": 156700
+        "luna": "Luna iulie 2022",
+        "valoare": 88907
       },
       {
-        "luna": "Luna 8 2022",
-        "valoare": 145600
+        "luna": "Luna august 2022",
+        "valoare": 81245
       },
       {
-        "luna": "Luna 9 2022",
-        "valoare": 112300
+        "luna": "Luna septembrie 2022",
+        "valoare": 68774
       },
       {
-        "luna": "Luna 10 2022",
-        "valoare": 78900
+        "luna": "Luna octombrie 2022",
+        "valoare": 46405
       },
       {
-        "luna": "Luna 11 2022",
-        "valoare": 56700
+        "luna": "Luna noiembrie 2022",
+        "valoare": 32430
       },
       {
-        "luna": "Luna 12 2022",
-        "valoare": 34500
+        "luna": "Luna decembrie 2022",
+        "valoare": 21082
       },
       {
-        "luna": "Luna 1 2023",
-        "valoare": 32300
+        "luna": "Luna ianuarie 2023",
+        "valoare": 21834
       },
       {
-        "luna": "Luna 2 2023",
-        "valoare": 43400
+        "luna": "Luna februarie 2023",
+        "valoare": 26409
       },
       {
-        "luna": "Luna 3 2023",
-        "valoare": 72300
+        "luna": "Luna martie 2023",
+        "valoare": 49487
       },
       {
-        "luna": "Luna 4 2023",
-        "valoare": 107800
+        "luna": "Luna aprilie 2023",
+        "valoare": 64204
       },
       {
-        "luna": "Luna 5 2023",
-        "valoare": 134500
+        "luna": "Luna mai 2023",
+        "valoare": 77146
       },
       {
-        "luna": "Luna 6 2023",
-        "valoare": 156700
+        "luna": "Luna iunie 2023",
+        "valoare": 84157
       },
       {
-        "luna": "Luna 7 2023",
-        "valoare": 167800
+        "luna": "Luna iulie 2023",
+        "valoare": 91264
       },
       {
-        "luna": "Luna 8 2023",
-        "valoare": 156700
+        "luna": "Luna august 2023",
+        "valoare": 84793
       },
       {
-        "luna": "Luna 9 2023",
-        "valoare": 123400
+        "luna": "Luna septembrie 2023",
+        "valoare": 71257
       },
       {
-        "luna": "Luna 10 2023",
-        "valoare": 83400
+        "luna": "Luna octombrie 2023",
+        "valoare": 48312
       },
       {
-        "luna": "Luna 11 2023",
-        "valoare": 56700
+        "luna": "Luna noiembrie 2023",
+        "valoare": 33600
       },
       {
-        "luna": "Luna 12 2023",
-        "valoare": 36700
+        "luna": "Luna decembrie 2023",
+        "valoare": 22305
       },
       {
-        "luna": "Luna 1 2024",
-        "valoare": 30100
+        "luna": "Luna ianuarie 2024",
+        "valoare": 20621
       },
       {
-        "luna": "Luna 2 2024",
-        "valoare": 40100
+        "luna": "Luna februarie 2024",
+        "valoare": 27129
       },
       {
-        "luna": "Luna 3 2024",
-        "valoare": 73400
+        "luna": "Luna martie 2024",
+        "valoare": 51251
       },
       {
-        "luna": "Luna 4 2024",
-        "valoare": 112300
+        "luna": "Luna aprilie 2024",
+        "valoare": 68276
       },
       {
-        "luna": "Luna 5 2024",
-        "valoare": 143400
+        "luna": "Luna mai 2024",
+        "valoare": 81271
       },
       {
-        "luna": "Luna 6 2024",
-        "valoare": 156700
+        "luna": "Luna iunie 2024",
+        "valoare": 88907
       },
       {
-        "luna": "Luna 7 2024",
-        "valoare": 167800
+        "luna": "Luna iulie 2024",
+        "valoare": 96560
       },
       {
-        "luna": "Luna 8 2024",
-        "valoare": 156700
+        "luna": "Luna august 2024",
+        "valoare": 90676
       },
       {
-        "luna": "Luna 9 2024",
-        "valoare": 128900
+        "luna": "Luna septembrie 2024",
+        "valoare": 75383
       },
       {
-        "luna": "Luna 10 2024",
-        "valoare": 83400
+        "luna": "Luna octombrie 2024",
+        "valoare": 51251
       },
       {
-        "luna": "Luna 11 2024",
-        "valoare": 60100
+        "luna": "Luna noiembrie 2024",
+        "valoare": 36974
       },
       {
-        "luna": "Luna 12 2024",
-        "valoare": 37800
+        "luna": "Luna decembrie 2024",
+        "valoare": 23581
       },
       {
-        "luna": "Luna 1 2025",
-        "valoare": 28900
+        "luna": "Luna ianuarie 2025",
+        "valoare": 21246
       },
       {
-        "luna": "Luna 2 2025",
-        "valoare": 38900
+        "luna": "Luna februarie 2025",
+        "valoare": 28310
       },
       {
-        "luna": "Luna 3 2025",
-        "valoare": 76700
+        "luna": "Luna martie 2025",
+        "valoare": 54195
       },
       {
-        "luna": "Luna 4 2025",
-        "valoare": 117800
+        "luna": "Luna aprilie 2025",
+        "valoare": 71845
       },
       {
-        "luna": "Luna 5 2025",
-        "valoare": 147800
+        "luna": "Luna mai 2025",
+        "valoare": 85381
       },
       {
-        "luna": "Luna 6 2025",
-        "valoare": 163400
+        "luna": "Luna iunie 2025",
+        "valoare": 94759
       },
       {
-        "luna": "Luna 7 2025",
-        "valoare": 175600
+        "luna": "Luna iulie 2025",
+        "valoare": 102443
       },
       {
-        "luna": "Luna 8 2025",
-        "valoare": 163400
+        "luna": "Luna august 2025",
+        "valoare": 96544
       },
       {
-        "luna": "Luna 9 2025",
-        "valoare": 134500
+        "luna": "Luna septembrie 2025",
+        "valoare": 80085
       },
       {
-        "luna": "Luna 10 2025",
-        "valoare": 87800
+        "luna": "Luna octombrie 2025",
+        "valoare": 54783
       },
       {
-        "luna": "Luna 11 2025",
-        "valoare": 63400
+        "luna": "Luna noiembrie 2025",
+        "valoare": 38308
       },
       {
-        "luna": "Luna 12 2025",
-        "valoare": 40100
+        "luna": "Luna decembrie 2025",
+        "valoare": 24773
       },
       {
-        "luna": "Luna 1 2026",
-        "valoare": 30100
+        "luna": "Luna ianuarie 2026",
+        "valoare": 22421
       },
       {
-        "luna": "Luna 2 2026",
-        "valoare": 41200
+        "luna": "Luna februarie 2026",
+        "valoare": 29480
       },
       {
-        "luna": "Luna 3 2026",
-        "valoare": 80100
+        "luna": "Luna martie 2026",
+        "valoare": 56514
+      },
+      {
+        "luna": "Luna aprilie 2026",
+        "valoare": 59351
       }
     ],
     "Alte cladiri": [
       {
-        "luna": "Luna 1 2022",
-        "valoare": 24450
+        "luna": "Luna ianuarie 2022",
+        "valoare": 64910
       },
       {
-        "luna": "Luna 2 2022",
-        "valoare": 19630
+        "luna": "Luna februarie 2022",
+        "valoare": 77406
       },
       {
-        "luna": "Luna 3 2022",
-        "valoare": 32300
+        "luna": "Luna martie 2022",
+        "valoare": 132298
       },
       {
-        "luna": "Luna 4 2022",
-        "valoare": 54100
+        "luna": "Luna aprilie 2022",
+        "valoare": 170019
       },
       {
-        "luna": "Luna 5 2022",
-        "valoare": 52900
+        "luna": "Luna mai 2022",
+        "valoare": 206300
       },
       {
-        "luna": "Luna 6 2022",
-        "valoare": 52900
+        "luna": "Luna iunie 2022",
+        "valoare": 226148
       },
       {
-        "luna": "Luna 7 2022",
-        "valoare": 52400
+        "luna": "Luna iulie 2022",
+        "valoare": 249232
       },
       {
-        "luna": "Luna 8 2022",
-        "valoare": 40700
+        "luna": "Luna august 2022",
+        "valoare": 227751
       },
       {
-        "luna": "Luna 9 2022",
-        "valoare": 60700
+        "luna": "Luna septembrie 2022",
+        "valoare": 192791
       },
       {
-        "luna": "Luna 10 2022",
-        "valoare": 50300
+        "luna": "Luna octombrie 2022",
+        "valoare": 130086
       },
       {
-        "luna": "Luna 11 2022",
-        "valoare": 30000
+        "luna": "Luna noiembrie 2022",
+        "valoare": 90910
       },
       {
-        "luna": "Luna 12 2022",
-        "valoare": 26800
+        "luna": "Luna decembrie 2022",
+        "valoare": 59098
       },
       {
-        "luna": "Luna 1 2023",
-        "valoare": 23100
+        "luna": "Luna ianuarie 2023",
+        "valoare": 61206
       },
       {
-        "luna": "Luna 2 2023",
-        "valoare": 20700
+        "luna": "Luna februarie 2023",
+        "valoare": 74032
       },
       {
-        "luna": "Luna 3 2023",
-        "valoare": 37100
+        "luna": "Luna martie 2023",
+        "valoare": 138726
       },
       {
-        "luna": "Luna 4 2023",
-        "valoare": 57300
+        "luna": "Luna aprilie 2023",
+        "valoare": 179980
       },
       {
-        "luna": "Luna 5 2023",
-        "valoare": 63200
+        "luna": "Luna mai 2023",
+        "valoare": 216261
       },
       {
-        "luna": "Luna 6 2023",
-        "valoare": 51200
+        "luna": "Luna iunie 2023",
+        "valoare": 235916
       },
       {
-        "luna": "Luna 7 2023",
-        "valoare": 41100
+        "luna": "Luna iulie 2023",
+        "valoare": 255838
       },
       {
-        "luna": "Luna 8 2023",
-        "valoare": 41000
+        "luna": "Luna august 2023",
+        "valoare": 237697
       },
       {
-        "luna": "Luna 9 2023",
-        "valoare": 52100
+        "luna": "Luna septembrie 2023",
+        "valoare": 199754
       },
       {
-        "luna": "Luna 10 2023",
-        "valoare": 37800
+        "luna": "Luna octombrie 2023",
+        "valoare": 135430
       },
       {
-        "luna": "Luna 11 2023",
-        "valoare": 23100
+        "luna": "Luna noiembrie 2023",
+        "valoare": 94191
       },
       {
-        "luna": "Luna 12 2023",
-        "valoare": 23500
+        "luna": "Luna decembrie 2023",
+        "valoare": 62527
       },
       {
-        "luna": "Luna 1 2024",
-        "valoare": 15900
+        "luna": "Luna ianuarie 2024",
+        "valoare": 57806
       },
       {
-        "luna": "Luna 2 2024",
-        "valoare": 13800
+        "luna": "Luna februarie 2024",
+        "valoare": 76051
       },
       {
-        "luna": "Luna 3 2024",
-        "valoare": 29800
+        "luna": "Luna martie 2024",
+        "valoare": 143669
       },
       {
-        "luna": "Luna 4 2024",
-        "valoare": 62400
+        "luna": "Luna aprilie 2024",
+        "valoare": 191396
       },
       {
-        "luna": "Luna 5 2024",
-        "valoare": 54500
+        "luna": "Luna mai 2024",
+        "valoare": 227825
       },
       {
-        "luna": "Luna 6 2024",
-        "valoare": 41000
+        "luna": "Luna iunie 2024",
+        "valoare": 249232
       },
       {
-        "luna": "Luna 7 2024",
-        "valoare": 42300
+        "luna": "Luna iulie 2024",
+        "valoare": 270683
       },
       {
-        "luna": "Luna 8 2024",
-        "valoare": 41000
+        "luna": "Luna august 2024",
+        "valoare": 254190
       },
       {
-        "luna": "Luna 9 2024",
-        "valoare": 46800
+        "luna": "Luna septembrie 2024",
+        "valoare": 211318
       },
       {
-        "luna": "Luna 10 2024",
-        "valoare": 27800
+        "luna": "Luna octombrie 2024",
+        "valoare": 143669
       },
       {
-        "luna": "Luna 11 2024",
-        "valoare": 25300
+        "luna": "Luna noiembrie 2024",
+        "valoare": 103647
       },
       {
-        "luna": "Luna 12 2024",
-        "valoare": 19800
+        "luna": "Luna decembrie 2024",
+        "valoare": 66105
       },
       {
-        "luna": "Luna 1 2025",
-        "valoare": 9600
+        "luna": "Luna ianuarie 2025",
+        "valoare": 59558
       },
       {
-        "luna": "Luna 2 2025",
-        "valoare": 11000
+        "luna": "Luna februarie 2025",
+        "valoare": 79361
       },
       {
-        "luna": "Luna 3 2025",
-        "valoare": 32700
+        "luna": "Luna martie 2025",
+        "valoare": 151923
       },
       {
-        "luna": "Luna 4 2025",
-        "valoare": 57700
+        "luna": "Luna aprilie 2025",
+        "valoare": 201401
       },
       {
-        "luna": "Luna 5 2025",
-        "valoare": 49900
+        "luna": "Luna mai 2025",
+        "valoare": 239345
       },
       {
-        "luna": "Luna 6 2025",
-        "valoare": 55900
+        "luna": "Luna iunie 2025",
+        "valoare": 265636
       },
       {
-        "luna": "Luna 7 2025",
-        "valoare": 46900
+        "luna": "Luna iulie 2025",
+        "valoare": 287176
       },
       {
-        "luna": "Luna 8 2025",
-        "valoare": 56900
+        "luna": "Luna august 2025",
+        "valoare": 270638
       },
       {
-        "luna": "Luna 9 2025",
-        "valoare": 52100
+        "luna": "Luna septembrie 2025",
+        "valoare": 224500
       },
       {
-        "luna": "Luna 10 2025",
-        "valoare": 32100
+        "luna": "Luna octombrie 2025",
+        "valoare": 153571
       },
       {
-        "luna": "Luna 11 2025",
-        "valoare": 28700
+        "luna": "Luna noiembrie 2025",
+        "valoare": 107388
       },
       {
-        "luna": "Luna 12 2025",
-        "valoare": 21700
+        "luna": "Luna decembrie 2025",
+        "valoare": 69445
       },
       {
-        "luna": "Luna 1 2026",
-        "valoare": 8800
+        "luna": "Luna ianuarie 2026",
+        "valoare": 62854
       },
       {
-        "luna": "Luna 2 2026",
-        "valoare": 5300
+        "luna": "Luna februarie 2026",
+        "valoare": 82642
       },
       {
-        "luna": "Luna 3 2026",
-        "valoare": 32500
+        "luna": "Luna martie 2026",
+        "valoare": 158425
+      },
+      {
+        "luna": "Luna aprilie 2026",
+        "valoare": 166377
+      }
+    ],
+    "TOTAL": [
+      {
+        "luna": "Luna ianuarie 2022",
+        "valoare": 437250
+      },
+      {
+        "luna": "Luna februarie 2022",
+        "valoare": 521430
+      },
+      {
+        "luna": "Luna martie 2022",
+        "valoare": 891200
+      },
+      {
+        "luna": "Luna aprilie 2022",
+        "valoare": 1145300
+      },
+      {
+        "luna": "Luna mai 2022",
+        "valoare": 1389700
+      },
+      {
+        "luna": "Luna iunie 2022",
+        "valoare": 1523400
+      },
+      {
+        "luna": "Luna iulie 2022",
+        "valoare": 1678900
+      },
+      {
+        "luna": "Luna august 2022",
+        "valoare": 1534200
+      },
+      {
+        "luna": "Luna septembrie 2022",
+        "valoare": 1298700
+      },
+      {
+        "luna": "Luna octombrie 2022",
+        "valoare": 876300
+      },
+      {
+        "luna": "Luna noiembrie 2022",
+        "valoare": 612400
+      },
+      {
+        "luna": "Luna decembrie 2022",
+        "valoare": 398100
+      },
+      {
+        "luna": "Luna ianuarie 2023",
+        "valoare": 412300
+      },
+      {
+        "luna": "Luna februarie 2023",
+        "valoare": 498700
+      },
+      {
+        "luna": "Luna martie 2023",
+        "valoare": 934500
+      },
+      {
+        "luna": "Luna aprilie 2023",
+        "valoare": 1212400
+      },
+      {
+        "luna": "Luna mai 2023",
+        "valoare": 1456800
+      },
+      {
+        "luna": "Luna iunie 2023",
+        "valoare": 1589200
+      },
+      {
+        "luna": "Luna iulie 2023",
+        "valoare": 1723400
+      },
+      {
+        "luna": "Luna august 2023",
+        "valoare": 1601200
+      },
+      {
+        "luna": "Luna septembrie 2023",
+        "valoare": 1345600
+      },
+      {
+        "luna": "Luna octombrie 2023",
+        "valoare": 912300
+      },
+      {
+        "luna": "Luna noiembrie 2023",
+        "valoare": 634500
+      },
+      {
+        "luna": "Luna decembrie 2023",
+        "valoare": 421200
+      },
+      {
+        "luna": "Luna ianuarie 2024",
+        "valoare": 389400
+      },
+      {
+        "luna": "Luna februarie 2024",
+        "valoare": 512300
+      },
+      {
+        "luna": "Luna martie 2024",
+        "valoare": 967800
+      },
+      {
+        "luna": "Luna aprilie 2024",
+        "valoare": 1289300
+      },
+      {
+        "luna": "Luna mai 2024",
+        "valoare": 1534700
+      },
+      {
+        "luna": "Luna iunie 2024",
+        "valoare": 1678900
+      },
+      {
+        "luna": "Luna iulie 2024",
+        "valoare": 1823400
+      },
+      {
+        "luna": "Luna august 2024",
+        "valoare": 1712300
+      },
+      {
+        "luna": "Luna septembrie 2024",
+        "valoare": 1423500
+      },
+      {
+        "luna": "Luna octombrie 2024",
+        "valoare": 967800
+      },
+      {
+        "luna": "Luna noiembrie 2024",
+        "valoare": 698200
+      },
+      {
+        "luna": "Luna decembrie 2024",
+        "valoare": 445300
+      },
+      {
+        "luna": "Luna ianuarie 2025",
+        "valoare": 401200
+      },
+      {
+        "luna": "Luna februarie 2025",
+        "valoare": 534600
+      },
+      {
+        "luna": "Luna martie 2025",
+        "valoare": 1023400
+      },
+      {
+        "luna": "Luna aprilie 2025",
+        "valoare": 1356700
+      },
+      {
+        "luna": "Luna mai 2025",
+        "valoare": 1612300
+      },
+      {
+        "luna": "Luna iunie 2025",
+        "valoare": 1789400
+      },
+      {
+        "luna": "Luna iulie 2025",
+        "valoare": 1934500
+      },
+      {
+        "luna": "Luna august 2025",
+        "valoare": 1823100
+      },
+      {
+        "luna": "Luna septembrie 2025",
+        "valoare": 1512300
+      },
+      {
+        "luna": "Luna octombrie 2025",
+        "valoare": 1034500
+      },
+      {
+        "luna": "Luna noiembrie 2025",
+        "valoare": 723400
+      },
+      {
+        "luna": "Luna decembrie 2025",
+        "valoare": 467800
+      },
+      {
+        "luna": "Luna ianuarie 2026",
+        "valoare": 423400
+      },
+      {
+        "luna": "Luna februarie 2026",
+        "valoare": 556700
+      },
+      {
+        "luna": "Luna martie 2026",
+        "valoare": 1067200
+      },
+      {
+        "luna": "Luna aprilie 2026",
+        "valoare": 1120765
       }
     ]
   }
