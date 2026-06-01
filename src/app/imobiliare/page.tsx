@@ -143,10 +143,12 @@ function LineChart({ chartId, dict, judete, cat, color2026 }: {
   cat: CatKey;
   color2026: string;
 }) {
-  const chartRef = useRef<unknown>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const chartRef = useRef<any>(null);
 
   useEffect(() => {
-    const Chart = (window as unknown as {Chart: new (...a: unknown[]) => unknown; getChart: (id: string) => {destroy: ()=>void}|undefined}).Chart;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const Chart = (window as any).Chart;
     if (!Chart) return;
     const labels = ["Ian","Feb","Mar","Apr","Mai","Iun","Iul","Aug","Sep","Oct","Nov","Dec"];
     const d2025 = labels.map((_,i) => {
@@ -185,7 +187,7 @@ function LineChart({ chartId, dict, judete, cat, color2026 }: {
       }
     });
     return () => {
-      if (chartRef.current) (chartRef.current as {destroy:()=>void}).destroy();
+      if (chartRef.current) chartRef.current.destroy();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dict, judete, cat]);
