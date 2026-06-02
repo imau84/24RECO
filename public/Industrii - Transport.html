@@ -3,1045 +3,850 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Transport rutier marfă | 24reco.com</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <title>Transport — Clase Transportatori | 24reco.com</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --bg: #0d0f14;
-      --surface: #13161d;
-      --surface2: #1a1e28;
-      --border: #252a38;
-      --accent: #e85a2a;
-      --accent2: #f0a045;
-      --text: #e8eaf0;
-      --text-muted: #7a8099;
-      --text-dim: #4a5068;
-      --green: #3ecf8e;
-      --blue: #4a9eff;
-      --red: #ff5f5f;
-    }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html { scroll-behavior: smooth; }
+    :root {
+      --bg: #f7f6f3;
+      --surface: #ffffff;
+      --surface-alt: #f2f1ee;
+      --border: rgba(0,0,0,0.08);
+      --border-mid: rgba(0,0,0,0.13);
+      --text-primary: #1a1918;
+      --text-secondary: #6b6a67;
+      --text-tertiary: #9e9d9a;
+      --accent-red: #c93a2b;
+      --accent-red-bg: #fdf0ee;
+      --accent-amber: #b06a0d;
+      --accent-amber-bg: #fdf5e8;
+      --accent-teal: #0d7c5a;
+      --accent-teal-bg: #e8f7f2;
+      --accent-blue: #1d5fa8;
+      --accent-blue-bg: #eaf2fc;
+      --accent-gray: #5c5b57;
+      --accent-gray-bg: #f0efe9;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    }
 
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
+      color: var(--text-primary);
       font-size: 15px;
       line-height: 1.6;
+      min-height: 100vh;
     }
 
-    /* ── NAV ── */
-    nav {
+    /* ── Top nav ── */
+    .topnav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      height: 54px;
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(13,15,20,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 56px;
     }
-
-    .nav-brand {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 18px;
-      color: var(--text);
+    .topnav-logo {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
       text-decoration: none;
       letter-spacing: -0.3px;
     }
-    .nav-brand span { color: var(--accent); }
-
-    .nav-links {
+    .topnav-logo span { color: var(--accent-red); }
+    .topnav-links {
       display: flex;
-      gap: 28px;
+      gap: 0;
       list-style: none;
+      margin-left: 1rem;
     }
-    .nav-links a {
-      color: var(--text-muted);
+    .topnav-links a {
+      display: block;
+      padding: 0 14px;
+      height: 54px;
+      line-height: 54px;
+      font-size: 14px;
+      color: var(--text-secondary);
       text-decoration: none;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      transition: color 0.2s;
+      border-bottom: 2px solid transparent;
+      transition: color .15s, border-color .15s;
     }
-    .nav-links a:hover { color: var(--text); }
+    .topnav-links a:hover { color: var(--text-primary); }
+    .topnav-links a.active { color: var(--text-primary); border-bottom-color: var(--text-primary); font-weight: 500; }
 
-    /* ── BREADCRUMB ── */
+    /* ── Layout ── */
+    .layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      margin-bottom: 2rem;
+    }
     .breadcrumb {
-      padding: 14px 24px;
-      font-size: 12px;
-      color: var(--text-dim);
+      font-size: 13px;
+      color: var(--text-secondary);
       display: flex;
       align-items: center;
       gap: 6px;
-      max-width: 1280px;
-      margin: 0 auto;
-    }
-    .breadcrumb a {
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-    .breadcrumb a:hover { color: var(--accent); }
-    .breadcrumb .sep { color: var(--text-dim); }
-    .breadcrumb .current { color: var(--text); }
-
-    /* ── HERO ── */
-    .hero {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 36px 24px 28px;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
-    .hero-left { flex: 1; min-width: 280px; }
-
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(232,90,42,0.12);
-      border: 1px solid rgba(232,90,42,0.25);
-      border-radius: 20px;
-      padding: 4px 12px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--accent);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(26px, 4vw, 42px);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.5px;
-      color: var(--text);
       margin-bottom: 10px;
     }
-
-    .hero-subtitle {
-      color: var(--text-muted);
-      font-size: 14px;
-      font-weight: 300;
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 8px;
-      padding-top: 8px;
-    }
-
-    .update-badge {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-    .update-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 6px var(--green);
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%,100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-
-    .source-link {
-      font-size: 11px;
-      color: var(--text-dim);
-      text-decoration: none;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 3px 10px;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .source-link:hover { border-color: var(--accent); color: var(--accent); }
-
-    /* ── GRID STATS ── */
-    .stats-row {
-      max-width: 1280px;
-      margin: 0 auto 32px;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
-    }
-
-    .stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px 20px;
-      transition: border-color 0.2s;
-    }
-    .stat-card:hover { border-color: var(--accent); }
-
-    .stat-label {
-      font-size: 11px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 8px;
-      font-weight: 500;
-    }
-    .stat-value {
-      font-family: 'Syne', sans-serif;
+    .breadcrumb a { color: var(--text-secondary); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--text-primary); }
+    .breadcrumb svg { width: 14px; height: 14px; flex-shrink: 0; opacity: .5; }
+    h1.page-title {
       font-size: 26px;
-      font-weight: 800;
-      color: var(--text);
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-    .stat-sub { font-size: 12px; color: var(--text-dim); }
-    .stat-change {
-      font-size: 12px;
       font-weight: 600;
-      margin-top: 6px;
+      letter-spacing: -0.4px;
+      line-height: 1.25;
     }
-    .up { color: var(--green); }
-    .down { color: var(--red); }
-
-    /* ── TABS ── */
-    .tabs-wrapper {
-      max-width: 1280px;
-      margin: 0 auto 24px;
-      padding: 0 24px;
+    .page-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-top: 5px;
     }
 
+    /* ── Tabs ── */
     .tabs {
       display: flex;
-      gap: 2px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 4px;
-      width: fit-content;
+      gap: 0;
+      border-bottom: 1px solid var(--border-mid);
+      margin-bottom: 1.75rem;
     }
-
     .tab-btn {
-      padding: 7px 18px;
-      border-radius: 7px;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      font-weight: 500;
+      padding: 9px 18px;
+      font-size: 14px;
+      font-family: inherit;
       cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-      white-space: nowrap;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-secondary);
+      font-weight: 400;
+      transition: color .15s;
+      margin-bottom: -1px;
     }
-    .tab-btn.active {
-      background: var(--surface2);
-      color: var(--text);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
-    }
-    .tab-btn:hover:not(.active) { color: var(--text); }
+    .tab-btn:hover { color: var(--text-primary); }
+    .tab-btn.active { color: var(--text-primary); border-bottom-color: var(--text-primary); font-weight: 500; }
 
-    /* ── CONTENT PANELS ── */
-    .panel {
-      display: none;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px 40px;
-    }
-    .panel.active { display: block; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
 
-    /* ── CHARTS GRID ── */
-    .charts-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 16px;
-      margin-bottom: 16px;
+    /* ── Meta bar ── */
+    .meta-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
     }
-    @media (max-width: 900px) {
-      .charts-grid { grid-template-columns: 1fr; }
-    }
-
-    .chart-card {
+    .meta-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      color: var(--text-secondary);
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
+      border-radius: 999px;
+      padding: 5px 12px;
     }
-
-    .chart-header {
+    .meta-note svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .meta-note strong { color: var(--text-primary); }
+    .source-badge {
+      font-size: 12px;
+      color: var(--text-tertiary);
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 18px;
+      align-items: center;
+      gap: 5px;
     }
-    .chart-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 15px;
-      color: var(--text);
-      margin-bottom: 3px;
+    .source-badge svg { width: 13px; height: 13px; }
+
+    /* ── Metric cards ── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 1.75rem;
     }
-    .chart-desc { font-size: 12px; color: var(--text-muted); }
+    @media (max-width: 700px) {
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .metric-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      font-weight: 500;
+    }
+    .metric-value {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+    .metric-sub {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-top: 3px;
+    }
 
-    .chart-wrap { position: relative; }
-    .chart-wrap canvas { max-height: 280px; }
-
-    /* ── TABLE ── */
+    /* ── Main table ── */
     .table-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: var(--radius-lg);
       overflow: hidden;
-      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
     }
-
-    .table-header {
-      padding: 16px 20px;
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    thead { background: var(--surface-alt); }
+    th {
+      padding: 11px 16px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
+      white-space: nowrap;
+    }
+    th.align-right { text-align: right; }
+    td {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    td.align-right {
+      text-align: right;
+      font-feature-settings: 'tnum';
+      font-variant-numeric: tabular-nums;
+    }
+    tr:last-child td { border-bottom: none; }
+    tbody tr { transition: background .12s; }
+    tbody tr:hover { background: #fafaf9; }
+    tr.total-row td {
+      background: var(--surface-alt);
+      font-weight: 600;
+      border-top: 1px solid var(--border-mid);
     }
 
-    .search-box {
+    .nr-crt {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* Class badge */
+    .class-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Range pill */
+    .range-pill {
+      display: inline-block;
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-family: 'DM Mono', monospace;
+      white-space: nowrap;
+    }
+
+    /* Share bar */
+    .share-cell {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 140px;
+    }
+    .bar-track {
+      flex: 1;
+      height: 6px;
+      background: var(--surface-alt);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar-fill { height: 100%; border-radius: 999px; }
+    .share-pct {
+      font-size: 12px;
+      color: var(--text-secondary);
+      min-width: 34px;
+      text-align: right;
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* ── Chart section ── */
+    .chart-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 700px) {
+      .chart-section { grid-template-columns: 1fr; }
+    }
+    .chart-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .chart-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1rem;
+    }
+
+    /* Donut chart (pure CSS) */
+    .donut-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .donut-svg { flex-shrink: 0; }
+    .legend-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .legend-item {
       display: flex;
       align-items: center;
       gap: 8px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 6px 12px;
-    }
-    .search-box input {
-      background: none;
-      border: none;
-      outline: none;
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
       font-size: 13px;
-      width: 200px;
     }
-    .search-box input::placeholder { color: var(--text-dim); }
-    .search-icon { color: var(--text-dim); font-size: 14px; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .legend-name { color: var(--text-primary); flex: 1; }
+    .legend-pct { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-secondary); }
 
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .data-table th {
-      background: var(--surface2);
-      padding: 10px 16px;
-      text-align: left;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-muted);
-      cursor: pointer;
-      user-select: none;
-      white-space: nowrap;
-    }
-    .data-table th:hover { color: var(--text); }
-    .data-table td {
-      padding: 10px 16px;
-      font-size: 13px;
-      border-top: 1px solid var(--border);
-      color: var(--text);
-    }
-    .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+    /* Horizontal bar chart */
+    .hbar-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .hbar-item { display: flex; flex-direction: column; gap: 5px; }
+    .hbar-header { display: flex; justify-content: space-between; font-size: 13px; }
+    .hbar-name { color: var(--text-primary); font-weight: 500; }
+    .hbar-val { color: var(--text-secondary); font-family: 'DM Mono', monospace; font-size: 12px; }
+    .hbar-track { height: 8px; background: var(--surface-alt); border-radius: 999px; overflow: hidden; }
+    .hbar-fill { height: 100%; border-radius: 999px; }
 
-    .badge {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 600;
-    }
-    .badge-active { background: rgba(62,207,142,0.12); color: var(--green); }
-    .badge-type { background: rgba(74,158,255,0.12); color: var(--blue); }
-
-    .pagination {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 20px;
-      border-top: 1px solid var(--border);
+    /* ── Footer note ── */
+    .footer-note {
+      margin-top: 1.5rem;
       font-size: 12px;
-      color: var(--text-muted);
-    }
-    .page-btns { display: flex; gap: 4px; }
-    .page-btn {
-      padding: 4px 10px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 12px;
-      transition: all 0.15s;
-    }
-    .page-btn:hover, .page-btn.active { background: var(--surface2); color: var(--text); }
-    .page-btn:disabled { opacity: 0.3; cursor: default; }
-
-    /* ── OIL BULLETIN ── */
-    .fuel-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .fuel-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
+      color: var(--text-tertiary);
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 6px;
     }
-    .fuel-icon {
-      width: 40px; height: 40px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-    .fuel-icon.diesel { background: rgba(232,90,42,0.12); }
-    .fuel-icon.petrol { background: rgba(74,158,255,0.12); }
-    .fuel-info { flex: 1; }
-    .fuel-country { font-size: 11px; color: var(--text-muted); margin-bottom: 2px; }
-    .fuel-price {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 20px;
-      color: var(--text);
-    }
-    .fuel-change { font-size: 11px; margin-top: 2px; }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 20px 24px;
-      max-width: 1280px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .footer-left { font-size: 12px; color: var(--text-dim); }
-    .footer-left strong { color: var(--text-muted); }
-    .footer-right { font-size: 11px; color: var(--text-dim); }
-
-    /* ── LOADING ── */
-    .loading-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-muted);
-    }
-    .spinner {
-      width: 32px; height: 32px;
-      border: 2px solid var(--border);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 16px;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 640px) {
-      .hero { flex-direction: column; }
-      .hero-meta { align-items: flex-start; }
-      .stats-row { grid-template-columns: repeat(2, 1fr); }
-      nav .nav-links { display: none; }
-      .search-box input { width: 140px; }
-    }
+    .footer-note svg { width: 14px; height: 14px; flex-shrink: 0; }
   </style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
-<nav>
-  <a class="nav-brand" href="index.html">24<span>reco</span>.com</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Acasă</a></li>
-    <li><a href="#">Industrii</a></li>
-    <li><a href="#">Instituții</a></li>
-    <li><a href="#">Rapoarte</a></li>
+<!-- Top navigation -->
+<nav class="topnav" role="navigation" aria-label="Navigare principală">
+  <a href="/" class="topnav-logo">24<span>reco</span>.com</a>
+  <ul class="topnav-links">
+    <li><a href="/imobiliare">Imobiliare</a></li>
+    <li><a href="/industrii" class="active">Industrii</a></li>
+    <li><a href="/economie">Economie</a></li>
+    <li><a href="/despre">Despre</a></li>
   </ul>
 </nav>
 
-<!-- ── BREADCRUMB ── -->
-<div class="breadcrumb">
-  <a href="index.html">Acasă</a>
-  <span class="sep">›</span>
-  <a href="#">Industrii</a>
-  <span class="sep">›</span>
-  <span class="current">Transport</span>
-</div>
+<main class="layout">
 
-<!-- ── HERO ── -->
-<div class="hero">
-  <div class="hero-left">
-    <div class="hero-tag">🚛 Date publice</div>
-    <h1>Transport rutier<br>de marfă</h1>
-    <p class="hero-subtitle">Operatori autorizați · Prețuri carburanți UE (Oil Bulletin)</p>
+  <!-- Page header -->
+  <header class="page-header">
+    <nav class="breadcrumb" aria-label="Fir de navigare">
+      <a href="/">Acasă</a>
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <a href="/industrii">Industrii</a>
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Transport</span>
+    </nav>
+    <h1 class="page-title">Transport rutier de marfă</h1>
+    <p class="page-desc">Operatori autorizați · date oficiale autorizatiiauto.ro</p>
+  </header>
+
+  <!-- Tabs -->
+  <div class="tabs" role="tablist" aria-label="Secțiuni Transport">
+    <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-clase" id="tab-clase" onclick="switchTab('clase')">
+      Clase transportatori
+    </button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-operatori" id="tab-operatori" onclick="switchTab('operatori')">
+      Operatori mari
+    </button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-geo" id="tab-geo" onclick="switchTab('geo')">
+      Distribuție geografică
+    </button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-oil" id="tab-oil" onclick="switchTab('oil')">
+      Oil Bulletin
+    </button>
   </div>
-  <div class="hero-meta">
-    <div class="update-badge">
-      <div class="update-dot"></div>
-      <span id="last-update">Se actualizează automat lunar</span>
+
+
+  <!-- TAB: Clase transportatori -->
+  <section class="tab-panel active" id="panel-clase" role="tabpanel" aria-labelledby="tab-clase">
+    <div class="meta-bar">
+      <div class="meta-note"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 1.5v3M11 1.5v3M2 7h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Date pentru luna <strong id="upd-clase">—</strong></div>
+      <span class="source-badge"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 7v4M8 5.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Sursă: autorizatiiauto.ro</span>
     </div>
-    <a class="source-link" href="https://autorizatiiauto.ro" target="_blank" rel="noopener">↗ autorizatiiauto.ro</a>
-    <a class="source-link" href="https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_en" target="_blank" rel="noopener">↗ EU Oil Bulletin</a>
-  </div>
-</div>
-
-<!-- ── STATS ── -->
-<div class="stats-row" id="stats-row">
-  <div class="stat-card">
-    <div class="stat-label">Operatori activi</div>
-    <div class="stat-value" id="stat-total">—</div>
-    <div class="stat-sub">la nivel național</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-label">Vehicule autorizate</div>
-    <div class="stat-value" id="stat-vehicles">—</div>
-    <div class="stat-sub">total flotă</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-label">Diesel RO</div>
-    <div class="stat-value" id="stat-diesel">—</div>
-    <div class="stat-sub" id="stat-diesel-sub">EUR/L</div>
-    <div class="stat-change" id="stat-diesel-change"></div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-label">Diesel UE mediu</div>
-    <div class="stat-value" id="stat-diesel-eu">—</div>
-    <div class="stat-sub">EUR/L (medie ponderată)</div>
-  </div>
-</div>
-
-<!-- ── TABS ── -->
-<div class="tabs-wrapper">
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="operatori">Operatori</button>
-    <button class="tab-btn" data-tab="evolutie">Evoluție</button>
-    <button class="tab-btn" data-tab="carburanti">Carburanți UE</button>
-  </div>
-</div>
-
-<!-- ── PANEL: OPERATORI ── -->
-<div class="panel active" id="panel-operatori">
-  <div class="charts-grid">
-    <div class="chart-card">
-      <div class="chart-header">
-        <div>
-          <div class="chart-title">Top județe — operatori</div>
-          <div class="chart-desc">Număr operatori autorizați pe județ</div>
-        </div>
-      </div>
-      <div class="chart-wrap">
-        <canvas id="chart-judete"></canvas>
-      </div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-header">
-        <div>
-          <div class="chart-title">Tip autorizație</div>
-          <div class="chart-desc">Distribuție după tip licență</div>
-        </div>
-      </div>
-      <div class="chart-wrap" style="display:flex;align-items:center;justify-content:center;min-height:200px;">
-        <canvas id="chart-tip" style="max-height:220px;max-width:220px;"></canvas>
-      </div>
-    </div>
-  </div>
-
-  <div class="table-card">
-    <div class="table-header">
-      <div>
-        <div class="chart-title">Operatori autorizați</div>
-        <div class="chart-desc" id="table-count">Se încarcă...</div>
-      </div>
-      <div class="search-box">
-        <span class="search-icon">⌕</span>
-        <input type="text" id="search-input" placeholder="Caută denumire, județ...">
-      </div>
-    </div>
-    <div style="overflow-x:auto;">
-      <table class="data-table" id="main-table">
-        <thead>
-          <tr>
-            <th data-col="denumire">Denumire ▾</th>
-            <th data-col="judet">Județ</th>
-            <th data-col="tip">Tip</th>
-            <th data-col="vehicule" style="text-align:right;">Vehicule</th>
-            <th data-col="status">Status</th>
-          </tr>
-        </thead>
-        <tbody id="table-body">
-          <tr><td colspan="5"><div class="loading-state"><div class="spinner"></div>Se încarcă datele...</div></td></tr>
-        </tbody>
+    <div class="metrics-grid" id="metrics-clase"></div>
+    <div class="table-card">
+      <table>
+        <thead><tr>
+          <th>Nr. Crt.</th><th>Denumire clasă</th><th>Interval flotă</th>
+          <th class="align-right">Nr. operatori</th><th class="align-right">Nr. camioane</th><th>Pondere operatori</th>
+        </tr></thead>
+        <tbody id="tbody-clase"></tbody>
       </table>
     </div>
-    <div class="pagination" id="pagination"></div>
-  </div>
-</div>
-
-<!-- ── PANEL: EVOLUTIE ── -->
-<div class="panel" id="panel-evolutie">
-  <div class="chart-card" style="margin-bottom:16px;">
-    <div class="chart-header">
-      <div>
-        <div class="chart-title">Evoluție lunară operatori</div>
-        <div class="chart-desc">Total operatori autorizați activi în timp</div>
+    <div class="chart-section">
+      <div class="chart-card">
+        <p class="chart-title">Structură operatori per clasă</p>
+        <div class="donut-wrap">
+          <svg class="donut-svg" id="donut-clase" width="120" height="120" viewBox="0 0 120 120" role="img"></svg>
+          <ul class="legend-list" id="legend-clase"></ul>
+        </div>
+      </div>
+      <div class="chart-card">
+        <p class="chart-title">Camioane per clasă</p>
+        <ul class="hbar-list" id="hbar-clase" aria-label="Camioane per clasă de operatori"></ul>
+        <p style="font-size:12px;color:var(--text-tertiary);margin-top:1rem">Distribuție remarcabil de uniformă a flotei între cele 4 clase.</p>
       </div>
     </div>
-    <div class="chart-wrap">
-      <canvas id="chart-evolutie"></canvas>
+    <p class="footer-note"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 7v4M8 5.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Clasificare după numărul de vehicule autorizate per operator · autorizatiiauto.ro · Actualizat lunar</p>
+  </section>
+
+  <!-- TAB: Operatori mari -->
+  <section class="tab-panel" id="panel-operatori" role="tabpanel" aria-labelledby="tab-operatori">
+    <div class="meta-bar">
+      <div class="meta-note"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 1.5v3M11 1.5v3M2 7h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Date pentru luna <strong id="upd-mari">—</strong></div>
     </div>
-  </div>
-  <div class="chart-card">
-    <div class="chart-header">
-      <div>
-        <div class="chart-title">Evoluție flotă vehicule</div>
-        <div class="chart-desc">Total vehicule autorizate în timp</div>
+    <div class="metrics-grid" id="metrics-mari" style="grid-template-columns:repeat(3,1fr)"></div>
+    <div class="table-card">
+      <table>
+        <thead><tr>
+          <th>Nr.</th><th>Denumire operator</th><th>Cod fiscal</th><th>Localitate</th><th class="align-right">Nr. vehicule</th>
+        </tr></thead>
+        <tbody id="tbody-mari"></tbody>
+      </table>
+    </div>
+    <p class="footer-note"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 7v4M8 5.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Sursa: autorizatiiauto.ro · Clasă operatori mari: 126–376 vehicule autorizate</p>
+  </section>
+
+  <!-- TAB: Distribuție geografică -->
+  <section class="tab-panel" id="panel-geo" role="tabpanel" aria-labelledby="tab-geo">
+    <div class="meta-bar">
+      <div class="meta-note"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 1.5v3M11 1.5v3M2 7h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Date pentru luna <strong id="upd-geo">—</strong></div>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr>
+          <th>Localitate</th><th class="align-right">Nr. operatori</th><th class="align-right">Nr. camioane</th><th>Pondere</th>
+        </tr></thead>
+        <tbody id="tbody-geo"></tbody>
+      </table>
+    </div>
+    <p class="footer-note"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 7v4M8 5.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Top 20 localități după număr de operatori autorizați</p>
+  </section>
+
+  <!-- TAB: Oil Bulletin -->
+  <section class="tab-panel" id="panel-oil" role="tabpanel" aria-labelledby="tab-oil">
+    <div class="meta-bar">
+      <div class="meta-note">
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 1.5v3M11 1.5v3M2 7h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        Preț motorină cu taxe · EUR/litru · Sursă: EC Oil Bulletin
+      </div>
+      <span class="source-badge">
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 7v4M8 5.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Săptămânal · 2005–2026
+      </span>
+    </div>
+
+    <!-- Filters row -->
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.25rem;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <label for="oil-year-select" style="font-size:13px;color:var(--text-secondary);white-space:nowrap;">An:</label>
+        <select id="oil-year-select" style="font-family:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--border-mid);border-radius:var(--radius-sm);background:var(--surface);color:var(--text-primary);cursor:pointer;min-width:90px;"></select>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <label for="oil-country-select" style="font-size:13px;color:var(--text-secondary);white-space:nowrap;">Afișare:</label>
+        <select id="oil-country-select" style="font-family:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--border-mid);border-radius:var(--radius-sm);background:var(--surface);color:var(--text-primary);cursor:pointer;min-width:140px;">
+          <option value="all">Toate țările</option>
+          <option value="select">Selectează țări...</option>
+        </select>
+      </div>
+      <div id="oil-country-checkboxes" style="display:none;flex-wrap:wrap;gap:6px;"></div>
+    </div>
+
+    <!-- Metric cards for selected year -->
+    <div id="oil-metrics" class="metrics-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:1.25rem;"></div>
+
+    <!-- Table -->
+    <div class="table-card" style="overflow:hidden;">
+      <div id="oil-table-wrap" style="overflow-x:auto;max-width:100%;position:relative;">
+        <table id="oil-table" style="border-collapse:separate;border-spacing:0;">
+          <thead id="oil-thead"></thead>
+          <tbody id="oil-tbody"></tbody>
+        </table>
       </div>
     </div>
-    <div class="chart-wrap">
-      <canvas id="chart-flota"></canvas>
-    </div>
-  </div>
-</div>
 
-<!-- ── PANEL: CARBURANTI ── -->
-<div class="panel" id="panel-carburanti">
-  <div class="fuel-grid" id="fuel-grid">
-    <div class="loading-state" style="grid-column:1/-1;"><div class="spinner"></div>Se încarcă prețurile...</div>
-  </div>
-  <div class="chart-card">
-    <div class="chart-header">
-      <div>
-        <div class="chart-title">Diesel — comparație țări UE</div>
-        <div class="chart-desc">Prețuri medii săptămânale, EUR/L (fără taxe)</div>
-      </div>
-    </div>
-    <div class="chart-wrap">
-      <canvas id="chart-fuel-bar"></canvas>
-    </div>
-  </div>
-</div>
+    <p class="footer-note">
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 7v4M8 5.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Prețuri cu toate taxele incluse · Gas oil automobile (Automotive gas oil) · Date: European Commission Oil Bulletin
+    </p>
+  </section>
 
-<!-- ── FOOTER ── -->
-<footer>
-  <div class="footer-left">
-    Surse: <strong>autorizatiiauto.ro</strong> · <strong>EU Weekly Oil Bulletin (DG ENER)</strong><br>
-    Date actualizate automat în prima zi a fiecărei luni.
-  </div>
-  <div class="footer-right">© 2025 24reco.com</div>
-</footer>
-
+</main>
 <script>
-// ── DATA LAYER ──
-// Fetch de la /public/transport-data.json generat de GitHub Actions
-// Fallback la date exemplu dacă fișierul nu există încă
+// ============ DATA-DRIVEN: toate datele se încarcă din transport-data.json ============
+let DIESEL_DATA = [];
+let COUNTRY_NAMES = {};
+let ALL_CTRS = [];
+let operatoriMari = [];
+let DATA = null;
 
-const DATA_URL = '/public/transport-data.json';
-
-// Fallback data pentru preview
-const FALLBACK = {
-  lastUpdate: "Mai 2025",
-  operatori: [
-    { denumire: "TRANS CARGO SRL", judet: "Timiș", tip: "Internațional", vehicule: 45, status: "Activ" },
-    { denumire: "FAST LOGISTICS SRL", judet: "Cluj", tip: "Intern", vehicule: 12, status: "Activ" },
-    { denumire: "ROMTRANS SA", judet: "Ilfov", tip: "Internațional", vehicule: 120, status: "Activ" },
-    { denumire: "CARGO EXPRESS SRL", judet: "Prahova", tip: "Internațional", vehicule: 33, status: "Activ" },
-    { denumire: "NATIONAL TRANS SRL", judet: "Bihor", tip: "Intern", vehicule: 8, status: "Activ" },
-    { denumire: "EUROTRANS GROUP SRL", judet: "Constanța", tip: "Internațional", vehicule: 78, status: "Activ" },
-    { denumire: "MOLDOVA TRANS SRL", judet: "Bacău", tip: "Intern", vehicule: 19, status: "Activ" },
-    { denumire: "ARGEȘ CARGO SRL", judet: "Argeș", tip: "Intern", vehicule: 6, status: "Activ" },
-    { denumire: "DUNĂREA TRANS SRL", judet: "Galați", tip: "Internațional", vehicule: 41, status: "Activ" },
-    { denumire: "TRANSILVANIA LOG SRL", judet: "Brașov", tip: "Internațional", vehicule: 55, status: "Activ" },
-    { denumire: "DACIA CAMION SRL", judet: "Dâmbovița", tip: "Intern", vehicule: 14, status: "Activ" },
-    { denumire: "VEST TRANS SRL", judet: "Arad", tip: "Internațional", vehicule: 29, status: "Activ" },
-  ],
-  evolutieLunara: [
-    { luna: "Ian 2024", operatori: 14200, vehicule: 182000 },
-    { luna: "Feb 2024", operatori: 14350, vehicule: 183500 },
-    { luna: "Mar 2024", operatori: 14420, vehicule: 184200 },
-    { luna: "Apr 2024", operatori: 14510, vehicule: 185000 },
-    { luna: "Mai 2024", operatori: 14600, vehicule: 186100 },
-    { luna: "Iun 2024", operatori: 14680, vehicule: 186800 },
-    { luna: "Iul 2024", operatori: 14720, vehicule: 187500 },
-    { luna: "Aug 2024", operatori: 14750, vehicule: 188000 },
-    { luna: "Sep 2024", operatori: 14800, vehicule: 188600 },
-    { luna: "Oct 2024", operatori: 14860, vehicule: 189200 },
-    { luna: "Nov 2024", operatori: 14900, vehicule: 189800 },
-    { luna: "Dec 2024", operatori: 14930, vehicule: 190100 },
-    { luna: "Ian 2025", operatori: 14970, vehicule: 190500 },
-    { luna: "Feb 2025", operatori: 15010, vehicule: 191000 },
-  ],
-  carburanti: {
-    dieselRO: { pret: 1.285, varPct: -1.2 },
-    dieselEUMediu: 1.342,
-    tariUE: [
-      { tara: "RO", flag: "🇷🇴", diesel: 1.285, benzina: 1.310 },
-      { tara: "BG", flag: "🇧🇬", diesel: 1.218, benzina: 1.280 },
-      { tara: "HU", flag: "🇭🇺", diesel: 1.356, benzina: 1.398 },
-      { tara: "PL", flag: "🇵🇱", diesel: 1.290, benzina: 1.342 },
-      { tara: "DE", flag: "🇩🇪", diesel: 1.521, benzina: 1.678 },
-      { tara: "FR", flag: "🇫🇷", diesel: 1.489, benzina: 1.610 },
-      { tara: "NL", flag: "🇳🇱", diesel: 1.562, benzina: 1.720 },
-      { tara: "ES", flag: "🇪🇸", diesel: 1.388, benzina: 1.490 },
-      { tara: "IT", flag: "🇮🇹", diesel: 1.451, benzina: 1.598 },
-      { tara: "AT", flag: "🇦🇹", diesel: 1.412, benzina: 1.524 },
-    ]
-  }
-};
-
-let allData = null;
-let filteredData = [];
-let sortCol = 'vehicule';
-let sortDir = -1;
-let currentPage = 1;
-const PAGE_SIZE = 15;
-let charts = {};
-
-// ── INIT ──
-async function init() {
-  try {
-    const resp = await fetch(DATA_URL + '?v=' + Date.now());
-    if (!resp.ok) throw new Error('no json');
-    allData = await resp.json();
-  } catch {
-    allData = FALLBACK;
-  }
-  render();
+// ---------- Oil Bulletin core (din pagina originală) ----------
+// Color for price heatmap
+function priceColor(val, min, max) {
+  if (val == null) return '';
+  const pct = (val - min) / (max - min || 1);
+  if (pct < 0.33) return 'background:rgba(29,95,168,0.08);color:#0d4a84';
+  if (pct < 0.66) return 'background:rgba(176,106,13,0.08);color:#7a4a00';
+  return 'background:rgba(201,58,43,0.08);color:#8b2013';
 }
 
-function render() {
-  const d = allData;
-  const ops = d.operatori || [];
-  const totalOps = ops.length;
-  const totalVehs = ops.reduce((s, o) => s + (o.vehicule || 0), 0);
+let selectedCtrs = [...ALL_CTRS];
+let activeYear = '2025';
 
-  // Stats
-  document.getElementById('stat-total').textContent = totalOps.toLocaleString('ro-RO');
-  document.getElementById('stat-vehicles').textContent = totalVehs.toLocaleString('ro-RO');
-  const diesel = d.carburanti?.dieselRO;
-  if (diesel) {
-    document.getElementById('stat-diesel').textContent = diesel.pret.toFixed(3);
-    const chg = document.getElementById('stat-diesel-change');
-    if (diesel.varPct !== undefined) {
-      const sign = diesel.varPct >= 0 ? '+' : '';
-      chg.textContent = sign + diesel.varPct.toFixed(1) + '% față de luna trecută';
-      chg.className = 'stat-change ' + (diesel.varPct >= 0 ? 'up' : 'down');
-    }
-  }
-  const euMed = d.carburanti?.dieselEUMediu;
-  if (euMed) document.getElementById('stat-diesel-eu').textContent = euMed.toFixed(3);
-
-  if (d.lastUpdate) {
-    document.getElementById('last-update').textContent = 'Actualizat: ' + d.lastUpdate;
-  }
-
-  filteredData = [...ops];
-  renderTable();
-  renderJudeteChart(ops);
-  renderTipChart(ops);
-  renderEvolutieCharts(d.evolutieLunara || []);
-  renderFuelSection(d.carburanti || {});
+function getYears() {
+  const yrs = [...new Set(DIESEL_DATA.map(r => r.date.slice(0,4)))].sort().reverse();
+  return yrs;
 }
 
-// ── TABLE ──
-function renderTable() {
-  const tbody = document.getElementById('table-body');
-  const sorted = [...filteredData].sort((a, b) => {
-    const av = a[sortCol] ?? '', bv = b[sortCol] ?? '';
-    if (typeof av === 'number') return sortDir * (av - bv);
-    return sortDir * String(av).localeCompare(String(bv), 'ro');
-  });
-
-  const total = sorted.length;
-  const start = (currentPage - 1) * PAGE_SIZE;
-  const page = sorted.slice(start, start + PAGE_SIZE);
-
-  document.getElementById('table-count').textContent =
-    total.toLocaleString('ro-RO') + ' operatori';
-
-  tbody.innerHTML = page.map(o => `
-    <tr>
-      <td>${escHtml(o.denumire)}</td>
-      <td>${escHtml(o.judet)}</td>
-      <td><span class="badge badge-type">${escHtml(o.tip)}</span></td>
-      <td style="text-align:right;font-family:'Syne',sans-serif;font-weight:600;">${(o.vehicule||0).toLocaleString('ro-RO')}</td>
-      <td><span class="badge badge-active">${escHtml(o.status||'Activ')}</span></td>
-    </tr>
-  `).join('') || `<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text-dim);">Niciun rezultat</td></tr>`;
-
-  renderPagination(total, start, page.length);
+function getYearData(year) {
+  return DIESEL_DATA.filter(r => r.date.startsWith(year)).sort((a,b) => a.date > b.date ? 1 : -1);
 }
 
-function renderPagination(total, start, count) {
-  const totalPages = Math.ceil(total / PAGE_SIZE);
-  const pag = document.getElementById('pagination');
-  if (totalPages <= 1) { pag.innerHTML = `<span>${count} din ${total}</span>`; return; }
-  pag.innerHTML = `
-    <span>${start+1}–${start+count} din ${total.toLocaleString('ro-RO')}</span>
-    <div class="page-btns">
-      <button class="page-btn" id="btn-prev" ${currentPage===1?'disabled':''}>‹</button>
-      ${[...Array(Math.min(5, totalPages))].map((_,i) => {
-        const p = i+1; return `<button class="page-btn ${p===currentPage?'active':''}" data-p="${p}">${p}</button>`;
-      }).join('')}
-      ${totalPages > 5 ? `<span style="color:var(--text-dim);padding:0 4px;">…</span><button class="page-btn ${totalPages===currentPage?'active':''}" data-p="${totalPages}">${totalPages}</button>` : ''}
-      <button class="page-btn" id="btn-next" ${currentPage===totalPages?'disabled':''}>›</button>
-    </div>
+function renderOilMetrics(rows, ctrs) {
+  const el = document.getElementById('oil-metrics');
+  // Collect all non-null values for selected ctrs
+  const allVals = [];
+  rows.forEach(r => ctrs.forEach(c => { if (r[c] != null) allVals.push(r[c]); }));
+  if (!allVals.length) { el.innerHTML=''; return; }
+  const avg = allVals.reduce((a,b)=>a+b,0)/allVals.length;
+  const minV = Math.min(...allVals);
+  const maxV = Math.max(...allVals);
+  // Latest week
+  const latest = rows[rows.length-1];
+  const latestVals = ctrs.map(c=>latest[c]).filter(v=>v!=null);
+  const latestAvg = latestVals.length ? latestVals.reduce((a,b)=>a+b,0)/latestVals.length : null;
+
+  el.innerHTML = `
+    <div class="metric-card"><div class="metric-label">Medie an</div><div class="metric-value">${avg.toFixed(3)}</div><div class="metric-sub">EUR/litru</div></div>
+    <div class="metric-card"><div class="metric-label">Cel mai mic preț</div><div class="metric-value" style="color:#0d4a84">${minV.toFixed(3)}</div><div class="metric-sub">EUR/litru</div></div>
+    <div class="metric-card"><div class="metric-label">Cel mai mare preț</div><div class="metric-value" style="color:#8b2013">${maxV.toFixed(3)}</div><div class="metric-sub">EUR/litru</div></div>
+    <div class="metric-card"><div class="metric-label">Ultima săpt.</div><div class="metric-value">${latestAvg ? latestAvg.toFixed(3) : 'N/A'}</div><div class="metric-sub">medie ${latest.date}</div></div>
   `;
-  pag.querySelector('#btn-prev')?.addEventListener('click', () => { currentPage--; renderTable(); });
-  pag.querySelector('#btn-next')?.addEventListener('click', () => { currentPage++; renderTable(); });
-  pag.querySelectorAll('[data-p]').forEach(b => b.addEventListener('click', () => {
-    currentPage = +b.dataset.p; renderTable();
-  }));
 }
 
-// ── CHARTS ──
-const ACCENT_COLORS = ['#e85a2a','#f0a045','#4a9eff','#3ecf8e','#a78bfa','#f472b6','#60e3b0','#fbbf24','#38bdf8','#fb923c'];
+function renderOilTable(rows, ctrs) {
+  const thead = document.getElementById('oil-thead');
+  const tbody = document.getElementById('oil-tbody');
 
-function mkChart(id, cfg) {
-  if (charts[id]) charts[id].destroy();
-  const ctx = document.getElementById(id)?.getContext('2d');
-  if (!ctx) return;
-  charts[id] = new Chart(ctx, cfg);
+  // sort state: null = none, {dateIdx, dir} = sorted by that date column
+  if (!renderOilTable._sort) renderOilTable._sort = null;
+
+  // dates = column headers (sorted asc = oldest first)
+  const dates = rows.map(r => r.date);
+
+  // Per-country min/max for heatmap (across all dates shown)
+  const ctrMinMax = {};
+  ctrs.forEach(c => {
+    const vals = rows.map(r => r[c]).filter(v => v != null);
+    ctrMinMax[c] = { min: vals.length ? Math.min(...vals) : 0, max: vals.length ? Math.max(...vals) : 1 };
+  });
+
+  // Build header: fixed "Tara" th + one th per date
+  const frozenStyle = 'position:sticky;left:0;z-index:2;background:var(--surface-alt);white-space:nowrap;';
+  const frozenBodyStyle = 'position:sticky;left:0;z-index:1;background:var(--surface);border-right:1px solid var(--border-mid);';
+
+  let headerCells = `<th style="${frozenStyle}border-right:1px solid var(--border-mid);min-width:140px">Țară</th>`;
+  dates.forEach((date, dIdx) => {
+    const parts = date.split('-');
+    const disp = `${parts[2]}.${parts[1]}.${parts[0]}`;
+    const sort = renderOilTable._sort;
+    const isActive = sort && sort.dateIdx === dIdx;
+    const arrow = isActive ? (sort.dir === 'asc' ? ' ▲' : ' ▼') : '';
+    const activeStyle = isActive ? 'color:var(--text-primary);' : '';
+    headerCells += `<th class="align-right" data-didx="${dIdx}" style="cursor:pointer;white-space:nowrap;user-select:none;font-size:12px;${activeStyle}min-width:90px" onclick="oilSortBy(${dIdx})">${disp}${arrow}</th>`;
+  });
+  thead.innerHTML = `<tr>${headerCells}</tr>`;
+
+  // Sort countries if needed
+  let displayCtrs = [...ctrs];
+  const sort = renderOilTable._sort;
+  if (sort != null) {
+    const dIdx = sort.dateIdx;
+    const dateKey = dates[dIdx];
+    const row = rows.find(r => r.date === dateKey);
+    displayCtrs.sort((a, b) => {
+      const va = row ? (row[a] ?? -Infinity) : -Infinity;
+      const vb = row ? (row[b] ?? -Infinity) : -Infinity;
+      return sort.dir === 'asc' ? va - vb : vb - va;
+    });
+  }
+
+  // Build body rows: one row per country
+  tbody.innerHTML = displayCtrs.map(c => {
+    const mm = ctrMinMax[c];
+    const cells = dates.map(date => {
+      const row = rows.find(r => r.date === date);
+      const v = row ? row[c] : null;
+      if (v == null) return `<td class="align-right" style="font-size:12px;color:var(--text-tertiary);padding:8px 10px">–</td>`;
+      const style = priceColor(v, mm.min, mm.max);
+      return `<td class="align-right" style="${style};font-family:'DM Mono',monospace;font-size:13px;padding:8px 10px">${v.toFixed(3)}</td>`;
+    }).join('');
+    const flagMap = {AT:'🇦🇹',BE:'🇧🇪',BG:'🇧🇬',CY:'🇨🇾',CZ:'🇨🇿',DE:'🇩🇪',DK:'🇩🇰',EE:'🇪🇪',ES:'🇪🇸',FI:'🇫🇮',FR:'🇫🇷',GR:'🇬🇷',HR:'🇭🇷',HU:'🇭🇺',IE:'🇮🇪',IT:'🇮🇹',LT:'🇱🇹',LU:'🇱🇺',LV:'🇱🇻',MT:'🇲🇹',NL:'🇳🇱',PL:'🇵🇱',PT:'🇵🇹',RO:'🇷🇴',SE:'🇸🇪',SI:'🇸🇮',SK:'🇸🇰',UK:'🇬🇧'};
+    const flag = flagMap[c] || '';
+    return `<tr>
+      <td style="${frozenBodyStyle}padding:9px 14px;font-size:13px;font-weight:500;">
+        <span style="margin-right:6px">${flag}</span>${COUNTRY_NAMES[c]||c}
+        <span style="font-size:11px;color:var(--text-tertiary);margin-left:4px">${c}</span>
+      </td>
+      ${cells}
+    </tr>`;
+  }).join('');
 }
 
-function renderJudeteChart(ops) {
-  const judetCount = {};
-  ops.forEach(o => { judetCount[o.judet] = (judetCount[o.judet] || 0) + 1; });
-  const sorted = Object.entries(judetCount).sort((a,b) => b[1]-a[1]).slice(0, 15);
+function oilSortBy(dIdx) {
+  const sort = renderOilTable._sort;
+  if (sort && sort.dateIdx === dIdx) {
+    if (sort.dir === 'asc') renderOilTable._sort = { dateIdx: dIdx, dir: 'desc' };
+    else renderOilTable._sort = null;
+  } else {
+    renderOilTable._sort = { dateIdx: dIdx, dir: 'desc' };
+  }
+  refreshOil();
+}
 
-  mkChart('chart-judete', {
-    type: 'bar',
-    data: {
-      labels: sorted.map(x => x[0]),
-      datasets: [{
-        data: sorted.map(x => x[1]),
-        backgroundColor: ACCENT_COLORS[0] + 'cc',
-        borderColor: ACCENT_COLORS[0],
-        borderWidth: 1,
-        borderRadius: 4,
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: true,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { ticks: { color: '#7a8099', font: { size: 11 } }, grid: { color: '#252a38' } },
-        y: { ticks: { color: '#7a8099', font: { size: 11 } }, grid: { color: '#252a38' } }
+
+function refreshOil() {
+  const year = document.getElementById('oil-year-select').value;
+  activeYear = year;
+  const rows = getYearData(year);
+  renderOilMetrics(rows, selectedCtrs);
+  renderOilTable(rows, selectedCtrs);
+}
+
+function initOil() {
+  const yearSel = document.getElementById('oil-year-select');
+  const years = getYears();
+  yearSel.innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join('');
+  yearSel.value = '2025';
+  yearSel.addEventListener('change', refreshOil);
+
+  const ctrSel = document.getElementById('oil-country-select');
+  ctrSel.addEventListener('change', function() {
+    const cbox = document.getElementById('oil-country-checkboxes');
+    if (this.value === 'select') {
+      cbox.style.display = 'flex';
+      if (!cbox.hasChildNodes()) {
+        ALL_CTRS.forEach(c => {
+          const lbl = document.createElement('label');
+          lbl.style.cssText = 'display:flex;align-items:center;gap:4px;font-size:12px;cursor:pointer;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px 8px;white-space:nowrap';
+          const cb = document.createElement('input');
+          cb.type='checkbox'; cb.value=c; cb.checked=true;
+          cb.addEventListener('change', () => {
+            selectedCtrs = ALL_CTRS.filter(cc => {
+              const inp = cbox.querySelector(`input[value="${cc}"]`);
+              return inp ? inp.checked : true;
+            });
+            refreshOil();
+          });
+          lbl.appendChild(cb);
+          lbl.appendChild(document.createTextNode(COUNTRY_NAMES[c]||c));
+          cbox.appendChild(lbl);
+        });
       }
+    } else {
+      cbox.style.display = 'none';
+      selectedCtrs = [...ALL_CTRS];
+      refreshOil();
     }
   });
+
+  refreshOil();
 }
 
-function renderTipChart(ops) {
-  const tipCount = {};
-  ops.forEach(o => { tipCount[o.tip] = (tipCount[o.tip] || 0) + 1; });
-  const entries = Object.entries(tipCount);
 
-  mkChart('chart-tip', {
-    type: 'doughnut',
-    data: {
-      labels: entries.map(x => x[0]),
-      datasets: [{
-        data: entries.map(x => x[1]),
-        backgroundColor: ACCENT_COLORS.slice(0, entries.length).map(c => c + 'cc'),
-        borderColor: ACCENT_COLORS.slice(0, entries.length),
-        borderWidth: 1,
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: true,
-      cutout: '60%',
-      plugins: {
-        legend: {
-          position: 'bottom',
-          labels: { color: '#7a8099', font: { size: 11 }, padding: 12 }
-        }
-      }
-    }
+// ---------- switchTab (din pagina originală) ----------
+let oilInitialized = false;
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.remove('active'); b.setAttribute('aria-selected','false');
   });
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.getElementById('tab-'+name).setAttribute('aria-selected','true');
+  document.getElementById('panel-'+name).classList.add('active');
+  if (name === 'oil' && !oilInitialized && DIESEL_DATA.length) {
+    oilInitialized = true; initOil();
+  }
 }
 
-function renderEvolutieCharts(evolutie) {
-  const labels = evolutie.map(e => e.luna);
-  const defOpts = {
-    responsive: true, maintainAspectRatio: true,
-    plugins: { legend: { display: false } },
-    scales: {
-      x: { ticks: { color: '#7a8099', font: { size: 11 }, maxTicksLimit: 8 }, grid: { color: '#1a1e28' } },
-      y: { ticks: { color: '#7a8099', font: { size: 11 } }, grid: { color: '#252a38' } }
-    }
-  };
+// ---------- Render: Clase (metrics, tabel, donut, hbar) ----------
+function fmt(n) { return Number(n).toLocaleString('ro-RO'); }
 
-  mkChart('chart-evolutie', {
-    type: 'line',
-    data: {
-      labels,
-      datasets: [{
-        data: evolutie.map(e => e.operatori),
-        borderColor: ACCENT_COLORS[0],
-        backgroundColor: ACCENT_COLORS[0] + '18',
-        fill: true,
-        tension: 0.3,
-        pointRadius: 3,
-        pointBackgroundColor: ACCENT_COLORS[0],
-      }]
-    },
-    options: defOpts
-  });
+function renderClase() {
+  const m = DATA.metrics;
+  document.getElementById('metrics-clase').innerHTML = `
+    <div class="metric-card"><div class="metric-label">Total operatori</div><div class="metric-value">${fmt(m.totalOperatori)}</div><div class="metric-sub">autorizați activi</div></div>
+    <div class="metric-card"><div class="metric-label">Total camioane</div><div class="metric-value">${fmt(m.totalCamioane)}</div><div class="metric-sub">vehicule înregistrate</div></div>
+    <div class="metric-card"><div class="metric-label">Flotă medie</div><div class="metric-value">${String(m.flotaMedie).replace('.',',')}</div><div class="metric-sub">camioane / operator</div></div>
+    <div class="metric-card"><div class="metric-label">Flotă maximă</div><div class="metric-value">${fmt(m.flotaMaxima)}</div><div class="metric-sub">camioane (cel mai mare)</div></div>`;
 
-  mkChart('chart-flota', {
-    type: 'line',
-    data: {
-      labels,
-      datasets: [{
-        data: evolutie.map(e => e.vehicule),
-        borderColor: ACCENT_COLORS[2],
-        backgroundColor: ACCENT_COLORS[2] + '18',
-        fill: true,
-        tension: 0.3,
-        pointRadius: 3,
-        pointBackgroundColor: ACCENT_COLORS[2],
-      }]
-    },
-    options: defOpts
+  const clase = DATA.clase;
+  const tot = DATA.metrics.totalOperatori, totCam = DATA.metrics.totalCamioane;
+  let rows = clase.map(c => `
+    <tr>
+      <td class="nr-crt">${c.nr}</td>
+      <td><span class="class-badge"><span class="dot" style="background:${c.color}"></span>${c.nume}</span></td>
+      <td><span class="range-pill">${c.interval}</span></td>
+      <td class="align-right">${fmt(c.operatori)}</td>
+      <td class="align-right">${fmt(c.camioane)}</td>
+      <td><div class="share-cell"><div class="bar-track"><div class="bar-fill" style="width:${c.pondere}%;background:${c.color}"></div></div><span class="share-pct">${String(c.pondere).replace('.',',')}%</span></div></td>
+    </tr>`).join('');
+  rows += `
+    <tr class="total-row"><td></td><td>Total</td><td></td>
+      <td class="align-right">${fmt(tot)}</td><td class="align-right">${fmt(totCam)}</td>
+      <td><div class="share-cell"><div class="bar-track"><div class="bar-fill" style="width:100%;background:#9e9d9a"></div></div><span class="share-pct">100%</span></div></td></tr>`;
+  document.getElementById('tbody-clase').innerHTML = rows;
+
+  // Donut
+  const C = 2*Math.PI*42; // 263.9
+  let offset = 0;
+  let circles = `<circle cx="60" cy="60" r="42" fill="none" stroke="#e8e7e3" stroke-width="18"/>`;
+  clase.forEach(c => {
+    const dash = (c.pondere/100)*C;
+    circles += `<circle cx="60" cy="60" r="42" fill="none" stroke="${c.color}" stroke-width="18" stroke-dasharray="${dash.toFixed(1)} ${C.toFixed(1)}" stroke-dashoffset="${(-offset).toFixed(1)}" transform="rotate(-90 60 60)"/>`;
+    offset += dash;
   });
+  circles += `<text x="60" y="55" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="18" font-weight="600" fill="#1a1918">${fmt(tot)}</text>
+    <text x="60" y="70" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#9e9d9a">operatori</text>`;
+  document.getElementById('donut-clase').innerHTML = circles;
+
+  document.getElementById('legend-clase').innerHTML = clase.map(c => `
+    <li class="legend-item"><span class="legend-dot" style="background:${c.color}"></span>
+      <span class="legend-name">${c.nume.replace('Operatori ','')}</span>
+      <span class="legend-pct">${String(c.pondere).replace('.',',')}%</span></li>`).join('');
+
+  // Hbars camioane
+  const maxCam = Math.max(...clase.map(c=>c.camioane));
+  document.getElementById('hbar-clase').innerHTML = clase.map(c => {
+    const w = (c.camioane/totCam*100).toFixed(1);
+    return `<li class="hbar-item"><div class="hbar-header"><span class="hbar-name">${c.nume}</span><span class="hbar-val">${fmt(c.camioane)}</span></div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:${w}%;background:${c.color}"></div></div></li>`;
+  }).join('');
 }
 
-function renderFuelSection(carb) {
-  const tari = carb.tariUE || [];
-  const fuelGrid = document.getElementById('fuel-grid');
-  fuelGrid.innerHTML = tari.map(t => `
-    <div class="fuel-card">
-      <div class="fuel-icon diesel" style="font-size:22px;">${t.flag}</div>
-      <div class="fuel-info">
-        <div class="fuel-country">${t.tara} — Diesel</div>
-        <div class="fuel-price">${t.diesel.toFixed(3)} <small style="font-size:13px;font-weight:400;color:var(--text-muted)">EUR/L</small></div>
-        <div class="fuel-change" style="color:var(--text-dim);">Benzină: ${t.benzina.toFixed(3)}</div>
-      </div>
-    </div>
-  `).join('');
-
-  if (!tari.length) return;
-  const sorted = [...tari].sort((a,b) => a.diesel - b.diesel);
-  mkChart('chart-fuel-bar', {
-    type: 'bar',
-    data: {
-      labels: sorted.map(t => t.flag + ' ' + t.tara),
-      datasets: [
-        {
-          label: 'Diesel',
-          data: sorted.map(t => t.diesel),
-          backgroundColor: ACCENT_COLORS[0] + 'cc',
-          borderColor: ACCENT_COLORS[0],
-          borderWidth: 1,
-          borderRadius: 4,
-        },
-        {
-          label: 'Benzină',
-          data: sorted.map(t => t.benzina),
-          backgroundColor: ACCENT_COLORS[2] + 'cc',
-          borderColor: ACCENT_COLORS[2],
-          borderWidth: 1,
-          borderRadius: 4,
-        }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: true,
-      plugins: {
-        legend: { labels: { color: '#7a8099', font: { size: 12 } } }
-      },
-      scales: {
-        x: { ticks: { color: '#7a8099', font: { size: 11 } }, grid: { color: '#252a38' } },
-        y: {
-          min: 1.0,
-          ticks: { color: '#7a8099', font: { size: 11 }, callback: v => v.toFixed(2) },
-          grid: { color: '#252a38' }
-        }
-      }
-    }
-  });
+// ---------- Render: Operatori mari ----------
+function renderMari() {
+  const veh = operatoriMari.map(o=>o.veh);
+  const totalCam = veh.reduce((a,b)=>a+b,0);
+  const medie = (totalCam/operatoriMari.length).toFixed(1).replace('.',',');
+  document.getElementById('metrics-mari').innerHTML = `
+    <div class="metric-card"><div class="metric-label">Operatori mari</div><div class="metric-value">${operatoriMari.length}</div><div class="metric-sub">≥ 126 camioane</div></div>
+    <div class="metric-card"><div class="metric-label">Total camioane</div><div class="metric-value">${fmt(totalCam)}</div><div class="metric-sub">în această clasă</div></div>
+    <div class="metric-card"><div class="metric-label">Medie flotă</div><div class="metric-value">${medie}</div><div class="metric-sub">camioane / operator</div></div>`;
+  document.getElementById('tbody-mari').innerHTML = operatoriMari.map(op => `
+    <tr><td class="nr-crt">${op.nr}</td>
+      <td style="font-weight:500">${op.den}</td>
+      <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-secondary)">${op.cf}</td>
+      <td>${op.loc}</td>
+      <td class="align-right">${op.veh}</td></tr>`).join('');
 }
 
-// ── SEARCH & SORT ──
-document.getElementById('search-input').addEventListener('input', function() {
-  const q = this.value.toLowerCase();
-  filteredData = (allData?.operatori || []).filter(o =>
-    o.denumire?.toLowerCase().includes(q) ||
-    o.judet?.toLowerCase().includes(q) ||
-    o.tip?.toLowerCase().includes(q)
-  );
-  currentPage = 1;
-  renderTable();
-});
-
-document.querySelectorAll('.data-table th[data-col]').forEach(th => {
-  th.addEventListener('click', () => {
-    const col = th.dataset.col;
-    if (sortCol === col) sortDir *= -1;
-    else { sortCol = col; sortDir = -1; }
-    renderTable();
+// ---------- Render: Distribuție geografică (derivată din operatoriMari) ----------
+function renderGeo() {
+  const geoRaw = {};
+  operatoriMari.forEach(op => {
+    const l = op.loc.trim();
+    if(!geoRaw[l]) geoRaw[l] = {ops:0, veh:0};
+    geoRaw[l].ops++; geoRaw[l].veh += op.veh;
   });
-});
-
-// ── TABS ──
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
-    // Resize charts on tab switch
-    setTimeout(() => Object.values(charts).forEach(c => c.resize()), 50);
-  });
-});
-
-// ── UTILS ──
-function escHtml(s) {
-  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const sorted = Object.entries(geoRaw).sort((a,b)=>b[1].ops-a[1].ops).slice(0,20);
+  const maxOps = Math.max(...sorted.map(g=>g[1].ops));
+  document.getElementById('tbody-geo').innerHTML = sorted.map(([loc,d]) => {
+    const pct = ((d.ops/maxOps)*100).toFixed(0);
+    return `<tr><td style="font-weight:500">${loc}</td>
+      <td class="align-right">${d.ops}</td>
+      <td class="align-right">${fmt(d.veh)}</td>
+      <td><div class="share-cell"><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:#1d5fa8"></div></div></div></td></tr>`;
+  }).join('');
 }
 
-// ── START ──
-init();
+// ---------- Loader ----------
+async function loadData() {
+  try {
+    const resp = await fetch('transport-data.json?v=' + Date.now());
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    DATA = await resp.json();
+  } catch (e) {
+    document.getElementById('metrics-clase').innerHTML =
+      '<div class="metric-card" style="grid-column:1/-1"><div class="metric-label">Eroare</div><div class="metric-value" style="font-size:16px">Nu s-a putut încărca transport-data.json</div><div class="metric-sub">' + e.message + '</div></div>';
+    return;
+  }
+  DIESEL_DATA   = DATA.dieselData || [];
+  COUNTRY_NAMES = DATA.countryNames || {};
+  ALL_CTRS      = Object.keys(COUNTRY_NAMES);
+  selectedCtrs  = [...ALL_CTRS];
+  operatoriMari = DATA.operatoriMari || [];
+
+  const upd = DATA.lastUpdate || '—';
+  ['upd-clase','upd-mari','upd-geo'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent = upd; });
+
+  renderClase();
+  renderMari();
+  renderGeo();
+}
+
+loadData();
 </script>
 </body>
 </html>
