@@ -1,0 +1,41 @@
+name: Sincronizare transportatori (lunar)
+
+on:
+  schedule:
+    # Prima zi a fiecărei luni, 05:00 UTC. Preia datele lunii ANTERIOARE.
+    - cron: '0 5 1 * *'
+  workflow_dispatch:        # buton „Run workflow" pentru rulare/test manual
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalează dependențe
+        run: pip install requests
+
+      - name: Rulează scraper-ul (API autorizatiiauto.ro)
+        run: python scripts/fetch_transportatori.py
+
+      - name: Commit datele actualizate
+        run: |
+          git config --global user.name  "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/transport-data.json public/operatori-istoric.csv public/operatori-*.csv
+          if git diff --staged --quiet; then
+            echo "Nicio modificare."
+          else
+            git commit -m "Actualizare automată transportatori ($(date +'%B %Y'))"
+            git push
+          fi
