@@ -233,6 +233,7 @@
       white-space: nowrap;
     }
     th.align-right { text-align: right; }
+    th.align-center, td.align-center { text-align: center; }
     td {
       padding: 13px 16px;
       border-bottom: 1px solid var(--border);
@@ -415,6 +416,9 @@
     <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-geo" id="tab-geo" onclick="switchTab('geo')">
       Distribuție geografică
     </button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-evolutie" id="tab-evolutie" onclick="switchTab('evolutie')">
+      Evoluție transportatori
+    </button>
   </div>
 
 
@@ -482,6 +486,18 @@
       </table>
     </div>
     <p class="footer-note"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 7v4M8 5.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Top 20 localități după număr de operatori autorizați</p>
+  </section>
+
+  <!-- TAB: Evoluție transportatori -->
+  <section class="tab-panel" id="panel-evolutie" role="tabpanel" aria-labelledby="tab-evolutie">
+    <div class="meta-bar">
+      <div class="meta-note"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 1.5v3M11 1.5v3M2 7h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Evoluție lunară pe clase · ultima actualizare <strong id="upd-evolutie">—</strong></div>
+      <span class="source-badge"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 7v4M8 5.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Sursă: autorizatiiauto.ro</span>
+    </div>
+    <div class="table-card" style="overflow-x:auto;">
+      <table id="tbl-evolutie" style="min-width:100%;"></table>
+    </div>
+    <p class="footer-note"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 7v4M8 5.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Nr. operatori și nr. camioane per clasă, pentru fiecare lună exportată (prima zi a lunii). Clasificare după Nr. Vehicule.</p>
   </section>
 
   <!-- TAB: Oil Bulletin -->
@@ -821,6 +837,74 @@ function renderGeo() {
   }).join('');
 }
 
+// ---------- Render: Evoluție transportatori (tabel ca în Excel) ----------
+function renderEvolutie() {
+  const ev = DATA.evolutie;
+  const tbl = document.getElementById('tbl-evolutie');
+  if (!ev || !ev.clase || !ev.luni || !ev.luni.length) {
+    tbl.innerHTML = '<tbody><tr><td style="padding:1rem;color:var(--text-secondary)">Nu există încă date de evoluție.</td></tr></tbody>';
+    return;
+  }
+  const luni = ev.luni;
+  const nL = luni.length;
+  const updEl = document.getElementById('upd-evolutie');
+  if (updEl) updEl.textContent = DATA.lastUpdate || luni[nL-1];
+
+  // Antet grupat pe 2 rânduri (ca în Excel)
+  let head = `
+    <thead>
+      <tr>
+        <th rowspan="2" style="vertical-align:bottom">Nr. Crt.</th>
+        <th rowspan="2" style="vertical-align:bottom">Clase Transportator</th>
+        <th colspan="2" class="align-center" style="border-left:1px solid var(--border-mid)">Nr. Camioane</th>
+        <th colspan="${nL}" class="align-center" style="border-left:1px solid var(--border-mid)">Nr. Operatori</th>
+        <th colspan="${nL}" class="align-center" style="border-left:1px solid var(--border-mid)">Nr. Camioane</th>
+      </tr>
+      <tr>
+        <th class="align-right" style="border-left:1px solid var(--border-mid)">Min</th>
+        <th class="align-right">Max</th>
+        ${luni.map((m,i)=>`<th class="align-right"${i===0?' style="border-left:1px solid var(--border-mid)"':''}>${m}</th>`).join('')}
+        ${luni.map((m,i)=>`<th class="align-right"${i===0?' style="border-left:1px solid var(--border-mid)"':''}>${m}</th>`).join('')}
+      </tr>
+    </thead>`;
+
+  // Corp: o linie per clasă
+  const totOp = {}, totCam = {};
+  luni.forEach(m => { totOp[m]=0; totCam[m]=0; });
+  let body = ev.clase.map((c,idx) => {
+    const maxTxt = (c.max === null || c.max === 0) ? '—' : c.max;
+    const opCells = luni.map((m,i)=>{
+      const v = (c.operatori && c.operatori[m]!=null) ? c.operatori[m] : 0;
+      totOp[m]+=v;
+      return `<td class="align-right"${i===0?' style="border-left:1px solid var(--border-mid)"':''}>${fmt(v)}</td>`;
+    }).join('');
+    const camCells = luni.map((m,i)=>{
+      const v = (c.camioane && c.camioane[m]!=null) ? c.camioane[m] : 0;
+      totCam[m]+=v;
+      return `<td class="align-right"${i===0?' style="border-left:1px solid var(--border-mid)"':''}>${fmt(v)}</td>`;
+    }).join('');
+    const color = ['#1d5fa8','#0d7c5a','#b06a0d','#c93a2b'][idx] || '#5c5b57';
+    return `<tr>
+      <td class="nr-crt">${idx+1}</td>
+      <td><span class="class-badge"><span class="dot" style="background:${color}"></span>${c.nume}</span></td>
+      <td class="align-right" style="border-left:1px solid var(--border-mid)">${c.min}</td>
+      <td class="align-right">${maxTxt}</td>
+      ${opCells}${camCells}
+    </tr>`;
+  }).join('');
+
+  // Rând TOTAL
+  const totOpCells = luni.map((m,i)=>`<td class="align-right"${i===0?' style="border-left:1px solid var(--border-mid)"':''}>${fmt(totOp[m])}</td>`).join('');
+  const totCamCells = luni.map((m,i)=>`<td class="align-right"${i===0?' style="border-left:1px solid var(--border-mid)"':''}>${fmt(totCam[m])}</td>`).join('');
+  body += `<tr class="total-row">
+      <td></td><td>T O T A L</td>
+      <td style="border-left:1px solid var(--border-mid)"></td><td></td>
+      ${totOpCells}${totCamCells}
+    </tr>`;
+
+  tbl.innerHTML = head + '<tbody>' + body + '</tbody>';
+}
+
 // ---------- Loader ----------
 async function loadData() {
   try {
@@ -844,6 +928,7 @@ async function loadData() {
   renderClase();
   renderMari();
   renderGeo();
+  renderEvolutie();
 
   // Dacă tab-ul activ implicit este Oil Bulletin, inițializează graficul acum
   // (altfel s-ar popula abia la click pe tab).
