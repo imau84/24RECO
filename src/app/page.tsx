@@ -7,7 +7,7 @@ const INDUSTRII = [
   { icon: '🏗️', title: 'Construcții', sub: 'Autorizații · Lucrări', href: '/Industrii - Constructii.html' },
   { icon: '🏠', title: 'Imobiliare', sub: 'Tranzacții · ANCPI', href: '/Industrii - Imobiliare.html' },
   { icon: '🚛', title: 'Transport', sub: 'Marfă · Operatori', href: '/Industrii - Transport.html' },
-  { icon: '🏭', title: 'Industrie', sub: 'IPI · CAEN', href: '/Industrii - Industrie.html' },
+  { icon: '🏭', title: 'Industrie', sub: 'Exporturi · CSCI', href: '/industrii/industrie' },
   { icon: '🛒', title: 'Comerț', sub: 'Retail · CA', href: '/Industrii - Comert.html' },
   { icon: '✈️', title: 'Turism', sub: 'Sosiri · Cazare', href: '/Industrii - Turism.html' },
 ]
