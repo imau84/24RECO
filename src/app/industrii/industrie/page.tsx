@@ -388,20 +388,22 @@ export default function IndustriePage() {
     <div style={{ minHeight: "100vh", background: C.bg, color: C.text, fontFamily: "'DM Sans', system-ui, sans-serif", display: "flex", flexDirection: "column" }}>
       {/* Nav */}
       <nav style={{ background: C.navy, height: 56, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px" }}>
-        <Link href="/" style={{ color: "#fff", fontWeight: 700, fontSize: 16, textDecoration: "none", letterSpacing: "-0.3px" }}>24RECO</Link>
+        <Link href="/" style={{ color: "#fff", fontWeight: 700, fontSize: 14, textDecoration: "none", letterSpacing: "-0.3px", whiteSpace: "nowrap" }}>📊 24reco.com</Link>
         <div style={{ display: "flex", gap: 18, fontSize: 13 }}>
-          <Link href="/" style={{ color: "#9ca3af", textDecoration: "none" }}>Acasă</Link>
-          <Link href="/industrii" style={{ color: "#fff", textDecoration: "none" }}>Industrii</Link>
-          <Link href="/institutii" style={{ color: "#9ca3af", textDecoration: "none" }}>Instituții</Link>
+          <Link href="/#industrii" style={{ color: "#fff", textDecoration: "none" }}>Industrii</Link>
+          <Link href="/#institutii" style={{ color: "rgba(255,255,255,.55)", textDecoration: "none" }}>Instituții publice</Link>
+          <Link href="/#rapoarte" style={{ color: "rgba(255,255,255,.55)", textDecoration: "none" }}>Rapoarte</Link>
         </div>
+        <Link href="/despre" style={{ fontSize: 11, color: "rgba(255,255,255,.5)", padding: "4px 10px", border: "1px solid rgba(255,255,255,.15)", borderRadius: 5, textDecoration: "none" }}>Despre</Link>
       </nav>
 
       {/* Header */}
       <div style={{ background: "#fff", borderBottom: `1px solid ${C.border}` }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "14px 24px 0" }}>
-          <div style={{ fontSize: 11, color: C.muted, marginBottom: 6 }}>
-            <Link href="/industrii" style={{ color: C.muted, textDecoration: "none" }}>Industrii</Link>
-            <span style={{ color: C.subtle }}> / Industrie</span>
+          <div style={{ fontSize: 11, color: C.subtle, marginBottom: 6, display: "flex", gap: 5, alignItems: "center" }}>
+            <Link href="/" style={{ color: C.subtle, textDecoration: "none" }}>Acasă</Link><span>›</span>
+            <Link href="/#industrii" style={{ color: C.subtle, textDecoration: "none" }}>Industrii</Link><span>›</span>
+            <span style={{ color: C.text }}>Industrie</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 14, padding: "10px 0 12px" }}>
             <div style={{ width: 40, height: 40, background: "#fce7f3", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20 }}>🏭</div>
