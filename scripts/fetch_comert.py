@@ -126,6 +126,19 @@ def extract_autoturisme(archive_bytes, file_name, workdir):
 
 
 # ---------------------------------------------------------------- PARSE --
+def _pick_engine(path):
+    """Alege motorul după conținutul real al fișierului, nu după extensie.
+    DRPCIV livrează uneori .xls (BIFF/OLE2) cu extensia .xlsx și invers."""
+    with open(path, "rb") as f:
+        magic = f.read(8)
+    if magic[:2] == b"PK":                      # zip container -> xlsx
+        return "openpyxl"
+    if magic[:8] == b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1":  # OLE2 -> xls vechi
+        return "xlrd"
+    raise ValueError(
+        f"Format Excel nerecunoscut (primii bytes: {magic!r}) — fișier corupt?")
+
+
 def _find_header_row(path, engine):
     probe = pd.read_excel(path, sheet_name=SHEET, header=None, nrows=20, engine=engine)
     for i in range(len(probe)):
@@ -136,7 +149,7 @@ def _find_header_row(path, engine):
 
 
 def load_detaliata(path):
-    engine = "xlrd" if path.lower().endswith(".xls") else "openpyxl"
+    engine = _pick_engine(path)
     hdr = _find_header_row(path, engine)
     df = pd.read_excel(path, sheet_name=SHEET, header=hdr, engine=engine)
     df.columns = [str(c).strip() for c in df.columns]
@@ -230,11 +243,21 @@ def main():
         items = [it for it in list_news(year)
                  if is_inmatriculari((it.get("i18n") or [{}])[0].get("titleDescription"))]
         print(f"Backfill {year}: {len(items)} articole de înmatriculări")
+        failed = []
         for it in items:
-            res = process_item(it)
-            if res and res[0].startswith(str(year)):
-                data["months"][res[0]] = res[1]
-                updated += 1
+            title = (it.get("i18n") or [{}])[0].get("titleDescription", "?")
+            try:
+                res = process_item(it)
+                if res and res[0].startswith(str(year)):
+                    data["months"][res[0]] = res[1]
+                    updated += 1
+            except Exception as e:
+                # O lună cu arhivă/fișier corupt nu trebuie să blocheze restul.
+                print(f"  ✗ EȘUAT: {title} — {type(e).__name__}: {e}")
+                failed.append(title)
+        if failed:
+            print(f"\nAtenție: {len(failed)} luni au eșuat și au fost sărite: "
+                  + "; ".join(failed))
     else:
         # rulare lunară: cel mai recent articol de înmatriculări (caut în anul curent,
         # cu fallback pe anul precedent pentru ianuarie)
