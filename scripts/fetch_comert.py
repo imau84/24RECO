@@ -109,14 +109,19 @@ def extract_autoturisme(archive_bytes, file_name, workdir):
         # `unar` handles rar, zip, 7z, etc. (apt-get install unar)
         if not shutil.which("unar"):
             raise RuntimeError("Lipsește 'unar' — necesar pentru arhive .rar")
+        # Unele arhive lunare conțin un fișier corupt care nu ne interesează
+        # (ex. 202605_Semiremorci.xlsx). unar întoarce cod non-zero dacă ORICE
+        # fișier eșuează, dar restul — inclusiv Autoturisme — se extrag corect.
+        # De aceea NU ridicăm excepție pe codul de retur; validăm prin glob mai jos.
         subprocess.run(["unar", "-quiet", "-force-overwrite", "-output-directory",
-                        out_dir, arc_path], check=True)
+                        out_dir, arc_path], check=False)
 
     matches = [p for p in glob.glob(os.path.join(out_dir, "**", "*"), recursive=True)
                if re.search(r"autoturisme", os.path.basename(p), re.I)
                and p.lower().endswith((".xlsx", ".xls"))]
     if not matches:
-        raise FileNotFoundError("Nu am găsit fișierul *Autoturisme*.xls(x) în arhivă")
+        raise FileNotFoundError(
+            "Fișierul *Autoturisme*.xls(x) nu a putut fi extras din arhivă")
     return matches[0]
 
 
