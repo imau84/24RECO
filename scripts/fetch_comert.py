@@ -26,6 +26,8 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
+import urllib.error
 import urllib.request
 import zipfile
 
@@ -50,27 +52,54 @@ YYYYMM_RE = re.compile(r"(20\d{2})(\d{2})")
 
 
 # ----------------------------------------------------------------- HTTP --
+HEADERS = {
+    "User-Agent": UA,
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "ro-RO,ro;q=0.9,en-US;q=0.8,en;q=0.7",
+    "Origin": "https://dgpci.mai.gov.ro",
+    "Referer": "https://dgpci.mai.gov.ro/news-and-media/statistica",
+}
+
+
+def _request_with_retry(req, timeout, attempts=4):
+    """Serverul DGPCI răspunde uneori 403 (WAF/rate-limit) pe runnerele GitHub.
+    Reîncercăm cu pauze crescătoare; de regulă a 2-a/3-a încercare trece."""
+    delay = 8
+    last = None
+    for i in range(attempts):
+        try:
+            return urllib.request.urlopen(req, timeout=timeout).read()
+        except urllib.error.HTTPError as e:
+            last = e
+            if e.code in (403, 429, 500, 502, 503) and i < attempts - 1:
+                print(f"    … HTTP {e.code}, reîncerc în {delay}s "
+                      f"(încercarea {i + 2}/{attempts})")
+                time.sleep(delay)
+                delay *= 2
+                continue
+            raise
+        except urllib.error.URLError as e:
+            last = e
+            if i < attempts - 1:
+                print(f"    … eroare rețea ({e.reason}), reîncerc în {delay}s")
+                time.sleep(delay)
+                delay *= 2
+                continue
+            raise
+    raise last
+
+
 def post_json(url, payload):
     body = json.dumps(payload).encode("utf-8")
-    req = urllib.request.Request(url, data=body, method="POST", headers={
-        "Content-Type": "application/json",
-        "User-Agent": UA,
-        "Accept": "application/json",
-        "Origin": "https://dgpci.mai.gov.ro",
-        "Referer": "https://dgpci.mai.gov.ro/news-and-media/statistica",
-    })
-    with urllib.request.urlopen(req, timeout=120) as r:
-        return json.loads(r.read().decode("utf-8"))
+    req = urllib.request.Request(url, data=body, method="POST",
+                                 headers={**HEADERS, "Content-Type": "application/json"})
+    return json.loads(_request_with_retry(req, timeout=120).decode("utf-8"))
 
 
 def download(url_file_name):
     url = DL_BASE + url_file_name
-    req = urllib.request.Request(url, headers={
-        "User-Agent": UA,
-        "Referer": "https://dgpci.mai.gov.ro/news-and-media/statistica",
-    })
-    with urllib.request.urlopen(req, timeout=300) as r:
-        return r.read()
+    req = urllib.request.Request(url, headers=HEADERS)
+    return _request_with_retry(req, timeout=300)
 
 
 def list_news(year):
@@ -93,36 +122,82 @@ def news_files(item):
 
 
 # -------------------------------------------------------------- ARCHIVE --
+def _try_extract(cmd):
+    """Rulează o comandă de dezarhivare; întoarce True dacă unealta există.
+    Nu validăm codul de retur (unele arhive au fișiere stricate irelevante);
+    validarea reală e pe fișierul Autoturisme extras."""
+    if not shutil.which(cmd[0]):
+        return False
+    subprocess.run(cmd, check=False, stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL)
+    return True
+
+
+def _is_valid_excel(path):
+    try:
+        with open(path, "rb") as f:
+            magic = f.read(8)
+    except OSError:
+        return False
+    if magic[:2] == b"PK":
+        # containerul zip al unui .xlsx trebuie să fie complet, nu trunchiat
+        try:
+            with zipfile.ZipFile(path) as z:
+                return z.testzip() is None
+        except zipfile.BadZipFile:
+            return False
+    return magic[:8] == b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"  # .xls OLE2
+
+
+def _find_autoturisme(out_dir):
+    return [p for p in glob.glob(os.path.join(out_dir, "**", "*"), recursive=True)
+            if re.search(r"autoturisme", os.path.basename(p), re.I)
+            and p.lower().endswith((".xlsx", ".xls"))]
+
+
 def extract_autoturisme(archive_bytes, file_name, workdir):
-    """Write the archive, extract it, and return the path to the *Autoturisme* xls(x)."""
+    """Scrie arhiva și extrage fișierul *Autoturisme*.xls(x), încercând pe rând
+    mai multe unelte. `unar` trunchiază unele RAR-uri DRPCIV, deci preferăm
+    `unrar` (oficial, compatibil WinRAR), apoi `7z`, apoi `unar`."""
     arc_path = os.path.join(workdir, file_name)
     with open(arc_path, "wb") as f:
         f.write(archive_bytes)
-    out_dir = os.path.join(workdir, "extracted")
-    os.makedirs(out_dir, exist_ok=True)
 
-    ext = os.path.splitext(file_name)[1].lower()
-    if ext == ".zip" and not shutil.which("unar"):
-        with zipfile.ZipFile(arc_path) as z:
-            z.extractall(out_dir)
-    else:
-        # `unar` handles rar, zip, 7z, etc. (apt-get install unar)
-        if not shutil.which("unar"):
-            raise RuntimeError("Lipsește 'unar' — necesar pentru arhive .rar")
-        # Unele arhive lunare conțin un fișier corupt care nu ne interesează
-        # (ex. 202605_Semiremorci.xlsx). unar întoarce cod non-zero dacă ORICE
-        # fișier eșuează, dar restul — inclusiv Autoturisme — se extrag corect.
-        # De aceea NU ridicăm excepție pe codul de retur; validăm prin glob mai jos.
-        subprocess.run(["unar", "-quiet", "-force-overwrite", "-output-directory",
-                        out_dir, arc_path], check=False)
+    tools = [
+        ["unrar", "x", "-y", "-o+", arc_path],            # rulează cu cwd=out_dir
+        ["7z", "x", "-y", arc_path],                       # idem
+        ["unar", "-quiet", "-force-overwrite", arc_path],  # idem
+    ]
+    if file_name.lower().endswith(".zip"):
+        tools.append(None)  # fallback: zipfile nativ
 
-    matches = [p for p in glob.glob(os.path.join(out_dir, "**", "*"), recursive=True)
-               if re.search(r"autoturisme", os.path.basename(p), re.I)
-               and p.lower().endswith((".xlsx", ".xls"))]
-    if not matches:
-        raise FileNotFoundError(
-            "Fișierul *Autoturisme*.xls(x) nu a putut fi extras din arhivă")
-    return matches[0]
+    for n, tool in enumerate(tools):
+        out_dir = os.path.join(workdir, f"extracted_{n}")
+        os.makedirs(out_dir, exist_ok=True)
+        if tool is None:
+            try:
+                with zipfile.ZipFile(arc_path) as z:
+                    z.extractall(out_dir)
+            except zipfile.BadZipFile:
+                continue
+        else:
+            cmd = tool[:]
+            if not shutil.which(cmd[0]):
+                continue
+            subprocess.run(cmd, check=False, cwd=out_dir,
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        for cand in _find_autoturisme(out_dir):
+            if _is_valid_excel(cand):
+                print(f"    ✓ extras valid cu "
+                      f"{'zipfile' if tool is None else tool[0]}: "
+                      f"{os.path.basename(cand)}")
+                return cand
+        print(f"    ✗ {'zipfile' if tool is None else tool[0]}: "
+              f"fișier Autoturisme lipsă sau trunchiat, încerc următoarea unealtă")
+
+    raise FileNotFoundError(
+        "Fișierul *Autoturisme*.xls(x) nu a putut fi extras intact din arhivă "
+        "cu nicio unealtă (unrar/7z/unar)")
 
 
 # ---------------------------------------------------------------- PARSE --
@@ -244,7 +319,9 @@ def main():
                  if is_inmatriculari((it.get("i18n") or [{}])[0].get("titleDescription"))]
         print(f"Backfill {year}: {len(items)} articole de înmatriculări")
         failed = []
-        for it in items:
+        for n, it in enumerate(items):
+            if n:
+                time.sleep(6)   # pauză între luni, să nu declanșăm WAF-ul
             title = (it.get("i18n") or [{}])[0].get("titleDescription", "?")
             try:
                 res = process_item(it)
