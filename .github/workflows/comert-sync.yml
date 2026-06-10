@@ -26,8 +26,10 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install unar (dezarhivare .rar/.zip)
-        run: sudo apt-get update && sudo apt-get install -y unar
+      - name: Install dezarhivatoare (.rar/.zip)
+        # unrar (oficial, compatibil WinRAR) e principal — `unar` trunchiază
+        # unele arhive RAR de la DRPCIV; 7z și unar rămân fallback.
+        run: sudo apt-get update && sudo apt-get install -y unrar p7zip-full unar || sudo apt-get install -y p7zip-full unar
 
       - name: Install dependencies
         run: pip install pandas openpyxl xlrd
