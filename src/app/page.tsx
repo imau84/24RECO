@@ -9,7 +9,7 @@ const INDUSTRII = [
   { icon: '🚛', title: 'Transport', sub: 'Marfă · Operatori', href: '/Industrii - Transport.html' },
   { icon: '🏭', title: 'Industrie', sub: 'Exporturi · CSCI', href: '/industrii/industrie' },
   { icon: '🛒', title: 'Comerț', sub: 'Înmatriculări auto · DRPCIV', href: '/comert' },
-  { icon: '✈️', title: 'Turism', sub: 'Sosiri · Cazare', href: '/Industrii - Turism.html' },
+  { icon: '✈️', title: 'Turism', sub: 'Sosiri · Cazare', href: '/industrii/turism' },
 ]
 
 const INSTITUTII = [
