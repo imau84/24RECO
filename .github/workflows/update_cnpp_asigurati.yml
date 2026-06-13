@@ -1,0 +1,102 @@
+name: Update CNPP Asigurati Data
+
+on:
+  schedule:
+    # Rulează în fiecare luni la 08:00 UTC (10:00 ora României)
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+    inputs:
+      year:
+        description: 'Anul dorit (ex: 2026). Lasă gol pentru auto-detectare.'
+        required: false
+        default: ''
+      month:
+        description: 'Luna dorită (1-12). Lasă gol pentru auto-detectare.'
+        required: false
+        default: ''
+      all_years:
+        description: 'Descarcă 2025 + 2026 complet (true/false)'
+        required: false
+        default: 'false'
+      force:
+        description: 'Suprascrie perioadele existente (true/false)'
+        required: false
+        default: 'false'
+
+jobs:
+  fetch-cnpp-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4 pandas openpyxl xlrd
+
+      - name: Run fetch script (auto mode)
+        if: ${{ github.event.inputs.year == '' && github.event.inputs.all_years != 'true' }}
+        run: |
+          python scripts/fetch_cnpp_asigurati.py
+
+      - name: Run fetch script (specific year/month)
+        if: ${{ github.event.inputs.year != '' && github.event.inputs.month != '' }}
+        run: |
+          ARGS="--year ${{ github.event.inputs.year }} --month ${{ github.event.inputs.month }}"
+          if [ "${{ github.event.inputs.force }}" = "true" ]; then
+            ARGS="$ARGS --force"
+          fi
+          python scripts/fetch_cnpp_asigurati.py $ARGS
+
+      - name: Run fetch script (all months for year)
+        if: ${{ github.event.inputs.year != '' && github.event.inputs.month == '' && github.event.inputs.all_years != 'true' }}
+        run: |
+          ARGS="--year ${{ github.event.inputs.year }} --all"
+          if [ "${{ github.event.inputs.force }}" = "true" ]; then
+            ARGS="$ARGS --force"
+          fi
+          python scripts/fetch_cnpp_asigurati.py $ARGS
+
+      - name: Run fetch script (all years 2025+2026)
+        if: ${{ github.event.inputs.all_years == 'true' }}
+        run: |
+          ARGS="--all-years"
+          if [ "${{ github.event.inputs.force }}" = "true" ]; then
+            ARGS="$ARGS --force"
+          fi
+          python scripts/fetch_cnpp_asigurati.py $ARGS
+
+      - name: Check if data changed
+        id: check_changes
+        run: |
+          if git diff --quiet public/cnpp_asigurati.json; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ Nu există date noi."
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "✅ Date noi detectate!"
+          fi
+
+      - name: Commit and push updated JSON
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add public/cnpp_asigurati.json
+          # Determină ce perioadă a fost adăugată
+          PERIOD=$(python3 -c "
+          import json
+          with open('public/cnpp_asigurati.json') as f:
+              data = json.load(f)
+          periods = [p['period'] for p in data.get('periods', [])]
+          print(', '.join(periods[-3:]) if periods else 'N/A')
+          ")
+          git commit -m "chore: update CNPP Asigurati data - $PERIOD [skip ci]"
+          git push
