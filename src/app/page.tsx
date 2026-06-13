@@ -14,7 +14,7 @@ const INDUSTRII = [
 
 const INSTITUTII = [
   { icon: '🏦', title: 'BNR', sub: 'BPM6 · ISD · Credite', href: '/institutii/bnr' },
-  { icon: '👴', title: 'Casa Pensii', sub: 'Pensionari · Medie', href: '/Institutii publice - Casa de Pensii.html' },
+  { icon: '👴', title: 'Casa Pensii', sub: 'Pensionari · Medie', href: '/institutii/casa-pensii' },
   { icon: '📚', title: 'Min. Educației', sub: 'Elevi · Unități', href: '/Institutii publice - Ministerul Educatiei.html' },
   { icon: '💰', title: 'Execuție Bugetară', sub: 'Venituri · Cheltuieli', href: '/Institutii publice - Ministerul Finantelor - Executie Bugetara.html' },
   { icon: '📈', title: 'Datorie Publică', sub: 'Structură · Evoluție', href: '/Institutii publice - Ministerul Finantelor - Datorie Publica.html' },
