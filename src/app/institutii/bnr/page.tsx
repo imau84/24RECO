@@ -29,7 +29,6 @@ type TabConfig = {
   defaultActive: string[];
   defaultStartYear: number;
   note: string;
-  estimated?: boolean;
 };
 
 const C = {
@@ -41,34 +40,36 @@ const C = {
 const TABS: TabConfig[] = [
   {
     key: "balanta", title: "Balanța de plăți", dataKey: "BP_DATA",
-    dateKey: "p", unit: "milioane EUR", unitShort: "mil. EUR", decimals: 0,
+    dateKey: "d", unit: "milioane EUR", unitShort: "mil. EUR", decimals: 0,
     yoyAsPercent: false,
     inds: {
-      cc: { label: "Cont curent", color: "#1a56db" },
-      b:  { label: "Bunuri", color: "#7c3aed" },
-      s:  { label: "Servicii", color: "#0e7245" },
+      cc: { label: "Sold cont curent", color: "#1a56db" },
+      b:  { label: "Sold bunuri", color: "#7c3aed" },
+      s:  { label: "Sold servicii", color: "#0e7245" },
       vp: { label: "Venituri primare", color: "#c2410c" },
       vs: { label: "Venituri secundare", color: "#b91c1c" },
-      ck: { label: "Cont capital", color: "#0891b2" },
+      ck: { label: "Sold cont de capital", color: "#0891b2" },
     },
     defaultActive: ["cc", "b", "s"],
     defaultStartYear: 2020,
-    note: "Serii lunare · Metodologie BPM6 · Valori nete în mil. EUR",
-    estimated: true,
+    note: "Solduri nete · serii lunare · metodologie BPM6 · mil. EUR",
   },
   {
     key: "isd", title: "Investiții directe", dataKey: "ISD_DATA",
     dateKey: "d", unit: "milioane EUR", unitShort: "mil. EUR", decimals: 0,
     yoyAsPercent: false,
     inds: {
-      idt: { label: "ISD total", color: "#1a56db" },
-      res: { label: "Rezultat reinvestit", color: "#7c3aed" },
-      nro: { label: "ISD excl. reinvestiri", color: "#0e7245" },
-      ns:  { label: "Participații la capital (net)", color: "#c2410c" },
-      nx:  { label: "Instrumente de natura datoriei (net)", color: "#b91c1c" },
+      idt: { label: "ISD total (net)", color: "#1a56db" },
+      res: { label: "Rezidenți în străinătate", color: "#7c3aed" },
+      nro: { label: "Nerezidenți în România", color: "#0e7245" },
+      ns:  { label: "Nerez. — soc. de depozit", color: "#c2410c" },
+      nsc: { label: "  · participații la capital", color: "#db2777" },
+      nx:  { label: "Nerez. — alte sectoare", color: "#b91c1c" },
+      nxc: { label: "  · participații la capital", color: "#0891b2" },
+      nxd: { label: "  · instrumente datorie", color: "#65a30d" },
     },
     defaultActive: ["idt", "res", "nro"],
-    defaultStartYear: 2018,
+    defaultStartYear: 2013,
     note: "Tranzacții · principiul direcțional · serii lunare · mil. EUR",
   },
   {
@@ -76,15 +77,17 @@ const TABS: TabConfig[] = [
     dateKey: "d", unit: "miliarde RON", unitShort: "mld. RON", decimals: 1,
     yoyAsPercent: true,
     inds: {
-      gp: { label: "Gospodăriile populației", color: "#1a56db" },
-      gpo: { label: "Gospodării — overnight", color: "#7c3aed" },
-      gpt: { label: "Gospodării — la termen", color: "#0e7245" },
-      sn: { label: "Societăți nefinanciare", color: "#c2410c" },
-      ap: { label: "Administrație publică", color: "#b91c1c" },
+      gp:   { label: "Gospodăriile populației", color: "#1a56db" },
+      gpo:  { label: "  · overnight", color: "#60a5fa" },
+      gpt:  { label: "  · la termen", color: "#7c3aed" },
+      sn:   { label: "Societăți nefinanciare", color: "#c2410c" },
+      ap:   { label: "Administrație publică", color: "#b91c1c" },
+      apc:  { label: "  · centrală", color: "#db2777" },
+      apl:  { label: "  · locală", color: "#0891b2" },
     },
     defaultActive: ["gp", "sn", "ap"],
     defaultStartYear: 2015,
-    note: "Depozite pe sectoare instituționale · solduri lunare · mld. RON",
+    note: "Solduri pe sectoare instituționale · serii lunare · mld. RON",
   },
   {
     key: "credite", title: "Credite", dataKey: "CR",
@@ -92,15 +95,16 @@ const TABS: TabConfig[] = [
     yoyAsPercent: true,
     inds: {
       g:   { label: "Credite gospodării", color: "#1a56db" },
-      gc:  { label: "Credite consum", color: "#7c3aed" },
-      glo: { label: "Credite locuințe", color: "#0e7245" },
+      gc:  { label: "  · consum", color: "#7c3aed" },
+      glo: { label: "  · locuințe", color: "#0e7245" },
+      gx:  { label: "  · alte scopuri", color: "#65a30d" },
       sn:  { label: "Societăți nefinanciare", color: "#c2410c" },
-      ifn: { label: "Instituții fin. nebancare", color: "#b91c1c" },
-      ap:  { label: "Administrație publică", color: "#0891b2" },
+      ifn: { label: "Inst. fin. nemonetare", color: "#db2777" },
+      ap:  { label: "Administrație publică", color: "#b91c1c" },
     },
     defaultActive: ["g", "gc", "glo", "sn"],
     defaultStartYear: 2015,
-    note: "Credite pe sectoare instituționale (incl. neperformante) · solduri lunare · mld. RON",
+    note: "Solduri pe sectoare instituționale · serii lunare · mld. RON",
   },
 ];
 
@@ -110,9 +114,7 @@ const fmtSig = (n: number | null | undefined, d = 0, suffix = "") =>
   n == null ? "—" : (n >= 0 ? "+" : "") + new Intl.NumberFormat("ro-RO", { minimumFractionDigits: d, maximumFractionDigits: d }).format(n) + suffix;
 
 function rowYear(r: Row, dateKey: string): number {
-  const v = String(r[dateKey] ?? "");
-  if (dateKey === "p") return parseInt(v.split(" ")[1] || "0", 10);
-  return parseInt(v.substring(0, 4) || "0", 10);
+  return parseInt(String(r[dateKey] ?? "").substring(0, 4) || "0", 10);
 }
 function rowLabel(r: Row, dateKey: string): string {
   return String(r[dateKey] ?? "");
@@ -154,9 +156,8 @@ function SeriesTab({ cfg, rows }: { cfg: TabConfig; rows: Row[] }) {
 
   return (
     <div>
-      <div className="note" style={cfg.estimated ? { background: "#fffbe6", borderColor: "#fde68a", color: "#92400e" } : undefined}>
-        {cfg.estimated ? "⚠️ Date estimative — vor fi înlocuite cu seria oficială BNR la conectarea sursei automate. " : "ℹ️ "}
-        {cfg.note} · Ultima lună: <strong>{lastLabel}</strong>
+      <div className="note">
+        ℹ️ {cfg.note} · Ultima lună: <strong>{lastLabel}</strong>
       </div>
 
       {/* KPI */}
@@ -382,7 +383,7 @@ export default function BnrPage() {
         </div>
 
         <div className="wrap" style={{ paddingTop: 18 }}>
-          <SeriesTab key={cfg.key} cfg={cfg} rows={rows} />
+          <div key={cfg.key}><SeriesTab cfg={cfg} rows={rows} /></div>
         </div>
       </div>
       <Footer />
