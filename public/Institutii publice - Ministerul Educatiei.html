@@ -709,7 +709,7 @@ function App() {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Navbar */}
       <nav style={{ background: C.navy, height: 52, display: 'flex', alignItems: 'center', padding: '0 24px', gap: 24, flexShrink: 0 }}>
-        <div style={{ fontSize: 14, fontWeight: 700, color: '#fff', letterSpacing: '-0.3px' }}>📊 DatePublice.ro</div>
+        <a href="https://www.24reco.com" style={{ fontSize: 14, fontWeight: 700, color: '#fff', letterSpacing: '-0.3px', textDecoration: 'none' }}>📊 24reco.com</a>
         <div style={{ display: 'flex', gap: 6, flex: 1, justifyContent: 'center' }}>
           {['Industrii','Instituții','Rapoarte'].map(l => (
             <div key={l} style={{ fontSize: 12, color: l === 'Instituții' ? '#fff' : 'rgba(255,255,255,0.55)', padding: '4px 10px', borderRadius: 5,
@@ -725,7 +725,7 @@ function App() {
       <div style={{ background: C.card, borderBottom: `1px solid ${C.border}` }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '14px 24px 0' }}>
           <div style={{ fontSize: 11, color: C.muted, marginBottom: 6 }}>
-            <span style={{ color: C.subtle }}>Acasă › Instituții publice › </span>
+            <a href="https://www.24reco.com" style={{ color: C.subtle, textDecoration: 'none' }}>Acasă</a><span style={{ color: C.subtle }}> › Instituții publice › </span>
             <span style={{ color: C.text, fontWeight: 500 }}>Ministerul Educației</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '10px 0 12px' }}>
