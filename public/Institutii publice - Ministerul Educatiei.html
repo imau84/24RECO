@@ -680,6 +680,324 @@ const DateUnitate = ({ data, unitIndex }) => {
 };
 
 /* ════════════════════════════════════════
+   TAB EVALUAREA NAȚIONALĂ 2025
+   ════════════════════════════════════════ */
+const fmt1 = (v) => (v == null ? '—' : Number(v).toFixed(1));
+const fmt2 = (v) => (v == null ? '—' : Number(v).toFixed(2));
+
+const notaColor = (v) => {
+  if (v == null) return C.subtle;
+  if (v >= 9) return '#0e7245';
+  if (v >= 7) return '#1a56db';
+  if (v >= 5) return '#c2410c';
+  return '#b91c1c';
+};
+
+const EvaluareNationala = ({ ev }) => {
+  const schools = ev.schools;
+  const judete = ev.judete;
+  const [tab, setTab] = React.useState('national');
+
+  // ── Agregate naționale ──
+  const nat = React.useMemo(() => {
+    let tot = 0, g = 0, l = 0;
+    let sRo = 0, nRo = 0, sMt = 0, nMt = 0, sMed = 0, nMed = 0, sViii = 0, nViii = 0;
+    const buckets = { '9-10': 0, '7-9': 0, '5-7': 0, '<5': 0 };
+    schools.forEach(s => {
+      tot += s.tot || 0; g += s.g || 0; l += s.l || 0;
+      if (s.ro != null) { sRo += s.ro * s.tot; nRo += s.tot; }
+      if (s.mt != null) { sMt += s.mt * s.tot; nMt += s.tot; }
+      if (s.med != null) { sMed += s.med * s.tot; nMed += s.tot; }
+      if (s.viii != null) { sViii += s.viii * s.tot; nViii += s.tot; }
+    });
+    return {
+      tot, g, l,
+      ro: sRo / nRo, mt: sMt / nMt, med: sMed / nMed, viii: sViii / nViii,
+      buckets,
+    };
+  }, [schools]);
+
+  // ── Agregate pe județ ──
+  const judeteAgg = React.useMemo(() => {
+    const m = {};
+    schools.forEach(s => {
+      const j = s.j;
+      if (!m[j]) m[j] = { judet: j, tot: 0, g: 0, l: 0, sRo: 0, sMt: 0, sMed: 0, sViii: 0, scoli: 0 };
+      const a = m[j];
+      a.tot += s.tot || 0; a.g += s.g || 0; a.l += s.l || 0; a.scoli += 1;
+      if (s.ro != null) a.sRo += s.ro * s.tot;
+      if (s.mt != null) a.sMt += s.mt * s.tot;
+      if (s.med != null) a.sMed += s.med * s.tot;
+      if (s.viii != null) a.sViii += s.viii * s.tot;
+    });
+    return Object.values(m).map(a => ({
+      judet: a.judet, tot: a.tot, g: a.g, l: a.l, scoli: a.scoli,
+      ro: a.sRo / a.tot, mt: a.sMt / a.tot, med: a.sMed / a.tot, viii: a.sViii / a.tot,
+      promPct: a.tot ? (a.g / a.tot) * 100 : 0,
+    })).sort((x, y) => y.med - x.med);
+  }, [schools]);
+
+  return (
+    <div style={{ padding: 20 }}>
+      {/* Sub-tabs interne */}
+      <div style={{ display: 'flex', gap: 0, marginBottom: 16, borderBottom: `1px solid ${C.border}` }}>
+        {[['national', '🇷🇴 Analiză Națională'], ['judete', '🏆 Clasament Județe'], ['scoli', '🔍 Caută Școli']].map(([id, lbl]) => (
+          <button key={id} onClick={() => setTab(id)} style={{
+            background: 'none', border: 'none', cursor: 'pointer',
+            padding: '8px 16px', fontSize: 12, fontFamily: 'DM Sans',
+            fontWeight: tab === id ? 600 : 400,
+            color: tab === id ? C.blue : C.muted,
+            borderBottom: tab === id ? `2px solid ${C.blue}` : '2px solid transparent',
+            marginBottom: -1,
+          }}>{lbl}</button>
+        ))}
+      </div>
+
+      {tab === 'national' && <EN_National nat={nat} judeteAgg={judeteAgg} />}
+      {tab === 'judete' && <EN_Judete judeteAgg={judeteAgg} natMed={nat.med} />}
+      {tab === 'scoli' && <EN_Scoli schools={schools} judete={judete} />}
+    </div>
+  );
+};
+
+/* ── EN: Analiză Națională ── */
+const EN_National = ({ nat, judeteAgg }) => {
+  const promPct = (nat.g / nat.tot) * 100;
+  const subPct = (nat.l / nat.tot) * 100;
+  const top5 = judeteAgg.slice(0, 5);
+  const bottom5 = judeteAgg.slice(-5).reverse();
+
+  return (
+    <div>
+      {/* KPI */}
+      <div style={{ display: 'flex', gap: 12, marginBottom: 16, flexWrap: 'wrap' }}>
+        <KPICard label="Candidați Prezenți" value={fmt(nat.tot)} sub="Evaluarea Națională cls. VIII" color={C.navy} />
+        <KPICard label="Promovați (medie ≥ 5)" value={`${promPct.toFixed(1)}%`} sub={`${fmt(nat.g)} elevi`} color={C.green} />
+        <KPICard label="Sub nota 5" value={`${subPct.toFixed(1)}%`} sub={`${fmt(nat.l)} elevi`} color={C.red} />
+        <KPICard label="Media Națională" value={fmt2(nat.med)} sub="Medie generală EN" color={C.blue} />
+      </div>
+
+      {/* Medii pe discipline */}
+      <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, padding: 18, marginBottom: 16 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: C.navy, marginBottom: 14 }}>Medii naționale pe componente</div>
+        <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
+          {[['Limba Română', nat.ro], ['Matematică', nat.mt], ['Media EN', nat.med], ['Media cls. V-VIII', nat.viii]].map(([lbl, v]) => (
+            <div key={lbl} style={{ flex: 1, minWidth: 140 }}>
+              <div style={{ fontSize: 11, color: C.muted, marginBottom: 6 }}>{lbl}</div>
+              <div style={{ fontSize: 28, fontWeight: 700, color: notaColor(v), lineHeight: 1 }}>{fmt2(v)}</div>
+              <div style={{ marginTop: 8, height: 6, background: '#f1f5f9', borderRadius: 3, overflow: 'hidden' }}>
+                <div style={{ width: `${(v / 10) * 100}%`, height: '100%', background: notaColor(v) }} />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 14, fontSize: 11, color: C.muted, borderTop: `1px solid ${C.border}`, paddingTop: 10 }}>
+          Media EN = (Română + Matematică + Limba maternă, unde e cazul). Media de admitere = 80% media EN + 20% media claselor V-VIII.
+        </div>
+      </div>
+
+      {/* Top & Bottom județe */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, padding: 18 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: C.green, marginBottom: 4 }}>🏆 Top 5 județe după medie</div>
+          <div style={{ fontSize: 11, color: C.muted, marginBottom: 12 }}>Medie generală ponderată cu nr. candidați</div>
+          {top5.map((j, i) => (
+            <div key={j.judet} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '7px 0', borderBottom: i < 4 ? `1px solid ${C.border}` : 'none' }}>
+              <div style={{ width: 20, fontSize: 12, fontWeight: 700, color: C.muted }}>{i + 1}.</div>
+              <div style={{ flex: 1, fontSize: 12, color: C.text, fontWeight: 500 }}>{j.judet}</div>
+              <div style={{ fontSize: 11, color: C.muted, fontFamily: 'DM Mono, monospace' }}>{j.promPct.toFixed(0)}% prom.</div>
+              <div style={{ width: 48, textAlign: 'right', fontSize: 14, fontWeight: 700, color: notaColor(j.med), fontFamily: 'DM Mono, monospace' }}>{fmt2(j.med)}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, padding: 18 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: C.red, marginBottom: 4 }}>📉 Ultimele 5 județe după medie</div>
+          <div style={{ fontSize: 11, color: C.muted, marginBottom: 12 }}>Medie generală ponderată cu nr. candidați</div>
+          {bottom5.map((j, i) => (
+            <div key={j.judet} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '7px 0', borderBottom: i < 4 ? `1px solid ${C.border}` : 'none' }}>
+              <div style={{ width: 20, fontSize: 12, fontWeight: 700, color: C.muted }}>{42 - i}.</div>
+              <div style={{ flex: 1, fontSize: 12, color: C.text, fontWeight: 500 }}>{j.judet}</div>
+              <div style={{ fontSize: 11, color: C.muted, fontFamily: 'DM Mono, monospace' }}>{j.promPct.toFixed(0)}% prom.</div>
+              <div style={{ width: 48, textAlign: 'right', fontSize: 14, fontWeight: 700, color: notaColor(j.med), fontFamily: 'DM Mono, monospace' }}>{fmt2(j.med)}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ── EN: Clasament Județe ── */
+const EN_Judete = ({ judeteAgg, natMed }) => {
+  const maxMed = judeteAgg[0]?.med || 10;
+  return (
+    <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, padding: 18 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: C.navy, marginBottom: 4 }}>Clasament județe — Evaluarea Națională 2025</div>
+      <div style={{ fontSize: 11, color: C.muted, marginBottom: 14 }}>Sortare după media generală ponderată • media națională: <strong style={{ color: C.navy }}>{fmt2(natMed)}</strong></div>
+      <div className="scrollx" style={{ overflowX: 'auto' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 11 }}>
+          <thead>
+            <tr style={{ background: C.navy }}>
+              {['#', 'Județ', 'Candidați', 'Promovați', 'Română', 'Matematică', 'Media EN'].map((h, i) => (
+                <th key={h} style={{ padding: '8px 12px', color: '#fff', fontWeight: 600, fontSize: 10, textAlign: i < 2 ? 'left' : 'right' }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {judeteAgg.map((j, i) => (
+              <tr key={j.judet} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa', borderBottom: `1px solid ${C.border}` }}>
+                <td style={{ padding: '6px 12px', color: C.muted, fontFamily: 'DM Mono, monospace' }}>{i + 1}</td>
+                <td style={{ padding: '6px 12px', color: C.text, fontWeight: 500 }}>{j.judet}</td>
+                <td style={{ padding: '6px 12px', textAlign: 'right', fontFamily: 'DM Mono, monospace', color: C.muted }}>{fmt(j.tot)}</td>
+                <td style={{ padding: '6px 12px', textAlign: 'right', fontFamily: 'DM Mono, monospace', color: j.promPct >= 80 ? C.green : C.orange }}>{j.promPct.toFixed(1)}%</td>
+                <td style={{ padding: '6px 12px', textAlign: 'right', fontFamily: 'DM Mono, monospace', color: notaColor(j.ro) }}>{fmt2(j.ro)}</td>
+                <td style={{ padding: '6px 12px', textAlign: 'right', fontFamily: 'DM Mono, monospace', color: notaColor(j.mt) }}>{fmt2(j.mt)}</td>
+                <td style={{ padding: '6px 12px', textAlign: 'right', position: 'relative' }}>
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, justifyContent: 'flex-end' }}>
+                    <div style={{ width: 50, height: 5, background: '#f1f5f9', borderRadius: 3, overflow: 'hidden' }}>
+                      <div style={{ width: `${(j.med / maxMed) * 100}%`, height: '100%', background: notaColor(j.med) }} />
+                    </div>
+                    <span style={{ fontFamily: 'DM Mono, monospace', fontWeight: 700, color: notaColor(j.med), minWidth: 34, textAlign: 'right' }}>{fmt2(j.med)}</span>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+/* ── EN: Caută Școli ── */
+const EN_Scoli = ({ schools, judete }) => {
+  const [judet, setJudet] = React.useState('Timis');
+  const [loc, setLoc] = React.useState('');
+  const [q, setQ] = React.useState('');
+  const [sortKey, setSortKey] = React.useState('med');
+  const [sortAsc, setSortAsc] = React.useState(false);
+
+  const locOptions = React.useMemo(() => {
+    const set = new Set();
+    schools.forEach(s => { if (s.j === judet) set.add(s.loc); });
+    return Array.from(set).sort();
+  }, [schools, judet]);
+
+  React.useEffect(() => { if (loc && !locOptions.includes(loc)) setLoc(''); }, [judet]);
+
+  const filtered = React.useMemo(() => {
+    const ql = q.trim().toLowerCase();
+    let rows = schools.filter(s =>
+      s.j === judet &&
+      (loc === '' || s.loc === loc) &&
+      (ql === '' || s.n.toLowerCase().includes(ql) || s.c.includes(ql))
+    );
+    rows = rows.slice().sort((a, b) => {
+      let av = a[sortKey], bv = b[sortKey];
+      if (av == null) av = -1; if (bv == null) bv = -1;
+      if (typeof av === 'string') return sortAsc ? av.localeCompare(bv) : bv.localeCompare(av);
+      return sortAsc ? av - bv : bv - av;
+    });
+    return rows;
+  }, [schools, judet, loc, q, sortKey, sortAsc]);
+
+  const agg = React.useMemo(() => {
+    let tot = 0, g = 0, sMed = 0;
+    filtered.forEach(s => { tot += s.tot || 0; g += s.g || 0; if (s.med != null) sMed += s.med * s.tot; });
+    return { tot, g, med: tot ? sMed / tot : null, promPct: tot ? (g / tot) * 100 : 0 };
+  }, [filtered]);
+
+  const Select = ({ label, value, onChange, options, optionLabels }) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 5, minWidth: 0, flex: 1 }}>
+      <div style={{ fontSize: 10, fontWeight: 700, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</div>
+      <select value={value} onChange={e => onChange(e.target.value)} style={{
+        background: '#fff', border: `1px solid ${C.border}`, borderRadius: 6,
+        padding: '8px 10px', fontSize: 12, fontFamily: 'DM Sans', color: C.text, cursor: 'pointer'
+      }}>
+        {options.map((o, i) => <option key={o + i} value={o}>{optionLabels ? optionLabels[i] : o}</option>)}
+      </select>
+    </div>
+  );
+
+  const hasLm = filtered.some(s => s.lm != null);
+
+  const Th = ({ id, label, num }) => (
+    <th onClick={() => { if (sortKey === id) setSortAsc(!sortAsc); else { setSortKey(id); setSortAsc(false); } }}
+      style={{ padding: '9px 10px', color: '#fff', fontWeight: 600, fontSize: 10, textAlign: num ? 'right' : 'left', cursor: 'pointer', whiteSpace: 'nowrap' }}>
+      {label}{sortKey === id ? (sortAsc ? ' ↑' : ' ↓') : ''}
+    </th>
+  );
+
+  return (
+    <div>
+      {/* Filtre */}
+      <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, padding: 16, marginBottom: 14 }}>
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+          <Select label="Județ" value={judet} onChange={setJudet} options={judete} />
+          <Select label="Localitate" value={loc} onChange={setLoc} options={['', ...locOptions]} optionLabels={['— toate —', ...locOptions]} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 5, flex: 2, minWidth: 200 }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Caută (denumire / cod SIIIR)</div>
+            <input value={q} onChange={e => setQ(e.target.value)} placeholder="ex: Grigore Moisil"
+              style={{ background: '#fff', border: `1px solid ${C.border}`, borderRadius: 6, padding: '8px 10px', fontSize: 12, fontFamily: 'DM Sans', color: C.text, outline: 'none' }} />
+          </div>
+        </div>
+      </div>
+
+      {/* Rezumat filtrare */}
+      <div style={{ display: 'flex', gap: 12, marginBottom: 14, flexWrap: 'wrap' }}>
+        <div style={{ background: C.navy, color: '#fff', borderRadius: 10, padding: '14px 20px', flex: 2, minWidth: 220 }}>
+          <div style={{ fontSize: 11, color: '#93c5fd', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 6 }}>Rezultat</div>
+          <div style={{ fontSize: 26, fontWeight: 700, lineHeight: 1 }}>{filtered.length} <span style={{ fontSize: 14, fontWeight: 400, color: '#cbd5e1' }}>școli</span></div>
+          <div style={{ fontSize: 12, color: '#cbd5e1', marginTop: 4 }}>{fmt(agg.tot)} candidați{loc ? ` · ${loc}` : ''}, {judet}</div>
+        </div>
+        <KPICard label="Media zonă filtrată" value={fmt2(agg.med)} sub="ponderată cu nr. candidați" color={C.blue} />
+        <KPICard label="Promovați" value={`${agg.promPct.toFixed(1)}%`} sub={`${fmt(agg.g)} elevi ≥ 5`} color={C.green} />
+      </div>
+
+      {/* Tabel școli */}
+      <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, overflow: 'hidden' }}>
+        <div className="scrollx" style={{ maxHeight: 560, overflowY: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 11 }}>
+            <thead>
+              <tr style={{ background: C.navy, position: 'sticky', top: 0, zIndex: 1 }}>
+                <Th id="n" label="Unitate" />
+                <Th id="loc" label="Localitate" />
+                <Th id="ro" label="Rom." num />
+                <Th id="mt" label="Mate" num />
+                {hasLm && <Th id="lm" label="L. mat." num />}
+                <Th id="med" label="Media EN" num />
+                <Th id="viii" label="Cls. VIII" num />
+                <Th id="tot" label="Cand." num />
+                <Th id="p" label="% sub 5" num />
+              </tr>
+            </thead>
+            <tbody>
+              {filtered.length === 0 && (
+                <tr><td colSpan={hasLm ? 9 : 8} style={{ padding: 30, textAlign: 'center', color: C.muted }}>Nicio școală găsită pentru filtrele selectate</td></tr>
+              )}
+              {filtered.map((s, i) => (
+                <tr key={s.c} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa', borderBottom: `1px solid ${C.border}` }}>
+                  <td style={{ padding: '7px 10px', color: C.text, fontWeight: 500, maxWidth: 320 }}>{s.n}
+                    <span style={{ fontSize: 9, color: C.subtle, fontFamily: 'DM Mono, monospace', marginLeft: 6 }}>{s.c}</span></td>
+                  <td style={{ padding: '7px 10px', color: C.muted }}>{s.loc}</td>
+                  <td style={{ padding: '7px 10px', textAlign: 'right', fontFamily: 'DM Mono, monospace', color: notaColor(s.ro) }}>{fmt2(s.ro)}</td>
+                  <td style={{ padding: '7px 10px', textAlign: 'right', fontFamily: 'DM Mono, monospace', color: notaColor(s.mt) }}>{fmt2(s.mt)}</td>
+                  {hasLm && <td style={{ padding: '7px 10px', textAlign: 'right', fontFamily: 'DM Mono, monospace', color: s.lm == null ? C.subtle : notaColor(s.lm) }}>{s.lm == null ? '—' : fmt2(s.lm)}</td>}
+                  <td style={{ padding: '7px 10px', textAlign: 'right', fontFamily: 'DM Mono, monospace', fontWeight: 700, color: notaColor(s.med) }}>{fmt2(s.med)}</td>
+                  <td style={{ padding: '7px 10px', textAlign: 'right', fontFamily: 'DM Mono, monospace', color: C.muted }}>{fmt2(s.viii)}</td>
+                  <td style={{ padding: '7px 10px', textAlign: 'right', fontFamily: 'DM Mono, monospace', color: C.muted }}>{s.tot}</td>
+                  <td style={{ padding: '7px 10px', textAlign: 'right', fontFamily: 'DM Mono, monospace', color: s.p >= 50 ? C.red : (s.p >= 25 ? C.orange : C.green) }}>{s.p}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ════════════════════════════════════════
    APP PRINCIPAL
    ════════════════════════════════════════ */
 function App() {
@@ -687,6 +1005,9 @@ function App() {
   const [unitIndex, setUnitIndex] = React.useState(null);
   const [err, setErr] = React.useState(null);
   const [eleviTab, setEleviTab] = React.useState('national');
+  const [mainTab, setMainTab] = React.useState('elevi');
+  const [evalData, setEvalData] = React.useState(null);
+  const [evalErr, setEvalErr] = React.useState(null);
 
   React.useEffect(() => {
     fetch('edu_data.json').then(r => r.json()).then(setData).catch(e => setErr(String(e)));
@@ -697,6 +1018,12 @@ function App() {
       fetch('edu_unit_index.json').then(r => r.json()).then(setUnitIndex).catch(e => setErr(String(e)));
     }
   }, [eleviTab, unitIndex]);
+
+  React.useEffect(() => {
+    if (mainTab === 'evaluare' && !evalData && !evalErr) {
+      fetch('evaluare_nationala_2025.json').then(r => r.json()).then(setEvalData).catch(e => setEvalErr(String(e)));
+    }
+  }, [mainTab, evalData, evalErr]);
 
   if (err) return <div style={{ padding: 40, color: C.red }}>Eroare la încărcarea datelor: {err}</div>;
   if (!data) return <div style={{ padding: 40, textAlign: 'center', color: C.muted, fontSize: 13 }}>
@@ -740,19 +1067,13 @@ function App() {
           </div>
           {/* Tab-uri principale */}
           <div style={{ display: 'flex', gap: 0, borderTop: `1px solid ${C.border}` }}>
-            {['Elevi'].map((t, i) => (
-              <div key={t} style={{
-                fontSize: 12, fontWeight: 600,
-                color: C.blue,
+            {[['elevi', 'Elevi'], ['evaluare', 'Evaluarea Națională 2025']].map(([id, lbl]) => (
+              <div key={id} onClick={() => setMainTab(id)} style={{
+                fontSize: 12, fontWeight: mainTab === id ? 600 : 400,
+                color: mainTab === id ? C.blue : C.muted,
                 padding: '10px 16px', cursor: 'pointer',
-                borderBottom: `2px solid ${C.blue}`,
-              }}>{t}</div>
-            ))}
-            {['Personal didactic','Unități școlare','Buget'].map(t => (
-              <div key={t} style={{
-                fontSize: 12, fontWeight: 400, color: C.subtle,
-                padding: '10px 16px', cursor: 'not-allowed',
-              }}>{t} <span style={{ fontSize: 9, marginLeft: 4, opacity: 0.6 }}>(curând)</span></div>
+                borderBottom: mainTab === id ? `2px solid ${C.blue}` : '2px solid transparent',
+              }}>{lbl}</div>
             ))}
           </div>
         </div>
@@ -760,6 +1081,7 @@ function App() {
 
       {/* Conținut */}
       <div style={{ flex: 1, maxWidth: 1200, margin: '0 auto', width: '100%' }}>
+        {mainTab === 'elevi' && <>
         {/* Sub-tabs pentru "Elevi" */}
         <div style={{ background: '#fff', borderBottom: `1px solid ${C.border}`, padding: '0 20px' }}>
           <div style={{ display: 'flex', gap: 0, alignItems: 'center' }}>
@@ -779,6 +1101,17 @@ function App() {
         {eleviTab === 'national' && <AnalizaNationala data={data} />}
         {eleviTab === 'filtru' && <FiltruDetaliat data={data} />}
         {eleviTab === 'unitate' && (unitIndex ? <DateUnitate data={data} unitIndex={unitIndex} /> : <div style={{ padding: 40, textAlign: 'center', color: C.muted, fontSize: 12 }}>Se încarcă indexul unităților...</div>)}
+        </>}
+
+        {mainTab === 'evaluare' && (
+          evalErr ? <div style={{ padding: 40, color: C.red, fontSize: 13 }}>Eroare la încărcarea datelor Evaluării Naționale: {evalErr}</div>
+          : evalData ? <EvaluareNationala ev={evalData} />
+          : <div style={{ padding: 40, textAlign: 'center', color: C.muted, fontSize: 13 }}>
+              <div style={{ marginBottom: 12, fontSize: 24 }}>🎓</div>
+              Se încarcă rezultatele Evaluării Naționale 2025...<br/>
+              <span style={{ fontSize: 11, color: C.subtle }}>5.804 școli • 42 județe • ~1 MB</span>
+            </div>
+        )}
       </div>
 
       {/* Footer */}
