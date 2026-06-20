@@ -1,0 +1,38 @@
+name: Update Datorie Publică (Ministerul Finanțelor)
+
+on:
+  schedule:
+    # în fiecare luni, 06:15 UTC
+    - cron: "15 6 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalează dependențe
+        run: pip install requests xlrd
+
+      - name: Rulează scriptul de fetch
+        run: python scripts/fetch_datorie_publica.py
+
+      - name: Commit & push dacă există modificări
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet public/datorie-publica_data.json; then
+            git add public/datorie-publica_data.json
+            git commit -m "auto: actualizare date Datorie Publică MF"
+            git push
+          else
+            echo "Nicio modificare."
+          fi
