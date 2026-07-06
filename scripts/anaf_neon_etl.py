@@ -222,7 +222,9 @@ CREATE INDEX IF NOT EXISTS idx_sf_ca   ON situatii_financiare (cifra_afaceri_net
 # ------------------------------------------------------------- import platitori
 
 
-def load_platitori(conn, paths):
+def load_platitori(conn, paths, cui_filter):
+    """Incarca doar platitorii al caror CUI e in cui_filter
+    (firmele cu situatii financiare depuse) - limita 512MB Neon Free."""
     total, skipped = 0, 0
     with conn.cursor() as cur:
         cur.execute("TRUNCATE platitori")
@@ -252,6 +254,9 @@ def load_platitori(conn, paths):
                         denumire = parts[idx["DENUMIRE"]].strip()
                         # sanity check: rand corupt de encoding -> campuri decalate
                         if cui is None or not denumire:
+                            skipped += 1
+                            continue
+                        if cui not in cui_filter:  # fara bilant depus -> nu intra
                             skipped += 1
                             continue
                         if cui in seen:  # dubluri intre fisierele a si b
@@ -324,6 +329,7 @@ def load_situatii(conn, paths):
                             log(f"  ...{total:,} randuri")
     conn.commit()
     log(f"situatii_financiare: {total:,} inserate, {skipped:,} sarite")
+    return {cui for cui, _ in seen}
 
 
 # ------------------------------------------------------------------------ main
@@ -343,8 +349,11 @@ def main():
         with conn.cursor() as cur:
             cur.execute(SCHEMA_SQL)
         conn.commit()
-        load_platitori(conn, paths_ident)
-        load_situatii(conn, paths_sit)
+        # ordinea conteaza: intai situatiile (colectam CUI-urile firmelor
+        # cu bilant depus), apoi platitorii filtrati dupa acele CUI-uri
+        cui_set = load_situatii(conn, paths_sit)
+        log(f"CUI-uri cu bilant depus: {len(cui_set):,}")
+        load_platitori(conn, paths_ident, cui_set)
 
         with conn.cursor() as cur:
             cur.execute("SELECT count(*) FROM platitori")
