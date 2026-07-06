@@ -28,6 +28,12 @@ import requests
 
 CKAN_API = "https://data.gov.ro/api/3/action/resource_show?id={}"
 
+# Sursa fisierelor: assets dintr-un GitHub Release al repo-ului.
+# data.gov.ro e inaccesibil intermitent de pe runnerele GitHub Actions,
+# asa ca fisierele originale se urca manual (o data pe an) intr-un Release.
+GITHUB_REPO = "imau84/24RECO"
+RELEASE_TAG = os.environ.get("RELEASE_TAG", "date-anaf-2026")
+
 # UUID-urile resurselor de pe data.gov.ro (se schimba la fiecare editie anuala)
 RESOURCES_IDENTIFICARE = [
     "c39fee6e-810e-46fe-9020-72057fa89192",  # fisier a
@@ -67,12 +73,57 @@ HEADERS = {
 }
 
 
-def get_with_retry(url: str, attempts: int = 6, timeout: int = 120, **kw):
-    """GET cu retry si backoff exponential; data.gov.ro e instabil."""
+def download_release_assets(dest_dir: str = "downloads"):
+    """Descarca toate fisierele-asset din release-ul RELEASE_TAG.
+    Intoarce (paths_identificare, paths_situatii) clasificate dupa nume."""
+    os.makedirs(dest_dir, exist_ok=True)
+    token = os.environ.get("GITHUB_TOKEN", "")
+    api_headers = {**HEADERS, "Accept": "application/vnd.github+json"}
+    if token:
+        api_headers["Authorization"] = f"Bearer {token}"
+
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/releases/tags/{RELEASE_TAG}"
+    rel = get_with_retry(url, headers_override=api_headers).json()
+    assets = rel.get("assets", [])
+    if not assets:
+        raise RuntimeError(
+            f"Release-ul '{RELEASE_TAG}' nu are fisiere atasate. "
+            "Urca fisierele ANAF ca assets in release."
+        )
+
+    paths_ident, paths_sit = [], []
+    for a in assets:
+        name = a["name"]
+        log(f"Descarc din release: {name} ({a['size']/1e6:.1f} MB)")
+        dl_headers = {**api_headers, "Accept": "application/octet-stream"}
+        path = os.path.join(dest_dir, name)
+        with requests.get(a["url"], headers=dl_headers, stream=True,
+                          timeout=600) as r:
+            r.raise_for_status()
+            with open(path, "wb") as f:
+                for chunk in r.iter_content(1 << 20):
+                    f.write(chunk)
+        if "identificare" in name.lower():
+            paths_ident.append(path)
+        else:
+            detect_sursa(name)  # valideaza ca e un fisier de situatii cunoscut
+            paths_sit.append(path)
+
+    if len(paths_ident) < 2:
+        raise RuntimeError(f"Astept 2 fisiere de identificare, gasit {len(paths_ident)}")
+    if len(paths_sit) < 3:
+        raise RuntimeError(f"Astept 3 fisiere de situatii, gasit {len(paths_sit)}")
+    return sorted(paths_ident), sorted(paths_sit)
+
+
+def get_with_retry(url: str, attempts: int = 6, timeout: int = 120,
+                   headers_override=None, **kw):
+    """GET cu retry si backoff exponential."""
+    hdrs = headers_override if headers_override is not None else HEADERS
     last = None
     for attempt in range(attempts):
         try:
-            r = requests.get(url, headers=HEADERS, timeout=timeout, **kw)
+            r = requests.get(url, headers=hdrs, timeout=timeout, **kw)
             r.raise_for_status()
             return r
         except requests.RequestException as e:
@@ -340,9 +391,8 @@ def main():
     if not db_url:
         sys.exit("Lipseste env DATABASE_URL")
 
-    log("Descarc fisierele de pe data.gov.ro (API CKAN)...")
-    paths_ident = [download_resource(u) for u in RESOURCES_IDENTIFICARE]
-    paths_sit = [download_resource(u) for u in RESOURCES_SITUATII]
+    log(f"Descarc fisierele din GitHub Release '{RELEASE_TAG}'...")
+    paths_ident, paths_sit = download_release_assets()
 
     log("Conectare la Neon...")
     with psycopg.connect(db_url) as conn:
