@@ -58,10 +58,35 @@ def log(msg: str) -> None:
     print(f"[{datetime.now():%H:%M:%S}] {msg}", flush=True)
 
 
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+    ),
+    "Accept": "*/*",
+}
+
+
+def get_with_retry(url: str, attempts: int = 6, timeout: int = 120, **kw):
+    """GET cu retry si backoff exponential; data.gov.ro e instabil."""
+    last = None
+    for attempt in range(attempts):
+        try:
+            r = requests.get(url, headers=HEADERS, timeout=timeout, **kw)
+            r.raise_for_status()
+            return r
+        except requests.RequestException as e:
+            last = e
+            wait = 2 ** attempt * 10
+            log(f"  eroare la {url} ({type(e).__name__}); reincerc in {wait}s")
+            time.sleep(wait)
+    raise RuntimeError(f"Cerere esuata definitiv: {url} ({last})")
+
+
 def download_resource(uuid: str, dest_dir: str = "downloads") -> str:
     """Afla URL-ul real prin API-ul CKAN si descarca fisierul, cu retry."""
     os.makedirs(dest_dir, exist_ok=True)
-    meta = requests.get(CKAN_API.format(uuid), timeout=60).json()
+    meta = get_with_retry(CKAN_API.format(uuid)).json()
     if not meta.get("success"):
         raise RuntimeError(f"CKAN resource_show a esuat pentru {uuid}")
     url = meta["result"]["url"]
@@ -69,9 +94,9 @@ def download_resource(uuid: str, dest_dir: str = "downloads") -> str:
     path = os.path.join(dest_dir, url.rsplit("/", 1)[-1])
     log(f"Descarc: {name} <- {url}")
 
-    for attempt in range(5):
+    for attempt in range(6):
         try:
-            with requests.get(url, stream=True, timeout=300) as r:
+            with requests.get(url, headers=HEADERS, stream=True, timeout=600) as r:
                 r.raise_for_status()
                 with open(path, "wb") as f:
                     for chunk in r.iter_content(1 << 20):
@@ -80,8 +105,8 @@ def download_resource(uuid: str, dest_dir: str = "downloads") -> str:
             log(f"  salvat {path} ({size_mb:.1f} MB)")
             return path
         except requests.RequestException as e:
-            wait = 2 ** attempt * 5
-            log(f"  eroare ({e}); reincerc in {wait}s")
+            wait = 2 ** attempt * 10
+            log(f"  eroare ({type(e).__name__}: {e}); reincerc in {wait}s")
             time.sleep(wait)
     raise RuntimeError(f"Descarcarea a esuat definitiv: {url}")
 
