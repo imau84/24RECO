@@ -1,0 +1,28 @@
+name: Import date ANAF in Neon
+
+# Rulare exclusiv manuala (datele se publica o data pe an):
+# GitHub -> Actions -> "Import date ANAF in Neon" -> Run workflow
+on:
+  workflow_dispatch:
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalare dependinte
+        run: pip install "psycopg[binary]" requests
+
+      - name: Ruleaza ETL
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python scripts/anaf_neon_etl.py
