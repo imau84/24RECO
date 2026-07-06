@@ -33,12 +33,12 @@ RESOURCES_IDENTIFICARE = [
     "c39fee6e-810e-46fe-9020-72057fa89192",  # fisier a
     "6335ce42-7fd9-4532-b4a8-2929dcb65a21",  # fisier b
 ]
-RESOURCES_SITUATII = {
-    # uuid -> eticheta sursa (tip formular bilant)
-    "38a8cc80-3470-49a0-9335-7ae020d8239d": "BL_BS_SL",
-    "eeecc692-d914-4d3b-b7f5-d1a8a9791979": "IR",
-    "3540a9ce-6a4d-4e29-9aa1-ac909fe28ac1": "UU",
-}
+RESOURCES_SITUATII = [
+    # eticheta "sursa" se detecteaza automat din numele fisierului descarcat
+    "38a8cc80-3470-49a0-9335-7ae020d8239d",
+    "eeecc692-d914-4d3b-b7f5-d1a8a9791979",
+    "3540a9ce-6a4d-4e29-9aa1-ac909fe28ac1",
+]
 AN_BILANT = 2025
 
 # coloanele pastrate din fisierul de identificare (numele din header-ul sursa)
@@ -153,6 +153,18 @@ def to_int(s):
         return None
 
 
+def detect_sursa(fname: str) -> str:
+    """Detecteaza tipul formularului din numele fisierului."""
+    f = fname.lower()
+    if "bl_bs_sl" in f:
+        return "BL_BS_SL"
+    if "_ir_" in f or f.startswith("web_ir") or "ir_an" in f:
+        return "IR"
+    if "_uu_" in f or f.startswith("web_uu") or "uu_an" in f:
+        return "UU"
+    raise RuntimeError(f"Nu pot detecta tipul formularului din numele: {fname}")
+
+
 # ---------------------------------------------------------------------- schema
 
 SCHEMA_SQL = """
@@ -264,7 +276,7 @@ def load_platitori(conn, paths):
 # ----------------------------------------------------- import situatii financiare
 
 
-def load_situatii(conn, files_by_sursa):
+def load_situatii(conn, paths):
     total, skipped = 0, 0
     with conn.cursor() as cur:
         cur.execute(
@@ -281,8 +293,9 @@ def load_situatii(conn, files_by_sursa):
         )
         seen = set()
         with cur.copy(copy_sql) as copy:
-            for sursa, path in files_by_sursa.items():
+            for path in paths:
                 for fname, raw in iter_text_files(path):
+                    sursa = detect_sursa(fname)
                     log(f"Procesez situatii [{sursa}]: {fname}")
                     reader = csv.reader(decode_stream(raw))
                     header = next(reader)
@@ -323,7 +336,7 @@ def main():
 
     log("Descarc fisierele de pe data.gov.ro (API CKAN)...")
     paths_ident = [download_resource(u) for u in RESOURCES_IDENTIFICARE]
-    paths_sit = {s: download_resource(u) for u, s in RESOURCES_SITUATII.items()}
+    paths_sit = [download_resource(u) for u in RESOURCES_SITUATII]
 
     log("Conectare la Neon...")
     with psycopg.connect(db_url) as conn:
