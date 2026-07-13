@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 // API pentru datele de identificare ANAF (tabela platitori, Neon PostgreSQL)
 //   GET /api/firme?cui=123                                  -> fisa unei firme
+//   GET /api/firme?search=NUME                              -> cautare dupa denumire (max 20)
+//   GET /api/firme?financiare=123                           -> indicatorii financiari ai firmei
 //   GET /api/firme?mode=judete                              -> lista judetelor
 //   GET /api/firme?mode=localitati&judet=X                  -> localitatile din judet
 //   GET /api/firme?mode=strazi&judet=X&localitate=Y         -> strazile din localitate
@@ -36,6 +38,51 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ error: "Nu am găsit nicio firmă cu acest CUI" }, { status: 404 });
       }
       return NextResponse.json(rows[0], { headers: CACHE_LISTA });
+    }
+
+    // ---- cautare dupa denumire -------------------------------------------
+    const search = sp.get("search");
+    if (search) {
+      const q = search.trim();
+      if (q.length < 3) {
+        return NextResponse.json({ error: "Introdu cel puțin 3 caractere" }, { status: 400 });
+      }
+      const rows = await sql`
+        SELECT cui, denumire, localitate, judet
+        FROM platitori
+        WHERE denumire ILIKE ${"%" + q + "%"}
+        ORDER BY denumire
+        LIMIT 20`;
+      return NextResponse.json(rows, { headers: CACHE_LISTA });
+    }
+
+    // ---- indicatorii financiari ai unei firme ----------------------------
+    const finRaw = sp.get("financiare");
+    if (finRaw) {
+      const cui = Number(finRaw.replace(/\D/g, ""));
+      if (!cui || !Number.isSafeInteger(cui)) {
+        return NextResponse.json({ error: "CUI invalid" }, { status: 400 });
+      }
+      const rows = await sql`
+        SELECT s.cui, s.an, s.sursa, s.caen,
+               s.active_imobilizate, s.active_circulante, s.stocuri, s.creante,
+               s.casa_conturi, s.cheltuieli_in_avans, s.datorii, s.venituri_in_avans,
+               s.provizioane, s.capitaluri_total, s.capital_subscris, s.patrimoniul_regiei,
+               s.cifra_afaceri_neta, s.venituri_totale, s.cheltuieli_totale,
+               s.profit_brut, s.pierdere_bruta, s.profit_net, s.pierdere_neta,
+               s.numar_salariati,
+               p.denumire, p.localitate, p.judet
+        FROM situatii_financiare s
+        LEFT JOIN platitori p ON p.cui = s.cui
+        WHERE s.cui = ${cui}
+        ORDER BY s.an DESC`;
+      if (rows.length === 0) {
+        return NextResponse.json(
+          { error: "Nu am găsit situații financiare pentru acest CUI" },
+          { status: 404 },
+        );
+      }
+      return NextResponse.json(rows, { headers: CACHE_LISTA });
     }
 
     const mode = sp.get("mode");
@@ -100,7 +147,7 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    return NextResponse.json({ error: "Parametri lipsă: cui sau mode" }, { status: 400 });
+    return NextResponse.json({ error: "Parametri lipsă: cui, search, financiare sau mode" }, { status: 400 });
   } catch (e) {
     console.error("api/firme:", e);
     return NextResponse.json({ error: "Eroare internă" }, { status: 500 });
