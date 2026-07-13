@@ -1,6 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 // -------------------------------------------------------------- tipuri
 
@@ -138,50 +140,54 @@ export default function DateIdentificarePage() {
   // ------------------------------------------------ randare
 
   return (
-    <main className="di-wrap">
+    <main>
+      <Navbar />
+      <div className="di-wrap">
       <style>{`
-        .di-wrap { max-width: 1100px; margin: 0 auto; padding: 24px 16px 64px;
-                   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; color: #1e293b; }
+        .di-wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 64px; color: #1a1a1a; }
         .di-wrap h1 { font-size: 1.7rem; margin: 0 0 4px; }
-        .di-sub { color: #64748b; margin: 0 0 28px; font-size: .95rem; }
-        .di-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px;
+        .di-sub { color: #6b7280; margin: 0 0 28px; font-size: .95rem; }
+        .di-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px;
                    padding: 20px; margin-bottom: 24px; }
-        .di-card h2 { font-size: 1.05rem; margin: 0 0 14px; color: #0f4c81; }
+        .di-card h2 { font-size: 1.05rem; margin: 0 0 14px; color: var(--green-dark, #0F6E56); }
         .di-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
         .di-field { display: flex; flex-direction: column; gap: 4px; min-width: 180px; flex: 1; }
-        .di-field label { font-size: .8rem; color: #475569; font-weight: 600; }
+        .di-field label { font-size: .8rem; color: #4b5563; font-weight: 600; }
         .di-field input, .di-field select {
-          padding: 9px 10px; border: 1px solid #cbd5e1; border-radius: 7px;
-          font-size: .95rem; background: #fff; color: inherit; }
+          padding: 9px 10px; border: 1px solid #d1d5db; border-radius: 7px;
+          font-size: .95rem; background: #fff; color: inherit; font-family: inherit; }
         .di-field input:focus, .di-field select:focus {
-          outline: 2px solid #0f4c81; outline-offset: 1px; border-color: #0f4c81; }
-        .di-btn { padding: 9px 20px; border: none; border-radius: 7px; background: #0f4c81;
-                  color: #fff; font-size: .95rem; font-weight: 600; cursor: pointer; }
-        .di-btn:hover { background: #0c3e69; }
-        .di-btn:disabled { background: #94a3b8; cursor: default; }
+          outline: 2px solid var(--green, #1D9E75); outline-offset: 1px;
+          border-color: var(--green, #1D9E75); }
+        .di-btn { padding: 9px 20px; border: none; border-radius: 7px;
+                  background: var(--green, #1D9E75); color: #fff; font-size: .95rem;
+                  font-weight: 600; cursor: pointer; font-family: inherit; }
+        .di-btn:hover { background: var(--green-dark, #0F6E56); }
+        .di-btn:disabled { background: #9ca3af; cursor: default; }
         .di-err { color: #b91c1c; font-size: .9rem; margin-top: 10px; }
-        .di-info { color: #64748b; font-size: .9rem; margin-top: 10px; }
+        .di-info { color: #6b7280; font-size: .9rem; margin-top: 10px; }
         .di-detail { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
                      gap: 12px 20px; margin-top: 16px; }
         .di-detail dt { font-size: .75rem; text-transform: uppercase; letter-spacing: .04em;
-                        color: #64748b; margin-bottom: 2px; }
+                        color: #6b7280; margin-bottom: 2px; }
         .di-detail dd { margin: 0; font-size: .95rem; }
         .di-detail .full { grid-column: 1 / -1; }
         .di-detail .full dd { font-size: 1.1rem; font-weight: 700; }
         .di-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: .9rem; }
-        .di-table th { text-align: left; padding: 8px 10px; background: #f1f5f9;
-                       color: #475569; font-size: .78rem; text-transform: uppercase;
-                       letter-spacing: .04em; }
-        .di-table td { padding: 8px 10px; border-top: 1px solid #e2e8f0; }
+        .di-table th { text-align: left; padding: 8px 10px; background: var(--green-light, #E1F5EE);
+                       color: var(--green-dark, #0F6E56); font-size: .78rem;
+                       text-transform: uppercase; letter-spacing: .04em; }
+        .di-table td { padding: 8px 10px; border-top: 1px solid #e5e7eb; }
         .di-table tbody tr { cursor: pointer; }
-        .di-table tbody tr:hover { background: #f8fafc; }
-        .di-cui-link { color: #0f4c81; font-weight: 600; }
+        .di-table tbody tr:hover { background: var(--green-light, #E1F5EE); }
+        .di-cui-link { color: var(--green-dark, #0F6E56); font-weight: 600; }
         .di-pager { display: flex; gap: 10px; align-items: center; margin-top: 14px;
-                    font-size: .9rem; color: #475569; }
-        .di-pager button { padding: 6px 14px; border: 1px solid #cbd5e1; background: #fff;
-                           border-radius: 7px; cursor: pointer; font-size: .9rem; }
+                    font-size: .9rem; color: #4b5563; }
+        .di-pager button { padding: 6px 14px; border: 1px solid #d1d5db; background: #fff;
+                           border-radius: 7px; cursor: pointer; font-size: .9rem;
+                           font-family: inherit; }
         .di-pager button:disabled { opacity: .45; cursor: default; }
-        .di-total { font-weight: 600; color: #0f4c81; }
+        .di-total { font-weight: 600; color: var(--green-dark, #0F6E56); }
         @media (max-width: 640px) {
           .di-table .hide-sm { display: none; }
           .di-field { min-width: 140px; }
@@ -321,6 +327,8 @@ export default function DateIdentificarePage() {
         Sursa datelor: ANAF / data.gov.ro — „Date de identificare plătitori”, actualizat iunie 2026.
         Sunt afișate entitățile care au depus situații financiare pentru exercițiul 2025.
       </p>
+      </div>
+      <Footer />
     </main>
   );
 }
