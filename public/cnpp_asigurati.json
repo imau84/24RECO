@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-06T12:03:50Z",
+  "updated_at": "2026-07-13T11:09:24Z",
   "periods": [
     {
       "year": 2025,
@@ -6138,6 +6138,453 @@
           "Județ": "VRANCEA",
           "Salariu mediu (RON)": 5590,
           "Număr asigurați": 73200
+        }
+      ]
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "luna": "Aprilie",
+      "period": "2026.04",
+      "sheets_found": [
+        "CNPP_pilon_tip_asigurati_transe",
+        "CNPP_pilon1_sume",
+        "cnpp_pilon1_salariu_mediu_judet"
+      ],
+      "salarii": [
+        {
+          "Asigurati raportati in declaratiile D112": "Asigurati cu contracte de munca cu norma intreaga",
+          "nan": "Beneficiari de indemnizatie conform Legii nr. 19/2020 "
+        },
+        {
+          "Asigurati raportati in declaratiile D112": "Numar",
+          "nan": "Venitul mediu brut in cadrul transei",
+          "Asigurati in baza contractelor de asigurare individuale": "Numar",
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": "Numar"
+        },
+        {
+          "Numarul grupei": "(1)",
+          "Transa de venit brut": "(2)",
+          "Asigurati raportati in declaratiile D112": "(3)",
+          "nan": "(16)",
+          "Asigurati in baza contractelor de asigurare individuale": "(13)",
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": "(15)"
+        },
+        {
+          "Numarul grupei": "0 (*)",
+          "Transa de venit brut": 0,
+          "Asigurati raportati in declaratiile D112": 40314,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 0,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 1,
+          "Transa de venit brut": "1-4049",
+          "Asigurati raportati in declaratiile D112": 702190,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 235,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 2,
+          "Transa de venit brut": "4050",
+          "Asigurati raportati in declaratiile D112": 10782,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 14694,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 3,
+          "Transa de venit brut": "4051-4581",
+          "Asigurati raportati in declaratiile D112": 772115,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 103,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 4,
+          "Transa de venit brut": "4582",
+          "Asigurati raportati in declaratiile D112": 105426,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 0,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 5,
+          "Transa de venit brut": "4583-5000",
+          "Asigurati raportati in declaratiile D112": 296825,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 195,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 6,
+          "Transa de venit brut": "5001-6000",
+          "Asigurati raportati in declaratiile D112": 541246,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 248,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 7,
+          "Transa de venit brut": "6001-7000",
+          "Asigurati raportati in declaratiile D112": 427494,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 48,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 8,
+          "Transa de venit brut": "7001-8000",
+          "Asigurati raportati in declaratiile D112": 377814,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 130,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 9,
+          "Transa de venit brut": "8001-8619",
+          "Asigurati raportati in declaratiile D112": 211857,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 21,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 10,
+          "Transa de venit brut": "8620",
+          "Asigurati raportati in declaratiile D112": 425,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 5,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 11,
+          "Transa de venit brut": "8621-9000",
+          "Asigurati raportati in declaratiile D112": 115644,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 11,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 12,
+          "Transa de venit brut": "9001-10000",
+          "Asigurati raportati in declaratiile D112": 263089,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 75,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 13,
+          "Transa de venit brut": "10001-12000",
+          "Asigurati raportati in declaratiile D112": 430541,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 35,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 14,
+          "Transa de venit brut": "12001-13000",
+          "Asigurati raportati in declaratiile D112": 146321,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 5,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 15,
+          "Transa de venit brut": "13001-15000",
+          "Asigurati raportati in declaratiile D112": 227774,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 16,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 16,
+          "Transa de venit brut": "15001-16000",
+          "Asigurati raportati in declaratiile D112": 67434,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 14,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 17,
+          "Transa de venit brut": "16001-18000",
+          "Asigurati raportati in declaratiile D112": 100518,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 2,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 18,
+          "Transa de venit brut": "18001-20000",
+          "Asigurati raportati in declaratiile D112": 66082,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 18,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 19,
+          "Transa de venit brut": "20001-22000",
+          "Asigurati raportati in declaratiile D112": 51185,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 5,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 20,
+          "Transa de venit brut": "22001-25000",
+          "Asigurati raportati in declaratiile D112": 55707,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 5,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 21,
+          "Transa de venit brut": "25001-30000",
+          "Asigurati raportati in declaratiile D112": 65093,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 9,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 22,
+          "Transa de venit brut": "30001-40000",
+          "Asigurati raportati in declaratiile D112": 63300,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 4,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 23,
+          "Transa de venit brut": "40001-43099",
+          "Asigurati raportati in declaratiile D112": 9681,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 0,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 24,
+          "Transa de venit brut": "43100",
+          "Asigurati raportati in declaratiile D112": 7,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 0,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": 25,
+          "Transa de venit brut": "Peste 43100",
+          "Asigurati raportati in declaratiile D112": 42206,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 9,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": "Total",
+          "Asigurati raportati in declaratiile D112": 5191070,
+          "nan": 0,
+          "Asigurati in baza contractelor de asigurare individuale": 15887,
+          "Asigurati in baza declaratiilor unice fiscale depuse de persoanele fizice": 0
+        },
+        {
+          "Numarul grupei": "Numar distinct de asigurati raportati in declaratiile D112 aferent coloanelor (3), (5), (7), (9), (11), (13) si (15) (**)",
+          "nan": 5568887
+        },
+        {
+          "Numarul grupei": "Note:",
+          "Transa de venit brut": "(*) In categoria de asigurati fara venit sunt cuprinse persoanele care au primit in timpul lunii doar indemnizatie pentru incapacitate temporara de munca."
+        },
+        {
+          "Transa de venit brut": "(**) Asiguratii pot obtine in aceeasi luna venituri aferente unuia sau mai multor tipuri de asigurare (contract de munca cu norma intreaga / contract de munca cu timp partial / fara contract de munca la angajator / ajutor de somaj / indemnizatii conform ordonantelor de urgenta). "
+        }
+      ],
+      "judete": [
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "Judetul",
+          "nan": "Salariul mediu brut"
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "Cod",
+          "nan": "Denumire"
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "cod_jud",
+          "nan": "sal_med"
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "(1)",
+          "nan": "(6)"
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "011",
+          "nan": 6277
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "021",
+          "nan": 6297
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "031",
+          "nan": 7080
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "041",
+          "nan": 6617
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "051",
+          "nan": 5891
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "061",
+          "nan": 5649
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "071",
+          "nan": 5704
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "081",
+          "nan": 7322
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "091",
+          "nan": 5710
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "101",
+          "nan": 6002
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "111",
+          "nan": 5689
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "121",
+          "nan": 8669
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "131",
+          "nan": 6295
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "141",
+          "nan": 5985
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "151",
+          "nan": 6076
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "161",
+          "nan": 6475
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "171",
+          "nan": 6494
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "181",
+          "nan": 6352
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "191",
+          "nan": 5874
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "201",
+          "nan": 5690
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "211",
+          "nan": 5924
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "221",
+          "nan": 7007
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "231",
+          "nan": 5800
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "241",
+          "nan": 5561
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "251",
+          "nan": 5717
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "261",
+          "nan": 6721
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "271",
+          "nan": 5927
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "281",
+          "nan": 6583
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "291",
+          "nan": 6871
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "301",
+          "nan": 5829
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "311",
+          "nan": 5777
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "321",
+          "nan": 8313
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "331",
+          "nan": 5338
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "341",
+          "nan": 5754
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "351",
+          "nan": 9098
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "361",
+          "nan": 6457
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "371",
+          "nan": 5437
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "381",
+          "nan": 5685
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "391",
+          "nan": 5519
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "401",
+          "nan": 6073
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": 411,
+          "nan": 10205
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "471",
+          "nan": 7613
+        },
+        {
+          "privind numarul de angajatori, numarul de asigurati si salariul mediu brut pe judete, conform datelor comunicate in declaratiile D112": "Total",
+          "nan": 7656.399356872747
         }
       ]
     }
