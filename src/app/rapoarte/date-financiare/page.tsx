@@ -8,18 +8,20 @@ import Footer from "@/components/Footer";
 
 type Rezultat = { cui: number; denumire: string; localitate: string | null; judet: string | null };
 
+type Val = number | string | null;
+
 type Fin = {
   cui: number; an: number; sursa: string; caen: number | null;
-  active_imobilizate: number | null; active_circulante: number | null;
-  stocuri: number | null; creante: number | null; casa_conturi: number | null;
-  cheltuieli_in_avans: number | null; datorii: number | null;
-  venituri_in_avans: number | null; provizioane: number | null;
-  capitaluri_total: number | null; capital_subscris: number | null;
-  patrimoniul_regiei: number | null; cifra_afaceri_neta: number | null;
-  venituri_totale: number | null; cheltuieli_totale: number | null;
-  profit_brut: number | null; pierdere_bruta: number | null;
-  profit_net: number | null; pierdere_neta: number | null;
-  numar_salariati: number | null;
+  active_imobilizate: Val; active_circulante: Val;
+  stocuri: Val; creante: Val; casa_conturi: Val;
+  cheltuieli_in_avans: Val; datorii: Val;
+  venituri_in_avans: Val; provizioane: Val;
+  capitaluri_total: Val; capital_subscris: Val;
+  patrimoniul_regiei: Val; cifra_afaceri_neta: Val;
+  venituri_totale: Val; cheltuieli_totale: Val;
+  profit_brut: Val; pierdere_bruta: Val;
+  profit_net: Val; pierdere_neta: Val;
+  numar_salariati: Val;
   denumire: string | null; localitate: string | null; judet: string | null;
 };
 
@@ -40,8 +42,12 @@ export default function DateFinanciarePage() {
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const nr = (v: number | null) =>
-    v == null ? "–" : v.toLocaleString("en-US"); // separator de mii: virgula (ex. 149,904,552)
+  const nr = (v: number | string | null) => {
+    if (v == null || v === "") return "–";
+    const n = typeof v === "string" ? Number(v) : v;
+    if (!Number.isFinite(n)) return String(v);
+    return n.toLocaleString("en-US"); // separator de mii: virgula (ex. 4,675,812,406)
+  };
 
   // ------------------------------------------------ cautare
 
@@ -86,7 +92,7 @@ export default function DateFinanciarePage() {
 
   // ------------------------------------------------ randari ajutatoare
 
-  const Row = ({ label, val, indent }: { label: string; val: number | null; indent?: boolean }) => (
+  const Row = ({ label, val, indent }: { label: string; val: number | string | null; indent?: boolean }) => (
     <tr>
       <td className={indent ? "df-ind" : ""}>{label}</td>
       <td className="df-val">{nr(val)}</td>
