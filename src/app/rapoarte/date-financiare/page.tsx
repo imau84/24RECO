@@ -41,7 +41,7 @@ export default function DateFinanciarePage() {
   const [loading, setLoading] = useState(false);
 
   const nr = (v: number | null) =>
-    v == null ? "–" : v.toLocaleString("ro-RO");
+    v == null ? "–" : v.toLocaleString("en-US"); // separator de mii: virgula (ex. 149,904,552)
 
   // ------------------------------------------------ cautare
 
