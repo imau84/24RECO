@@ -5,17 +5,29 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  LineChart, Line, Legend, Cell, PieChart, Pie
+  LineChart, Line, Legend, Cell,
 } from 'recharts';
 
-// ─── Tipuri ──────────────────────────────────────────────────────────────────
+// ─── Tipuri (structura JSON generată de fetch_cnpp_asigurati.py) ─────────────
 
 interface SalariuRow {
-  [key: string]: string | number;
+  grupa: string;
+  transa: string;
+  numar: number;              // asigurați normă întreagă
+  venit_mediu: number;
+  timp_partial: number;
+  fara_contract: number;
+  somaj: number;
+  contract_individual: number;
 }
 
 interface JudetRow {
-  [key: string]: string | number;
+  cod: string;
+  judet: string;
+  angajatori: number;
+  fond_salarii: number;
+  asigurati: number;
+  salariu_mediu: number;
 }
 
 interface Period {
@@ -23,6 +35,7 @@ interface Period {
   month: number;
   luna: string;
   period: string;
+  total_asigurati: number | null;
   salarii: SalariuRow[];
   judete: JudetRow[];
 }
@@ -34,43 +47,30 @@ interface CNPPData {
 
 // ─── Utilitare ────────────────────────────────────────────────────────────────
 
-function fmt(n: number | string, decimals = 0): string {
-  const num = typeof n === 'string' ? parseFloat(n) : n;
-  if (isNaN(num)) return '-';
-  return num.toLocaleString('ro-RO', {
+function fmt(n: number | null | undefined, decimals = 0): string {
+  if (n === null || n === undefined || isNaN(n)) return '-';
+  return n.toLocaleString('ro-RO', {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   });
 }
 
-function findCol(row: SalariuRow | JudetRow, keywords: string[]): string | number | undefined {
-  const keys = Object.keys(row);
-  for (const kw of keywords) {
-    const found = keys.find(k => k.toLowerCase().includes(kw.toLowerCase()));
-    if (found) return row[found];
-  }
-  return undefined;
+// Culori pe gradient pentru tranșe (de la venit mic → mare)
+function transaColor(index: number, total: number): string {
+  const palette = [
+    '#94a3b8', '#ef4444', '#f97316', '#f59e0b', '#eab308', '#84cc16',
+    '#22c55e', '#10b981', '#14b8a6', '#06b6d4', '#0ea5e9', '#3b82f6',
+    '#6366f1', '#8b5cf6', '#a855f7', '#d946ef',
+  ];
+  return palette[Math.min(index, palette.length - 1)];
 }
 
-// ─── Culori grafice ──────────────────────────────────────────────────────────
-
 const BLUE_PALETTE = [
-  '#1e40af', '#2563eb', '#3b82f6', '#60a5fa', '#93c5fd',
-  '#bfdbfe', '#dbeafe', '#eff6ff'
+  '#1e3a8a', '#1e40af', '#2563eb', '#3b82f6', '#60a5fa',
+  '#93c5fd', '#bfdbfe', '#dbeafe', '#eff6ff', '#f8fafc',
 ];
 
-const TRANSA_COLORS: Record<string, string> = {
-  'Sub 3.300': '#ef4444',
-  '3.300 - 4.000': '#f97316',
-  '4.000 - 5.000': '#eab308',
-  '5.000 - 6.000': '#84cc16',
-  '6.000 - 8.000': '#22c55e',
-  '8.000 - 10.000': '#06b6d4',
-  '10.000 - 15.000': '#3b82f6',
-  'Peste 15.000': '#8b5cf6',
-};
-
-// ─── Componente KPI ──────────────────────────────────────────────────────────
+// ─── KPI Card ─────────────────────────────────────────────────────────────────
 
 function KPICard({ label, value, sub, color = '#2563eb' }: {
   label: string; value: string; sub?: string; color?: string;
@@ -89,7 +89,6 @@ function KPICard({ label, value, sub, color = '#2563eb' }: {
 function TabSalarii({ period, allPeriods }: { period: Period; allPeriods: Period[] }) {
   const [viewMode, setViewMode] = useState<'bar' | 'trend'>('bar');
 
-  // Detectăm coloanele din datele reale
   const salarii = period.salarii;
   if (!salarii || salarii.length === 0) {
     return (
@@ -100,85 +99,70 @@ function TabSalarii({ period, allPeriods }: { period: Period; allPeriods: Period
     );
   }
 
-  // Identificăm coloanele cheie
-  const sampleRow = salarii[0];
-  const colTransa = Object.keys(sampleRow).find(k =>
-    k.toLowerCase().includes('trans') || k.toLowerCase().includes('interval') ||
-    k.toLowerCase().includes('salar') || k.toLowerCase().includes('grupe')
-  ) || Object.keys(sampleRow)[0];
+  const totalNormaIntreaga = period.total_asigurati
+    ?? salarii.reduce((s, r) => s + r.numar, 0);
 
-  const colNr = Object.keys(sampleRow).find(k =>
-    k.toLowerCase().includes('nr') || k.toLowerCase().includes('număr') ||
-    k.toLowerCase().includes('numar') || k.toLowerCase().includes('asigur')
-  ) || Object.keys(sampleRow)[1];
-
-  const colPondere = Object.keys(sampleRow).find(k =>
-    k.toLowerCase().includes('pond') || k.toLowerCase().includes('%') ||
-    k.toLowerCase().includes('procent')
-  );
-
-  // Date pentru grafice
-  const barData = salarii.map(row => ({
-    name: String(row[colTransa] || '').replace('Tranșă salarială (RON): ', ''),
-    value: Number(row[colNr] || 0),
-    pondere: Number(row[colPondere || ''] || 0),
-    color: TRANSA_COLORS[String(row[colTransa] || '')] || '#3b82f6',
+  const barData = salarii.map((row, i) => ({
+    name: row.transa,
+    value: row.numar,
+    venitMediu: row.venit_mediu,
+    timpPartial: row.timp_partial,
+    color: transaColor(i, salarii.length),
   }));
 
-  const totalAsigurati = barData.reduce((s, r) => s + r.value, 0);
+  // Tranșa cu cei mai mulți asigurați (excludem "Fără venit")
+  const dominanta = [...salarii]
+    .filter(r => r.transa !== 'Fără venit')
+    .sort((a, b) => b.numar - a.numar)[0];
 
-  // Trend: evoluție pe luni pentru fiecare tranșă
+  // Sub salariul minim = grupa 1 (sub 4050 în 2026)
+  const subMinim = salarii.find(r => r.grupa === '1');
+  // Peste ultima tranșă mare
+  const pesteMax = salarii[salarii.length - 1];
+
+  // Trend pe luni: total + tranșa dominantă
   const trendData = allPeriods
     .filter(p => p.salarii?.length > 0)
-    .map(p => {
-      const obj: Record<string, number | string> = { period: p.period, luna: `${p.luna} ${p.year}` };
-      p.salarii.forEach(row => {
-        const name = String(row[Object.keys(row)[0]] || '');
-        const val = Number(row[Object.keys(row)[1]] || 0);
-        obj[name] = val;
-      });
-      return obj;
-    });
-
-  const trendKeys = barData.map(d => d.name).slice(2, 7); // Top tranșe mijlocii
+    .map(p => ({
+      luna: `${p.luna.substring(0, 3)} ${p.year}`,
+      total: p.total_asigurati ?? p.salarii.reduce((s, r) => s + r.numar, 0),
+    }));
 
   return (
     <div className="space-y-6">
-      {/* KPI-uri */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <KPICard
-          label="Total asigurați"
-          value={fmt(totalAsigurati)}
+          label="Total asigurați (normă întreagă)"
+          value={fmt(totalNormaIntreaga)}
           sub={`${period.luna} ${period.year}`}
           color="#1e40af"
         />
-        {barData[4] && (
+        {dominanta && (
           <KPICard
             label="Tranșa dominantă"
-            value={barData[4]?.name || '-'}
-            sub={`${fmt(barData[4]?.value)} asigurați`}
+            value={`${dominanta.transa} RON`}
+            sub={`${fmt(dominanta.numar)} asigurați`}
             color="#2563eb"
           />
         )}
-        {barData[barData.length - 1] && (
+        {pesteMax && (
           <KPICard
-            label="Venituri peste 15.000 RON"
-            value={`${barData[barData.length - 1]?.pondere?.toFixed(1) || '-'}%`}
-            sub={fmt(barData[barData.length - 1]?.value) + ' persoane'}
+            label={`Tranșa ${pesteMax.transa}`}
+            value={`${((pesteMax.numar / totalNormaIntreaga) * 100).toFixed(1)}%`}
+            sub={`${fmt(pesteMax.numar)} persoane`}
             color="#7c3aed"
           />
         )}
-        {barData[0] && (
+        {subMinim && (
           <KPICard
-            label="Sub salariul minim"
-            value={`${barData[0]?.pondere?.toFixed(1) || '-'}%`}
-            sub={fmt(barData[0]?.value) + ' persoane'}
+            label={`Sub salariul minim (${subMinim.transa})`}
+            value={`${((subMinim.numar / totalNormaIntreaga) * 100).toFixed(1)}%`}
+            sub={`${fmt(subMinim.numar)} persoane`}
             color="#dc2626"
           />
         )}
       </div>
 
-      {/* Toggle view */}
       <div className="flex gap-2">
         <button
           onClick={() => setViewMode('bar')}
@@ -204,29 +188,29 @@ function TabSalarii({ period, allPeriods }: { period: Period; allPeriods: Period
         )}
       </div>
 
-      {/* Grafic principal */}
       {viewMode === 'bar' && (
         <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
           <h3 className="text-sm font-semibold text-gray-700 mb-4">
-            Distribuția asiguraților pe tranșe salariale — {period.luna} {period.year}
+            Asigurați cu normă întreagă pe tranșe de venit brut — {period.luna} {period.year}
           </h3>
-          <ResponsiveContainer width="100%" height={320}>
-            <BarChart data={barData} margin={{ top: 5, right: 20, left: 20, bottom: 60 }}>
+          <ResponsiveContainer width="100%" height={340}>
+            <BarChart data={barData} margin={{ top: 5, right: 20, left: 20, bottom: 70 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
               <XAxis
                 dataKey="name"
-                tick={{ fontSize: 11, fill: '#6b7280' }}
-                angle={-35}
+                tick={{ fontSize: 10, fill: '#6b7280' }}
+                angle={-45}
                 textAnchor="end"
-                height={70}
+                height={80}
+                interval={0}
               />
               <YAxis
                 tick={{ fontSize: 11, fill: '#6b7280' }}
-                tickFormatter={(v) => (v >= 1000000 ? `${(v/1000000).toFixed(1)}M` : v >= 1000 ? `${(v/1000).toFixed(0)}K` : v)}
+                tickFormatter={(v) => (v >= 1000000 ? `${(v/1000000).toFixed(1)}M` : v >= 1000 ? `${(v/1000).toFixed(0)}K` : String(v))}
               />
               <Tooltip
-                formatter={(val: number) => [fmt(val), 'Asigurați']}
-                labelFormatter={(l) => `Tranșă: ${l}`}
+                formatter={(val: number, name: string) => [fmt(val), 'Asigurați']}
+                labelFormatter={(l) => `Tranșă: ${l} RON`}
                 contentStyle={{ fontSize: 12, borderRadius: 8 }}
               />
               <Bar dataKey="value" radius={[4, 4, 0, 0]}>
@@ -242,31 +226,28 @@ function TabSalarii({ period, allPeriods }: { period: Period; allPeriods: Period
       {viewMode === 'trend' && trendData.length > 1 && (
         <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
           <h3 className="text-sm font-semibold text-gray-700 mb-4">
-            Evoluție asigurați pe tranșe salariale (toate perioadele)
+            Evoluție total asigurați cu normă întreagă
           </h3>
-          <ResponsiveContainer width="100%" height={320}>
+          <ResponsiveContainer width="100%" height={300}>
             <LineChart data={trendData} margin={{ top: 5, right: 20, left: 20, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
               <XAxis dataKey="luna" tick={{ fontSize: 10, fill: '#6b7280' }} />
               <YAxis
                 tick={{ fontSize: 11, fill: '#6b7280' }}
-                tickFormatter={(v) => v >= 1000 ? `${(v/1000).toFixed(0)}K` : v}
+                tickFormatter={(v) => `${(v/1000000).toFixed(2)}M`}
+                domain={['auto', 'auto']}
               />
               <Tooltip
-                formatter={(val: number, name: string) => [fmt(val), name]}
-                contentStyle={{ fontSize: 11, borderRadius: 8 }}
+                formatter={(val: number) => [fmt(val), 'Total asigurați']}
+                contentStyle={{ fontSize: 12, borderRadius: 8 }}
               />
-              <Legend wrapperStyle={{ fontSize: 11 }} />
-              {trendKeys.map((key, i) => (
-                <Line
-                  key={key}
-                  type="monotone"
-                  dataKey={key}
-                  stroke={BLUE_PALETTE[i % BLUE_PALETTE.length]}
-                  strokeWidth={2}
-                  dot={{ r: 3 }}
-                />
-              ))}
+              <Line
+                type="monotone"
+                dataKey="total"
+                stroke="#2563eb"
+                strokeWidth={2.5}
+                dot={{ r: 4, fill: '#2563eb' }}
+              />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -275,66 +256,98 @@ function TabSalarii({ period, allPeriods }: { period: Period; allPeriods: Period
       {/* Tabel detaliat */}
       <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
         <div className="px-5 py-4 border-b border-gray-100">
-          <h3 className="text-sm font-semibold text-gray-700">Date complete pe tranșe</h3>
+          <h3 className="text-sm font-semibold text-gray-700">
+            Date complete pe tranșe și tipuri de asigurați
+          </h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-gray-50 text-xs text-gray-500 uppercase tracking-wider">
-                <th className="px-5 py-3 text-left">Tranșă salarială</th>
-                <th className="px-5 py-3 text-right">Nr. asigurați</th>
-                {colPondere && <th className="px-5 py-3 text-right">Pondere</th>}
-                <th className="px-5 py-3 text-right">% din total</th>
+                <th className="px-4 py-3 text-left">Tranșă venit (RON)</th>
+                <th className="px-4 py-3 text-right">Normă întreagă</th>
+                <th className="px-4 py-3 text-right hidden md:table-cell">Venit mediu</th>
+                <th className="px-4 py-3 text-right hidden lg:table-cell">Timp parțial</th>
+                <th className="px-4 py-3 text-right hidden lg:table-cell">Fără contract</th>
+                <th className="px-4 py-3 text-right hidden xl:table-cell">Șomaj</th>
+                <th className="px-4 py-3 text-right">% din total</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
-              {barData.map((row, i) => (
-                <tr key={i} className="hover:bg-blue-50/40 transition-colors">
-                  <td className="px-5 py-3">
-                    <div className="flex items-center gap-2">
-                      <div
-                        className="w-3 h-3 rounded-full flex-shrink-0"
-                        style={{ background: row.color }}
-                      />
-                      <span className="font-medium text-gray-800">{row.name}</span>
-                    </div>
-                  </td>
-                  <td className="px-5 py-3 text-right font-mono text-gray-700">
-                    {fmt(row.value)}
-                  </td>
-                  {colPondere && (
-                    <td className="px-5 py-3 text-right text-gray-600">
-                      {row.pondere?.toFixed(1)}%
-                    </td>
-                  )}
-                  <td className="px-5 py-3 text-right">
-                    <div className="flex items-center justify-end gap-2">
-                      <div className="w-24 bg-gray-100 rounded-full h-1.5">
+              {salarii.map((row, i) => {
+                const pct = totalNormaIntreaga > 0
+                  ? (row.numar / totalNormaIntreaga * 100)
+                  : 0;
+                return (
+                  <tr key={i} className="hover:bg-blue-50/40 transition-colors">
+                    <td className="px-4 py-2.5">
+                      <div className="flex items-center gap-2">
                         <div
-                          className="h-1.5 rounded-full"
-                          style={{
-                            width: `${(row.value / totalAsigurati * 100).toFixed(1)}%`,
-                            background: row.color,
-                          }}
+                          className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                          style={{ background: transaColor(i, salarii.length) }}
                         />
+                        <span className="font-medium text-gray-800">{row.transa}</span>
                       </div>
-                      <span className="text-xs text-gray-500 w-10 text-right">
-                        {(row.value / totalAsigurati * 100).toFixed(1)}%
-                      </span>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td className="px-4 py-2.5 text-right font-mono text-gray-700">
+                      {fmt(row.numar)}
+                    </td>
+                    <td className="px-4 py-2.5 text-right font-mono text-gray-500 hidden md:table-cell">
+                      {row.venit_mediu > 0 ? fmt(row.venit_mediu) : '-'}
+                    </td>
+                    <td className="px-4 py-2.5 text-right font-mono text-gray-500 hidden lg:table-cell">
+                      {fmt(row.timp_partial)}
+                    </td>
+                    <td className="px-4 py-2.5 text-right font-mono text-gray-500 hidden lg:table-cell">
+                      {fmt(row.fara_contract)}
+                    </td>
+                    <td className="px-4 py-2.5 text-right font-mono text-gray-500 hidden xl:table-cell">
+                      {fmt(row.somaj)}
+                    </td>
+                    <td className="px-4 py-2.5 text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        <div className="w-20 bg-gray-100 rounded-full h-1.5">
+                          <div
+                            className="h-1.5 rounded-full"
+                            style={{
+                              width: `${Math.min(pct, 100)}%`,
+                              background: transaColor(i, salarii.length),
+                            }}
+                          />
+                        </div>
+                        <span className="text-xs text-gray-500 w-10 text-right">
+                          {pct.toFixed(1)}%
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
             <tfoot>
               <tr className="bg-blue-50 font-semibold">
-                <td className="px-5 py-3 text-gray-700">Total</td>
-                <td className="px-5 py-3 text-right font-mono text-blue-700">{fmt(totalAsigurati)}</td>
-                {colPondere && <td className="px-5 py-3 text-right text-blue-700">100%</td>}
-                <td className="px-5 py-3 text-right text-blue-700">100%</td>
+                <td className="px-4 py-3 text-gray-700">Total</td>
+                <td className="px-4 py-3 text-right font-mono text-blue-700">
+                  {fmt(totalNormaIntreaga)}
+                </td>
+                <td className="hidden md:table-cell" />
+                <td className="px-4 py-3 text-right font-mono text-blue-700 hidden lg:table-cell">
+                  {fmt(salarii.reduce((s, r) => s + r.timp_partial, 0))}
+                </td>
+                <td className="px-4 py-3 text-right font-mono text-blue-700 hidden lg:table-cell">
+                  {fmt(salarii.reduce((s, r) => s + r.fara_contract, 0))}
+                </td>
+                <td className="px-4 py-3 text-right font-mono text-blue-700 hidden xl:table-cell">
+                  {fmt(salarii.reduce((s, r) => s + r.somaj, 0))}
+                </td>
+                <td className="px-4 py-3 text-right text-blue-700">100%</td>
               </tr>
             </tfoot>
           </table>
+        </div>
+        <div className="px-5 py-2 bg-gray-50 text-xs text-gray-400 border-t border-gray-100">
+          Notă: „Fără venit" = persoane care au primit doar indemnizație pentru incapacitate temporară de muncă.
+          Sursă: declarațiile D112, CNPP.
         </div>
       </div>
     </div>
@@ -344,9 +357,9 @@ function TabSalarii({ period, allPeriods }: { period: Period; allPeriods: Period
 // ─── Tab Județe ───────────────────────────────────────────────────────────────
 
 function TabJudete({ period, allPeriods }: { period: Period; allPeriods: Period[] }) {
-  const [sortBy, setSortBy] = useState<'salariu' | 'asigurati' | 'judet'>('salariu');
+  const [sortBy, setSortBy] = useState<'salariu' | 'asigurati' | 'angajatori' | 'judet'>('salariu');
   const [selectedJudet, setSelectedJudet] = useState<string | null>(null);
-  const [viewMode, setViewMode] = useState<'map' | 'chart' | 'table'>('chart');
+  const [viewMode, setViewMode] = useState<'chart' | 'table' | 'trend'>('chart');
 
   const judete = period.judete;
   if (!judete || judete.length === 0) {
@@ -358,104 +371,98 @@ function TabJudete({ period, allPeriods }: { period: Period; allPeriods: Period[
     );
   }
 
-  // Detectăm coloanele
-  const sampleRow = judete[0];
-  const colJudet = Object.keys(sampleRow).find(k =>
-    k.toLowerCase().includes('judet') || k.toLowerCase().includes('județ') ||
-    k.toLowerCase().includes('denumire')
-  ) || Object.keys(sampleRow)[0];
-
-  const colSalariu = Object.keys(sampleRow).find(k =>
-    k.toLowerCase().includes('salar') || k.toLowerCase().includes('venit') ||
-    k.toLowerCase().includes('câștig')
-  ) || Object.keys(sampleRow)[1];
-
-  const colNrAsig = Object.keys(sampleRow).find(k =>
-    (k.toLowerCase().includes('număr') || k.toLowerCase().includes('numar') || k.toLowerCase().includes('nr')) &&
-    (k.toLowerCase().includes('asig') || k.toLowerCase().includes('pers'))
-  ) || (Object.keys(sampleRow).length > 2 ? Object.keys(sampleRow)[2] : undefined);
-
-  // Sortăm și procesăm datele
-  const judetData = judete
-    .map(row => ({
-      judet: String(row[colJudet] || '').trim(),
-      salariu: Number(row[colSalariu] || 0),
-      asigurati: colNrAsig ? Number(row[colNrAsig] || 0) : 0,
-    }))
-    .filter(r => r.judet && r.judet !== 'nan' && r.salariu > 0);
-
-  const sorted = [...judetData].sort((a, b) => {
-    if (sortBy === 'salariu') return b.salariu - a.salariu;
+  const sorted = [...judete].sort((a, b) => {
+    if (sortBy === 'salariu') return b.salariu_mediu - a.salariu_mediu;
     if (sortBy === 'asigurati') return b.asigurati - a.asigurati;
+    if (sortBy === 'angajatori') return b.angajatori - a.angajatori;
     return a.judet.localeCompare(b.judet, 'ro');
   });
 
-  const maxSalariu = Math.max(...judetData.map(d => d.salariu));
-  const minSalariu = Math.min(...judetData.map(d => d.salariu).filter(v => v > 0));
-  const avgSalariu = judetData.reduce((s, d) => s + d.salariu, 0) / judetData.length;
-  const totalAsig = judetData.reduce((s, d) => s + d.asigurati, 0);
+  const maxSal = Math.max(...judete.map(d => d.salariu_mediu));
+  const minSal = Math.min(...judete.map(d => d.salariu_mediu));
+  const totalAsig = judete.reduce((s, d) => s + d.asigurati, 0);
+  const totalAng = judete.reduce((s, d) => s + d.angajatori, 0);
+  const totalFond = judete.reduce((s, d) => s + d.fond_salarii, 0);
+  // Salariu mediu național ponderat = fond total / asigurați total
+  const avgSalNational = totalAsig > 0 ? totalFond / totalAsig : 0;
 
-  // Top 3 / bottom 3 pentru graficul orizontal
-  const top10 = [...judetData]
-    .sort((a, b) => b.salariu - a.salariu)
+  const top10 = [...judete]
+    .sort((a, b) => b.salariu_mediu - a.salariu_mediu)
     .slice(0, 10)
-    .map(d => ({ ...d, name: d.judet.length > 12 ? d.judet.substring(0, 12) + '…' : d.judet }));
+    .map(d => ({
+      name: d.judet.length > 13 ? d.judet.substring(0, 13) + '…' : d.judet,
+      salariu: d.salariu_mediu,
+    }));
 
-  // Trend județe selectate
   const trendData = selectedJudet
-    ? allPeriods.filter(p => p.judete?.length > 0).map(p => {
-        const row = p.judete.find(r => String(r[colJudet] || '').trim() === selectedJudet);
-        return {
-          period: p.period,
-          luna: `${p.luna.substring(0, 3)} ${p.year}`,
-          salariu: row ? Number(row[colSalariu] || 0) : 0,
-          asigurati: row && colNrAsig ? Number(row[colNrAsig] || 0) : 0,
-        };
-      })
+    ? allPeriods
+        .filter(p => p.judete?.length > 0)
+        .map(p => {
+          const row = p.judete.find(r => r.judet === selectedJudet);
+          return {
+            luna: `${p.luna.substring(0, 3)} ${p.year}`,
+            salariu: row?.salariu_mediu ?? 0,
+            asigurati: row?.asigurati ?? 0,
+          };
+        })
+        .filter(d => d.salariu > 0)
     : [];
 
   return (
     <div className="space-y-6">
-      {/* KPI */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <KPICard label="Salariu mediu național" value={`${fmt(avgSalariu)} RON`} sub="medie județe" color="#1e40af" />
+        <KPICard
+          label="Salariu mediu național"
+          value={`${fmt(avgSalNational)} RON`}
+          sub="ponderat cu nr. asigurați"
+          color="#1e40af"
+        />
         <KPICard
           label="Cel mai mare salariu"
-          value={`${fmt(maxSalariu)} RON`}
-          sub={judetData.find(d => d.salariu === maxSalariu)?.judet}
+          value={`${fmt(maxSal)} RON`}
+          sub={judete.find(d => d.salariu_mediu === maxSal)?.judet}
           color="#059669"
         />
         <KPICard
           label="Cel mai mic salariu"
-          value={`${fmt(minSalariu)} RON`}
-          sub={judetData.find(d => d.salariu === minSalariu)?.judet}
+          value={`${fmt(minSal)} RON`}
+          sub={judete.find(d => d.salariu_mediu === minSal)?.judet}
           color="#dc2626"
         />
-        {totalAsig > 0 && (
-          <KPICard label="Total asigurați" value={fmt(totalAsig)} sub="suma tuturor județelor" color="#7c3aed" />
-        )}
+        <KPICard
+          label="Total angajatori"
+          value={fmt(totalAng)}
+          sub={`${fmt(totalAsig)} asigurați`}
+          color="#7c3aed"
+        />
       </div>
 
-      {/* Toggle */}
       <div className="flex gap-2 flex-wrap">
-        {(['chart', 'table'] as const).map(mode => (
-          <button
-            key={mode}
-            onClick={() => setViewMode(mode)}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-              viewMode === mode
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-            }`}
-          >
-            {mode === 'chart' ? 'Top 10 județe' : 'Toate județele'}
-          </button>
-        ))}
+        <button
+          onClick={() => setViewMode('chart')}
+          className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+            viewMode === 'chart'
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+          }`}
+        >
+          Top 10 județe
+        </button>
+        <button
+          onClick={() => setViewMode('table')}
+          className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+            viewMode === 'table'
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+          }`}
+        >
+          Toate județele
+        </button>
         {selectedJudet && allPeriods.length > 1 && (
           <button
-            onClick={() => setViewMode('map')}
+            onClick={() => setViewMode('trend')}
             className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-              viewMode === 'map'
+              viewMode === 'trend'
                 ? 'bg-blue-600 text-white'
                 : 'bg-green-100 text-green-700 hover:bg-green-200'
             }`}
@@ -465,13 +472,12 @@ function TabJudete({ period, allPeriods }: { period: Period; allPeriods: Period[
         )}
       </div>
 
-      {/* Grafic Top 10 */}
       {viewMode === 'chart' && (
         <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
           <h3 className="text-sm font-semibold text-gray-700 mb-4">
-            Top 10 județe după salariu mediu — {period.luna} {period.year}
+            Top 10 județe după salariul mediu brut — {period.luna} {period.year}
           </h3>
-          <ResponsiveContainer width="100%" height={320}>
+          <ResponsiveContainer width="100%" height={340}>
             <BarChart data={top10} layout="vertical" margin={{ top: 5, right: 60, left: 100, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" horizontal={false} />
               <XAxis
@@ -486,32 +492,28 @@ function TabJudete({ period, allPeriods }: { period: Period; allPeriods: Period[
                 width={95}
               />
               <Tooltip
-                formatter={(val: number) => [`${fmt(val)} RON`, 'Salariu mediu']}
+                formatter={(val: number) => [`${fmt(val)} RON`, 'Salariu mediu brut']}
                 contentStyle={{ fontSize: 12, borderRadius: 8 }}
               />
               <Bar dataKey="salariu" radius={[0, 4, 4, 0]}>
-                {top10.map((entry, i) => (
-                  <Cell
-                    key={i}
-                    fill={BLUE_PALETTE[Math.min(i, BLUE_PALETTE.length - 1)]}
-                  />
+                {top10.map((_, i) => (
+                  <Cell key={i} fill={BLUE_PALETTE[Math.min(i, BLUE_PALETTE.length - 1)]} />
                 ))}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
           <p className="text-xs text-gray-400 mt-2 text-center">
-            Linie roșie = medie națională ({fmt(avgSalariu)} RON)
+            Medie națională ponderată: {fmt(avgSalNational)} RON
           </p>
         </div>
       )}
 
-      {/* Evoluție județ selectat */}
-      {viewMode === 'map' && selectedJudet && trendData.length > 1 && (
+      {viewMode === 'trend' && selectedJudet && trendData.length > 1 && (
         <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
           <h3 className="text-sm font-semibold text-gray-700 mb-4">
-            Evoluție salariu mediu — {selectedJudet}
+            Evoluție salariu mediu brut — {selectedJudet}
           </h3>
-          <ResponsiveContainer width="100%" height={260}>
+          <ResponsiveContainer width="100%" height={280}>
             <LineChart data={trendData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
               <XAxis dataKey="luna" tick={{ fontSize: 11, fill: '#6b7280' }} />
@@ -521,7 +523,7 @@ function TabJudete({ period, allPeriods }: { period: Period; allPeriods: Period[
                 domain={['auto', 'auto']}
               />
               <Tooltip
-                formatter={(val: number) => [`${fmt(val)} RON`, 'Salariu mediu']}
+                formatter={(val: number) => [`${fmt(val)} RON`, 'Salariu mediu brut']}
                 contentStyle={{ fontSize: 12, borderRadius: 8 }}
               />
               <Line
@@ -542,88 +544,81 @@ function TabJudete({ period, allPeriods }: { period: Period; allPeriods: Period[
         </div>
       )}
 
-      {/* Tabel complet */}
-      {(viewMode === 'table' || viewMode === 'map') && (
+      {(viewMode === 'table' || viewMode === 'trend') && (
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
           <div className="px-5 py-4 border-b border-gray-100 flex flex-wrap items-center justify-between gap-3">
             <h3 className="text-sm font-semibold text-gray-700">Date pe județe</h3>
-            <div className="flex gap-2 text-xs">
+            <div className="flex gap-2 text-xs items-center">
               <span className="text-gray-500">Sortare:</span>
-              {(['salariu', 'asigurati', 'judet'] as const).map(s => (
+              {([['salariu', 'Salariu'], ['asigurati', 'Asigurați'], ['angajatori', 'Angajatori'], ['judet', 'Alfabet']] as const).map(([key, label]) => (
                 <button
-                  key={s}
-                  onClick={() => setSortBy(s)}
+                  key={key}
+                  onClick={() => setSortBy(key)}
                   className={`px-2.5 py-1 rounded-full transition-colors ${
-                    sortBy === s
+                    sortBy === key
                       ? 'bg-blue-100 text-blue-700 font-medium'
                       : 'text-gray-500 hover:text-gray-700'
                   }`}
                 >
-                  {s === 'salariu' ? 'Salariu' : s === 'asigurati' ? 'Asigurați' : 'Alfabet'}
+                  {label}
                 </button>
               ))}
             </div>
           </div>
-          <div className="overflow-x-auto max-h-[480px] overflow-y-auto">
+          <div className="overflow-x-auto max-h-[520px] overflow-y-auto">
             <table className="w-full text-sm">
               <thead className="sticky top-0 bg-gray-50 z-10">
                 <tr className="text-xs text-gray-500 uppercase tracking-wider">
-                  <th className="px-5 py-3 text-left">#</th>
-                  <th className="px-5 py-3 text-left">Județ</th>
-                  <th className="px-5 py-3 text-right">Salariu mediu</th>
-                  <th className="px-5 py-3 text-right hidden md:table-cell">vs. medie națională</th>
-                  {totalAsig > 0 && <th className="px-5 py-3 text-right hidden md:table-cell">Nr. asigurați</th>}
-                  {allPeriods.length > 1 && <th className="px-5 py-3 text-center hidden md:table-cell">Trend</th>}
+                  <th className="px-4 py-3 text-left">#</th>
+                  <th className="px-4 py-3 text-left">Județ</th>
+                  <th className="px-4 py-3 text-right">Salariu mediu brut</th>
+                  <th className="px-4 py-3 text-right hidden md:table-cell">vs. medie</th>
+                  <th className="px-4 py-3 text-right hidden md:table-cell">Asigurați</th>
+                  <th className="px-4 py-3 text-right hidden lg:table-cell">Angajatori</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
                 {sorted.map((row, i) => {
-                  const diff = row.salariu - avgSalariu;
-                  const diffPct = (diff / avgSalariu * 100).toFixed(1);
+                  const diff = row.salariu_mediu - avgSalNational;
+                  const diffPct = (diff / avgSalNational * 100).toFixed(1);
                   const isSelected = selectedJudet === row.judet;
                   return (
                     <tr
                       key={row.judet}
-                      onClick={() => setSelectedJudet(isSelected ? null : row.judet)}
+                      onClick={() => {
+                        if (isSelected) {
+                          setSelectedJudet(null);
+                        } else {
+                          setSelectedJudet(row.judet);
+                          if (allPeriods.length > 1) setViewMode('trend');
+                        }
+                      }}
                       className={`transition-colors cursor-pointer ${
                         isSelected
                           ? 'bg-blue-50 ring-1 ring-inset ring-blue-200'
                           : 'hover:bg-gray-50'
                       }`}
                     >
-                      <td className="px-5 py-3 text-gray-400 text-xs">{i + 1}</td>
-                      <td className="px-5 py-3">
+                      <td className="px-4 py-2.5 text-gray-400 text-xs">{i + 1}</td>
+                      <td className="px-4 py-2.5">
                         <span className="font-medium text-gray-800">{row.judet}</span>
-                        {isSelected && (
-                          <span className="ml-2 text-xs text-blue-500">selectat</span>
-                        )}
                       </td>
-                      <td className="px-5 py-3 text-right">
-                        <span className="font-mono font-semibold text-gray-800">
-                          {fmt(row.salariu)} RON
-                        </span>
+                      <td className="px-4 py-2.5 text-right font-mono font-semibold text-gray-800">
+                        {fmt(row.salariu_mediu)} RON
                       </td>
-                      <td className="px-5 py-3 text-right hidden md:table-cell">
+                      <td className="px-4 py-2.5 text-right hidden md:table-cell">
                         <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
-                          diff > 0
-                            ? 'bg-green-50 text-green-700'
-                            : 'bg-red-50 text-red-600'
+                          diff > 0 ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600'
                         }`}>
                           {diff > 0 ? '+' : ''}{diffPct}%
                         </span>
                       </td>
-                      {totalAsig > 0 && (
-                        <td className="px-5 py-3 text-right font-mono text-gray-600 hidden md:table-cell">
-                          {fmt(row.asigurati)}
-                        </td>
-                      )}
-                      {allPeriods.length > 1 && (
-                        <td className="px-5 py-3 text-center hidden md:table-cell">
-                          <span className="text-xs text-blue-500 hover:underline">
-                            {isSelected ? '📈 activ' : 'click pt. trend'}
-                          </span>
-                        </td>
-                      )}
+                      <td className="px-4 py-2.5 text-right font-mono text-gray-600 hidden md:table-cell">
+                        {fmt(row.asigurati)}
+                      </td>
+                      <td className="px-4 py-2.5 text-right font-mono text-gray-600 hidden lg:table-cell">
+                        {fmt(row.angajatori)}
+                      </td>
                     </tr>
                   );
                 })}
@@ -632,7 +627,7 @@ function TabJudete({ period, allPeriods }: { period: Period; allPeriods: Period[
           </div>
           {allPeriods.length > 1 && (
             <div className="px-5 py-2 bg-gray-50 text-xs text-gray-400 border-t border-gray-100">
-              Click pe un județ pentru a vedea evoluția în timp
+              Click pe un județ pentru a vedea evoluția salariului în timp
             </div>
           )}
         </div>
@@ -658,7 +653,6 @@ export default function CasaPensiiAsiguratiPage() {
       })
       .then((d: CNPPData) => {
         setData(d);
-        // Selectează ultima perioadă
         if (d.periods?.length > 0) {
           setSelectedPeriod(d.periods[d.periods.length - 1].period);
         }
@@ -703,7 +697,6 @@ export default function CasaPensiiAsiguratiPage() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      {/* Header pagină */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-wrap items-start justify-between gap-4">
@@ -746,7 +739,6 @@ export default function CasaPensiiAsiguratiPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
 
-        {/* Selector perioadă */}
         <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm">
           <div className="flex flex-wrap items-center gap-3">
             <span className="text-sm font-medium text-gray-600">Perioadă:</span>
@@ -773,10 +765,8 @@ export default function CasaPensiiAsiguratiPage() {
           </div>
         </div>
 
-        {/* Sub-tab Asigurati: Salarii / Județe */}
         {currentPeriod ? (
           <>
-            {/* Tab switcher */}
             <div className="flex border-b border-gray-200">
               {(['salarii', 'judete'] as const).map(tab => (
                 <button
@@ -793,7 +783,6 @@ export default function CasaPensiiAsiguratiPage() {
               ))}
             </div>
 
-            {/* Conținut tab */}
             {activeSubTab === 'salarii' && (
               <TabSalarii period={currentPeriod} allPeriods={allPeriods} />
             )}
