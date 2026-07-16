@@ -1,6 +1,9111 @@
 {
- "updated_at": "2026-07-13T21:00:19Z",
+ "updated_at": "2026-07-16T16:15:27Z",
  "periods": [
+  {
+   "year": 2025,
+   "month": 1,
+   "luna": "Ianuarie",
+   "period": "2025.01",
+   "total_asigurati": 5242227,
+   "salarii": [
+    {
+     "grupa": "0 (*)",
+     "transa": "Fără venit",
+     "numar": 41113,
+     "venit_mediu": 0,
+     "timp_partial": 2271,
+     "fara_contract": 1012,
+     "somaj": 439,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "1",
+     "transa": "1-4049",
+     "numar": 756762,
+     "venit_mediu": 3156,
+     "timp_partial": 303388,
+     "fara_contract": 99743,
+     "somaj": 67218,
+     "contract_individual": 493
+    },
+    {
+     "grupa": "2",
+     "transa": "4050",
+     "numar": 12933,
+     "venit_mediu": 4050,
+     "timp_partial": 2091,
+     "fara_contract": 9894,
+     "somaj": 1,
+     "contract_individual": 16743
+    },
+    {
+     "grupa": "3",
+     "transa": "4051-4581",
+     "numar": 842657,
+     "venit_mediu": 4207,
+     "timp_partial": 22556,
+     "fara_contract": 3636,
+     "somaj": 58,
+     "contract_individual": 72
+    },
+    {
+     "grupa": "4",
+     "transa": "4582",
+     "numar": 107196,
+     "venit_mediu": 4582,
+     "timp_partial": 457,
+     "fara_contract": 245,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "5",
+     "transa": "4583-5000",
+     "numar": 318113,
+     "venit_mediu": 4769,
+     "timp_partial": 9519,
+     "fara_contract": 1150,
+     "somaj": 25,
+     "contract_individual": 180
+    },
+    {
+     "grupa": "6",
+     "transa": "5001-6000",
+     "numar": 578162,
+     "venit_mediu": 5486,
+     "timp_partial": 18256,
+     "fara_contract": 1849,
+     "somaj": 16,
+     "contract_individual": 204
+    },
+    {
+     "grupa": "7",
+     "transa": "6001-7000",
+     "numar": 440143,
+     "venit_mediu": 6507,
+     "timp_partial": 11597,
+     "fara_contract": 1400,
+     "somaj": 5,
+     "contract_individual": 49
+    },
+    {
+     "grupa": "8",
+     "transa": "7001-8000",
+     "numar": 378159,
+     "venit_mediu": 7502,
+     "timp_partial": 8764,
+     "fara_contract": 1094,
+     "somaj": 3,
+     "contract_individual": 126
+    },
+    {
+     "grupa": "9",
+     "transa": "8001-8619",
+     "numar": 206417,
+     "venit_mediu": 8324,
+     "timp_partial": 5589,
+     "fara_contract": 2870,
+     "somaj": 2,
+     "contract_individual": 21
+    },
+    {
+     "grupa": "10",
+     "transa": "8620",
+     "numar": 314,
+     "venit_mediu": 8620,
+     "timp_partial": 8,
+     "fara_contract": 0,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "11",
+     "transa": "8621-9000",
+     "numar": 109072,
+     "venit_mediu": 8807,
+     "timp_partial": 2691,
+     "fara_contract": 292,
+     "somaj": 1,
+     "contract_individual": 7
+    },
+    {
+     "grupa": "12",
+     "transa": "9001-10000",
+     "numar": 243338,
+     "venit_mediu": 9497,
+     "timp_partial": 6275,
+     "fara_contract": 1011,
+     "somaj": 0,
+     "contract_individual": 59
+    },
+    {
+     "grupa": "13",
+     "transa": "10001-12000",
+     "numar": 378130,
+     "venit_mediu": 10937,
+     "timp_partial": 9888,
+     "fara_contract": 1443,
+     "somaj": 1,
+     "contract_individual": 25
+    },
+    {
+     "grupa": "14",
+     "transa": "12001-13000",
+     "numar": 149616,
+     "venit_mediu": 12471,
+     "timp_partial": 3743,
+     "fara_contract": 742,
+     "somaj": 1,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "15",
+     "transa": "13001-15000",
+     "numar": 226884,
+     "venit_mediu": 13956,
+     "timp_partial": 4833,
+     "fara_contract": 1241,
+     "somaj": 5,
+     "contract_individual": 16
+    },
+    {
+     "grupa": "16",
+     "transa": "15001-16000",
+     "numar": 70384,
+     "venit_mediu": 15476,
+     "timp_partial": 1630,
+     "fara_contract": 374,
+     "somaj": 0,
+     "contract_individual": 13
+    },
+    {
+     "grupa": "17",
+     "transa": "16001-18000",
+     "numar": 94938,
+     "venit_mediu": 16934,
+     "timp_partial": 3052,
+     "fara_contract": 904,
+     "somaj": 0,
+     "contract_individual": 8
+    },
+    {
+     "grupa": "18",
+     "transa": "18001-20000",
+     "numar": 63154,
+     "venit_mediu": 18959,
+     "timp_partial": 1904,
+     "fara_contract": 947,
+     "somaj": 1,
+     "contract_individual": 15
+    },
+    {
+     "grupa": "19",
+     "transa": "20001-22000",
+     "numar": 46237,
+     "venit_mediu": 20949,
+     "timp_partial": 1385,
+     "fara_contract": 447,
+     "somaj": 0,
+     "contract_individual": 6
+    },
+    {
+     "grupa": "20",
+     "transa": "22001-25000",
+     "numar": 48932,
+     "venit_mediu": 23402,
+     "timp_partial": 1336,
+     "fara_contract": 387,
+     "somaj": 1,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "21",
+     "transa": "25001-30000",
+     "numar": 52848,
+     "venit_mediu": 27261,
+     "timp_partial": 1417,
+     "fara_contract": 543,
+     "somaj": 0,
+     "contract_individual": 7
+    },
+    {
+     "grupa": "22",
+     "transa": "30001-40000",
+     "numar": 47012,
+     "venit_mediu": 34076,
+     "timp_partial": 1156,
+     "fara_contract": 655,
+     "somaj": 0,
+     "contract_individual": 3
+    },
+    {
+     "grupa": "23",
+     "transa": "40001-43099",
+     "numar": 6665,
+     "venit_mediu": 41542,
+     "timp_partial": 136,
+     "fara_contract": 189,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "24",
+     "transa": "43100",
+     "numar": 0,
+     "venit_mediu": 0,
+     "timp_partial": 0,
+     "fara_contract": 0,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "25",
+     "transa": "Peste 43100",
+     "numar": 23048,
+     "venit_mediu": 70104,
+     "timp_partial": 498,
+     "fara_contract": 1388,
+     "somaj": 0,
+     "contract_individual": 10
+    }
+   ],
+   "judete": [
+    {
+     "cod": "011",
+     "judet": "ALBA",
+     "angajatori": 9728,
+     "fond_salarii": 603569775,
+     "asigurati": 97923,
+     "salariu_mediu": 6164
+    },
+    {
+     "cod": "021",
+     "judet": "ARAD",
+     "angajatori": 12380,
+     "fond_salarii": 748198980,
+     "asigurati": 124443,
+     "salariu_mediu": 6012
+    },
+    {
+     "cod": "031",
+     "judet": "ARGES",
+     "angajatori": 16806,
+     "fond_salarii": 1226503192,
+     "asigurati": 186964,
+     "salariu_mediu": 6560
+    },
+    {
+     "cod": "041",
+     "judet": "BACAU",
+     "angajatori": 11378,
+     "fond_salarii": 834672258,
+     "asigurati": 131785,
+     "salariu_mediu": 6334
+    },
+    {
+     "cod": "051",
+     "judet": "BIHOR",
+     "angajatori": 19833,
+     "fond_salarii": 982215121,
+     "asigurati": 172809,
+     "salariu_mediu": 5684
+    },
+    {
+     "cod": "061",
+     "judet": "BISTRITA",
+     "angajatori": 7644,
+     "fond_salarii": 383175961,
+     "asigurati": 70433,
+     "salariu_mediu": 5440
+    },
+    {
+     "cod": "071",
+     "judet": "BOTOSANI",
+     "angajatori": 5805,
+     "fond_salarii": 322928534,
+     "asigurati": 54069,
+     "salariu_mediu": 5973
+    },
+    {
+     "cod": "081",
+     "judet": "BRASOV",
+     "angajatori": 20496,
+     "fond_salarii": 1394694970,
+     "asigurati": 203970,
+     "salariu_mediu": 6838
+    },
+    {
+     "cod": "091",
+     "judet": "BRAILA",
+     "angajatori": 6963,
+     "fond_salarii": 313361111,
+     "asigurati": 56190,
+     "salariu_mediu": 5577
+    },
+    {
+     "cod": "101",
+     "judet": "BUZAU",
+     "angajatori": 8473,
+     "fond_salarii": 486808454,
+     "asigurati": 82837,
+     "salariu_mediu": 5877
+    },
+    {
+     "cod": "111",
+     "judet": "CARAS SEVERIN",
+     "angajatori": 4840,
+     "fond_salarii": 263231346,
+     "asigurati": 46002,
+     "salariu_mediu": 5722
+    },
+    {
+     "cod": "121",
+     "judet": "CLUJ",
+     "angajatori": 34271,
+     "fond_salarii": 2569326105,
+     "asigurati": 318200,
+     "salariu_mediu": 8075
+    },
+    {
+     "cod": "131",
+     "judet": "CONSTANTA",
+     "angajatori": 23719,
+     "fond_salarii": 1126035993,
+     "asigurati": 184664,
+     "salariu_mediu": 6098
+    },
+    {
+     "cod": "141",
+     "judet": "COVASNA",
+     "angajatori": 4531,
+     "fond_salarii": 263456494,
+     "asigurati": 44631,
+     "salariu_mediu": 5903
+    },
+    {
+     "cod": "151",
+     "judet": "DAMBOVITA",
+     "angajatori": 9314,
+     "fond_salarii": 497681747,
+     "asigurati": 84692,
+     "salariu_mediu": 5876
+    },
+    {
+     "cod": "161",
+     "judet": "DOLJ",
+     "angajatori": 16100,
+     "fond_salarii": 949864558,
+     "asigurati": 150022,
+     "salariu_mediu": 6332
+    },
+    {
+     "cod": "171",
+     "judet": "GALATI",
+     "angajatori": 12180,
+     "fond_salarii": 735850640,
+     "asigurati": 116909,
+     "salariu_mediu": 6294
+    },
+    {
+     "cod": "181",
+     "judet": "GORJ",
+     "angajatori": 7154,
+     "fond_salarii": 448296337,
+     "asigurati": 69567,
+     "salariu_mediu": 6444
+    },
+    {
+     "cod": "191",
+     "judet": "HARGHITA",
+     "angajatori": 7999,
+     "fond_salarii": 435796298,
+     "asigurati": 77069,
+     "salariu_mediu": 5655
+    },
+    {
+     "cod": "201",
+     "judet": "HUNEDOARA",
+     "angajatori": 9449,
+     "fond_salarii": 490391885,
+     "asigurati": 87246,
+     "salariu_mediu": 5621
+    },
+    {
+     "cod": "211",
+     "judet": "IALOMITA",
+     "angajatori": 5021,
+     "fond_salarii": 246380492,
+     "asigurati": 40526,
+     "salariu_mediu": 6080
+    },
+    {
+     "cod": "221",
+     "judet": "IASI",
+     "angajatori": 20615,
+     "fond_salarii": 1376618910,
+     "asigurati": 196550,
+     "salariu_mediu": 7004
+    },
+    {
+     "cod": "231",
+     "judet": "GIURGIU",
+     "angajatori": 5029,
+     "fond_salarii": 236563599,
+     "asigurati": 41365,
+     "salariu_mediu": 5719
+    },
+    {
+     "cod": "241",
+     "judet": "MARAMURES",
+     "angajatori": 12974,
+     "fond_salarii": 658527936,
+     "asigurati": 118870,
+     "salariu_mediu": 5540
+    },
+    {
+     "cod": "251",
+     "judet": "MEHEDINTI",
+     "angajatori": 4125,
+     "fond_salarii": 196482277,
+     "asigurati": 34584,
+     "salariu_mediu": 5681
+    },
+    {
+     "cod": "261",
+     "judet": "MURES",
+     "angajatori": 14945,
+     "fond_salarii": 909493750,
+     "asigurati": 143165,
+     "salariu_mediu": 6353
+    },
+    {
+     "cod": "271",
+     "judet": "NEAMT",
+     "angajatori": 9482,
+     "fond_salarii": 472165953,
+     "asigurati": 82432,
+     "salariu_mediu": 5728
+    },
+    {
+     "cod": "281",
+     "judet": "OLT",
+     "angajatori": 6671,
+     "fond_salarii": 496616881,
+     "asigurati": 73149,
+     "salariu_mediu": 6789
+    },
+    {
+     "cod": "291",
+     "judet": "PRAHOVA",
+     "angajatori": 19162,
+     "fond_salarii": 1253367883,
+     "asigurati": 194795,
+     "salariu_mediu": 6434
+    },
+    {
+     "cod": "301",
+     "judet": "SATU MARE",
+     "angajatori": 8403,
+     "fond_salarii": 445858866,
+     "asigurati": 80217,
+     "salariu_mediu": 5558
+    },
+    {
+     "cod": "311",
+     "judet": "SALAJ",
+     "angajatori": 5516,
+     "fond_salarii": 277802008,
+     "asigurati": 48094,
+     "salariu_mediu": 5776
+    },
+    {
+     "cod": "321",
+     "judet": "SIBIU",
+     "angajatori": 12720,
+     "fond_salarii": 1063352983,
+     "asigurati": 150149,
+     "salariu_mediu": 7082
+    },
+    {
+     "cod": "331",
+     "judet": "SUCEAVA",
+     "angajatori": 15608,
+     "fond_salarii": 696483640,
+     "asigurati": 131635,
+     "salariu_mediu": 5291
+    },
+    {
+     "cod": "341",
+     "judet": "TELEORMAN",
+     "angajatori": 5149,
+     "fond_salarii": 257489622,
+     "asigurati": 45383,
+     "salariu_mediu": 5674
+    },
+    {
+     "cod": "351",
+     "judet": "TIMIS",
+     "angajatori": 25116,
+     "fond_salarii": 2160047549,
+     "asigurati": 278027,
+     "salariu_mediu": 7769
+    },
+    {
+     "cod": "361",
+     "judet": "TULCEA",
+     "angajatori": 4702,
+     "fond_salarii": 279854894,
+     "asigurati": 45137,
+     "salariu_mediu": 6200
+    },
+    {
+     "cod": "371",
+     "judet": "VASLUI",
+     "angajatori": 5938,
+     "fond_salarii": 316827531,
+     "asigurati": 56464,
+     "salariu_mediu": 5611
+    },
+    {
+     "cod": "381",
+     "judet": "VALCEA",
+     "angajatori": 9021,
+     "fond_salarii": 456761421,
+     "asigurati": 82796,
+     "salariu_mediu": 5517
+    },
+    {
+     "cod": "391",
+     "judet": "VRANCEA",
+     "angajatori": 6451,
+     "fond_salarii": 335439511,
+     "asigurati": 60654,
+     "salariu_mediu": 5530
+    },
+    {
+     "cod": "401",
+     "judet": "CALARASI",
+     "angajatori": 4856,
+     "fond_salarii": 254705210,
+     "asigurati": 42058,
+     "salariu_mediu": 6056
+    },
+    {
+     "cod": "411",
+     "judet": "BUCURESTI",
+     "angajatori": 110368,
+     "fond_salarii": 14993321060,
+     "asigurati": 1625212,
+     "salariu_mediu": 9225
+    },
+    {
+     "cod": "471",
+     "judet": "ILFOV",
+     "angajatori": 29468,
+     "fond_salarii": 1828268772,
+     "asigurati": 264860,
+     "salariu_mediu": 6903
+    }
+   ]
+  },
+  {
+   "year": 2025,
+   "month": 2,
+   "luna": "Februarie",
+   "period": "2025.02",
+   "total_asigurati": 5259500,
+   "salarii": [
+    {
+     "grupa": "0 (*)",
+     "transa": "Fără venit",
+     "numar": 46457,
+     "venit_mediu": 0,
+     "timp_partial": 2463,
+     "fara_contract": 1101,
+     "somaj": 498,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "1",
+     "transa": "1-4049",
+     "numar": 787313,
+     "venit_mediu": 3225,
+     "timp_partial": 301248,
+     "fara_contract": 102250,
+     "somaj": 66862,
+     "contract_individual": 375
+    },
+    {
+     "grupa": "2",
+     "transa": "4050",
+     "numar": 11141,
+     "venit_mediu": 4050,
+     "timp_partial": 2188,
+     "fara_contract": 9735,
+     "somaj": 0,
+     "contract_individual": 16817
+    },
+    {
+     "grupa": "3",
+     "transa": "4051-4581",
+     "numar": 881381,
+     "venit_mediu": 4210,
+     "timp_partial": 22489,
+     "fara_contract": 3898,
+     "somaj": 75,
+     "contract_individual": 84
+    },
+    {
+     "grupa": "4",
+     "transa": "4582",
+     "numar": 103022,
+     "venit_mediu": 4582,
+     "timp_partial": 454,
+     "fara_contract": 242,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "5",
+     "transa": "4583-5000",
+     "numar": 341088,
+     "venit_mediu": 4763,
+     "timp_partial": 9599,
+     "fara_contract": 1161,
+     "somaj": 28,
+     "contract_individual": 199
+    },
+    {
+     "grupa": "6",
+     "transa": "5001-6000",
+     "numar": 580254,
+     "venit_mediu": 5477,
+     "timp_partial": 18725,
+     "fara_contract": 2389,
+     "somaj": 22,
+     "contract_individual": 214
+    },
+    {
+     "grupa": "7",
+     "transa": "6001-7000",
+     "numar": 432955,
+     "venit_mediu": 6506,
+     "timp_partial": 11502,
+     "fara_contract": 1497,
+     "somaj": 4,
+     "contract_individual": 56
+    },
+    {
+     "grupa": "8",
+     "transa": "7001-8000",
+     "numar": 369980,
+     "venit_mediu": 7498,
+     "timp_partial": 8786,
+     "fara_contract": 1133,
+     "somaj": 5,
+     "contract_individual": 123
+    },
+    {
+     "grupa": "9",
+     "transa": "8001-8619",
+     "numar": 200990,
+     "venit_mediu": 8323,
+     "timp_partial": 5625,
+     "fara_contract": 2955,
+     "somaj": 1,
+     "contract_individual": 23
+    },
+    {
+     "grupa": "10",
+     "transa": "8620",
+     "numar": 359,
+     "venit_mediu": 8620,
+     "timp_partial": 8,
+     "fara_contract": 0,
+     "somaj": 0,
+     "contract_individual": 2
+    },
+    {
+     "grupa": "11",
+     "transa": "8621-9000",
+     "numar": 105332,
+     "venit_mediu": 8807,
+     "timp_partial": 2731,
+     "fara_contract": 344,
+     "somaj": 0,
+     "contract_individual": 7
+    },
+    {
+     "grupa": "12",
+     "transa": "9001-10000",
+     "numar": 237467,
+     "venit_mediu": 9498,
+     "timp_partial": 6389,
+     "fara_contract": 1011,
+     "somaj": 1,
+     "contract_individual": 58
+    },
+    {
+     "grupa": "13",
+     "transa": "10001-12000",
+     "numar": 368181,
+     "venit_mediu": 10938,
+     "timp_partial": 9891,
+     "fara_contract": 1493,
+     "somaj": 2,
+     "contract_individual": 29
+    },
+    {
+     "grupa": "14",
+     "transa": "12001-13000",
+     "numar": 145773,
+     "venit_mediu": 12460,
+     "timp_partial": 3634,
+     "fara_contract": 825,
+     "somaj": 2,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "15",
+     "transa": "13001-15000",
+     "numar": 209729,
+     "venit_mediu": 13952,
+     "timp_partial": 4804,
+     "fara_contract": 1235,
+     "somaj": 4,
+     "contract_individual": 16
+    },
+    {
+     "grupa": "16",
+     "transa": "15001-16000",
+     "numar": 63676,
+     "venit_mediu": 15475,
+     "timp_partial": 1608,
+     "fara_contract": 356,
+     "somaj": 0,
+     "contract_individual": 14
+    },
+    {
+     "grupa": "17",
+     "transa": "16001-18000",
+     "numar": 88907,
+     "venit_mediu": 16944,
+     "timp_partial": 3014,
+     "fara_contract": 971,
+     "somaj": 0,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "18",
+     "transa": "18001-20000",
+     "numar": 60030,
+     "venit_mediu": 18955,
+     "timp_partial": 1846,
+     "fara_contract": 985,
+     "somaj": 1,
+     "contract_individual": 14
+    },
+    {
+     "grupa": "19",
+     "transa": "20001-22000",
+     "numar": 44467,
+     "venit_mediu": 20953,
+     "timp_partial": 1385,
+     "fara_contract": 433,
+     "somaj": 0,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "20",
+     "transa": "22001-25000",
+     "numar": 48848,
+     "venit_mediu": 23404,
+     "timp_partial": 1319,
+     "fara_contract": 416,
+     "somaj": 1,
+     "contract_individual": 6
+    },
+    {
+     "grupa": "21",
+     "transa": "25001-30000",
+     "numar": 52826,
+     "venit_mediu": 27252,
+     "timp_partial": 1428,
+     "fara_contract": 547,
+     "somaj": 0,
+     "contract_individual": 8
+    },
+    {
+     "grupa": "22",
+     "transa": "30001-40000",
+     "numar": 46308,
+     "venit_mediu": 34047,
+     "timp_partial": 1157,
+     "fara_contract": 732,
+     "somaj": 0,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "23",
+     "transa": "40001-43099",
+     "numar": 6392,
+     "venit_mediu": 41544,
+     "timp_partial": 124,
+     "fara_contract": 184,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "24",
+     "transa": "43100",
+     "numar": 3,
+     "venit_mediu": 43100,
+     "timp_partial": 0,
+     "fara_contract": 0,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "25",
+     "transa": "Peste 43100",
+     "numar": 26621,
+     "venit_mediu": 76800,
+     "timp_partial": 523,
+     "fara_contract": 1356,
+     "somaj": 0,
+     "contract_individual": 10
+    }
+   ],
+   "judete": [
+    {
+     "cod": "011",
+     "judet": "ALBA",
+     "angajatori": 9642,
+     "fond_salarii": 592368840,
+     "asigurati": 97864,
+     "salariu_mediu": 6053
+    },
+    {
+     "cod": "021",
+     "judet": "ARAD",
+     "angajatori": 12380,
+     "fond_salarii": 731227635,
+     "asigurati": 124514,
+     "salariu_mediu": 5873
+    },
+    {
+     "cod": "031",
+     "judet": "ARGES",
+     "angajatori": 17002,
+     "fond_salarii": 1216707231,
+     "asigurati": 188567,
+     "salariu_mediu": 6452
+    },
+    {
+     "cod": "041",
+     "judet": "BACAU",
+     "angajatori": 11407,
+     "fond_salarii": 866116778,
+     "asigurati": 132184,
+     "salariu_mediu": 6552
+    },
+    {
+     "cod": "051",
+     "judet": "BIHOR",
+     "angajatori": 20489,
+     "fond_salarii": 990761073,
+     "asigurati": 174825,
+     "salariu_mediu": 5667
+    },
+    {
+     "cod": "061",
+     "judet": "BISTRITA",
+     "angajatori": 7686,
+     "fond_salarii": 384274052,
+     "asigurati": 71329,
+     "salariu_mediu": 5387
+    },
+    {
+     "cod": "071",
+     "judet": "BOTOSANI",
+     "angajatori": 5857,
+     "fond_salarii": 337462197,
+     "asigurati": 55648,
+     "salariu_mediu": 6064
+    },
+    {
+     "cod": "081",
+     "judet": "BRASOV",
+     "angajatori": 20439,
+     "fond_salarii": 1395363293,
+     "asigurati": 204420,
+     "salariu_mediu": 6826
+    },
+    {
+     "cod": "091",
+     "judet": "BRAILA",
+     "angajatori": 6949,
+     "fond_salarii": 310615113,
+     "asigurati": 56220,
+     "salariu_mediu": 5525
+    },
+    {
+     "cod": "101",
+     "judet": "BUZAU",
+     "angajatori": 8599,
+     "fond_salarii": 475746435,
+     "asigurati": 82675,
+     "salariu_mediu": 5754
+    },
+    {
+     "cod": "111",
+     "judet": "CARAS SEVERIN",
+     "angajatori": 4851,
+     "fond_salarii": 262076064,
+     "asigurati": 46398,
+     "salariu_mediu": 5648
+    },
+    {
+     "cod": "121",
+     "judet": "CLUJ",
+     "angajatori": 34082,
+     "fond_salarii": 2573846247,
+     "asigurati": 318411,
+     "salariu_mediu": 8083
+    },
+    {
+     "cod": "131",
+     "judet": "CONSTANTA",
+     "angajatori": 23618,
+     "fond_salarii": 1114863862,
+     "asigurati": 184674,
+     "salariu_mediu": 6037
+    },
+    {
+     "cod": "141",
+     "judet": "COVASNA",
+     "angajatori": 4471,
+     "fond_salarii": 258225440,
+     "asigurati": 44641,
+     "salariu_mediu": 5784
+    },
+    {
+     "cod": "151",
+     "judet": "DAMBOVITA",
+     "angajatori": 9300,
+     "fond_salarii": 493253918,
+     "asigurati": 84791,
+     "salariu_mediu": 5817
+    },
+    {
+     "cod": "161",
+     "judet": "DOLJ",
+     "angajatori": 15967,
+     "fond_salarii": 928303883,
+     "asigurati": 148589,
+     "salariu_mediu": 6247
+    },
+    {
+     "cod": "171",
+     "judet": "GALATI",
+     "angajatori": 12166,
+     "fond_salarii": 731577926,
+     "asigurati": 117132,
+     "salariu_mediu": 6246
+    },
+    {
+     "cod": "181",
+     "judet": "GORJ",
+     "angajatori": 7116,
+     "fond_salarii": 433650493,
+     "asigurati": 68940,
+     "salariu_mediu": 6290
+    },
+    {
+     "cod": "191",
+     "judet": "HARGHITA",
+     "angajatori": 7982,
+     "fond_salarii": 429522838,
+     "asigurati": 77072,
+     "salariu_mediu": 5573
+    },
+    {
+     "cod": "201",
+     "judet": "HUNEDOARA",
+     "angajatori": 9545,
+     "fond_salarii": 486102051,
+     "asigurati": 87363,
+     "salariu_mediu": 5564
+    },
+    {
+     "cod": "211",
+     "judet": "IALOMITA",
+     "angajatori": 5009,
+     "fond_salarii": 243892214,
+     "asigurati": 40415,
+     "salariu_mediu": 6035
+    },
+    {
+     "cod": "221",
+     "judet": "IASI",
+     "angajatori": 21071,
+     "fond_salarii": 1368349363,
+     "asigurati": 207185,
+     "salariu_mediu": 6604
+    },
+    {
+     "cod": "231",
+     "judet": "GIURGIU",
+     "angajatori": 5108,
+     "fond_salarii": 230156159,
+     "asigurati": 40647,
+     "salariu_mediu": 5662
+    },
+    {
+     "cod": "241",
+     "judet": "MARAMURES",
+     "angajatori": 12971,
+     "fond_salarii": 645155759,
+     "asigurati": 118731,
+     "salariu_mediu": 5434
+    },
+    {
+     "cod": "251",
+     "judet": "MEHEDINTI",
+     "angajatori": 4105,
+     "fond_salarii": 196397185,
+     "asigurati": 34630,
+     "salariu_mediu": 5671
+    },
+    {
+     "cod": "261",
+     "judet": "MURES",
+     "angajatori": 14954,
+     "fond_salarii": 918282934,
+     "asigurati": 144688,
+     "salariu_mediu": 6347
+    },
+    {
+     "cod": "271",
+     "judet": "NEAMT",
+     "angajatori": 9516,
+     "fond_salarii": 467328604,
+     "asigurati": 82759,
+     "salariu_mediu": 5647
+    },
+    {
+     "cod": "281",
+     "judet": "OLT",
+     "angajatori": 6748,
+     "fond_salarii": 448776299,
+     "asigurati": 73511,
+     "salariu_mediu": 6105
+    },
+    {
+     "cod": "291",
+     "judet": "PRAHOVA",
+     "angajatori": 19252,
+     "fond_salarii": 1238480220,
+     "asigurati": 195433,
+     "salariu_mediu": 6337
+    },
+    {
+     "cod": "301",
+     "judet": "SATU MARE",
+     "angajatori": 8400,
+     "fond_salarii": 464753273,
+     "asigurati": 82564,
+     "salariu_mediu": 5629
+    },
+    {
+     "cod": "311",
+     "judet": "SALAJ",
+     "angajatori": 5525,
+     "fond_salarii": 272862586,
+     "asigurati": 48179,
+     "salariu_mediu": 5664
+    },
+    {
+     "cod": "321",
+     "judet": "SIBIU",
+     "angajatori": 12686,
+     "fond_salarii": 1051674454,
+     "asigurati": 150352,
+     "salariu_mediu": 6995
+    },
+    {
+     "cod": "331",
+     "judet": "SUCEAVA",
+     "angajatori": 15630,
+     "fond_salarii": 691564556,
+     "asigurati": 131597,
+     "salariu_mediu": 5255
+    },
+    {
+     "cod": "341",
+     "judet": "TELEORMAN",
+     "angajatori": 5158,
+     "fond_salarii": 256755476,
+     "asigurati": 46123,
+     "salariu_mediu": 5567
+    },
+    {
+     "cod": "351",
+     "judet": "TIMIS",
+     "angajatori": 25111,
+     "fond_salarii": 2164841494,
+     "asigurati": 277896,
+     "salariu_mediu": 7790
+    },
+    {
+     "cod": "361",
+     "judet": "TULCEA",
+     "angajatori": 4682,
+     "fond_salarii": 272762490,
+     "asigurati": 45193,
+     "salariu_mediu": 6036
+    },
+    {
+     "cod": "371",
+     "judet": "VASLUI",
+     "angajatori": 6061,
+     "fond_salarii": 309986019,
+     "asigurati": 56480,
+     "salariu_mediu": 5488
+    },
+    {
+     "cod": "381",
+     "judet": "VALCEA",
+     "angajatori": 8962,
+     "fond_salarii": 449088094,
+     "asigurati": 83071,
+     "salariu_mediu": 5406
+    },
+    {
+     "cod": "391",
+     "judet": "VRANCEA",
+     "angajatori": 6433,
+     "fond_salarii": 329563858,
+     "asigurati": 58441,
+     "salariu_mediu": 5639
+    },
+    {
+     "cod": "401",
+     "judet": "CALARASI",
+     "angajatori": 4915,
+     "fond_salarii": 252946796,
+     "asigurati": 42552,
+     "salariu_mediu": 5944
+    },
+    {
+     "cod": "411",
+     "judet": "BUCURESTI",
+     "angajatori": 110470,
+     "fond_salarii": 15065087016,
+     "asigurati": 1630027,
+     "salariu_mediu": 9242
+    },
+    {
+     "cod": "471",
+     "judet": "ILFOV",
+     "angajatori": 29581,
+     "fond_salarii": 1784523243,
+     "asigurati": 268400,
+     "salariu_mediu": 6649
+    }
+   ]
+  },
+  {
+   "year": 2025,
+   "month": 3,
+   "luna": "Martie",
+   "period": "2025.03",
+   "total_asigurati": 5249491,
+   "salarii": [
+    {
+     "grupa": "0 (*)",
+     "transa": "Fără venit",
+     "numar": 44352,
+     "venit_mediu": 0,
+     "timp_partial": 2486,
+     "fara_contract": 1016,
+     "somaj": 483,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "1",
+     "transa": "1-4049",
+     "numar": 773709,
+     "venit_mediu": 3208,
+     "timp_partial": 304150,
+     "fara_contract": 111373,
+     "somaj": 64419,
+     "contract_individual": 305
+    },
+    {
+     "grupa": "2",
+     "transa": "4050",
+     "numar": 10320,
+     "venit_mediu": 4050,
+     "timp_partial": 2222,
+     "fara_contract": 10166,
+     "somaj": 0,
+     "contract_individual": 16715
+    },
+    {
+     "grupa": "3",
+     "transa": "4051-4581",
+     "numar": 853723,
+     "venit_mediu": 4210,
+     "timp_partial": 22852,
+     "fara_contract": 4705,
+     "somaj": 76,
+     "contract_individual": 82
+    },
+    {
+     "grupa": "4",
+     "transa": "4582",
+     "numar": 105198,
+     "venit_mediu": 4582,
+     "timp_partial": 452,
+     "fara_contract": 259,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "5",
+     "transa": "4583-5000",
+     "numar": 326936,
+     "venit_mediu": 4765,
+     "timp_partial": 9673,
+     "fara_contract": 1503,
+     "somaj": 25,
+     "contract_individual": 203
+    },
+    {
+     "grupa": "6",
+     "transa": "5001-6000",
+     "numar": 567726,
+     "venit_mediu": 5479,
+     "timp_partial": 18588,
+     "fara_contract": 2698,
+     "somaj": 18,
+     "contract_individual": 216
+    },
+    {
+     "grupa": "7",
+     "transa": "6001-7000",
+     "numar": 427872,
+     "venit_mediu": 6506,
+     "timp_partial": 11846,
+     "fara_contract": 1672,
+     "somaj": 3,
+     "contract_individual": 56
+    },
+    {
+     "grupa": "8",
+     "transa": "7001-8000",
+     "numar": 364900,
+     "venit_mediu": 7499,
+     "timp_partial": 8920,
+     "fara_contract": 1348,
+     "somaj": 3,
+     "contract_individual": 123
+    },
+    {
+     "grupa": "9",
+     "transa": "8001-8619",
+     "numar": 199611,
+     "venit_mediu": 8324,
+     "timp_partial": 5692,
+     "fara_contract": 3059,
+     "somaj": 2,
+     "contract_individual": 24
+    },
+    {
+     "grupa": "10",
+     "transa": "8620",
+     "numar": 328,
+     "venit_mediu": 8620,
+     "timp_partial": 9,
+     "fara_contract": 1,
+     "somaj": 0,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "11",
+     "transa": "8621-9000",
+     "numar": 105973,
+     "venit_mediu": 8808,
+     "timp_partial": 2687,
+     "fara_contract": 375,
+     "somaj": 1,
+     "contract_individual": 8
+    },
+    {
+     "grupa": "12",
+     "transa": "9001-10000",
+     "numar": 237893,
+     "venit_mediu": 9498,
+     "timp_partial": 6152,
+     "fara_contract": 1097,
+     "somaj": 1,
+     "contract_individual": 60
+    },
+    {
+     "grupa": "13",
+     "transa": "10001-12000",
+     "numar": 372375,
+     "venit_mediu": 10936,
+     "timp_partial": 10170,
+     "fara_contract": 1594,
+     "somaj": 0,
+     "contract_individual": 28
+    },
+    {
+     "grupa": "14",
+     "transa": "12001-13000",
+     "numar": 145979,
+     "venit_mediu": 12469,
+     "timp_partial": 3669,
+     "fara_contract": 840,
+     "somaj": 1,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "15",
+     "transa": "13001-15000",
+     "numar": 218051,
+     "venit_mediu": 13952,
+     "timp_partial": 5110,
+     "fara_contract": 1254,
+     "somaj": 3,
+     "contract_individual": 16
+    },
+    {
+     "grupa": "16",
+     "transa": "15001-16000",
+     "numar": 66266,
+     "venit_mediu": 15475,
+     "timp_partial": 1761,
+     "fara_contract": 378,
+     "somaj": 0,
+     "contract_individual": 14
+    },
+    {
+     "grupa": "17",
+     "transa": "16001-18000",
+     "numar": 94354,
+     "venit_mediu": 16947,
+     "timp_partial": 3302,
+     "fara_contract": 987,
+     "somaj": 0,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "18",
+     "transa": "18001-20000",
+     "numar": 64486,
+     "venit_mediu": 18959,
+     "timp_partial": 2057,
+     "fara_contract": 1024,
+     "somaj": 2,
+     "contract_individual": 14
+    },
+    {
+     "grupa": "19",
+     "transa": "20001-22000",
+     "numar": 48573,
+     "venit_mediu": 20945,
+     "timp_partial": 1535,
+     "fara_contract": 479,
+     "somaj": 0,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "20",
+     "transa": "22001-25000",
+     "numar": 52884,
+     "venit_mediu": 23407,
+     "timp_partial": 1475,
+     "fara_contract": 457,
+     "somaj": 0,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "21",
+     "transa": "25001-30000",
+     "numar": 58127,
+     "venit_mediu": 27238,
+     "timp_partial": 1494,
+     "fara_contract": 565,
+     "somaj": 0,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "22",
+     "transa": "30001-40000",
+     "numar": 54359,
+     "venit_mediu": 34147,
+     "timp_partial": 1342,
+     "fara_contract": 674,
+     "somaj": 0,
+     "contract_individual": 3
+    },
+    {
+     "grupa": "23",
+     "transa": "40001-43099",
+     "numar": 8589,
+     "venit_mediu": 41523,
+     "timp_partial": 170,
+     "fara_contract": 192,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "24",
+     "transa": "43100",
+     "numar": 5,
+     "venit_mediu": 43100,
+     "timp_partial": 0,
+     "fara_contract": 0,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "25",
+     "transa": "Peste 43100",
+     "numar": 46902,
+     "venit_mediu": 81428,
+     "timp_partial": 803,
+     "fara_contract": 1577,
+     "somaj": 0,
+     "contract_individual": 11
+    }
+   ],
+   "judete": [
+    {
+     "cod": "011",
+     "judet": "ALBA",
+     "angajatori": 9906,
+     "fond_salarii": 617044359,
+     "asigurati": 97834,
+     "salariu_mediu": 6307
+    },
+    {
+     "cod": "021",
+     "judet": "ARAD",
+     "angajatori": 12687,
+     "fond_salarii": 749568134,
+     "asigurati": 124306,
+     "salariu_mediu": 6030
+    },
+    {
+     "cod": "031",
+     "judet": "ARGES",
+     "angajatori": 17079,
+     "fond_salarii": 1197757680,
+     "asigurati": 188143,
+     "salariu_mediu": 6366
+    },
+    {
+     "cod": "041",
+     "judet": "BACAU",
+     "angajatori": 11833,
+     "fond_salarii": 925794314,
+     "asigurati": 132020,
+     "salariu_mediu": 7013
+    },
+    {
+     "cod": "051",
+     "judet": "BIHOR",
+     "angajatori": 20885,
+     "fond_salarii": 1001667235,
+     "asigurati": 175238,
+     "salariu_mediu": 5716
+    },
+    {
+     "cod": "061",
+     "judet": "BISTRITA",
+     "angajatori": 8234,
+     "fond_salarii": 393453344,
+     "asigurati": 72266,
+     "salariu_mediu": 5445
+    },
+    {
+     "cod": "071",
+     "judet": "BOTOSANI",
+     "angajatori": 5940,
+     "fond_salarii": 334452370,
+     "asigurati": 54489,
+     "salariu_mediu": 6138
+    },
+    {
+     "cod": "081",
+     "judet": "BRASOV",
+     "angajatori": 21037,
+     "fond_salarii": 1468868412,
+     "asigurati": 203365,
+     "salariu_mediu": 7223
+    },
+    {
+     "cod": "091",
+     "judet": "BRAILA",
+     "angajatori": 7095,
+     "fond_salarii": 316678173,
+     "asigurati": 56718,
+     "salariu_mediu": 5583
+    },
+    {
+     "cod": "101",
+     "judet": "BUZAU",
+     "angajatori": 8737,
+     "fond_salarii": 480318973,
+     "asigurati": 80138,
+     "salariu_mediu": 5994
+    },
+    {
+     "cod": "111",
+     "judet": "CARAS SEVERIN",
+     "angajatori": 4965,
+     "fond_salarii": 264063362,
+     "asigurati": 44251,
+     "salariu_mediu": 5967
+    },
+    {
+     "cod": "121",
+     "judet": "CLUJ",
+     "angajatori": 35703,
+     "fond_salarii": 2775569143,
+     "asigurati": 322388,
+     "salariu_mediu": 8609
+    },
+    {
+     "cod": "131",
+     "judet": "CONSTANTA",
+     "angajatori": 23762,
+     "fond_salarii": 1136987573,
+     "asigurati": 185609,
+     "salariu_mediu": 6126
+    },
+    {
+     "cod": "141",
+     "judet": "COVASNA",
+     "angajatori": 4580,
+     "fond_salarii": 264453921,
+     "asigurati": 44893,
+     "salariu_mediu": 5891
+    },
+    {
+     "cod": "151",
+     "judet": "DAMBOVITA",
+     "angajatori": 9813,
+     "fond_salarii": 495258580,
+     "asigurati": 85237,
+     "salariu_mediu": 5810
+    },
+    {
+     "cod": "161",
+     "judet": "DOLJ",
+     "angajatori": 15962,
+     "fond_salarii": 945499085,
+     "asigurati": 148094,
+     "salariu_mediu": 6384
+    },
+    {
+     "cod": "171",
+     "judet": "GALATI",
+     "angajatori": 12234,
+     "fond_salarii": 740711877,
+     "asigurati": 116962,
+     "salariu_mediu": 6333
+    },
+    {
+     "cod": "181",
+     "judet": "GORJ",
+     "angajatori": 7086,
+     "fond_salarii": 439192562,
+     "asigurati": 68994,
+     "salariu_mediu": 6366
+    },
+    {
+     "cod": "191",
+     "judet": "HARGHITA",
+     "angajatori": 8138,
+     "fond_salarii": 440051537,
+     "asigurati": 76846,
+     "salariu_mediu": 5726
+    },
+    {
+     "cod": "201",
+     "judet": "HUNEDOARA",
+     "angajatori": 9646,
+     "fond_salarii": 499473066,
+     "asigurati": 87563,
+     "salariu_mediu": 5704
+    },
+    {
+     "cod": "211",
+     "judet": "IALOMITA",
+     "angajatori": 5124,
+     "fond_salarii": 240534153,
+     "asigurati": 40448,
+     "salariu_mediu": 5947
+    },
+    {
+     "cod": "221",
+     "judet": "IASI",
+     "angajatori": 21804,
+     "fond_salarii": 1409709923,
+     "asigurati": 206852,
+     "salariu_mediu": 6815
+    },
+    {
+     "cod": "231",
+     "judet": "GIURGIU",
+     "angajatori": 5118,
+     "fond_salarii": 232396288,
+     "asigurati": 40368,
+     "salariu_mediu": 5757
+    },
+    {
+     "cod": "241",
+     "judet": "MARAMURES",
+     "angajatori": 13162,
+     "fond_salarii": 653583432,
+     "asigurati": 118511,
+     "salariu_mediu": 5515
+    },
+    {
+     "cod": "251",
+     "judet": "MEHEDINTI",
+     "angajatori": 4236,
+     "fond_salarii": 193360196,
+     "asigurati": 33899,
+     "salariu_mediu": 5704
+    },
+    {
+     "cod": "261",
+     "judet": "MURES",
+     "angajatori": 15338,
+     "fond_salarii": 934228445,
+     "asigurati": 144449,
+     "salariu_mediu": 6468
+    },
+    {
+     "cod": "271",
+     "judet": "NEAMT",
+     "angajatori": 9730,
+     "fond_salarii": 474584000,
+     "asigurati": 82850,
+     "salariu_mediu": 5728
+    },
+    {
+     "cod": "281",
+     "judet": "OLT",
+     "angajatori": 7164,
+     "fond_salarii": 475400954,
+     "asigurati": 74828,
+     "salariu_mediu": 6353
+    },
+    {
+     "cod": "291",
+     "judet": "PRAHOVA",
+     "angajatori": 19679,
+     "fond_salarii": 1336282867,
+     "asigurati": 195837,
+     "salariu_mediu": 6823
+    },
+    {
+     "cod": "301",
+     "judet": "SATU MARE",
+     "angajatori": 8681,
+     "fond_salarii": 481663990,
+     "asigurati": 82678,
+     "salariu_mediu": 5826
+    },
+    {
+     "cod": "311",
+     "judet": "SALAJ",
+     "angajatori": 5672,
+     "fond_salarii": 274981028,
+     "asigurati": 48271,
+     "salariu_mediu": 5697
+    },
+    {
+     "cod": "321",
+     "judet": "SIBIU",
+     "angajatori": 13341,
+     "fond_salarii": 1109061348,
+     "asigurati": 152174,
+     "salariu_mediu": 7288
+    },
+    {
+     "cod": "331",
+     "judet": "SUCEAVA",
+     "angajatori": 15620,
+     "fond_salarii": 702192865,
+     "asigurati": 131384,
+     "salariu_mediu": 5345
+    },
+    {
+     "cod": "341",
+     "judet": "TELEORMAN",
+     "angajatori": 5139,
+     "fond_salarii": 251435977,
+     "asigurati": 44477,
+     "salariu_mediu": 5653
+    },
+    {
+     "cod": "351",
+     "judet": "TIMIS",
+     "angajatori": 26185,
+     "fond_salarii": 2298418156,
+     "asigurati": 279225,
+     "salariu_mediu": 8231
+    },
+    {
+     "cod": "361",
+     "judet": "TULCEA",
+     "angajatori": 4849,
+     "fond_salarii": 277210870,
+     "asigurati": 45639,
+     "salariu_mediu": 6074
+    },
+    {
+     "cod": "371",
+     "judet": "VASLUI",
+     "angajatori": 6161,
+     "fond_salarii": 316514771,
+     "asigurati": 56742,
+     "salariu_mediu": 5578
+    },
+    {
+     "cod": "381",
+     "judet": "VALCEA",
+     "angajatori": 9141,
+     "fond_salarii": 458142858,
+     "asigurati": 82864,
+     "salariu_mediu": 5529
+    },
+    {
+     "cod": "391",
+     "judet": "VRANCEA",
+     "angajatori": 6634,
+     "fond_salarii": 330244736,
+     "asigurati": 58338,
+     "salariu_mediu": 5661
+    },
+    {
+     "cod": "401",
+     "judet": "CALARASI",
+     "angajatori": 4993,
+     "fond_salarii": 255930334,
+     "asigurati": 42133,
+     "salariu_mediu": 6074
+    },
+    {
+     "cod": "411",
+     "judet": "BUCURESTI",
+     "angajatori": 116644,
+     "fond_salarii": 16625493826,
+     "asigurati": 1639990,
+     "salariu_mediu": 10138
+    },
+    {
+     "cod": "471",
+     "judet": "ILFOV",
+     "angajatori": 31016,
+     "fond_salarii": 1921282330,
+     "asigurati": 272524,
+     "salariu_mediu": 7050
+    }
+   ]
+  },
+  {
+   "year": 2025,
+   "month": 4,
+   "luna": "Aprilie",
+   "period": "2025.04",
+   "total_asigurati": 5106791,
+   "salarii": [
+    {
+     "grupa": "0 (*)",
+     "transa": "Fără venit",
+     "numar": 40856,
+     "venit_mediu": 0,
+     "timp_partial": 2356,
+     "fara_contract": 841,
+     "somaj": 491,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "1",
+     "transa": "1-4049",
+     "numar": 723686,
+     "venit_mediu": 3217,
+     "timp_partial": 293913,
+     "fara_contract": 112368,
+     "somaj": 59995,
+     "contract_individual": 234
+    },
+    {
+     "grupa": "2",
+     "transa": "4050",
+     "numar": 9795,
+     "venit_mediu": 4050,
+     "timp_partial": 2037,
+     "fara_contract": 9170,
+     "somaj": 0,
+     "contract_individual": 16342
+    },
+    {
+     "grupa": "3",
+     "transa": "4051-4581",
+     "numar": 801529,
+     "venit_mediu": 4208,
+     "timp_partial": 22237,
+     "fara_contract": 4339,
+     "somaj": 91,
+     "contract_individual": 91
+    },
+    {
+     "grupa": "4",
+     "transa": "4582",
+     "numar": 96718,
+     "venit_mediu": 4582,
+     "timp_partial": 437,
+     "fara_contract": 225,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "5",
+     "transa": "4583-5000",
+     "numar": 315971,
+     "venit_mediu": 4760,
+     "timp_partial": 9374,
+     "fara_contract": 1339,
+     "somaj": 28,
+     "contract_individual": 205
+    },
+    {
+     "grupa": "6",
+     "transa": "5001-6000",
+     "numar": 547458,
+     "venit_mediu": 5481,
+     "timp_partial": 17966,
+     "fara_contract": 2308,
+     "somaj": 17,
+     "contract_individual": 225
+    },
+    {
+     "grupa": "7",
+     "transa": "6001-7000",
+     "numar": 420078,
+     "venit_mediu": 6503,
+     "timp_partial": 11602,
+     "fara_contract": 1627,
+     "somaj": 5,
+     "contract_individual": 54
+    },
+    {
+     "grupa": "8",
+     "transa": "7001-8000",
+     "numar": 365423,
+     "venit_mediu": 7499,
+     "timp_partial": 8909,
+     "fara_contract": 1316,
+     "somaj": 3,
+     "contract_individual": 128
+    },
+    {
+     "grupa": "9",
+     "transa": "8001-8619",
+     "numar": 201302,
+     "venit_mediu": 8321,
+     "timp_partial": 5637,
+     "fara_contract": 2799,
+     "somaj": 1,
+     "contract_individual": 23
+    },
+    {
+     "grupa": "10",
+     "transa": "8620",
+     "numar": 365,
+     "venit_mediu": 8620,
+     "timp_partial": 13,
+     "fara_contract": 0,
+     "somaj": 0,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "11",
+     "transa": "8621-9000",
+     "numar": 105527,
+     "venit_mediu": 8806,
+     "timp_partial": 2685,
+     "fara_contract": 376,
+     "somaj": 0,
+     "contract_individual": 8
+    },
+    {
+     "grupa": "12",
+     "transa": "9001-10000",
+     "numar": 240110,
+     "venit_mediu": 9495,
+     "timp_partial": 6301,
+     "fara_contract": 1032,
+     "somaj": 1,
+     "contract_individual": 62
+    },
+    {
+     "grupa": "13",
+     "transa": "10001-12000",
+     "numar": 372002,
+     "venit_mediu": 10934,
+     "timp_partial": 10019,
+     "fara_contract": 1510,
+     "somaj": 2,
+     "contract_individual": 30
+    },
+    {
+     "grupa": "14",
+     "transa": "12001-13000",
+     "numar": 147906,
+     "venit_mediu": 12462,
+     "timp_partial": 3636,
+     "fara_contract": 836,
+     "somaj": 1,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "15",
+     "transa": "13001-15000",
+     "numar": 223323,
+     "venit_mediu": 13960,
+     "timp_partial": 4958,
+     "fara_contract": 1291,
+     "somaj": 3,
+     "contract_individual": 17
+    },
+    {
+     "grupa": "16",
+     "transa": "15001-16000",
+     "numar": 68854,
+     "venit_mediu": 15475,
+     "timp_partial": 1691,
+     "fara_contract": 382,
+     "somaj": 0,
+     "contract_individual": 16
+    },
+    {
+     "grupa": "17",
+     "transa": "16001-18000",
+     "numar": 98976,
+     "venit_mediu": 16927,
+     "timp_partial": 3088,
+     "fara_contract": 965,
+     "somaj": 0,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "18",
+     "transa": "18001-20000",
+     "numar": 65442,
+     "venit_mediu": 18955,
+     "timp_partial": 1915,
+     "fara_contract": 1020,
+     "somaj": 2,
+     "contract_individual": 14
+    },
+    {
+     "grupa": "19",
+     "transa": "20001-22000",
+     "numar": 48690,
+     "venit_mediu": 20946,
+     "timp_partial": 1451,
+     "fara_contract": 449,
+     "somaj": 0,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "20",
+     "transa": "22001-25000",
+     "numar": 52614,
+     "venit_mediu": 23394,
+     "timp_partial": 1404,
+     "fara_contract": 417,
+     "somaj": 0,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "21",
+     "transa": "25001-30000",
+     "numar": 58344,
+     "venit_mediu": 27267,
+     "timp_partial": 1415,
+     "fara_contract": 532,
+     "somaj": 0,
+     "contract_individual": 10
+    },
+    {
+     "grupa": "22",
+     "transa": "30001-40000",
+     "numar": 56991,
+     "venit_mediu": 34190,
+     "timp_partial": 1220,
+     "fara_contract": 665,
+     "somaj": 0,
+     "contract_individual": 3
+    },
+    {
+     "grupa": "23",
+     "transa": "40001-43099",
+     "numar": 8610,
+     "venit_mediu": 41518,
+     "timp_partial": 135,
+     "fara_contract": 162,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "24",
+     "transa": "43100",
+     "numar": 5,
+     "venit_mediu": 43100,
+     "timp_partial": 1,
+     "fara_contract": 0,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "25",
+     "transa": "Peste 43100",
+     "numar": 36216,
+     "venit_mediu": 76963,
+     "timp_partial": 625,
+     "fara_contract": 1532,
+     "somaj": 0,
+     "contract_individual": 11
+    }
+   ],
+   "judete": [
+    {
+     "cod": "011",
+     "judet": "ALBA",
+     "angajatori": 9593,
+     "fond_salarii": 612195483,
+     "asigurati": 98002,
+     "salariu_mediu": 6247
+    },
+    {
+     "cod": "021",
+     "judet": "ARAD",
+     "angajatori": 12316,
+     "fond_salarii": 755999865,
+     "asigurati": 123814,
+     "salariu_mediu": 6106
+    },
+    {
+     "cod": "031",
+     "judet": "ARGES",
+     "angajatori": 16591,
+     "fond_salarii": 1342717106,
+     "asigurati": 188501,
+     "salariu_mediu": 7123
+    },
+    {
+     "cod": "041",
+     "judet": "BACAU",
+     "angajatori": 11235,
+     "fond_salarii": 884598906,
+     "asigurati": 132958,
+     "salariu_mediu": 6653
+    },
+    {
+     "cod": "051",
+     "judet": "BIHOR",
+     "angajatori": 20125,
+     "fond_salarii": 1009665905,
+     "asigurati": 175760,
+     "salariu_mediu": 5745
+    },
+    {
+     "cod": "061",
+     "judet": "BISTRITA",
+     "angajatori": 7525,
+     "fond_salarii": 387904414,
+     "asigurati": 70184,
+     "salariu_mediu": 5527
+    },
+    {
+     "cod": "071",
+     "judet": "BOTOSANI",
+     "angajatori": 5729,
+     "fond_salarii": 327606010,
+     "asigurati": 54136,
+     "salariu_mediu": 6052
+    },
+    {
+     "cod": "081",
+     "judet": "BRASOV",
+     "angajatori": 19801,
+     "fond_salarii": 1416591621,
+     "asigurati": 198212,
+     "salariu_mediu": 7147
+    },
+    {
+     "cod": "091",
+     "judet": "BRAILA",
+     "angajatori": 6823,
+     "fond_salarii": 315453529,
+     "asigurati": 55371,
+     "salariu_mediu": 5697
+    },
+    {
+     "cod": "101",
+     "judet": "BUZAU",
+     "angajatori": 8114,
+     "fond_salarii": 485845686,
+     "asigurati": 81475,
+     "salariu_mediu": 5963
+    },
+    {
+     "cod": "111",
+     "judet": "CARAS SEVERIN",
+     "angajatori": 4727,
+     "fond_salarii": 256120857,
+     "asigurati": 44759,
+     "salariu_mediu": 5722
+    },
+    {
+     "cod": "121",
+     "judet": "CLUJ",
+     "angajatori": 33115,
+     "fond_salarii": 2602992209,
+     "asigurati": 310206,
+     "salariu_mediu": 8391
+    },
+    {
+     "cod": "131",
+     "judet": "CONSTANTA",
+     "angajatori": 22830,
+     "fond_salarii": 1127353685,
+     "asigurati": 181270,
+     "salariu_mediu": 6219
+    },
+    {
+     "cod": "141",
+     "judet": "COVASNA",
+     "angajatori": 4403,
+     "fond_salarii": 262443577,
+     "asigurati": 44268,
+     "salariu_mediu": 5929
+    },
+    {
+     "cod": "151",
+     "judet": "DAMBOVITA",
+     "angajatori": 8992,
+     "fond_salarii": 495394997,
+     "asigurati": 82698,
+     "salariu_mediu": 5990
+    },
+    {
+     "cod": "161",
+     "judet": "DOLJ",
+     "angajatori": 15378,
+     "fond_salarii": 938623446,
+     "asigurati": 145792,
+     "salariu_mediu": 6438
+    },
+    {
+     "cod": "171",
+     "judet": "GALATI",
+     "angajatori": 11760,
+     "fond_salarii": 738288624,
+     "asigurati": 114195,
+     "salariu_mediu": 6465
+    },
+    {
+     "cod": "181",
+     "judet": "GORJ",
+     "angajatori": 6868,
+     "fond_salarii": 425704591,
+     "asigurati": 63748,
+     "salariu_mediu": 6678
+    },
+    {
+     "cod": "191",
+     "judet": "HARGHITA",
+     "angajatori": 7747,
+     "fond_salarii": 433972333,
+     "asigurati": 76207,
+     "salariu_mediu": 5695
+    },
+    {
+     "cod": "201",
+     "judet": "HUNEDOARA",
+     "angajatori": 9304,
+     "fond_salarii": 488550247,
+     "asigurati": 85442,
+     "salariu_mediu": 5718
+    },
+    {
+     "cod": "211",
+     "judet": "IALOMITA",
+     "angajatori": 4874,
+     "fond_salarii": 245347641,
+     "asigurati": 40378,
+     "salariu_mediu": 6076
+    },
+    {
+     "cod": "221",
+     "judet": "IASI",
+     "angajatori": 20061,
+     "fond_salarii": 1353074053,
+     "asigurati": 196248,
+     "salariu_mediu": 6895
+    },
+    {
+     "cod": "231",
+     "judet": "GIURGIU",
+     "angajatori": 4918,
+     "fond_salarii": 232083064,
+     "asigurati": 40072,
+     "salariu_mediu": 5792
+    },
+    {
+     "cod": "241",
+     "judet": "MARAMURES",
+     "angajatori": 12519,
+     "fond_salarii": 646782565,
+     "asigurati": 115797,
+     "salariu_mediu": 5585
+    },
+    {
+     "cod": "251",
+     "judet": "MEHEDINTI",
+     "angajatori": 3872,
+     "fond_salarii": 191938494,
+     "asigurati": 32210,
+     "salariu_mediu": 5959
+    },
+    {
+     "cod": "261",
+     "judet": "MURES",
+     "angajatori": 14534,
+     "fond_salarii": 916032173,
+     "asigurati": 139723,
+     "salariu_mediu": 6556
+    },
+    {
+     "cod": "271",
+     "judet": "NEAMT",
+     "angajatori": 9254,
+     "fond_salarii": 475538037,
+     "asigurati": 81382,
+     "salariu_mediu": 5843
+    },
+    {
+     "cod": "281",
+     "judet": "OLT",
+     "angajatori": 6366,
+     "fond_salarii": 461263975,
+     "asigurati": 70835,
+     "salariu_mediu": 6512
+    },
+    {
+     "cod": "291",
+     "judet": "PRAHOVA",
+     "angajatori": 18575,
+     "fond_salarii": 1243172111,
+     "asigurati": 187010,
+     "salariu_mediu": 6648
+    },
+    {
+     "cod": "301",
+     "judet": "SATU MARE",
+     "angajatori": 8169,
+     "fond_salarii": 452076106,
+     "asigurati": 79555,
+     "salariu_mediu": 5683
+    },
+    {
+     "cod": "311",
+     "judet": "SALAJ",
+     "angajatori": 5445,
+     "fond_salarii": 270888684,
+     "asigurati": 47356,
+     "salariu_mediu": 5720
+    },
+    {
+     "cod": "321",
+     "judet": "SIBIU",
+     "angajatori": 12387,
+     "fond_salarii": 1156847177,
+     "asigurati": 146232,
+     "salariu_mediu": 7911
+    },
+    {
+     "cod": "331",
+     "judet": "SUCEAVA",
+     "angajatori": 15064,
+     "fond_salarii": 684698017,
+     "asigurati": 127860,
+     "salariu_mediu": 5355
+    },
+    {
+     "cod": "341",
+     "judet": "TELEORMAN",
+     "angajatori": 4916,
+     "fond_salarii": 251279313,
+     "asigurati": 43969,
+     "salariu_mediu": 5715
+    },
+    {
+     "cod": "351",
+     "judet": "TIMIS",
+     "angajatori": 23751,
+     "fond_salarii": 2315225073,
+     "asigurati": 264414,
+     "salariu_mediu": 8756
+    },
+    {
+     "cod": "361",
+     "judet": "TULCEA",
+     "angajatori": 4396,
+     "fond_salarii": 273971635,
+     "asigurati": 43083,
+     "salariu_mediu": 6359
+    },
+    {
+     "cod": "371",
+     "judet": "VASLUI",
+     "angajatori": 5626,
+     "fond_salarii": 302659957,
+     "asigurati": 51822,
+     "salariu_mediu": 5840
+    },
+    {
+     "cod": "381",
+     "judet": "VALCEA",
+     "angajatori": 8602,
+     "fond_salarii": 431415424,
+     "asigurati": 77444,
+     "salariu_mediu": 5571
+    },
+    {
+     "cod": "391",
+     "judet": "VRANCEA",
+     "angajatori": 6040,
+     "fond_salarii": 315216502,
+     "asigurati": 56354,
+     "salariu_mediu": 5594
+    },
+    {
+     "cod": "401",
+     "judet": "CALARASI",
+     "angajatori": 4716,
+     "fond_salarii": 249811527,
+     "asigurati": 41175,
+     "salariu_mediu": 6067
+    },
+    {
+     "cod": "411",
+     "judet": "BUCURESTI",
+     "angajatori": 106887,
+     "fond_salarii": 15681332179,
+     "asigurati": 1583633,
+     "salariu_mediu": 9902
+    },
+    {
+     "cod": "471",
+     "judet": "ILFOV",
+     "angajatori": 28573,
+     "fond_salarii": 1908860706,
+     "asigurati": 260284,
+     "salariu_mediu": 7334
+    }
+   ]
+  },
+  {
+   "year": 2025,
+   "month": 5,
+   "luna": "Mai",
+   "period": "2025.05",
+   "total_asigurati": 5276595,
+   "salarii": [
+    {
+     "grupa": "0 (*)",
+     "transa": "Fără venit",
+     "numar": 43454,
+     "venit_mediu": 0,
+     "timp_partial": 2401,
+     "fara_contract": 734,
+     "somaj": 463,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "1",
+     "transa": "1-4049",
+     "numar": 770332,
+     "venit_mediu": 3193,
+     "timp_partial": 302291,
+     "fara_contract": 142652,
+     "somaj": 58112,
+     "contract_individual": 364
+    },
+    {
+     "grupa": "2",
+     "transa": "4050",
+     "numar": 9876,
+     "venit_mediu": 4050,
+     "timp_partial": 2264,
+     "fara_contract": 9811,
+     "somaj": 0,
+     "contract_individual": 15920
+    },
+    {
+     "grupa": "3",
+     "transa": "4051-4581",
+     "numar": 832244,
+     "venit_mediu": 4211,
+     "timp_partial": 23081,
+     "fara_contract": 4712,
+     "somaj": 91,
+     "contract_individual": 92
+    },
+    {
+     "grupa": "4",
+     "transa": "4582",
+     "numar": 101720,
+     "venit_mediu": 4582,
+     "timp_partial": 456,
+     "fara_contract": 241,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "5",
+     "transa": "4583-5000",
+     "numar": 328031,
+     "venit_mediu": 4760,
+     "timp_partial": 9895,
+     "fara_contract": 1503,
+     "somaj": 33,
+     "contract_individual": 193
+    },
+    {
+     "grupa": "6",
+     "transa": "5001-6000",
+     "numar": 570677,
+     "venit_mediu": 5482,
+     "timp_partial": 19107,
+     "fara_contract": 2590,
+     "somaj": 11,
+     "contract_individual": 225
+    },
+    {
+     "grupa": "7",
+     "transa": "6001-7000",
+     "numar": 437634,
+     "venit_mediu": 6502,
+     "timp_partial": 12193,
+     "fara_contract": 1712,
+     "somaj": 4,
+     "contract_individual": 53
+    },
+    {
+     "grupa": "8",
+     "transa": "7001-8000",
+     "numar": 374544,
+     "venit_mediu": 7500,
+     "timp_partial": 9153,
+     "fara_contract": 1272,
+     "somaj": 4,
+     "contract_individual": 126
+    },
+    {
+     "grupa": "9",
+     "transa": "8001-8619",
+     "numar": 206922,
+     "venit_mediu": 8324,
+     "timp_partial": 6015,
+     "fara_contract": 3096,
+     "somaj": 2,
+     "contract_individual": 23
+    },
+    {
+     "grupa": "10",
+     "transa": "8620",
+     "numar": 340,
+     "venit_mediu": 8620,
+     "timp_partial": 13,
+     "fara_contract": 4,
+     "somaj": 0,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "11",
+     "transa": "8621-9000",
+     "numar": 107379,
+     "venit_mediu": 8807,
+     "timp_partial": 2686,
+     "fara_contract": 425,
+     "somaj": 0,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "12",
+     "transa": "9001-10000",
+     "numar": 242918,
+     "venit_mediu": 9496,
+     "timp_partial": 6304,
+     "fara_contract": 1150,
+     "somaj": 2,
+     "contract_individual": 64
+    },
+    {
+     "grupa": "13",
+     "transa": "10001-12000",
+     "numar": 382492,
+     "venit_mediu": 10938,
+     "timp_partial": 10503,
+     "fara_contract": 1659,
+     "somaj": 2,
+     "contract_individual": 33
+    },
+    {
+     "grupa": "14",
+     "transa": "12001-13000",
+     "numar": 147925,
+     "venit_mediu": 12476,
+     "timp_partial": 3786,
+     "fara_contract": 874,
+     "somaj": 1,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "15",
+     "transa": "13001-15000",
+     "numar": 227582,
+     "venit_mediu": 13946,
+     "timp_partial": 5272,
+     "fara_contract": 1351,
+     "somaj": 3,
+     "contract_individual": 17
+    },
+    {
+     "grupa": "16",
+     "transa": "15001-16000",
+     "numar": 71289,
+     "venit_mediu": 15474,
+     "timp_partial": 1859,
+     "fara_contract": 382,
+     "somaj": 0,
+     "contract_individual": 15
+    },
+    {
+     "grupa": "17",
+     "transa": "16001-18000",
+     "numar": 102691,
+     "venit_mediu": 16949,
+     "timp_partial": 3500,
+     "fara_contract": 1018,
+     "somaj": 0,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "18",
+     "transa": "18001-20000",
+     "numar": 69484,
+     "venit_mediu": 18955,
+     "timp_partial": 2097,
+     "fara_contract": 1005,
+     "somaj": 2,
+     "contract_individual": 16
+    },
+    {
+     "grupa": "19",
+     "transa": "20001-22000",
+     "numar": 51310,
+     "venit_mediu": 20939,
+     "timp_partial": 1645,
+     "fara_contract": 465,
+     "somaj": 0,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "20",
+     "transa": "22001-25000",
+     "numar": 54049,
+     "venit_mediu": 23387,
+     "timp_partial": 1547,
+     "fara_contract": 445,
+     "somaj": 1,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "21",
+     "transa": "25001-30000",
+     "numar": 58198,
+     "venit_mediu": 27244,
+     "timp_partial": 1547,
+     "fara_contract": 556,
+     "somaj": 0,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "22",
+     "transa": "30001-40000",
+     "numar": 52237,
+     "venit_mediu": 34073,
+     "timp_partial": 1285,
+     "fara_contract": 734,
+     "somaj": 0,
+     "contract_individual": 3
+    },
+    {
+     "grupa": "23",
+     "transa": "40001-43099",
+     "numar": 7158,
+     "venit_mediu": 41530,
+     "timp_partial": 144,
+     "fara_contract": 158,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "24",
+     "transa": "43100",
+     "numar": 1,
+     "venit_mediu": 43100,
+     "timp_partial": 0,
+     "fara_contract": 0,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "25",
+     "transa": "Peste 43100",
+     "numar": 26108,
+     "venit_mediu": 74336,
+     "timp_partial": 541,
+     "fara_contract": 1661,
+     "somaj": 0,
+     "contract_individual": 11
+    }
+   ],
+   "judete": [
+    {
+     "cod": "011",
+     "judet": "ALBA",
+     "angajatori": 9580,
+     "fond_salarii": 610601606,
+     "asigurati": 98330,
+     "salariu_mediu": 6210
+    },
+    {
+     "cod": "021",
+     "judet": "ARAD",
+     "angajatori": 12424,
+     "fond_salarii": 744255943,
+     "asigurati": 124536,
+     "salariu_mediu": 5976
+    },
+    {
+     "cod": "031",
+     "judet": "ARGES",
+     "angajatori": 16825,
+     "fond_salarii": 1197451214,
+     "asigurati": 190529,
+     "salariu_mediu": 6285
+    },
+    {
+     "cod": "041",
+     "judet": "BACAU",
+     "angajatori": 11350,
+     "fond_salarii": 902128985,
+     "asigurati": 135348,
+     "salariu_mediu": 6665
+    },
+    {
+     "cod": "051",
+     "judet": "BIHOR",
+     "angajatori": 20220,
+     "fond_salarii": 1021435449,
+     "asigurati": 177600,
+     "salariu_mediu": 5751
+    },
+    {
+     "cod": "061",
+     "judet": "BISTRITA",
+     "angajatori": 7621,
+     "fond_salarii": 396615368,
+     "asigurati": 72922,
+     "salariu_mediu": 5439
+    },
+    {
+     "cod": "071",
+     "judet": "BOTOSANI",
+     "angajatori": 5866,
+     "fond_salarii": 336838324,
+     "asigurati": 56016,
+     "salariu_mediu": 6013
+    },
+    {
+     "cod": "081",
+     "judet": "BRASOV",
+     "angajatori": 20381,
+     "fond_salarii": 1438566113,
+     "asigurati": 205757,
+     "salariu_mediu": 6992
+    },
+    {
+     "cod": "091",
+     "judet": "BRAILA",
+     "angajatori": 6981,
+     "fond_salarii": 320032986,
+     "asigurati": 57069,
+     "salariu_mediu": 5608
+    },
+    {
+     "cod": "101",
+     "judet": "BUZAU",
+     "angajatori": 8378,
+     "fond_salarii": 491462889,
+     "asigurati": 83291,
+     "salariu_mediu": 5901
+    },
+    {
+     "cod": "111",
+     "judet": "CARAS SEVERIN",
+     "angajatori": 4815,
+     "fond_salarii": 258017162,
+     "asigurati": 45624,
+     "salariu_mediu": 5655
+    },
+    {
+     "cod": "121",
+     "judet": "CLUJ",
+     "angajatori": 34140,
+     "fond_salarii": 2720539304,
+     "asigurati": 322550,
+     "salariu_mediu": 8434
+    },
+    {
+     "cod": "131",
+     "judet": "CONSTANTA",
+     "angajatori": 23493,
+     "fond_salarii": 1171713858,
+     "asigurati": 190854,
+     "salariu_mediu": 6139
+    },
+    {
+     "cod": "141",
+     "judet": "COVASNA",
+     "angajatori": 4473,
+     "fond_salarii": 264877211,
+     "asigurati": 45130,
+     "salariu_mediu": 5869
+    },
+    {
+     "cod": "151",
+     "judet": "DAMBOVITA",
+     "angajatori": 9172,
+     "fond_salarii": 505247299,
+     "asigurati": 85960,
+     "salariu_mediu": 5878
+    },
+    {
+     "cod": "161",
+     "judet": "DOLJ",
+     "angajatori": 16076,
+     "fond_salarii": 953672437,
+     "asigurati": 151688,
+     "salariu_mediu": 6287
+    },
+    {
+     "cod": "171",
+     "judet": "GALATI",
+     "angajatori": 12062,
+     "fond_salarii": 748409256,
+     "asigurati": 118062,
+     "salariu_mediu": 6339
+    },
+    {
+     "cod": "181",
+     "judet": "GORJ",
+     "angajatori": 6977,
+     "fond_salarii": 442675660,
+     "asigurati": 70370,
+     "salariu_mediu": 6291
+    },
+    {
+     "cod": "191",
+     "judet": "HARGHITA",
+     "angajatori": 7901,
+     "fond_salarii": 444044968,
+     "asigurati": 77848,
+     "salariu_mediu": 5704
+    },
+    {
+     "cod": "201",
+     "judet": "HUNEDOARA",
+     "angajatori": 9474,
+     "fond_salarii": 499781546,
+     "asigurati": 89005,
+     "salariu_mediu": 5615
+    },
+    {
+     "cod": "211",
+     "judet": "IALOMITA",
+     "angajatori": 5000,
+     "fond_salarii": 252029414,
+     "asigurati": 41745,
+     "salariu_mediu": 6037
+    },
+    {
+     "cod": "221",
+     "judet": "IASI",
+     "angajatori": 21082,
+     "fond_salarii": 1424522791,
+     "asigurati": 209536,
+     "salariu_mediu": 6798
+    },
+    {
+     "cod": "231",
+     "judet": "GIURGIU",
+     "angajatori": 5135,
+     "fond_salarii": 241113809,
+     "asigurati": 42067,
+     "salariu_mediu": 5732
+    },
+    {
+     "cod": "241",
+     "judet": "MARAMURES",
+     "angajatori": 12896,
+     "fond_salarii": 668072124,
+     "asigurati": 119827,
+     "salariu_mediu": 5575
+    },
+    {
+     "cod": "251",
+     "judet": "MEHEDINTI",
+     "angajatori": 4104,
+     "fond_salarii": 200652954,
+     "asigurati": 35179,
+     "salariu_mediu": 5704
+    },
+    {
+     "cod": "261",
+     "judet": "MURES",
+     "angajatori": 14849,
+     "fond_salarii": 947154683,
+     "asigurati": 146333,
+     "salariu_mediu": 6473
+    },
+    {
+     "cod": "271",
+     "judet": "NEAMT",
+     "angajatori": 9559,
+     "fond_salarii": 486262195,
+     "asigurati": 85242,
+     "salariu_mediu": 5704
+    },
+    {
+     "cod": "281",
+     "judet": "OLT",
+     "angajatori": 6750,
+     "fond_salarii": 477195258,
+     "asigurati": 75857,
+     "salariu_mediu": 6291
+    },
+    {
+     "cod": "291",
+     "judet": "PRAHOVA",
+     "angajatori": 18939,
+     "fond_salarii": 1299163973,
+     "asigurati": 195197,
+     "salariu_mediu": 6656
+    },
+    {
+     "cod": "301",
+     "judet": "SATU MARE",
+     "angajatori": 8367,
+     "fond_salarii": 450221831,
+     "asigurati": 81196,
+     "salariu_mediu": 5545
+    },
+    {
+     "cod": "311",
+     "judet": "SALAJ",
+     "angajatori": 5555,
+     "fond_salarii": 283868145,
+     "asigurati": 49602,
+     "salariu_mediu": 5723
+    },
+    {
+     "cod": "321",
+     "judet": "SIBIU",
+     "angajatori": 12633,
+     "fond_salarii": 1147223004,
+     "asigurati": 152124,
+     "salariu_mediu": 7541
+    },
+    {
+     "cod": "331",
+     "judet": "SUCEAVA",
+     "angajatori": 15808,
+     "fond_salarii": 718011473,
+     "asigurati": 134601,
+     "salariu_mediu": 5334
+    },
+    {
+     "cod": "341",
+     "judet": "TELEORMAN",
+     "angajatori": 5102,
+     "fond_salarii": 261935206,
+     "asigurati": 46033,
+     "salariu_mediu": 5690
+    },
+    {
+     "cod": "351",
+     "judet": "TIMIS",
+     "angajatori": 25007,
+     "fond_salarii": 2263292556,
+     "asigurati": 280539,
+     "salariu_mediu": 8068
+    },
+    {
+     "cod": "361",
+     "judet": "TULCEA",
+     "angajatori": 4705,
+     "fond_salarii": 290173107,
+     "asigurati": 46542,
+     "salariu_mediu": 6235
+    },
+    {
+     "cod": "371",
+     "judet": "VASLUI",
+     "angajatori": 6074,
+     "fond_salarii": 322313967,
+     "asigurati": 58562,
+     "salariu_mediu": 5504
+    },
+    {
+     "cod": "381",
+     "judet": "VALCEA",
+     "angajatori": 8926,
+     "fond_salarii": 459822197,
+     "asigurati": 83809,
+     "salariu_mediu": 5487
+    },
+    {
+     "cod": "391",
+     "judet": "VRANCEA",
+     "angajatori": 6353,
+     "fond_salarii": 335789088,
+     "asigurati": 60477,
+     "salariu_mediu": 5552
+    },
+    {
+     "cod": "401",
+     "judet": "CALARASI",
+     "angajatori": 4803,
+     "fond_salarii": 264035857,
+     "asigurati": 43400,
+     "salariu_mediu": 6084
+    },
+    {
+     "cod": "411",
+     "judet": "BUCURESTI",
+     "angajatori": 110068,
+     "fond_salarii": 15387704765,
+     "asigurati": 1642910,
+     "salariu_mediu": 9366
+    },
+    {
+     "cod": "471",
+     "judet": "ILFOV",
+     "angajatori": 29642,
+     "fond_salarii": 1909554469,
+     "asigurati": 273500,
+     "salariu_mediu": 6982
+    }
+   ]
+  },
+  {
+   "year": 2025,
+   "month": 6,
+   "luna": "Iunie",
+   "period": "2025.06",
+   "total_asigurati": 5294410,
+   "salarii": [
+    {
+     "grupa": "0 (*)",
+     "transa": "Fără venit",
+     "numar": 45286,
+     "venit_mediu": 0,
+     "timp_partial": 2558,
+     "fara_contract": 800,
+     "somaj": 522,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "1",
+     "transa": "1-4049",
+     "numar": 777192,
+     "venit_mediu": 3189,
+     "timp_partial": 305228,
+     "fara_contract": 134610,
+     "somaj": 56484,
+     "contract_individual": 281
+    },
+    {
+     "grupa": "2",
+     "transa": "4050",
+     "numar": 10858,
+     "venit_mediu": 4050,
+     "timp_partial": 2517,
+     "fara_contract": 10351,
+     "somaj": 0,
+     "contract_individual": 15932
+    },
+    {
+     "grupa": "3",
+     "transa": "4051-4581",
+     "numar": 825436,
+     "venit_mediu": 4206,
+     "timp_partial": 23591,
+     "fara_contract": 5326,
+     "somaj": 100,
+     "contract_individual": 94
+    },
+    {
+     "grupa": "4",
+     "transa": "4582",
+     "numar": 114130,
+     "venit_mediu": 4582,
+     "timp_partial": 498,
+     "fara_contract": 288,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "5",
+     "transa": "4583-5000",
+     "numar": 314122,
+     "venit_mediu": 4766,
+     "timp_partial": 10133,
+     "fara_contract": 1845,
+     "somaj": 30,
+     "contract_individual": 195
+    },
+    {
+     "grupa": "6",
+     "transa": "5001-6000",
+     "numar": 558636,
+     "venit_mediu": 5488,
+     "timp_partial": 19124,
+     "fara_contract": 3270,
+     "somaj": 14,
+     "contract_individual": 228
+    },
+    {
+     "grupa": "7",
+     "transa": "6001-7000",
+     "numar": 434843,
+     "venit_mediu": 6510,
+     "timp_partial": 11858,
+     "fara_contract": 1871,
+     "somaj": 4,
+     "contract_individual": 52
+    },
+    {
+     "grupa": "8",
+     "transa": "7001-8000",
+     "numar": 376521,
+     "venit_mediu": 7503,
+     "timp_partial": 9145,
+     "fara_contract": 1408,
+     "somaj": 6,
+     "contract_individual": 126
+    },
+    {
+     "grupa": "9",
+     "transa": "8001-8619",
+     "numar": 208916,
+     "venit_mediu": 8326,
+     "timp_partial": 5899,
+     "fara_contract": 2788,
+     "somaj": 1,
+     "contract_individual": 22
+    },
+    {
+     "grupa": "10",
+     "transa": "8620",
+     "numar": 337,
+     "venit_mediu": 8620,
+     "timp_partial": 7,
+     "fara_contract": 2,
+     "somaj": 0,
+     "contract_individual": 6
+    },
+    {
+     "grupa": "11",
+     "transa": "8621-9000",
+     "numar": 111142,
+     "venit_mediu": 8807,
+     "timp_partial": 2787,
+     "fara_contract": 410,
+     "somaj": 0,
+     "contract_individual": 11
+    },
+    {
+     "grupa": "12",
+     "transa": "9001-10000",
+     "numar": 248611,
+     "venit_mediu": 9499,
+     "timp_partial": 6707,
+     "fara_contract": 1092,
+     "somaj": 4,
+     "contract_individual": 65
+    },
+    {
+     "grupa": "13",
+     "transa": "10001-12000",
+     "numar": 390632,
+     "venit_mediu": 10942,
+     "timp_partial": 10682,
+     "fara_contract": 1648,
+     "somaj": 2,
+     "contract_individual": 32
+    },
+    {
+     "grupa": "14",
+     "transa": "12001-13000",
+     "numar": 155901,
+     "venit_mediu": 12467,
+     "timp_partial": 3785,
+     "fara_contract": 849,
+     "somaj": 1,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "15",
+     "transa": "13001-15000",
+     "numar": 230136,
+     "venit_mediu": 13955,
+     "timp_partial": 4946,
+     "fara_contract": 1311,
+     "somaj": 1,
+     "contract_individual": 16
+    },
+    {
+     "grupa": "16",
+     "transa": "15001-16000",
+     "numar": 70893,
+     "venit_mediu": 15476,
+     "timp_partial": 1725,
+     "fara_contract": 383,
+     "somaj": 0,
+     "contract_individual": 14
+    },
+    {
+     "grupa": "17",
+     "transa": "16001-18000",
+     "numar": 101442,
+     "venit_mediu": 16941,
+     "timp_partial": 3243,
+     "fara_contract": 998,
+     "somaj": 0,
+     "contract_individual": 10
+    },
+    {
+     "grupa": "18",
+     "transa": "18001-20000",
+     "numar": 67820,
+     "venit_mediu": 18959,
+     "timp_partial": 1946,
+     "fara_contract": 952,
+     "somaj": 1,
+     "contract_individual": 16
+    },
+    {
+     "grupa": "19",
+     "transa": "20001-22000",
+     "numar": 49345,
+     "venit_mediu": 20950,
+     "timp_partial": 1566,
+     "fara_contract": 474,
+     "somaj": 0,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "20",
+     "transa": "22001-25000",
+     "numar": 53246,
+     "venit_mediu": 23391,
+     "timp_partial": 1495,
+     "fara_contract": 447,
+     "somaj": 1,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "21",
+     "transa": "25001-30000",
+     "numar": 59032,
+     "venit_mediu": 27254,
+     "timp_partial": 1564,
+     "fara_contract": 570,
+     "somaj": 0,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "22",
+     "transa": "30001-40000",
+     "numar": 53303,
+     "venit_mediu": 34079,
+     "timp_partial": 1382,
+     "fara_contract": 724,
+     "somaj": 1,
+     "contract_individual": 3
+    },
+    {
+     "grupa": "23",
+     "transa": "40001-43099",
+     "numar": 7733,
+     "venit_mediu": 41537,
+     "timp_partial": 147,
+     "fara_contract": 170,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "24",
+     "transa": "43100",
+     "numar": 6,
+     "venit_mediu": 43100,
+     "timp_partial": 0,
+     "fara_contract": 0,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "25",
+     "transa": "Peste 43100",
+     "numar": 28891,
+     "venit_mediu": 71667,
+     "timp_partial": 579,
+     "fara_contract": 1533,
+     "somaj": 0,
+     "contract_individual": 11
+    }
+   ],
+   "judete": [
+    {
+     "cod": "011",
+     "judet": "ALBA",
+     "angajatori": 9972,
+     "fond_salarii": 607301979,
+     "asigurati": 98914,
+     "salariu_mediu": 6140
+    },
+    {
+     "cod": "021",
+     "judet": "ARAD",
+     "angajatori": 12751,
+     "fond_salarii": 800331176,
+     "asigurati": 125407,
+     "salariu_mediu": 6382
+    },
+    {
+     "cod": "031",
+     "judet": "ARGES",
+     "angajatori": 17365,
+     "fond_salarii": 1275894416,
+     "asigurati": 187854,
+     "salariu_mediu": 6792
+    },
+    {
+     "cod": "041",
+     "judet": "BACAU",
+     "angajatori": 12052,
+     "fond_salarii": 914456022,
+     "asigurati": 135030,
+     "salariu_mediu": 6772
+    },
+    {
+     "cod": "051",
+     "judet": "BIHOR",
+     "angajatori": 20991,
+     "fond_salarii": 1031697796,
+     "asigurati": 179119,
+     "salariu_mediu": 5760
+    },
+    {
+     "cod": "061",
+     "judet": "BISTRITA",
+     "angajatori": 8287,
+     "fond_salarii": 396707558,
+     "asigurati": 72840,
+     "salariu_mediu": 5446
+    },
+    {
+     "cod": "071",
+     "judet": "BOTOSANI",
+     "angajatori": 6071,
+     "fond_salarii": 338004463,
+     "asigurati": 56429,
+     "salariu_mediu": 5990
+    },
+    {
+     "cod": "081",
+     "judet": "BRASOV",
+     "angajatori": 21365,
+     "fond_salarii": 1492655365,
+     "asigurati": 206664,
+     "salariu_mediu": 7223
+    },
+    {
+     "cod": "091",
+     "judet": "BRAILA",
+     "angajatori": 7102,
+     "fond_salarii": 326688461,
+     "asigurati": 57298,
+     "salariu_mediu": 5702
+    },
+    {
+     "cod": "101",
+     "judet": "BUZAU",
+     "angajatori": 8803,
+     "fond_salarii": 479191808,
+     "asigurati": 82987,
+     "salariu_mediu": 5774
+    },
+    {
+     "cod": "111",
+     "judet": "CARAS SEVERIN",
+     "angajatori": 5077,
+     "fond_salarii": 270345625,
+     "asigurati": 46180,
+     "salariu_mediu": 5854
+    },
+    {
+     "cod": "121",
+     "judet": "CLUJ",
+     "angajatori": 35641,
+     "fond_salarii": 2687430358,
+     "asigurati": 324616,
+     "salariu_mediu": 8279
+    },
+    {
+     "cod": "131",
+     "judet": "CONSTANTA",
+     "angajatori": 24000,
+     "fond_salarii": 1185771440,
+     "asigurati": 197414,
+     "salariu_mediu": 6007
+    },
+    {
+     "cod": "141",
+     "judet": "COVASNA",
+     "angajatori": 4588,
+     "fond_salarii": 263920205,
+     "asigurati": 44900,
+     "salariu_mediu": 5878
+    },
+    {
+     "cod": "151",
+     "judet": "DAMBOVITA",
+     "angajatori": 9896,
+     "fond_salarii": 506996412,
+     "asigurati": 87746,
+     "salariu_mediu": 5778
+    },
+    {
+     "cod": "161",
+     "judet": "DOLJ",
+     "angajatori": 16314,
+     "fond_salarii": 953268183,
+     "asigurati": 151170,
+     "salariu_mediu": 6306
+    },
+    {
+     "cod": "171",
+     "judet": "GALATI",
+     "angajatori": 12150,
+     "fond_salarii": 743074955,
+     "asigurati": 116971,
+     "salariu_mediu": 6353
+    },
+    {
+     "cod": "181",
+     "judet": "GORJ",
+     "angajatori": 7139,
+     "fond_salarii": 443973748,
+     "asigurati": 70078,
+     "salariu_mediu": 6335
+    },
+    {
+     "cod": "191",
+     "judet": "HARGHITA",
+     "angajatori": 8274,
+     "fond_salarii": 444742175,
+     "asigurati": 78380,
+     "salariu_mediu": 5674
+    },
+    {
+     "cod": "201",
+     "judet": "HUNEDOARA",
+     "angajatori": 9588,
+     "fond_salarii": 495618745,
+     "asigurati": 89210,
+     "salariu_mediu": 5556
+    },
+    {
+     "cod": "211",
+     "judet": "IALOMITA",
+     "angajatori": 5240,
+     "fond_salarii": 255598644,
+     "asigurati": 42214,
+     "salariu_mediu": 6055
+    },
+    {
+     "cod": "221",
+     "judet": "IASI",
+     "angajatori": 22059,
+     "fond_salarii": 1423036788,
+     "asigurati": 208902,
+     "salariu_mediu": 6812
+    },
+    {
+     "cod": "231",
+     "judet": "GIURGIU",
+     "angajatori": 5255,
+     "fond_salarii": 235940150,
+     "asigurati": 41277,
+     "salariu_mediu": 5716
+    },
+    {
+     "cod": "241",
+     "judet": "MARAMURES",
+     "angajatori": 13373,
+     "fond_salarii": 659342557,
+     "asigurati": 120508,
+     "salariu_mediu": 5471
+    },
+    {
+     "cod": "251",
+     "judet": "MEHEDINTI",
+     "angajatori": 4285,
+     "fond_salarii": 196537800,
+     "asigurati": 34847,
+     "salariu_mediu": 5640
+    },
+    {
+     "cod": "261",
+     "judet": "MURES",
+     "angajatori": 15375,
+     "fond_salarii": 944910375,
+     "asigurati": 146431,
+     "salariu_mediu": 6453
+    },
+    {
+     "cod": "271",
+     "judet": "NEAMT",
+     "angajatori": 9846,
+     "fond_salarii": 488040893,
+     "asigurati": 84587,
+     "salariu_mediu": 5770
+    },
+    {
+     "cod": "281",
+     "judet": "OLT",
+     "angajatori": 7200,
+     "fond_salarii": 484478175,
+     "asigurati": 75382,
+     "salariu_mediu": 6427
+    },
+    {
+     "cod": "291",
+     "judet": "PRAHOVA",
+     "angajatori": 19562,
+     "fond_salarii": 1294423120,
+     "asigurati": 195408,
+     "salariu_mediu": 6624
+    },
+    {
+     "cod": "301",
+     "judet": "SATU MARE",
+     "angajatori": 8671,
+     "fond_salarii": 477925047,
+     "asigurati": 83284,
+     "salariu_mediu": 5738
+    },
+    {
+     "cod": "311",
+     "judet": "SALAJ",
+     "angajatori": 5733,
+     "fond_salarii": 281557933,
+     "asigurati": 49089,
+     "salariu_mediu": 5736
+    },
+    {
+     "cod": "321",
+     "judet": "SIBIU",
+     "angajatori": 13329,
+     "fond_salarii": 1120341932,
+     "asigurati": 153183,
+     "salariu_mediu": 7314
+    },
+    {
+     "cod": "331",
+     "judet": "SUCEAVA",
+     "angajatori": 15979,
+     "fond_salarii": 718489222,
+     "asigurati": 134727,
+     "salariu_mediu": 5333
+    },
+    {
+     "cod": "341",
+     "judet": "TELEORMAN",
+     "angajatori": 5212,
+     "fond_salarii": 253315589,
+     "asigurati": 45179,
+     "salariu_mediu": 5607
+    },
+    {
+     "cod": "351",
+     "judet": "TIMIS",
+     "angajatori": 26140,
+     "fond_salarii": 2303660054,
+     "asigurati": 280297,
+     "salariu_mediu": 8219
+    },
+    {
+     "cod": "361",
+     "judet": "TULCEA",
+     "angajatori": 4972,
+     "fond_salarii": 296139236,
+     "asigurati": 46742,
+     "salariu_mediu": 6336
+    },
+    {
+     "cod": "371",
+     "judet": "VASLUI",
+     "angajatori": 6191,
+     "fond_salarii": 315729343,
+     "asigurati": 57483,
+     "salariu_mediu": 5493
+    },
+    {
+     "cod": "381",
+     "judet": "VALCEA",
+     "angajatori": 9120,
+     "fond_salarii": 464544690,
+     "asigurati": 83242,
+     "salariu_mediu": 5581
+    },
+    {
+     "cod": "391",
+     "judet": "VRANCEA",
+     "angajatori": 6635,
+     "fond_salarii": 333926695,
+     "asigurati": 60508,
+     "salariu_mediu": 5519
+    },
+    {
+     "cod": "401",
+     "judet": "CALARASI",
+     "angajatori": 5084,
+     "fond_salarii": 260722647,
+     "asigurati": 42887,
+     "salariu_mediu": 6079
+    },
+    {
+     "cod": "411",
+     "judet": "BUCURESTI",
+     "angajatori": 116738,
+     "fond_salarii": 15519144661,
+     "asigurati": 1649035,
+     "salariu_mediu": 9411
+    },
+    {
+     "cod": "471",
+     "judet": "ILFOV",
+     "angajatori": 31386,
+     "fond_salarii": 1906251150,
+     "asigurati": 275085,
+     "salariu_mediu": 6930
+    }
+   ]
+  },
+  {
+   "year": 2025,
+   "month": 7,
+   "luna": "Iulie",
+   "period": "2025.07",
+   "total_asigurati": 5295304,
+   "salarii": [
+    {
+     "grupa": "0 (*)",
+     "transa": "Fără venit",
+     "numar": 45202,
+     "venit_mediu": 0,
+     "timp_partial": 2468,
+     "fara_contract": 906,
+     "somaj": 552,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "1",
+     "transa": "1-4049",
+     "numar": 779497,
+     "venit_mediu": 3188,
+     "timp_partial": 287782,
+     "fara_contract": 132415,
+     "somaj": 57181,
+     "contract_individual": 263
+    },
+    {
+     "grupa": "2",
+     "transa": "4050",
+     "numar": 10106,
+     "venit_mediu": 4050,
+     "timp_partial": 2683,
+     "fara_contract": 9705,
+     "somaj": 0,
+     "contract_individual": 15831
+    },
+    {
+     "grupa": "3",
+     "transa": "4051-4581",
+     "numar": 813694,
+     "venit_mediu": 4222,
+     "timp_partial": 23608,
+     "fara_contract": 5388,
+     "somaj": 100,
+     "contract_individual": 92
+    },
+    {
+     "grupa": "4",
+     "transa": "4582",
+     "numar": 101951,
+     "venit_mediu": 4582,
+     "timp_partial": 497,
+     "fara_contract": 292,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "5",
+     "transa": "4583-5000",
+     "numar": 331185,
+     "venit_mediu": 4765,
+     "timp_partial": 9691,
+     "fara_contract": 1915,
+     "somaj": 28,
+     "contract_individual": 197
+    },
+    {
+     "grupa": "6",
+     "transa": "5001-6000",
+     "numar": 564690,
+     "venit_mediu": 5476,
+     "timp_partial": 18146,
+     "fara_contract": 3156,
+     "somaj": 16,
+     "contract_individual": 227
+    },
+    {
+     "grupa": "7",
+     "transa": "6001-7000",
+     "numar": 436846,
+     "venit_mediu": 6504,
+     "timp_partial": 11645,
+     "fara_contract": 2160,
+     "somaj": 7,
+     "contract_individual": 53
+    },
+    {
+     "grupa": "8",
+     "transa": "7001-8000",
+     "numar": 379825,
+     "venit_mediu": 7494,
+     "timp_partial": 9436,
+     "fara_contract": 1597,
+     "somaj": 6,
+     "contract_individual": 128
+    },
+    {
+     "grupa": "9",
+     "transa": "8001-8619",
+     "numar": 208792,
+     "venit_mediu": 8323,
+     "timp_partial": 6365,
+     "fara_contract": 2873,
+     "somaj": 1,
+     "contract_individual": 24
+    },
+    {
+     "grupa": "10",
+     "transa": "8620",
+     "numar": 298,
+     "venit_mediu": 8620,
+     "timp_partial": 8,
+     "fara_contract": 3,
+     "somaj": 0,
+     "contract_individual": 6
+    },
+    {
+     "grupa": "11",
+     "transa": "8621-9000",
+     "numar": 114609,
+     "venit_mediu": 8808,
+     "timp_partial": 3155,
+     "fara_contract": 491,
+     "somaj": 1,
+     "contract_individual": 10
+    },
+    {
+     "grupa": "12",
+     "transa": "9001-10000",
+     "numar": 257602,
+     "venit_mediu": 9494,
+     "timp_partial": 6762,
+     "fara_contract": 1284,
+     "somaj": 3,
+     "contract_individual": 67
+    },
+    {
+     "grupa": "13",
+     "transa": "10001-12000",
+     "numar": 412699,
+     "venit_mediu": 10962,
+     "timp_partial": 10614,
+     "fara_contract": 1747,
+     "somaj": 2,
+     "contract_individual": 31
+    },
+    {
+     "grupa": "14",
+     "transa": "12001-13000",
+     "numar": 140546,
+     "venit_mediu": 12473,
+     "timp_partial": 2860,
+     "fara_contract": 820,
+     "somaj": 3,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "15",
+     "transa": "13001-15000",
+     "numar": 225571,
+     "venit_mediu": 13909,
+     "timp_partial": 4074,
+     "fara_contract": 1317,
+     "somaj": 1,
+     "contract_individual": 16
+    },
+    {
+     "grupa": "16",
+     "transa": "15001-16000",
+     "numar": 63919,
+     "venit_mediu": 15467,
+     "timp_partial": 1443,
+     "fara_contract": 402,
+     "somaj": 0,
+     "contract_individual": 12
+    },
+    {
+     "grupa": "17",
+     "transa": "16001-18000",
+     "numar": 95778,
+     "venit_mediu": 16964,
+     "timp_partial": 2708,
+     "fara_contract": 998,
+     "somaj": 0,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "18",
+     "transa": "18001-20000",
+     "numar": 64439,
+     "venit_mediu": 18972,
+     "timp_partial": 1866,
+     "fara_contract": 934,
+     "somaj": 1,
+     "contract_individual": 16
+    },
+    {
+     "grupa": "19",
+     "transa": "20001-22000",
+     "numar": 49892,
+     "venit_mediu": 20973,
+     "timp_partial": 1583,
+     "fara_contract": 420,
+     "somaj": 1,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "20",
+     "transa": "22001-25000",
+     "numar": 51499,
+     "venit_mediu": 23413,
+     "timp_partial": 1512,
+     "fara_contract": 444,
+     "somaj": 1,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "21",
+     "transa": "25001-30000",
+     "numar": 58948,
+     "venit_mediu": 27232,
+     "timp_partial": 1654,
+     "fara_contract": 593,
+     "somaj": 0,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "22",
+     "transa": "30001-40000",
+     "numar": 53923,
+     "venit_mediu": 34075,
+     "timp_partial": 1494,
+     "fara_contract": 689,
+     "somaj": 1,
+     "contract_individual": 3
+    },
+    {
+     "grupa": "23",
+     "transa": "40001-43099",
+     "numar": 7413,
+     "venit_mediu": 41543,
+     "timp_partial": 167,
+     "fara_contract": 142,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "24",
+     "transa": "43100",
+     "numar": 7,
+     "venit_mediu": 43100,
+     "timp_partial": 0,
+     "fara_contract": 0,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "25",
+     "transa": "Peste 43100",
+     "numar": 26373,
+     "venit_mediu": 70461,
+     "timp_partial": 593,
+     "fara_contract": 1461,
+     "somaj": 0,
+     "contract_individual": 12
+    }
+   ],
+   "judete": [
+    {
+     "cod": "011",
+     "judet": "ALBA",
+     "angajatori": 9609,
+     "fond_salarii": 609690824,
+     "asigurati": 98354,
+     "salariu_mediu": 6199
+    },
+    {
+     "cod": "021",
+     "judet": "ARAD",
+     "angajatori": 12329,
+     "fond_salarii": 753378994,
+     "asigurati": 124019,
+     "salariu_mediu": 6075
+    },
+    {
+     "cod": "031",
+     "judet": "ARGES",
+     "angajatori": 16734,
+     "fond_salarii": 1307237801,
+     "asigurati": 189298,
+     "salariu_mediu": 6906
+    },
+    {
+     "cod": "041",
+     "judet": "BACAU",
+     "angajatori": 11380,
+     "fond_salarii": 898369732,
+     "asigurati": 134052,
+     "salariu_mediu": 6702
+    },
+    {
+     "cod": "051",
+     "judet": "BIHOR",
+     "angajatori": 20165,
+     "fond_salarii": 1013048053,
+     "asigurati": 176992,
+     "salariu_mediu": 5724
+    },
+    {
+     "cod": "061",
+     "judet": "BISTRITA",
+     "angajatori": 7537,
+     "fond_salarii": 395993924,
+     "asigurati": 71688,
+     "salariu_mediu": 5524
+    },
+    {
+     "cod": "071",
+     "judet": "BOTOSANI",
+     "angajatori": 5862,
+     "fond_salarii": 334872339,
+     "asigurati": 59491,
+     "salariu_mediu": 5629
+    },
+    {
+     "cod": "081",
+     "judet": "BRASOV",
+     "angajatori": 20184,
+     "fond_salarii": 1428045951,
+     "asigurati": 204403,
+     "salariu_mediu": 6986
+    },
+    {
+     "cod": "091",
+     "judet": "BRAILA",
+     "angajatori": 6967,
+     "fond_salarii": 317018871,
+     "asigurati": 57421,
+     "salariu_mediu": 5521
+    },
+    {
+     "cod": "101",
+     "judet": "BUZAU",
+     "angajatori": 8392,
+     "fond_salarii": 491895000,
+     "asigurati": 83129,
+     "salariu_mediu": 5917
+    },
+    {
+     "cod": "111",
+     "judet": "CARAS SEVERIN",
+     "angajatori": 4854,
+     "fond_salarii": 254133547,
+     "asigurati": 45281,
+     "salariu_mediu": 5612
+    },
+    {
+     "cod": "121",
+     "judet": "CLUJ",
+     "angajatori": 34039,
+     "fond_salarii": 2704011532,
+     "asigurati": 322239,
+     "salariu_mediu": 8391
+    },
+    {
+     "cod": "131",
+     "judet": "CONSTANTA",
+     "angajatori": 23857,
+     "fond_salarii": 1198315885,
+     "asigurati": 200593,
+     "salariu_mediu": 5974
+    },
+    {
+     "cod": "141",
+     "judet": "COVASNA",
+     "angajatori": 4468,
+     "fond_salarii": 261132045,
+     "asigurati": 44285,
+     "salariu_mediu": 5897
+    },
+    {
+     "cod": "151",
+     "judet": "DAMBOVITA",
+     "angajatori": 9219,
+     "fond_salarii": 506389993,
+     "asigurati": 87217,
+     "salariu_mediu": 5806
+    },
+    {
+     "cod": "161",
+     "judet": "DOLJ",
+     "angajatori": 15915,
+     "fond_salarii": 974006631,
+     "asigurati": 150198,
+     "salariu_mediu": 6485
+    },
+    {
+     "cod": "171",
+     "judet": "GALATI",
+     "angajatori": 11971,
+     "fond_salarii": 737722543,
+     "asigurati": 117115,
+     "salariu_mediu": 6299
+    },
+    {
+     "cod": "181",
+     "judet": "GORJ",
+     "angajatori": 6963,
+     "fond_salarii": 440399071,
+     "asigurati": 69555,
+     "salariu_mediu": 6332
+    },
+    {
+     "cod": "191",
+     "judet": "HARGHITA",
+     "angajatori": 7963,
+     "fond_salarii": 440878002,
+     "asigurati": 77408,
+     "salariu_mediu": 5696
+    },
+    {
+     "cod": "201",
+     "judet": "HUNEDOARA",
+     "angajatori": 9576,
+     "fond_salarii": 500896597,
+     "asigurati": 89436,
+     "salariu_mediu": 5601
+    },
+    {
+     "cod": "211",
+     "judet": "IALOMITA",
+     "angajatori": 5001,
+     "fond_salarii": 241302655,
+     "asigurati": 41357,
+     "salariu_mediu": 5835
+    },
+    {
+     "cod": "221",
+     "judet": "IASI",
+     "angajatori": 20702,
+     "fond_salarii": 1396694251,
+     "asigurati": 206436,
+     "salariu_mediu": 6766
+    },
+    {
+     "cod": "231",
+     "judet": "GIURGIU",
+     "angajatori": 5060,
+     "fond_salarii": 233126154,
+     "asigurati": 40582,
+     "salariu_mediu": 5745
+    },
+    {
+     "cod": "241",
+     "judet": "MARAMURES",
+     "angajatori": 12883,
+     "fond_salarii": 652995373,
+     "asigurati": 119113,
+     "salariu_mediu": 5482
+    },
+    {
+     "cod": "251",
+     "judet": "MEHEDINTI",
+     "angajatori": 3990,
+     "fond_salarii": 192674858,
+     "asigurati": 33964,
+     "salariu_mediu": 5673
+    },
+    {
+     "cod": "261",
+     "judet": "MURES",
+     "angajatori": 14736,
+     "fond_salarii": 953775473,
+     "asigurati": 144561,
+     "salariu_mediu": 6598
+    },
+    {
+     "cod": "271",
+     "judet": "NEAMT",
+     "angajatori": 9471,
+     "fond_salarii": 481399779,
+     "asigurati": 84183,
+     "salariu_mediu": 5718
+    },
+    {
+     "cod": "281",
+     "judet": "OLT",
+     "angajatori": 6726,
+     "fond_salarii": 469136711,
+     "asigurati": 74959,
+     "salariu_mediu": 6259
+    },
+    {
+     "cod": "291",
+     "judet": "PRAHOVA",
+     "angajatori": 18857,
+     "fond_salarii": 1292543090,
+     "asigurati": 193915,
+     "salariu_mediu": 6666
+    },
+    {
+     "cod": "301",
+     "judet": "SATU MARE",
+     "angajatori": 8298,
+     "fond_salarii": 470675772,
+     "asigurati": 82820,
+     "salariu_mediu": 5683
+    },
+    {
+     "cod": "311",
+     "judet": "SALAJ",
+     "angajatori": 5552,
+     "fond_salarii": 279113746,
+     "asigurati": 48456,
+     "salariu_mediu": 5760
+    },
+    {
+     "cod": "321",
+     "judet": "SIBIU",
+     "angajatori": 12567,
+     "fond_salarii": 1119880751,
+     "asigurati": 151745,
+     "salariu_mediu": 7380
+    },
+    {
+     "cod": "331",
+     "judet": "SUCEAVA",
+     "angajatori": 15783,
+     "fond_salarii": 711162465,
+     "asigurati": 134759,
+     "salariu_mediu": 5277
+    },
+    {
+     "cod": "341",
+     "judet": "TELEORMAN",
+     "angajatori": 5015,
+     "fond_salarii": 254725630,
+     "asigurati": 44887,
+     "salariu_mediu": 5675
+    },
+    {
+     "cod": "351",
+     "judet": "TIMIS",
+     "angajatori": 24928,
+     "fond_salarii": 2183307565,
+     "asigurati": 277299,
+     "salariu_mediu": 7873
+    },
+    {
+     "cod": "361",
+     "judet": "TULCEA",
+     "angajatori": 4715,
+     "fond_salarii": 304786949,
+     "asigurati": 46574,
+     "salariu_mediu": 6544
+    },
+    {
+     "cod": "371",
+     "judet": "VASLUI",
+     "angajatori": 5967,
+     "fond_salarii": 314558238,
+     "asigurati": 57276,
+     "salariu_mediu": 5492
+    },
+    {
+     "cod": "381",
+     "judet": "VALCEA",
+     "angajatori": 8819,
+     "fond_salarii": 459165789,
+     "asigurati": 82719,
+     "salariu_mediu": 5551
+    },
+    {
+     "cod": "391",
+     "judet": "VRANCEA",
+     "angajatori": 6333,
+     "fond_salarii": 326701945,
+     "asigurati": 59790,
+     "salariu_mediu": 5464
+    },
+    {
+     "cod": "401",
+     "judet": "CALARASI",
+     "angajatori": 4762,
+     "fond_salarii": 254194970,
+     "asigurati": 42180,
+     "salariu_mediu": 6026
+    },
+    {
+     "cod": "411",
+     "judet": "BUCURESTI",
+     "angajatori": 109736,
+     "fond_salarii": 15370086507,
+     "asigurati": 1642191,
+     "salariu_mediu": 9359
+    },
+    {
+     "cod": "471",
+     "judet": "ILFOV",
+     "angajatori": 29758,
+     "fond_salarii": 1922901452,
+     "asigurati": 274758,
+     "salariu_mediu": 6999
+    }
+   ]
+  },
+  {
+   "year": 2025,
+   "month": 8,
+   "luna": "August",
+   "period": "2025.08",
+   "total_asigurati": 5260199,
+   "salarii": [
+    {
+     "grupa": "0 (*)",
+     "transa": "Fără venit",
+     "numar": 44856,
+     "venit_mediu": 0,
+     "timp_partial": 2441,
+     "fara_contract": 861,
+     "somaj": 494,
+     "contract_individual": 1
+    },
+    {
+     "grupa": "1",
+     "transa": "1-4049",
+     "numar": 764896,
+     "venit_mediu": 3210,
+     "timp_partial": 280787,
+     "fara_contract": 128228,
+     "somaj": 57330,
+     "contract_individual": 265
+    },
+    {
+     "grupa": "2",
+     "transa": "4050",
+     "numar": 10181,
+     "venit_mediu": 4050,
+     "timp_partial": 2829,
+     "fara_contract": 9799,
+     "somaj": 0,
+     "contract_individual": 15696
+    },
+    {
+     "grupa": "3",
+     "transa": "4051-4581",
+     "numar": 814816,
+     "venit_mediu": 4208,
+     "timp_partial": 23282,
+     "fara_contract": 5009,
+     "somaj": 108,
+     "contract_individual": 93
+    },
+    {
+     "grupa": "4",
+     "transa": "4582",
+     "numar": 109357,
+     "venit_mediu": 4582,
+     "timp_partial": 575,
+     "fara_contract": 331,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "5",
+     "transa": "4583-5000",
+     "numar": 324809,
+     "venit_mediu": 4766,
+     "timp_partial": 9893,
+     "fara_contract": 1539,
+     "somaj": 34,
+     "contract_individual": 193
+    },
+    {
+     "grupa": "6",
+     "transa": "5001-6000",
+     "numar": 564627,
+     "venit_mediu": 5480,
+     "timp_partial": 18154,
+     "fara_contract": 2680,
+     "somaj": 16,
+     "contract_individual": 231
+    },
+    {
+     "grupa": "7",
+     "transa": "6001-7000",
+     "numar": 441026,
+     "venit_mediu": 6508,
+     "timp_partial": 11522,
+     "fara_contract": 1533,
+     "somaj": 8,
+     "contract_individual": 50
+    },
+    {
+     "grupa": "8",
+     "transa": "7001-8000",
+     "numar": 381040,
+     "venit_mediu": 7500,
+     "timp_partial": 9265,
+     "fara_contract": 1300,
+     "somaj": 6,
+     "contract_individual": 131
+    },
+    {
+     "grupa": "9",
+     "transa": "8001-8619",
+     "numar": 210086,
+     "venit_mediu": 8328,
+     "timp_partial": 6489,
+     "fara_contract": 2981,
+     "somaj": 1,
+     "contract_individual": 23
+    },
+    {
+     "grupa": "10",
+     "transa": "8620",
+     "numar": 378,
+     "venit_mediu": 8620,
+     "timp_partial": 7,
+     "fara_contract": 3,
+     "somaj": 0,
+     "contract_individual": 6
+    },
+    {
+     "grupa": "11",
+     "transa": "8621-9000",
+     "numar": 111638,
+     "venit_mediu": 8807,
+     "timp_partial": 2963,
+     "fara_contract": 422,
+     "somaj": 2,
+     "contract_individual": 10
+    },
+    {
+     "grupa": "12",
+     "transa": "9001-10000",
+     "numar": 256543,
+     "venit_mediu": 9497,
+     "timp_partial": 6724,
+     "fara_contract": 1165,
+     "somaj": 3,
+     "contract_individual": 67
+    },
+    {
+     "grupa": "13",
+     "transa": "10001-12000",
+     "numar": 418595,
+     "venit_mediu": 10961,
+     "timp_partial": 10559,
+     "fara_contract": 1868,
+     "somaj": 2,
+     "contract_individual": 32
+    },
+    {
+     "grupa": "14",
+     "transa": "12001-13000",
+     "numar": 141489,
+     "venit_mediu": 12482,
+     "timp_partial": 2794,
+     "fara_contract": 682,
+     "somaj": 3,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "15",
+     "transa": "13001-15000",
+     "numar": 219704,
+     "venit_mediu": 13911,
+     "timp_partial": 3915,
+     "fara_contract": 1300,
+     "somaj": 1,
+     "contract_individual": 16
+    },
+    {
+     "grupa": "16",
+     "transa": "15001-16000",
+     "numar": 61827,
+     "venit_mediu": 15466,
+     "timp_partial": 1345,
+     "fara_contract": 572,
+     "somaj": 0,
+     "contract_individual": 12
+    },
+    {
+     "grupa": "17",
+     "transa": "16001-18000",
+     "numar": 90819,
+     "venit_mediu": 16961,
+     "timp_partial": 2743,
+     "fara_contract": 952,
+     "somaj": 1,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "18",
+     "transa": "18001-20000",
+     "numar": 61058,
+     "venit_mediu": 18981,
+     "timp_partial": 1813,
+     "fara_contract": 798,
+     "somaj": 1,
+     "contract_individual": 15
+    },
+    {
+     "grupa": "19",
+     "transa": "20001-22000",
+     "numar": 46556,
+     "venit_mediu": 20944,
+     "timp_partial": 1543,
+     "fara_contract": 436,
+     "somaj": 1,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "20",
+     "transa": "22001-25000",
+     "numar": 49696,
+     "venit_mediu": 23422,
+     "timp_partial": 1519,
+     "fara_contract": 397,
+     "somaj": 1,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "21",
+     "transa": "25001-30000",
+     "numar": 56980,
+     "venit_mediu": 27238,
+     "timp_partial": 1674,
+     "fara_contract": 566,
+     "somaj": 0,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "22",
+     "transa": "30001-40000",
+     "numar": 49857,
+     "venit_mediu": 34090,
+     "timp_partial": 1482,
+     "fara_contract": 695,
+     "somaj": 1,
+     "contract_individual": 3
+    },
+    {
+     "grupa": "23",
+     "transa": "40001-43099",
+     "numar": 6819,
+     "venit_mediu": 41550,
+     "timp_partial": 132,
+     "fara_contract": 157,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "24",
+     "transa": "43100",
+     "numar": 7,
+     "venit_mediu": 43100,
+     "timp_partial": 0,
+     "fara_contract": 0,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "25",
+     "transa": "Peste 43100",
+     "numar": 22539,
+     "venit_mediu": 67856,
+     "timp_partial": 536,
+     "fara_contract": 1409,
+     "somaj": 0,
+     "contract_individual": 12
+    }
+   ],
+   "judete": [
+    {
+     "cod": "011",
+     "judet": "ALBA",
+     "angajatori": 9667,
+     "fond_salarii": 580594681,
+     "asigurati": 95948,
+     "salariu_mediu": 6051
+    },
+    {
+     "cod": "021",
+     "judet": "ARAD",
+     "angajatori": 12209,
+     "fond_salarii": 718044222,
+     "asigurati": 118797,
+     "salariu_mediu": 6044
+    },
+    {
+     "cod": "031",
+     "judet": "ARGES",
+     "angajatori": 16833,
+     "fond_salarii": 1234566389,
+     "asigurati": 188043,
+     "salariu_mediu": 6565
+    },
+    {
+     "cod": "041",
+     "judet": "BACAU",
+     "angajatori": 11266,
+     "fond_salarii": 880630082,
+     "asigurati": 145615,
+     "salariu_mediu": 6048
+    },
+    {
+     "cod": "051",
+     "judet": "BIHOR",
+     "angajatori": 19972,
+     "fond_salarii": 1004813132,
+     "asigurati": 175711,
+     "salariu_mediu": 5719
+    },
+    {
+     "cod": "061",
+     "judet": "BISTRITA",
+     "angajatori": 7461,
+     "fond_salarii": 387206717,
+     "asigurati": 71129,
+     "salariu_mediu": 5444
+    },
+    {
+     "cod": "071",
+     "judet": "BOTOSANI",
+     "angajatori": 5817,
+     "fond_salarii": 333359760,
+     "asigurati": 59064,
+     "salariu_mediu": 5644
+    },
+    {
+     "cod": "081",
+     "judet": "BRASOV",
+     "angajatori": 20071,
+     "fond_salarii": 1406099219,
+     "asigurati": 203139,
+     "salariu_mediu": 6922
+    },
+    {
+     "cod": "091",
+     "judet": "BRAILA",
+     "angajatori": 6908,
+     "fond_salarii": 313281009,
+     "asigurati": 55150,
+     "salariu_mediu": 5681
+    },
+    {
+     "cod": "101",
+     "judet": "BUZAU",
+     "angajatori": 8314,
+     "fond_salarii": 484358980,
+     "asigurati": 82684,
+     "salariu_mediu": 5858
+    },
+    {
+     "cod": "111",
+     "judet": "CARAS SEVERIN",
+     "angajatori": 4845,
+     "fond_salarii": 250722305,
+     "asigurati": 45025,
+     "salariu_mediu": 5569
+    },
+    {
+     "cod": "121",
+     "judet": "CLUJ",
+     "angajatori": 33798,
+     "fond_salarii": 2671658182,
+     "asigurati": 320000,
+     "salariu_mediu": 8349
+    },
+    {
+     "cod": "131",
+     "judet": "CONSTANTA",
+     "angajatori": 23816,
+     "fond_salarii": 1198843900,
+     "asigurati": 197282,
+     "salariu_mediu": 6077
+    },
+    {
+     "cod": "141",
+     "judet": "COVASNA",
+     "angajatori": 4445,
+     "fond_salarii": 262632023,
+     "asigurati": 44455,
+     "salariu_mediu": 5908
+    },
+    {
+     "cod": "151",
+     "judet": "DAMBOVITA",
+     "angajatori": 9143,
+     "fond_salarii": 498572846,
+     "asigurati": 85633,
+     "salariu_mediu": 5822
+    },
+    {
+     "cod": "161",
+     "judet": "DOLJ",
+     "angajatori": 15813,
+     "fond_salarii": 934129303,
+     "asigurati": 145551,
+     "salariu_mediu": 6418
+    },
+    {
+     "cod": "171",
+     "judet": "GALATI",
+     "angajatori": 11815,
+     "fond_salarii": 722918770,
+     "asigurati": 115203,
+     "salariu_mediu": 6275
+    },
+    {
+     "cod": "181",
+     "judet": "GORJ",
+     "angajatori": 6888,
+     "fond_salarii": 435475465,
+     "asigurati": 69088,
+     "salariu_mediu": 6303
+    },
+    {
+     "cod": "191",
+     "judet": "HARGHITA",
+     "angajatori": 7858,
+     "fond_salarii": 442689527,
+     "asigurati": 77039,
+     "salariu_mediu": 5746
+    },
+    {
+     "cod": "201",
+     "judet": "HUNEDOARA",
+     "angajatori": 9468,
+     "fond_salarii": 488644473,
+     "asigurati": 85596,
+     "salariu_mediu": 5709
+    },
+    {
+     "cod": "211",
+     "judet": "IALOMITA",
+     "angajatori": 4907,
+     "fond_salarii": 237651096,
+     "asigurati": 39624,
+     "salariu_mediu": 5998
+    },
+    {
+     "cod": "221",
+     "judet": "IASI",
+     "angajatori": 20324,
+     "fond_salarii": 1378143288,
+     "asigurati": 203439,
+     "salariu_mediu": 6774
+    },
+    {
+     "cod": "231",
+     "judet": "GIURGIU",
+     "angajatori": 5053,
+     "fond_salarii": 228556161,
+     "asigurati": 38478,
+     "salariu_mediu": 5940
+    },
+    {
+     "cod": "241",
+     "judet": "MARAMURES",
+     "angajatori": 12875,
+     "fond_salarii": 648444920,
+     "asigurati": 118368,
+     "salariu_mediu": 5478
+    },
+    {
+     "cod": "251",
+     "judet": "MEHEDINTI",
+     "angajatori": 4010,
+     "fond_salarii": 193726094,
+     "asigurati": 34093,
+     "salariu_mediu": 5682
+    },
+    {
+     "cod": "261",
+     "judet": "MURES",
+     "angajatori": 14613,
+     "fond_salarii": 930736154,
+     "asigurati": 143790,
+     "salariu_mediu": 6473
+    },
+    {
+     "cod": "271",
+     "judet": "NEAMT",
+     "angajatori": 9373,
+     "fond_salarii": 472718469,
+     "asigurati": 82958,
+     "salariu_mediu": 5698
+    },
+    {
+     "cod": "281",
+     "judet": "OLT",
+     "angajatori": 6606,
+     "fond_salarii": 477810396,
+     "asigurati": 71688,
+     "salariu_mediu": 6665
+    },
+    {
+     "cod": "291",
+     "judet": "PRAHOVA",
+     "angajatori": 18796,
+     "fond_salarii": 1255238833,
+     "asigurati": 191918,
+     "salariu_mediu": 6540
+    },
+    {
+     "cod": "301",
+     "judet": "SATU MARE",
+     "angajatori": 8258,
+     "fond_salarii": 465512490,
+     "asigurati": 82298,
+     "salariu_mediu": 5656
+    },
+    {
+     "cod": "311",
+     "judet": "SALAJ",
+     "angajatori": 5519,
+     "fond_salarii": 278347057,
+     "asigurati": 48793,
+     "salariu_mediu": 5705
+    },
+    {
+     "cod": "321",
+     "judet": "SIBIU",
+     "angajatori": 12458,
+     "fond_salarii": 1091324763,
+     "asigurati": 149954,
+     "salariu_mediu": 7278
+    },
+    {
+     "cod": "331",
+     "judet": "SUCEAVA",
+     "angajatori": 15740,
+     "fond_salarii": 708470099,
+     "asigurati": 134399,
+     "salariu_mediu": 5271
+    },
+    {
+     "cod": "341",
+     "judet": "TELEORMAN",
+     "angajatori": 5020,
+     "fond_salarii": 257620625,
+     "asigurati": 45137,
+     "salariu_mediu": 5708
+    },
+    {
+     "cod": "351",
+     "judet": "TIMIS",
+     "angajatori": 24782,
+     "fond_salarii": 2144016064,
+     "asigurati": 273754,
+     "salariu_mediu": 7832
+    },
+    {
+     "cod": "361",
+     "judet": "TULCEA",
+     "angajatori": 4680,
+     "fond_salarii": 281279682,
+     "asigurati": 46102,
+     "salariu_mediu": 6101
+    },
+    {
+     "cod": "371",
+     "judet": "VASLUI",
+     "angajatori": 5909,
+     "fond_salarii": 310271791,
+     "asigurati": 54850,
+     "salariu_mediu": 5657
+    },
+    {
+     "cod": "381",
+     "judet": "VALCEA",
+     "angajatori": 8784,
+     "fond_salarii": 456222029,
+     "asigurati": 82334,
+     "salariu_mediu": 5541
+    },
+    {
+     "cod": "391",
+     "judet": "VRANCEA",
+     "angajatori": 6294,
+     "fond_salarii": 321997900,
+     "asigurati": 57522,
+     "salariu_mediu": 5598
+    },
+    {
+     "cod": "401",
+     "judet": "CALARASI",
+     "angajatori": 4720,
+     "fond_salarii": 254163262,
+     "asigurati": 41162,
+     "salariu_mediu": 6175
+    },
+    {
+     "cod": "411",
+     "judet": "BUCURESTI",
+     "angajatori": 108984,
+     "fond_salarii": 15035550362,
+     "asigurati": 1625932,
+     "salariu_mediu": 9247
+    },
+    {
+     "cod": "471",
+     "judet": "ILFOV",
+     "angajatori": 29592,
+     "fond_salarii": 1903702683,
+     "asigurati": 272340,
+     "salariu_mediu": 6990
+    }
+   ]
+  },
+  {
+   "year": 2025,
+   "month": 9,
+   "luna": "Septembrie",
+   "period": "2025.09",
+   "total_asigurati": 5301406,
+   "salarii": [
+    {
+     "grupa": "0 (*)",
+     "transa": "Fără venit",
+     "numar": 44790,
+     "venit_mediu": 0,
+     "timp_partial": 2490,
+     "fara_contract": 1143,
+     "somaj": 487,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "1",
+     "transa": "1-4049",
+     "numar": 802079,
+     "venit_mediu": 3170,
+     "timp_partial": 296815,
+     "fara_contract": 136447,
+     "somaj": 60412,
+     "contract_individual": 275
+    },
+    {
+     "grupa": "2",
+     "transa": "4050",
+     "numar": 10263,
+     "venit_mediu": 4050,
+     "timp_partial": 2459,
+     "fara_contract": 10649,
+     "somaj": 0,
+     "contract_individual": 15574
+    },
+    {
+     "grupa": "3",
+     "transa": "4051-4581",
+     "numar": 831305,
+     "venit_mediu": 4212,
+     "timp_partial": 22728,
+     "fara_contract": 5501,
+     "somaj": 107,
+     "contract_individual": 96
+    },
+    {
+     "grupa": "4",
+     "transa": "4582",
+     "numar": 102510,
+     "venit_mediu": 4582,
+     "timp_partial": 434,
+     "fara_contract": 342,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "5",
+     "transa": "4583-5000",
+     "numar": 325298,
+     "venit_mediu": 4761,
+     "timp_partial": 9355,
+     "fara_contract": 1932,
+     "somaj": 65,
+     "contract_individual": 194
+    },
+    {
+     "grupa": "6",
+     "transa": "5001-6000",
+     "numar": 571486,
+     "venit_mediu": 5480,
+     "timp_partial": 18005,
+     "fara_contract": 3155,
+     "somaj": 31,
+     "contract_individual": 229
+    },
+    {
+     "grupa": "7",
+     "transa": "6001-7000",
+     "numar": 437759,
+     "venit_mediu": 6507,
+     "timp_partial": 11542,
+     "fara_contract": 1711,
+     "somaj": 9,
+     "contract_individual": 47
+    },
+    {
+     "grupa": "8",
+     "transa": "7001-8000",
+     "numar": 378239,
+     "venit_mediu": 7497,
+     "timp_partial": 9214,
+     "fara_contract": 1499,
+     "somaj": 6,
+     "contract_individual": 130
+    },
+    {
+     "grupa": "9",
+     "transa": "8001-8619",
+     "numar": 205643,
+     "venit_mediu": 8325,
+     "timp_partial": 5839,
+     "fara_contract": 3281,
+     "somaj": 1,
+     "contract_individual": 23
+    },
+    {
+     "grupa": "10",
+     "transa": "8620",
+     "numar": 299,
+     "venit_mediu": 8620,
+     "timp_partial": 11,
+     "fara_contract": 3,
+     "somaj": 0,
+     "contract_individual": 7
+    },
+    {
+     "grupa": "11",
+     "transa": "8621-9000",
+     "numar": 112070,
+     "venit_mediu": 8806,
+     "timp_partial": 2855,
+     "fara_contract": 400,
+     "somaj": 2,
+     "contract_individual": 10
+    },
+    {
+     "grupa": "12",
+     "transa": "9001-10000",
+     "numar": 252278,
+     "venit_mediu": 9498,
+     "timp_partial": 6779,
+     "fara_contract": 1245,
+     "somaj": 3,
+     "contract_individual": 69
+    },
+    {
+     "grupa": "13",
+     "transa": "10001-12000",
+     "numar": 393835,
+     "venit_mediu": 10936,
+     "timp_partial": 10953,
+     "fara_contract": 1842,
+     "somaj": 2,
+     "contract_individual": 32
+    },
+    {
+     "grupa": "14",
+     "transa": "12001-13000",
+     "numar": 155455,
+     "venit_mediu": 12465,
+     "timp_partial": 3713,
+     "fara_contract": 789,
+     "somaj": 3,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "15",
+     "transa": "13001-15000",
+     "numar": 225256,
+     "venit_mediu": 13901,
+     "timp_partial": 4456,
+     "fara_contract": 1336,
+     "somaj": 1,
+     "contract_individual": 19
+    },
+    {
+     "grupa": "16",
+     "transa": "15001-16000",
+     "numar": 62667,
+     "venit_mediu": 15475,
+     "timp_partial": 1483,
+     "fara_contract": 598,
+     "somaj": 0,
+     "contract_individual": 12
+    },
+    {
+     "grupa": "17",
+     "transa": "16001-18000",
+     "numar": 92827,
+     "venit_mediu": 16957,
+     "timp_partial": 2865,
+     "fara_contract": 989,
+     "somaj": 1,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "18",
+     "transa": "18001-20000",
+     "numar": 61069,
+     "venit_mediu": 18970,
+     "timp_partial": 1910,
+     "fara_contract": 819,
+     "somaj": 1,
+     "contract_individual": 16
+    },
+    {
+     "grupa": "19",
+     "transa": "20001-22000",
+     "numar": 47158,
+     "venit_mediu": 20950,
+     "timp_partial": 1611,
+     "fara_contract": 464,
+     "somaj": 1,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "20",
+     "transa": "22001-25000",
+     "numar": 49592,
+     "venit_mediu": 23424,
+     "timp_partial": 1569,
+     "fara_contract": 397,
+     "somaj": 1,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "21",
+     "transa": "25001-30000",
+     "numar": 56761,
+     "venit_mediu": 27228,
+     "timp_partial": 1737,
+     "fara_contract": 563,
+     "somaj": 0,
+     "contract_individual": 10
+    },
+    {
+     "grupa": "22",
+     "transa": "30001-40000",
+     "numar": 51275,
+     "venit_mediu": 34073,
+     "timp_partial": 1720,
+     "fara_contract": 725,
+     "somaj": 0,
+     "contract_individual": 3
+    },
+    {
+     "grupa": "23",
+     "transa": "40001-43099",
+     "numar": 6999,
+     "venit_mediu": 41535,
+     "timp_partial": 173,
+     "fara_contract": 137,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "24",
+     "transa": "43100",
+     "numar": 4,
+     "venit_mediu": 43100,
+     "timp_partial": 0,
+     "fara_contract": 0,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "25",
+     "transa": "Peste 43100",
+     "numar": 24489,
+     "venit_mediu": 69986,
+     "timp_partial": 596,
+     "fara_contract": 1438,
+     "somaj": 0,
+     "contract_individual": 12
+    }
+   ],
+   "judete": [
+    {
+     "cod": "011",
+     "judet": "ALBA",
+     "angajatori": 10086,
+     "fond_salarii": 602313249,
+     "asigurati": 98830,
+     "salariu_mediu": 6094
+    },
+    {
+     "cod": "021",
+     "judet": "ARAD",
+     "angajatori": 12539,
+     "fond_salarii": 726157514,
+     "asigurati": 122897,
+     "salariu_mediu": 5909
+    },
+    {
+     "cod": "031",
+     "judet": "ARGES",
+     "angajatori": 17354,
+     "fond_salarii": 1193721066,
+     "asigurati": 190752,
+     "salariu_mediu": 6258
+    },
+    {
+     "cod": "041",
+     "judet": "BACAU",
+     "angajatori": 12064,
+     "fond_salarii": 909954280,
+     "asigurati": 135494,
+     "salariu_mediu": 6716
+    },
+    {
+     "cod": "051",
+     "judet": "BIHOR",
+     "angajatori": 20934,
+     "fond_salarii": 1008041575,
+     "asigurati": 177975,
+     "salariu_mediu": 5664
+    },
+    {
+     "cod": "061",
+     "judet": "BISTRITA",
+     "angajatori": 8226,
+     "fond_salarii": 397297923,
+     "asigurati": 73216,
+     "salariu_mediu": 5426
+    },
+    {
+     "cod": "071",
+     "judet": "BOTOSANI",
+     "angajatori": 6011,
+     "fond_salarii": 330761681,
+     "asigurati": 56062,
+     "salariu_mediu": 5900
+    },
+    {
+     "cod": "081",
+     "judet": "BRASOV",
+     "angajatori": 21318,
+     "fond_salarii": 1416135668,
+     "asigurati": 206667,
+     "salariu_mediu": 6852
+    },
+    {
+     "cod": "091",
+     "judet": "BRAILA",
+     "angajatori": 7046,
+     "fond_salarii": 316362800,
+     "asigurati": 56842,
+     "salariu_mediu": 5566
+    },
+    {
+     "cod": "101",
+     "judet": "BUZAU",
+     "angajatori": 8727,
+     "fond_salarii": 485517228,
+     "asigurati": 84012,
+     "salariu_mediu": 5779
+    },
+    {
+     "cod": "111",
+     "judet": "CARAS SEVERIN",
+     "angajatori": 5129,
+     "fond_salarii": 260991795,
+     "asigurati": 45736,
+     "salariu_mediu": 5706
+    },
+    {
+     "cod": "121",
+     "judet": "CLUJ",
+     "angajatori": 35505,
+     "fond_salarii": 2657138063,
+     "asigurati": 324268,
+     "salariu_mediu": 8194
+    },
+    {
+     "cod": "131",
+     "judet": "CONSTANTA",
+     "angajatori": 23940,
+     "fond_salarii": 1160219077,
+     "asigurati": 193713,
+     "salariu_mediu": 5989
+    },
+    {
+     "cod": "141",
+     "judet": "COVASNA",
+     "angajatori": 4589,
+     "fond_salarii": 263444747,
+     "asigurati": 45406,
+     "salariu_mediu": 5802
+    },
+    {
+     "cod": "151",
+     "judet": "DAMBOVITA",
+     "angajatori": 9836,
+     "fond_salarii": 501162634,
+     "asigurati": 86292,
+     "salariu_mediu": 5808
+    },
+    {
+     "cod": "161",
+     "judet": "DOLJ",
+     "angajatori": 16276,
+     "fond_salarii": 934599664,
+     "asigurati": 149950,
+     "salariu_mediu": 6233
+    },
+    {
+     "cod": "171",
+     "judet": "GALATI",
+     "angajatori": 11990,
+     "fond_salarii": 718084489,
+     "asigurati": 115770,
+     "salariu_mediu": 6203
+    },
+    {
+     "cod": "181",
+     "judet": "GORJ",
+     "angajatori": 7172,
+     "fond_salarii": 435541615,
+     "asigurati": 69781,
+     "salariu_mediu": 6242
+    },
+    {
+     "cod": "191",
+     "judet": "HARGHITA",
+     "angajatori": 8223,
+     "fond_salarii": 439101214,
+     "asigurati": 77950,
+     "salariu_mediu": 5633
+    },
+    {
+     "cod": "201",
+     "judet": "HUNEDOARA",
+     "angajatori": 9860,
+     "fond_salarii": 493385235,
+     "asigurati": 88918,
+     "salariu_mediu": 5549
+    },
+    {
+     "cod": "211",
+     "judet": "IALOMITA",
+     "angajatori": 5174,
+     "fond_salarii": 238075468,
+     "asigurati": 42205,
+     "salariu_mediu": 5641
+    },
+    {
+     "cod": "221",
+     "judet": "IASI",
+     "angajatori": 22044,
+     "fond_salarii": 1432590352,
+     "asigurati": 210267,
+     "salariu_mediu": 6813
+    },
+    {
+     "cod": "231",
+     "judet": "GIURGIU",
+     "angajatori": 5217,
+     "fond_salarii": 231408540,
+     "asigurati": 40942,
+     "salariu_mediu": 5652
+    },
+    {
+     "cod": "241",
+     "judet": "MARAMURES",
+     "angajatori": 13290,
+     "fond_salarii": 656964494,
+     "asigurati": 120097,
+     "salariu_mediu": 5470
+    },
+    {
+     "cod": "251",
+     "judet": "MEHEDINTI",
+     "angajatori": 4309,
+     "fond_salarii": 193813991,
+     "asigurati": 34780,
+     "salariu_mediu": 5573
+    },
+    {
+     "cod": "261",
+     "judet": "MURES",
+     "angajatori": 15289,
+     "fond_salarii": 936647261,
+     "asigurati": 145958,
+     "salariu_mediu": 6417
+    },
+    {
+     "cod": "271",
+     "judet": "NEAMT",
+     "angajatori": 9829,
+     "fond_salarii": 479471968,
+     "asigurati": 84849,
+     "salariu_mediu": 5651
+    },
+    {
+     "cod": "281",
+     "judet": "OLT",
+     "angajatori": 7191,
+     "fond_salarii": 470776699,
+     "asigurati": 75725,
+     "salariu_mediu": 6217
+    },
+    {
+     "cod": "291",
+     "judet": "PRAHOVA",
+     "angajatori": 19477,
+     "fond_salarii": 1267945386,
+     "asigurati": 195049,
+     "salariu_mediu": 6501
+    },
+    {
+     "cod": "301",
+     "judet": "SATU MARE",
+     "angajatori": 8640,
+     "fond_salarii": 474592312,
+     "asigurati": 83518,
+     "salariu_mediu": 5683
+    },
+    {
+     "cod": "311",
+     "judet": "SALAJ",
+     "angajatori": 5702,
+     "fond_salarii": 305875599,
+     "asigurati": 49574,
+     "salariu_mediu": 6170
+    },
+    {
+     "cod": "321",
+     "judet": "SIBIU",
+     "angajatori": 13277,
+     "fond_salarii": 1126844574,
+     "asigurati": 153285,
+     "salariu_mediu": 7351
+    },
+    {
+     "cod": "331",
+     "judet": "SUCEAVA",
+     "angajatori": 16041,
+     "fond_salarii": 713592805,
+     "asigurati": 136126,
+     "salariu_mediu": 5242
+    },
+    {
+     "cod": "341",
+     "judet": "TELEORMAN",
+     "angajatori": 5193,
+     "fond_salarii": 259512416,
+     "asigurati": 45791,
+     "salariu_mediu": 5667
+    },
+    {
+     "cod": "351",
+     "judet": "TIMIS",
+     "angajatori": 26189,
+     "fond_salarii": 2146114947,
+     "asigurati": 276613,
+     "salariu_mediu": 7759
+    },
+    {
+     "cod": "361",
+     "judet": "TULCEA",
+     "angajatori": 4746,
+     "fond_salarii": 283562644,
+     "asigurati": 45831,
+     "salariu_mediu": 6187
+    },
+    {
+     "cod": "371",
+     "judet": "VASLUI",
+     "angajatori": 6307,
+     "fond_salarii": 311198517,
+     "asigurati": 57565,
+     "salariu_mediu": 5406
+    },
+    {
+     "cod": "381",
+     "judet": "VALCEA",
+     "angajatori": 9036,
+     "fond_salarii": 458914819,
+     "asigurati": 83378,
+     "salariu_mediu": 5504
+    },
+    {
+     "cod": "391",
+     "judet": "VRANCEA",
+     "angajatori": 6638,
+     "fond_salarii": 328017184,
+     "asigurati": 59068,
+     "salariu_mediu": 5553
+    },
+    {
+     "cod": "401",
+     "judet": "CALARASI",
+     "angajatori": 5016,
+     "fond_salarii": 253969157,
+     "asigurati": 42723,
+     "salariu_mediu": 5945
+    },
+    {
+     "cod": "411",
+     "judet": "BUCURESTI",
+     "angajatori": 116158,
+     "fond_salarii": 15192716205,
+     "asigurati": 1648420,
+     "salariu_mediu": 9217
+    },
+    {
+     "cod": "471",
+     "judet": "ILFOV",
+     "angajatori": 31648,
+     "fond_salarii": 1916303472,
+     "asigurati": 280190,
+     "salariu_mediu": 6839
+    }
+   ]
+  },
+  {
+   "year": 2025,
+   "month": 10,
+   "luna": "Octombrie",
+   "period": "2025.10",
+   "total_asigurati": 5245772,
+   "salarii": [
+    {
+     "grupa": "0 (*)",
+     "transa": "Fără venit",
+     "numar": 45295,
+     "venit_mediu": 0,
+     "timp_partial": 2452,
+     "fara_contract": 1204,
+     "somaj": 503,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "1",
+     "transa": "1-4049",
+     "numar": 770990,
+     "venit_mediu": 3202,
+     "timp_partial": 296483,
+     "fara_contract": 129633,
+     "somaj": 60813,
+     "contract_individual": 224
+    },
+    {
+     "grupa": "2",
+     "transa": "4050",
+     "numar": 9825,
+     "venit_mediu": 4050,
+     "timp_partial": 2508,
+     "fara_contract": 10052,
+     "somaj": 0,
+     "contract_individual": 15491
+    },
+    {
+     "grupa": "3",
+     "transa": "4051-4581",
+     "numar": 813962,
+     "venit_mediu": 4214,
+     "timp_partial": 22705,
+     "fara_contract": 4867,
+     "somaj": 106,
+     "contract_individual": 96
+    },
+    {
+     "grupa": "4",
+     "transa": "4582",
+     "numar": 101878,
+     "venit_mediu": 4582,
+     "timp_partial": 439,
+     "fara_contract": 328,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "5",
+     "transa": "4583-5000",
+     "numar": 324826,
+     "venit_mediu": 4763,
+     "timp_partial": 9386,
+     "fara_contract": 1550,
+     "somaj": 95,
+     "contract_individual": 192
+    },
+    {
+     "grupa": "6",
+     "transa": "5001-6000",
+     "numar": 567619,
+     "venit_mediu": 5481,
+     "timp_partial": 18621,
+     "fara_contract": 2559,
+     "somaj": 37,
+     "contract_individual": 231
+    },
+    {
+     "grupa": "7",
+     "transa": "6001-7000",
+     "numar": 433093,
+     "venit_mediu": 6506,
+     "timp_partial": 11952,
+     "fara_contract": 1577,
+     "somaj": 8,
+     "contract_individual": 51
+    },
+    {
+     "grupa": "8",
+     "transa": "7001-8000",
+     "numar": 377669,
+     "venit_mediu": 7499,
+     "timp_partial": 9734,
+     "fara_contract": 1284,
+     "somaj": 5,
+     "contract_individual": 125
+    },
+    {
+     "grupa": "9",
+     "transa": "8001-8619",
+     "numar": 205582,
+     "venit_mediu": 8326,
+     "timp_partial": 6233,
+     "fara_contract": 3204,
+     "somaj": 1,
+     "contract_individual": 24
+    },
+    {
+     "grupa": "10",
+     "transa": "8620",
+     "numar": 332,
+     "venit_mediu": 8620,
+     "timp_partial": 10,
+     "fara_contract": 4,
+     "somaj": 0,
+     "contract_individual": 8
+    },
+    {
+     "grupa": "11",
+     "transa": "8621-9000",
+     "numar": 112623,
+     "venit_mediu": 8808,
+     "timp_partial": 3163,
+     "fara_contract": 379,
+     "somaj": 2,
+     "contract_individual": 10
+    },
+    {
+     "grupa": "12",
+     "transa": "9001-10000",
+     "numar": 251160,
+     "venit_mediu": 9501,
+     "timp_partial": 7066,
+     "fara_contract": 1196,
+     "somaj": 3,
+     "contract_individual": 69
+    },
+    {
+     "grupa": "13",
+     "transa": "10001-12000",
+     "numar": 392474,
+     "venit_mediu": 10935,
+     "timp_partial": 11011,
+     "fara_contract": 1715,
+     "somaj": 0,
+     "contract_individual": 29
+    },
+    {
+     "grupa": "14",
+     "transa": "12001-13000",
+     "numar": 154847,
+     "venit_mediu": 12458,
+     "timp_partial": 3820,
+     "fara_contract": 756,
+     "somaj": 3,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "15",
+     "transa": "13001-15000",
+     "numar": 223417,
+     "venit_mediu": 13898,
+     "timp_partial": 4602,
+     "fara_contract": 1287,
+     "somaj": 0,
+     "contract_individual": 15
+    },
+    {
+     "grupa": "16",
+     "transa": "15001-16000",
+     "numar": 62999,
+     "venit_mediu": 15474,
+     "timp_partial": 1516,
+     "fara_contract": 573,
+     "somaj": 0,
+     "contract_individual": 12
+    },
+    {
+     "grupa": "17",
+     "transa": "16001-18000",
+     "numar": 96812,
+     "venit_mediu": 16965,
+     "timp_partial": 2954,
+     "fara_contract": 934,
+     "somaj": 1,
+     "contract_individual": 8
+    },
+    {
+     "grupa": "18",
+     "transa": "18001-20000",
+     "numar": 60480,
+     "venit_mediu": 18969,
+     "timp_partial": 1943,
+     "fara_contract": 792,
+     "somaj": 1,
+     "contract_individual": 19
+    },
+    {
+     "grupa": "19",
+     "transa": "20001-22000",
+     "numar": 46951,
+     "venit_mediu": 20950,
+     "timp_partial": 1667,
+     "fara_contract": 473,
+     "somaj": 0,
+     "contract_individual": 3
+    },
+    {
+     "grupa": "20",
+     "transa": "22001-25000",
+     "numar": 50342,
+     "venit_mediu": 23422,
+     "timp_partial": 1605,
+     "fara_contract": 400,
+     "somaj": 1,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "21",
+     "transa": "25001-30000",
+     "numar": 58515,
+     "venit_mediu": 27231,
+     "timp_partial": 1819,
+     "fara_contract": 585,
+     "somaj": 0,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "22",
+     "transa": "30001-40000",
+     "numar": 52476,
+     "venit_mediu": 34071,
+     "timp_partial": 1734,
+     "fara_contract": 679,
+     "somaj": 0,
+     "contract_individual": 3
+    },
+    {
+     "grupa": "23",
+     "transa": "40001-43099",
+     "numar": 7174,
+     "venit_mediu": 41532,
+     "timp_partial": 170,
+     "fara_contract": 141,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "24",
+     "transa": "43100",
+     "numar": 8,
+     "venit_mediu": 43100,
+     "timp_partial": 0,
+     "fara_contract": 0,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "25",
+     "transa": "Peste 43100",
+     "numar": 24423,
+     "venit_mediu": 68966,
+     "timp_partial": 604,
+     "fara_contract": 1397,
+     "somaj": 0,
+     "contract_individual": 12
+    }
+   ],
+   "judete": [
+    {
+     "cod": "011",
+     "judet": "ALBA",
+     "angajatori": 9695,
+     "fond_salarii": 600801645,
+     "asigurati": 98041,
+     "salariu_mediu": 6128
+    },
+    {
+     "cod": "021",
+     "judet": "ARAD",
+     "angajatori": 12189,
+     "fond_salarii": 730825415,
+     "asigurati": 122110,
+     "salariu_mediu": 5985
+    },
+    {
+     "cod": "031",
+     "judet": "ARGES",
+     "angajatori": 16588,
+     "fond_salarii": 1171283295,
+     "asigurati": 187465,
+     "salariu_mediu": 6248
+    },
+    {
+     "cod": "041",
+     "judet": "BACAU",
+     "angajatori": 11263,
+     "fond_salarii": 883893661,
+     "asigurati": 133612,
+     "salariu_mediu": 6615
+    },
+    {
+     "cod": "051",
+     "judet": "BIHOR",
+     "angajatori": 20042,
+     "fond_salarii": 1011604945,
+     "asigurati": 175981,
+     "salariu_mediu": 5748
+    },
+    {
+     "cod": "061",
+     "judet": "BISTRITA",
+     "angajatori": 7521,
+     "fond_salarii": 392022640,
+     "asigurati": 71937,
+     "salariu_mediu": 5450
+    },
+    {
+     "cod": "071",
+     "judet": "BOTOSANI",
+     "angajatori": 5740,
+     "fond_salarii": 332886007,
+     "asigurati": 55524,
+     "salariu_mediu": 5995
+    },
+    {
+     "cod": "081",
+     "judet": "BRASOV",
+     "angajatori": 20094,
+     "fond_salarii": 1401190618,
+     "asigurati": 203297,
+     "salariu_mediu": 6892
+    },
+    {
+     "cod": "091",
+     "judet": "BRAILA",
+     "angajatori": 6895,
+     "fond_salarii": 313603005,
+     "asigurati": 56260,
+     "salariu_mediu": 5574
+    },
+    {
+     "cod": "101",
+     "judet": "BUZAU",
+     "angajatori": 8370,
+     "fond_salarii": 482602535,
+     "asigurati": 82948,
+     "salariu_mediu": 5818
+    },
+    {
+     "cod": "111",
+     "judet": "CARAS SEVERIN",
+     "angajatori": 4798,
+     "fond_salarii": 245284446,
+     "asigurati": 44084,
+     "salariu_mediu": 5564
+    },
+    {
+     "cod": "121",
+     "judet": "CLUJ",
+     "angajatori": 33866,
+     "fond_salarii": 2692583888,
+     "asigurati": 320580,
+     "salariu_mediu": 8399
+    },
+    {
+     "cod": "131",
+     "judet": "CONSTANTA",
+     "angajatori": 23259,
+     "fond_salarii": 1139925449,
+     "asigurati": 185932,
+     "salariu_mediu": 6131
+    },
+    {
+     "cod": "141",
+     "judet": "COVASNA",
+     "angajatori": 4462,
+     "fond_salarii": 259018939,
+     "asigurati": 44250,
+     "salariu_mediu": 5854
+    },
+    {
+     "cod": "151",
+     "judet": "DAMBOVITA",
+     "angajatori": 9211,
+     "fond_salarii": 501816850,
+     "asigurati": 84974,
+     "salariu_mediu": 5906
+    },
+    {
+     "cod": "161",
+     "judet": "DOLJ",
+     "angajatori": 15692,
+     "fond_salarii": 948575917,
+     "asigurati": 148528,
+     "salariu_mediu": 6387
+    },
+    {
+     "cod": "171",
+     "judet": "GALATI",
+     "angajatori": 11693,
+     "fond_salarii": 721901545,
+     "asigurati": 114857,
+     "salariu_mediu": 6285
+    },
+    {
+     "cod": "181",
+     "judet": "GORJ",
+     "angajatori": 6942,
+     "fond_salarii": 428800958,
+     "asigurati": 68441,
+     "salariu_mediu": 6265
+    },
+    {
+     "cod": "191",
+     "judet": "HARGHITA",
+     "angajatori": 7865,
+     "fond_salarii": 436539936,
+     "asigurati": 76598,
+     "salariu_mediu": 5699
+    },
+    {
+     "cod": "201",
+     "judet": "HUNEDOARA",
+     "angajatori": 9497,
+     "fond_salarii": 471247601,
+     "asigurati": 85887,
+     "salariu_mediu": 5487
+    },
+    {
+     "cod": "211",
+     "judet": "IALOMITA",
+     "angajatori": 4890,
+     "fond_salarii": 235784094,
+     "asigurati": 41541,
+     "salariu_mediu": 5676
+    },
+    {
+     "cod": "221",
+     "judet": "IASI",
+     "angajatori": 20694,
+     "fond_salarii": 1405653619,
+     "asigurati": 207850,
+     "salariu_mediu": 6763
+    },
+    {
+     "cod": "231",
+     "judet": "GIURGIU",
+     "angajatori": 5108,
+     "fond_salarii": 232537445,
+     "asigurati": 40943,
+     "salariu_mediu": 5680
+    },
+    {
+     "cod": "241",
+     "judet": "MARAMURES",
+     "angajatori": 12924,
+     "fond_salarii": 659142475,
+     "asigurati": 119778,
+     "salariu_mediu": 5503
+    },
+    {
+     "cod": "251",
+     "judet": "MEHEDINTI",
+     "angajatori": 4038,
+     "fond_salarii": 196165494,
+     "asigurati": 33569,
+     "salariu_mediu": 5844
+    },
+    {
+     "cod": "261",
+     "judet": "MURES",
+     "angajatori": 14718,
+     "fond_salarii": 939468192,
+     "asigurati": 144598,
+     "salariu_mediu": 6497
+    },
+    {
+     "cod": "271",
+     "judet": "NEAMT",
+     "angajatori": 9463,
+     "fond_salarii": 475539191,
+     "asigurati": 83248,
+     "salariu_mediu": 5712
+    },
+    {
+     "cod": "281",
+     "judet": "OLT",
+     "angajatori": 6717,
+     "fond_salarii": 472287135,
+     "asigurati": 74319,
+     "salariu_mediu": 6355
+    },
+    {
+     "cod": "291",
+     "judet": "PRAHOVA",
+     "angajatori": 18676,
+     "fond_salarii": 1261103090,
+     "asigurati": 193058,
+     "salariu_mediu": 6532
+    },
+    {
+     "cod": "301",
+     "judet": "SATU MARE",
+     "angajatori": 8222,
+     "fond_salarii": 470620979,
+     "asigurati": 82312,
+     "salariu_mediu": 5718
+    },
+    {
+     "cod": "311",
+     "judet": "SALAJ",
+     "angajatori": 5520,
+     "fond_salarii": 280133780,
+     "asigurati": 49189,
+     "salariu_mediu": 5695
+    },
+    {
+     "cod": "321",
+     "judet": "SIBIU",
+     "angajatori": 12583,
+     "fond_salarii": 1092257428,
+     "asigurati": 149966,
+     "salariu_mediu": 7283
+    },
+    {
+     "cod": "331",
+     "judet": "SUCEAVA",
+     "angajatori": 15803,
+     "fond_salarii": 712723590,
+     "asigurati": 134964,
+     "salariu_mediu": 5281
+    },
+    {
+     "cod": "341",
+     "judet": "TELEORMAN",
+     "angajatori": 5021,
+     "fond_salarii": 259085354,
+     "asigurati": 45631,
+     "salariu_mediu": 5678
+    },
+    {
+     "cod": "351",
+     "judet": "TIMIS",
+     "angajatori": 24900,
+     "fond_salarii": 2135608319,
+     "asigurati": 273703,
+     "salariu_mediu": 7803
+    },
+    {
+     "cod": "361",
+     "judet": "TULCEA",
+     "angajatori": 4681,
+     "fond_salarii": 286683312,
+     "asigurati": 46348,
+     "salariu_mediu": 6185
+    },
+    {
+     "cod": "371",
+     "judet": "VASLUI",
+     "angajatori": 5906,
+     "fond_salarii": 312016745,
+     "asigurati": 57016,
+     "salariu_mediu": 5472
+    },
+    {
+     "cod": "381",
+     "judet": "VALCEA",
+     "angajatori": 8738,
+     "fond_salarii": 457131155,
+     "asigurati": 82625,
+     "salariu_mediu": 5533
+    },
+    {
+     "cod": "391",
+     "judet": "VRANCEA",
+     "angajatori": 6333,
+     "fond_salarii": 328239638,
+     "asigurati": 58497,
+     "salariu_mediu": 5611
+    },
+    {
+     "cod": "401",
+     "judet": "CALARASI",
+     "angajatori": 4795,
+     "fond_salarii": 254153151,
+     "asigurati": 42300,
+     "salariu_mediu": 6008
+    },
+    {
+     "cod": "411",
+     "judet": "BUCURESTI",
+     "angajatori": 109017,
+     "fond_salarii": 15195726217,
+     "asigurati": 1635096,
+     "salariu_mediu": 9293
+    },
+    {
+     "cod": "471",
+     "judet": "ILFOV",
+     "angajatori": 29915,
+     "fond_salarii": 1976234826,
+     "asigurati": 281512,
+     "salariu_mediu": 7020
+    }
+   ]
+  },
+  {
+   "year": 2025,
+   "month": 11,
+   "luna": "Noiembrie",
+   "period": "2025.11",
+   "total_asigurati": 5099231,
+   "salarii": [
+    {
+     "grupa": "0 (*)",
+     "transa": "Fără venit",
+     "numar": 43681,
+     "venit_mediu": 0,
+     "timp_partial": 2408,
+     "fara_contract": 848,
+     "somaj": 459,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "1",
+     "transa": "1-4049",
+     "numar": 728072,
+     "venit_mediu": 3238,
+     "timp_partial": 296530,
+     "fara_contract": 113312,
+     "somaj": 61808,
+     "contract_individual": 239
+    },
+    {
+     "grupa": "2",
+     "transa": "4050",
+     "numar": 10692,
+     "venit_mediu": 4050,
+     "timp_partial": 2631,
+     "fara_contract": 9701,
+     "somaj": 0,
+     "contract_individual": 15393
+    },
+    {
+     "grupa": "3",
+     "transa": "4051-4581",
+     "numar": 771332,
+     "venit_mediu": 4207,
+     "timp_partial": 22753,
+     "fara_contract": 4567,
+     "somaj": 89,
+     "contract_individual": 99
+    },
+    {
+     "grupa": "4",
+     "transa": "4582",
+     "numar": 109520,
+     "venit_mediu": 4582,
+     "timp_partial": 456,
+     "fara_contract": 311,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "5",
+     "transa": "4583-5000",
+     "numar": 302420,
+     "venit_mediu": 4764,
+     "timp_partial": 9912,
+     "fara_contract": 1339,
+     "somaj": 104,
+     "contract_individual": 197
+    },
+    {
+     "grupa": "6",
+     "transa": "5001-6000",
+     "numar": 536224,
+     "venit_mediu": 5488,
+     "timp_partial": 18817,
+     "fara_contract": 2160,
+     "somaj": 41,
+     "contract_individual": 237
+    },
+    {
+     "grupa": "7",
+     "transa": "6001-7000",
+     "numar": 415854,
+     "venit_mediu": 6512,
+     "timp_partial": 12046,
+     "fara_contract": 1250,
+     "somaj": 11,
+     "contract_individual": 46
+    },
+    {
+     "grupa": "8",
+     "transa": "7001-8000",
+     "numar": 362649,
+     "venit_mediu": 7504,
+     "timp_partial": 9364,
+     "fara_contract": 1217,
+     "somaj": 6,
+     "contract_individual": 123
+    },
+    {
+     "grupa": "9",
+     "transa": "8001-8619",
+     "numar": 202705,
+     "venit_mediu": 8330,
+     "timp_partial": 6093,
+     "fara_contract": 3031,
+     "somaj": 2,
+     "contract_individual": 24
+    },
+    {
+     "grupa": "10",
+     "transa": "8620",
+     "numar": 333,
+     "venit_mediu": 8620,
+     "timp_partial": 6,
+     "fara_contract": 3,
+     "somaj": 0,
+     "contract_individual": 7
+    },
+    {
+     "grupa": "11",
+     "transa": "8621-9000",
+     "numar": 107967,
+     "venit_mediu": 8808,
+     "timp_partial": 2853,
+     "fara_contract": 366,
+     "somaj": 2,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "12",
+     "transa": "9001-10000",
+     "numar": 245156,
+     "venit_mediu": 9502,
+     "timp_partial": 6857,
+     "fara_contract": 1026,
+     "somaj": 4,
+     "contract_individual": 72
+    },
+    {
+     "grupa": "13",
+     "transa": "10001-12000",
+     "numar": 392949,
+     "venit_mediu": 10942,
+     "timp_partial": 10403,
+     "fara_contract": 1545,
+     "somaj": 2,
+     "contract_individual": 29
+    },
+    {
+     "grupa": "14",
+     "transa": "12001-13000",
+     "numar": 154516,
+     "venit_mediu": 12471,
+     "timp_partial": 3554,
+     "fara_contract": 667,
+     "somaj": 2,
+     "contract_individual": 6
+    },
+    {
+     "grupa": "15",
+     "transa": "13001-15000",
+     "numar": 227781,
+     "venit_mediu": 13913,
+     "timp_partial": 4422,
+     "fara_contract": 1194,
+     "somaj": 0,
+     "contract_individual": 15
+    },
+    {
+     "grupa": "16",
+     "transa": "15001-16000",
+     "numar": 65734,
+     "venit_mediu": 15479,
+     "timp_partial": 1533,
+     "fara_contract": 523,
+     "somaj": 0,
+     "contract_individual": 12
+    },
+    {
+     "grupa": "17",
+     "transa": "16001-18000",
+     "numar": 97773,
+     "venit_mediu": 16966,
+     "timp_partial": 3000,
+     "fara_contract": 937,
+     "somaj": 1,
+     "contract_individual": 7
+    },
+    {
+     "grupa": "18",
+     "transa": "18001-20000",
+     "numar": 63458,
+     "venit_mediu": 18970,
+     "timp_partial": 1931,
+     "fara_contract": 757,
+     "somaj": 1,
+     "contract_individual": 18
+    },
+    {
+     "grupa": "19",
+     "transa": "20001-22000",
+     "numar": 49182,
+     "venit_mediu": 20945,
+     "timp_partial": 1655,
+     "fara_contract": 463,
+     "somaj": 1,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "20",
+     "transa": "22001-25000",
+     "numar": 53146,
+     "venit_mediu": 23415,
+     "timp_partial": 1640,
+     "fara_contract": 388,
+     "somaj": 1,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "21",
+     "transa": "25001-30000",
+     "numar": 61665,
+     "venit_mediu": 27251,
+     "timp_partial": 1889,
+     "fara_contract": 567,
+     "somaj": 0,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "22",
+     "transa": "30001-40000",
+     "numar": 58243,
+     "venit_mediu": 34157,
+     "timp_partial": 1813,
+     "fara_contract": 725,
+     "somaj": 0,
+     "contract_individual": 3
+    },
+    {
+     "grupa": "23",
+     "transa": "40001-43099",
+     "numar": 8619,
+     "venit_mediu": 41543,
+     "timp_partial": 166,
+     "fara_contract": 159,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "24",
+     "transa": "43100",
+     "numar": 6,
+     "venit_mediu": 43100,
+     "timp_partial": 0,
+     "fara_contract": 0,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "25",
+     "transa": "Peste 43100",
+     "numar": 29554,
+     "venit_mediu": 68591,
+     "timp_partial": 673,
+     "fara_contract": 1434,
+     "somaj": 0,
+     "contract_individual": 11
+    }
+   ],
+   "judete": [
+    {
+     "cod": "011",
+     "judet": "ALBA",
+     "angajatori": 9646,
+     "fond_salarii": 615965268,
+     "asigurati": 96990,
+     "salariu_mediu": 6351
+    },
+    {
+     "cod": "021",
+     "judet": "ARAD",
+     "angajatori": 11983,
+     "fond_salarii": 735760363,
+     "asigurati": 118455,
+     "salariu_mediu": 6211
+    },
+    {
+     "cod": "031",
+     "judet": "ARGES",
+     "angajatori": 16269,
+     "fond_salarii": 1129637558,
+     "asigurati": 180222,
+     "salariu_mediu": 6268
+    },
+    {
+     "cod": "041",
+     "judet": "BACAU",
+     "angajatori": 10980,
+     "fond_salarii": 899650370,
+     "asigurati": 128802,
+     "salariu_mediu": 6985
+    },
+    {
+     "cod": "051",
+     "judet": "BIHOR",
+     "angajatori": 19430,
+     "fond_salarii": 967877279,
+     "asigurati": 164850,
+     "salariu_mediu": 5871
+    },
+    {
+     "cod": "061",
+     "judet": "BISTRITA",
+     "angajatori": 7336,
+     "fond_salarii": 390791912,
+     "asigurati": 69297,
+     "salariu_mediu": 5639
+    },
+    {
+     "cod": "071",
+     "judet": "BOTOSANI",
+     "angajatori": 5521,
+     "fond_salarii": 302820465,
+     "asigurati": 50662,
+     "salariu_mediu": 5977
+    },
+    {
+     "cod": "081",
+     "judet": "BRASOV",
+     "angajatori": 19763,
+     "fond_salarii": 1451932743,
+     "asigurati": 190230,
+     "salariu_mediu": 7633
+    },
+    {
+     "cod": "091",
+     "judet": "BRAILA",
+     "angajatori": 6807,
+     "fond_salarii": 313862548,
+     "asigurati": 54672,
+     "salariu_mediu": 5741
+    },
+    {
+     "cod": "101",
+     "judet": "BUZAU",
+     "angajatori": 7956,
+     "fond_salarii": 467809140,
+     "asigurati": 78990,
+     "salariu_mediu": 5922
+    },
+    {
+     "cod": "111",
+     "judet": "CARAS SEVERIN",
+     "angajatori": 4681,
+     "fond_salarii": 239173259,
+     "asigurati": 42423,
+     "salariu_mediu": 5638
+    },
+    {
+     "cod": "121",
+     "judet": "CLUJ",
+     "angajatori": 33585,
+     "fond_salarii": 2708367984,
+     "asigurati": 316808,
+     "salariu_mediu": 8549
+    },
+    {
+     "cod": "131",
+     "judet": "CONSTANTA",
+     "angajatori": 23031,
+     "fond_salarii": 1124876539,
+     "asigurati": 180568,
+     "salariu_mediu": 6230
+    },
+    {
+     "cod": "141",
+     "judet": "COVASNA",
+     "angajatori": 4456,
+     "fond_salarii": 248102042,
+     "asigurati": 42797,
+     "salariu_mediu": 5797
+    },
+    {
+     "cod": "151",
+     "judet": "DAMBOVITA",
+     "angajatori": 9044,
+     "fond_salarii": 489928073,
+     "asigurati": 82320,
+     "salariu_mediu": 5952
+    },
+    {
+     "cod": "161",
+     "judet": "DOLJ",
+     "angajatori": 15448,
+     "fond_salarii": 922306379,
+     "asigurati": 144530,
+     "salariu_mediu": 6381
+    },
+    {
+     "cod": "171",
+     "judet": "GALATI",
+     "angajatori": 11516,
+     "fond_salarii": 706672185,
+     "asigurati": 111622,
+     "salariu_mediu": 6331
+    },
+    {
+     "cod": "181",
+     "judet": "GORJ",
+     "angajatori": 6781,
+     "fond_salarii": 418959509,
+     "asigurati": 65838,
+     "salariu_mediu": 6363
+    },
+    {
+     "cod": "191",
+     "judet": "HARGHITA",
+     "angajatori": 7754,
+     "fond_salarii": 429776889,
+     "asigurati": 74855,
+     "salariu_mediu": 5741
+    },
+    {
+     "cod": "201",
+     "judet": "HUNEDOARA",
+     "angajatori": 9204,
+     "fond_salarii": 479577883,
+     "asigurati": 82109,
+     "salariu_mediu": 5841
+    },
+    {
+     "cod": "211",
+     "judet": "IALOMITA",
+     "angajatori": 4820,
+     "fond_salarii": 231861520,
+     "asigurati": 38581,
+     "salariu_mediu": 6010
+    },
+    {
+     "cod": "221",
+     "judet": "IASI",
+     "angajatori": 19906,
+     "fond_salarii": 1356868566,
+     "asigurati": 190033,
+     "salariu_mediu": 7140
+    },
+    {
+     "cod": "231",
+     "judet": "GIURGIU",
+     "angajatori": 4962,
+     "fond_salarii": 218467353,
+     "asigurati": 38410,
+     "salariu_mediu": 5688
+    },
+    {
+     "cod": "241",
+     "judet": "MARAMURES",
+     "angajatori": 12617,
+     "fond_salarii": 652126544,
+     "asigurati": 115644,
+     "salariu_mediu": 5639
+    },
+    {
+     "cod": "251",
+     "judet": "MEHEDINTI",
+     "angajatori": 3897,
+     "fond_salarii": 181488310,
+     "asigurati": 31079,
+     "salariu_mediu": 5840
+    },
+    {
+     "cod": "261",
+     "judet": "MURES",
+     "angajatori": 14534,
+     "fond_salarii": 916016745,
+     "asigurati": 139997,
+     "salariu_mediu": 6543
+    },
+    {
+     "cod": "271",
+     "judet": "NEAMT",
+     "angajatori": 9156,
+     "fond_salarii": 466212523,
+     "asigurati": 79765,
+     "salariu_mediu": 5845
+    },
+    {
+     "cod": "281",
+     "judet": "OLT",
+     "angajatori": 6695,
+     "fond_salarii": 455536284,
+     "asigurati": 71168,
+     "salariu_mediu": 6401
+    },
+    {
+     "cod": "291",
+     "judet": "PRAHOVA",
+     "angajatori": 18588,
+     "fond_salarii": 1268175642,
+     "asigurati": 189166,
+     "salariu_mediu": 6704
+    },
+    {
+     "cod": "301",
+     "judet": "SATU MARE",
+     "angajatori": 8043,
+     "fond_salarii": 469460763,
+     "asigurati": 79751,
+     "salariu_mediu": 5887
+    },
+    {
+     "cod": "311",
+     "judet": "SALAJ",
+     "angajatori": 5424,
+     "fond_salarii": 266878341,
+     "asigurati": 46438,
+     "salariu_mediu": 5747
+    },
+    {
+     "cod": "321",
+     "judet": "SIBIU",
+     "angajatori": 12361,
+     "fond_salarii": 1149280432,
+     "asigurati": 147397,
+     "salariu_mediu": 7797
+    },
+    {
+     "cod": "331",
+     "judet": "SUCEAVA",
+     "angajatori": 15334,
+     "fond_salarii": 679630332,
+     "asigurati": 128364,
+     "salariu_mediu": 5295
+    },
+    {
+     "cod": "341",
+     "judet": "TELEORMAN",
+     "angajatori": 4813,
+     "fond_salarii": 232261708,
+     "asigurati": 41053,
+     "salariu_mediu": 5658
+    },
+    {
+     "cod": "351",
+     "judet": "TIMIS",
+     "angajatori": 24538,
+     "fond_salarii": 2448088050,
+     "asigurati": 268293,
+     "salariu_mediu": 9125
+    },
+    {
+     "cod": "361",
+     "judet": "TULCEA",
+     "angajatori": 4528,
+     "fond_salarii": 273212954,
+     "asigurati": 44513,
+     "salariu_mediu": 6138
+    },
+    {
+     "cod": "371",
+     "judet": "VASLUI",
+     "angajatori": 5884,
+     "fond_salarii": 299677528,
+     "asigurati": 54662,
+     "salariu_mediu": 5482
+    },
+    {
+     "cod": "381",
+     "judet": "VALCEA",
+     "angajatori": 8692,
+     "fond_salarii": 440723637,
+     "asigurati": 79934,
+     "salariu_mediu": 5514
+    },
+    {
+     "cod": "391",
+     "judet": "VRANCEA",
+     "angajatori": 6199,
+     "fond_salarii": 321489304,
+     "asigurati": 56785,
+     "salariu_mediu": 5662
+    },
+    {
+     "cod": "401",
+     "judet": "CALARASI",
+     "angajatori": 4489,
+     "fond_salarii": 239980159,
+     "asigurati": 39696,
+     "salariu_mediu": 6045
+    },
+    {
+     "cod": "411",
+     "judet": "BUCURESTI",
+     "angajatori": 107424,
+     "fond_salarii": 15307398271,
+     "asigurati": 1606354,
+     "salariu_mediu": 9529
+    },
+    {
+     "cod": "471",
+     "judet": "ILFOV",
+     "angajatori": 29685,
+     "fond_salarii": 1972095216,
+     "asigurati": 276192,
+     "salariu_mediu": 7140
+    }
+   ]
+  },
+  {
+   "year": 2025,
+   "month": 12,
+   "luna": "Decembrie",
+   "period": "2025.12",
+   "total_asigurati": 5210886,
+   "salarii": [
+    {
+     "grupa": "0 (*)",
+     "transa": "Fără venit",
+     "numar": 39423,
+     "venit_mediu": 0,
+     "timp_partial": 2287,
+     "fara_contract": 834,
+     "somaj": 469,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "1",
+     "transa": "1-4049",
+     "numar": 734094,
+     "venit_mediu": 3257,
+     "timp_partial": 301103,
+     "fara_contract": 123837,
+     "somaj": 65781,
+     "contract_individual": 218
+    },
+    {
+     "grupa": "2",
+     "transa": "4050",
+     "numar": 10035,
+     "venit_mediu": 4050,
+     "timp_partial": 2427,
+     "fara_contract": 9862,
+     "somaj": 0,
+     "contract_individual": 15133
+    },
+    {
+     "grupa": "3",
+     "transa": "4051-4581",
+     "numar": 775191,
+     "venit_mediu": 4205,
+     "timp_partial": 23969,
+     "fara_contract": 4989,
+     "somaj": 77,
+     "contract_individual": 99
+    },
+    {
+     "grupa": "4",
+     "transa": "4582",
+     "numar": 96606,
+     "venit_mediu": 4582,
+     "timp_partial": 443,
+     "fara_contract": 319,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "5",
+     "transa": "4583-5000",
+     "numar": 294432,
+     "venit_mediu": 4766,
+     "timp_partial": 10509,
+     "fara_contract": 1469,
+     "somaj": 110,
+     "contract_individual": 191
+    },
+    {
+     "grupa": "6",
+     "transa": "5001-6000",
+     "numar": 512535,
+     "venit_mediu": 5488,
+     "timp_partial": 19873,
+     "fara_contract": 2513,
+     "somaj": 44,
+     "contract_individual": 236
+    },
+    {
+     "grupa": "7",
+     "transa": "6001-7000",
+     "numar": 409113,
+     "venit_mediu": 6513,
+     "timp_partial": 13084,
+     "fara_contract": 1457,
+     "somaj": 13,
+     "contract_individual": 47
+    },
+    {
+     "grupa": "8",
+     "transa": "7001-8000",
+     "numar": 365223,
+     "venit_mediu": 7503,
+     "timp_partial": 10347,
+     "fara_contract": 1355,
+     "somaj": 6,
+     "contract_individual": 126
+    },
+    {
+     "grupa": "9",
+     "transa": "8001-8619",
+     "numar": 206361,
+     "venit_mediu": 8324,
+     "timp_partial": 6628,
+     "fara_contract": 2977,
+     "somaj": 2,
+     "contract_individual": 24
+    },
+    {
+     "grupa": "10",
+     "transa": "8620",
+     "numar": 359,
+     "venit_mediu": 8620,
+     "timp_partial": 4,
+     "fara_contract": 3,
+     "somaj": 0,
+     "contract_individual": 7
+    },
+    {
+     "grupa": "11",
+     "transa": "8621-9000",
+     "numar": 112156,
+     "venit_mediu": 8809,
+     "timp_partial": 3337,
+     "fara_contract": 429,
+     "somaj": 2,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "12",
+     "transa": "9001-10000",
+     "numar": 259203,
+     "venit_mediu": 9502,
+     "timp_partial": 7546,
+     "fara_contract": 1287,
+     "somaj": 3,
+     "contract_individual": 69
+    },
+    {
+     "grupa": "13",
+     "transa": "10001-12000",
+     "numar": 411439,
+     "venit_mediu": 10936,
+     "timp_partial": 11602,
+     "fara_contract": 1762,
+     "somaj": 1,
+     "contract_individual": 31
+    },
+    {
+     "grupa": "14",
+     "transa": "12001-13000",
+     "numar": 163785,
+     "venit_mediu": 12457,
+     "timp_partial": 3971,
+     "fara_contract": 793,
+     "somaj": 3,
+     "contract_individual": 3
+    },
+    {
+     "grupa": "15",
+     "transa": "13001-15000",
+     "numar": 246501,
+     "venit_mediu": 13923,
+     "timp_partial": 4778,
+     "fara_contract": 1314,
+     "somaj": 0,
+     "contract_individual": 15
+    },
+    {
+     "grupa": "16",
+     "transa": "15001-16000",
+     "numar": 75444,
+     "venit_mediu": 15478,
+     "timp_partial": 1652,
+     "fara_contract": 605,
+     "somaj": 1,
+     "contract_individual": 12
+    },
+    {
+     "grupa": "17",
+     "transa": "16001-18000",
+     "numar": 114410,
+     "venit_mediu": 16960,
+     "timp_partial": 3144,
+     "fara_contract": 1021,
+     "somaj": 1,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "18",
+     "transa": "18001-20000",
+     "numar": 75606,
+     "venit_mediu": 18969,
+     "timp_partial": 2094,
+     "fara_contract": 822,
+     "somaj": 1,
+     "contract_individual": 17
+    },
+    {
+     "grupa": "19",
+     "transa": "20001-22000",
+     "numar": 57485,
+     "venit_mediu": 20941,
+     "timp_partial": 1809,
+     "fara_contract": 510,
+     "somaj": 1,
+     "contract_individual": 3
+    },
+    {
+     "grupa": "20",
+     "transa": "22001-25000",
+     "numar": 61562,
+     "venit_mediu": 23416,
+     "timp_partial": 1811,
+     "fara_contract": 508,
+     "somaj": 1,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "21",
+     "transa": "25001-30000",
+     "numar": 70697,
+     "venit_mediu": 27253,
+     "timp_partial": 2086,
+     "fara_contract": 621,
+     "somaj": 0,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "22",
+     "transa": "30001-40000",
+     "numar": 66744,
+     "venit_mediu": 34175,
+     "timp_partial": 2013,
+     "fara_contract": 789,
+     "somaj": 0,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "23",
+     "transa": "40001-43099",
+     "numar": 10254,
+     "venit_mediu": 41513,
+     "timp_partial": 191,
+     "fara_contract": 183,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "24",
+     "transa": "43100",
+     "numar": 3,
+     "venit_mediu": 43100,
+     "timp_partial": 0,
+     "fara_contract": 0,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "25",
+     "transa": "Peste 43100",
+     "numar": 42225,
+     "venit_mediu": 74010,
+     "timp_partial": 989,
+     "fara_contract": 1963,
+     "somaj": 0,
+     "contract_individual": 12
+    }
+   ],
+   "judete": [
+    {
+     "cod": "011",
+     "judet": "ALBA",
+     "angajatori": 10354,
+     "fond_salarii": 626345245,
+     "asigurati": 98768,
+     "salariu_mediu": 6342
+    },
+    {
+     "cod": "021",
+     "judet": "ARAD",
+     "angajatori": 12634,
+     "fond_salarii": 789824183,
+     "asigurati": 120533,
+     "salariu_mediu": 6553
+    },
+    {
+     "cod": "031",
+     "judet": "ARGES",
+     "angajatori": 17296,
+     "fond_salarii": 1269809471,
+     "asigurati": 184690,
+     "salariu_mediu": 6875
+    },
+    {
+     "cod": "041",
+     "judet": "BACAU",
+     "angajatori": 11940,
+     "fond_salarii": 955634329,
+     "asigurati": 132832,
+     "salariu_mediu": 7194
+    },
+    {
+     "cod": "051",
+     "judet": "BIHOR",
+     "angajatori": 20882,
+     "fond_salarii": 1041021991,
+     "asigurati": 173051,
+     "salariu_mediu": 6016
+    },
+    {
+     "cod": "061",
+     "judet": "BISTRITA",
+     "angajatori": 8102,
+     "fond_salarii": 397170663,
+     "asigurati": 71157,
+     "salariu_mediu": 5582
+    },
+    {
+     "cod": "071",
+     "judet": "BOTOSANI",
+     "angajatori": 5917,
+     "fond_salarii": 337935601,
+     "asigurati": 58524,
+     "salariu_mediu": 5774
+    },
+    {
+     "cod": "081",
+     "judet": "BRASOV",
+     "angajatori": 21373,
+     "fond_salarii": 1563220643,
+     "asigurati": 204169,
+     "salariu_mediu": 7657
+    },
+    {
+     "cod": "091",
+     "judet": "BRAILA",
+     "angajatori": 7001,
+     "fond_salarii": 320225672,
+     "asigurati": 55500,
+     "salariu_mediu": 5770
+    },
+    {
+     "cod": "101",
+     "judet": "BUZAU",
+     "angajatori": 8708,
+     "fond_salarii": 498426945,
+     "asigurati": 81771,
+     "salariu_mediu": 6095
+    },
+    {
+     "cod": "111",
+     "judet": "CARAS SEVERIN",
+     "angajatori": 5071,
+     "fond_salarii": 254684343,
+     "asigurati": 44320,
+     "salariu_mediu": 5746
+    },
+    {
+     "cod": "121",
+     "judet": "CLUJ",
+     "angajatori": 35762,
+     "fond_salarii": 2939951659,
+     "asigurati": 321010,
+     "salariu_mediu": 9158
+    },
+    {
+     "cod": "131",
+     "judet": "CONSTANTA",
+     "angajatori": 23513,
+     "fond_salarii": 1199522652,
+     "asigurati": 182189,
+     "salariu_mediu": 6584
+    },
+    {
+     "cod": "141",
+     "judet": "COVASNA",
+     "angajatori": 4614,
+     "fond_salarii": 279672003,
+     "asigurati": 44273,
+     "salariu_mediu": 6317
+    },
+    {
+     "cod": "151",
+     "judet": "DAMBOVITA",
+     "angajatori": 9905,
+     "fond_salarii": 515626772,
+     "asigurati": 85247,
+     "salariu_mediu": 6049
+    },
+    {
+     "cod": "161",
+     "judet": "DOLJ",
+     "angajatori": 16353,
+     "fond_salarii": 1023105042,
+     "asigurati": 148948,
+     "salariu_mediu": 6869
+    },
+    {
+     "cod": "171",
+     "judet": "GALATI",
+     "angajatori": 12055,
+     "fond_salarii": 749643584,
+     "asigurati": 113724,
+     "salariu_mediu": 6592
+    },
+    {
+     "cod": "181",
+     "judet": "GORJ",
+     "angajatori": 7063,
+     "fond_salarii": 443353846,
+     "asigurati": 66968,
+     "salariu_mediu": 6620
+    },
+    {
+     "cod": "191",
+     "judet": "HARGHITA",
+     "angajatori": 8150,
+     "fond_salarii": 445642930,
+     "asigurati": 76218,
+     "salariu_mediu": 5847
+    },
+    {
+     "cod": "201",
+     "judet": "HUNEDOARA",
+     "angajatori": 9824,
+     "fond_salarii": 505870001,
+     "asigurati": 87009,
+     "salariu_mediu": 5814
+    },
+    {
+     "cod": "211",
+     "judet": "IALOMITA",
+     "angajatori": 5094,
+     "fond_salarii": 240162080,
+     "asigurati": 40669,
+     "salariu_mediu": 5905
+    },
+    {
+     "cod": "221",
+     "judet": "IASI",
+     "angajatori": 22065,
+     "fond_salarii": 1470287221,
+     "asigurati": 199635,
+     "salariu_mediu": 7365
+    },
+    {
+     "cod": "231",
+     "judet": "GIURGIU",
+     "angajatori": 5317,
+     "fond_salarii": 243637820,
+     "asigurati": 40722,
+     "salariu_mediu": 5983
+    },
+    {
+     "cod": "241",
+     "judet": "MARAMURES",
+     "angajatori": 13111,
+     "fond_salarii": 694247773,
+     "asigurati": 117827,
+     "salariu_mediu": 5892
+    },
+    {
+     "cod": "251",
+     "judet": "MEHEDINTI",
+     "angajatori": 4326,
+     "fond_salarii": 197374620,
+     "asigurati": 34179,
+     "salariu_mediu": 5775
+    },
+    {
+     "cod": "261",
+     "judet": "MURES",
+     "angajatori": 15321,
+     "fond_salarii": 1067548322,
+     "asigurati": 143628,
+     "salariu_mediu": 7433
+    },
+    {
+     "cod": "271",
+     "judet": "NEAMT",
+     "angajatori": 9712,
+     "fond_salarii": 491089549,
+     "asigurati": 82571,
+     "salariu_mediu": 5947
+    },
+    {
+     "cod": "281",
+     "judet": "OLT",
+     "angajatori": 7194,
+     "fond_salarii": 495086009,
+     "asigurati": 73520,
+     "salariu_mediu": 6734
+    },
+    {
+     "cod": "291",
+     "judet": "PRAHOVA",
+     "angajatori": 19421,
+     "fond_salarii": 1334937930,
+     "asigurati": 191734,
+     "salariu_mediu": 6962
+    },
+    {
+     "cod": "301",
+     "judet": "SATU MARE",
+     "angajatori": 8594,
+     "fond_salarii": 473057433,
+     "asigurati": 81156,
+     "salariu_mediu": 5829
+    },
+    {
+     "cod": "311",
+     "judet": "SALAJ",
+     "angajatori": 5626,
+     "fond_salarii": 289393500,
+     "asigurati": 48213,
+     "salariu_mediu": 6002
+    },
+    {
+     "cod": "321",
+     "judet": "SIBIU",
+     "angajatori": 13419,
+     "fond_salarii": 1204217263,
+     "asigurati": 151833,
+     "salariu_mediu": 7931
+    },
+    {
+     "cod": "331",
+     "judet": "SUCEAVA",
+     "angajatori": 16062,
+     "fond_salarii": 721251860,
+     "asigurati": 132977,
+     "salariu_mediu": 5424
+    },
+    {
+     "cod": "341",
+     "judet": "TELEORMAN",
+     "angajatori": 5164,
+     "fond_salarii": 256317804,
+     "asigurati": 44231,
+     "salariu_mediu": 5795
+    },
+    {
+     "cod": "351",
+     "judet": "TIMIS",
+     "angajatori": 26311,
+     "fond_salarii": 2351471046,
+     "asigurati": 270909,
+     "salariu_mediu": 8680
+    },
+    {
+     "cod": "361",
+     "judet": "TULCEA",
+     "angajatori": 4960,
+     "fond_salarii": 308494856,
+     "asigurati": 45885,
+     "salariu_mediu": 6723
+    },
+    {
+     "cod": "371",
+     "judet": "VASLUI",
+     "angajatori": 6388,
+     "fond_salarii": 318104099,
+     "asigurati": 57240,
+     "salariu_mediu": 5557
+    },
+    {
+     "cod": "381",
+     "judet": "VALCEA",
+     "angajatori": 9029,
+     "fond_salarii": 489528004,
+     "asigurati": 84473,
+     "salariu_mediu": 5795
+    },
+    {
+     "cod": "391",
+     "judet": "VRANCEA",
+     "angajatori": 6591,
+     "fond_salarii": 337242935,
+     "asigurati": 58403,
+     "salariu_mediu": 5774
+    },
+    {
+     "cod": "401",
+     "judet": "CALARASI",
+     "angajatori": 5059,
+     "fond_salarii": 267073773,
+     "asigurati": 42688,
+     "salariu_mediu": 6256
+    },
+    {
+     "cod": "411",
+     "judet": "BUCURESTI",
+     "angajatori": 115799,
+     "fond_salarii": 16941692595,
+     "asigurati": 1632764,
+     "salariu_mediu": 10376
+    },
+    {
+     "cod": "471",
+     "judet": "ILFOV",
+     "angajatori": 32067,
+     "fond_salarii": 2105727724,
+     "asigurati": 280201,
+     "salariu_mediu": 7515
+    }
+   ]
+  },
+  {
+   "year": 2026,
+   "month": 1,
+   "luna": "Ianuarie",
+   "period": "2026.01",
+   "total_asigurati": 4845170,
+   "salarii": [
+    {
+     "grupa": "0 (*)",
+     "transa": "Fără venit",
+     "numar": 38146,
+     "venit_mediu": 0,
+     "timp_partial": 2076,
+     "fara_contract": 808,
+     "somaj": 396,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "1",
+     "transa": "1-4049",
+     "numar": 646765,
+     "venit_mediu": 3157,
+     "timp_partial": 279425,
+     "fara_contract": 98425,
+     "somaj": 68885,
+     "contract_individual": 386
+    },
+    {
+     "grupa": "2",
+     "transa": "4050",
+     "numar": 8777,
+     "venit_mediu": 4050,
+     "timp_partial": 2630,
+     "fara_contract": 9068,
+     "somaj": 0,
+     "contract_individual": 14962
+    },
+    {
+     "grupa": "3",
+     "transa": "4051-4581",
+     "numar": 713364,
+     "venit_mediu": 4204,
+     "timp_partial": 22477,
+     "fara_contract": 4169,
+     "somaj": 64,
+     "contract_individual": 100
+    },
+    {
+     "grupa": "4",
+     "transa": "4582",
+     "numar": 86025,
+     "venit_mediu": 4582,
+     "timp_partial": 433,
+     "fara_contract": 292,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "5",
+     "transa": "4583-5000",
+     "numar": 272923,
+     "venit_mediu": 4770,
+     "timp_partial": 9559,
+     "fara_contract": 1059,
+     "somaj": 105,
+     "contract_individual": 189
+    },
+    {
+     "grupa": "6",
+     "transa": "5001-6000",
+     "numar": 515915,
+     "venit_mediu": 5493,
+     "timp_partial": 18505,
+     "fara_contract": 1698,
+     "somaj": 43,
+     "contract_individual": 235
+    },
+    {
+     "grupa": "7",
+     "transa": "6001-7000",
+     "numar": 410119,
+     "venit_mediu": 6511,
+     "timp_partial": 11889,
+     "fara_contract": 1094,
+     "somaj": 14,
+     "contract_individual": 48
+    },
+    {
+     "grupa": "8",
+     "transa": "7001-8000",
+     "numar": 364611,
+     "venit_mediu": 7505,
+     "timp_partial": 9066,
+     "fara_contract": 984,
+     "somaj": 4,
+     "contract_individual": 123
+    },
+    {
+     "grupa": "9",
+     "transa": "8001-8619",
+     "numar": 205504,
+     "venit_mediu": 8325,
+     "timp_partial": 5992,
+     "fara_contract": 2650,
+     "somaj": 3,
+     "contract_individual": 25
+    },
+    {
+     "grupa": "10",
+     "transa": "8620",
+     "numar": 342,
+     "venit_mediu": 8620,
+     "timp_partial": 7,
+     "fara_contract": 5,
+     "somaj": 0,
+     "contract_individual": 7
+    },
+    {
+     "grupa": "11",
+     "transa": "8621-9000",
+     "numar": 108829,
+     "venit_mediu": 8807,
+     "timp_partial": 2855,
+     "fara_contract": 356,
+     "somaj": 2,
+     "contract_individual": 10
+    },
+    {
+     "grupa": "12",
+     "transa": "9001-10000",
+     "numar": 244868,
+     "venit_mediu": 9499,
+     "timp_partial": 6676,
+     "fara_contract": 1015,
+     "somaj": 4,
+     "contract_individual": 72
+    },
+    {
+     "grupa": "13",
+     "transa": "10001-12000",
+     "numar": 412548,
+     "venit_mediu": 10932,
+     "timp_partial": 10632,
+     "fara_contract": 1621,
+     "somaj": 1,
+     "contract_individual": 35
+    },
+    {
+     "grupa": "14",
+     "transa": "12001-13000",
+     "numar": 137350,
+     "venit_mediu": 12484,
+     "timp_partial": 3045,
+     "fara_contract": 628,
+     "somaj": 2,
+     "contract_individual": 3
+    },
+    {
+     "grupa": "15",
+     "transa": "13001-15000",
+     "numar": 217910,
+     "venit_mediu": 13916,
+     "timp_partial": 4205,
+     "fara_contract": 1185,
+     "somaj": 0,
+     "contract_individual": 15
+    },
+    {
+     "grupa": "16",
+     "transa": "15001-16000",
+     "numar": 65313,
+     "venit_mediu": 15477,
+     "timp_partial": 1340,
+     "fara_contract": 591,
+     "somaj": 1,
+     "contract_individual": 13
+    },
+    {
+     "grupa": "17",
+     "transa": "16001-18000",
+     "numar": 94232,
+     "venit_mediu": 16955,
+     "timp_partial": 2736,
+     "fara_contract": 977,
+     "somaj": 1,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "18",
+     "transa": "18001-20000",
+     "numar": 60627,
+     "venit_mediu": 18981,
+     "timp_partial": 1786,
+     "fara_contract": 794,
+     "somaj": 1,
+     "contract_individual": 17
+    },
+    {
+     "grupa": "19",
+     "transa": "20001-22000",
+     "numar": 47061,
+     "venit_mediu": 20950,
+     "timp_partial": 1557,
+     "fara_contract": 454,
+     "somaj": 1,
+     "contract_individual": 2
+    },
+    {
+     "grupa": "20",
+     "transa": "22001-25000",
+     "numar": 50298,
+     "venit_mediu": 23417,
+     "timp_partial": 1484,
+     "fara_contract": 363,
+     "somaj": 1,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "21",
+     "transa": "25001-30000",
+     "numar": 57973,
+     "venit_mediu": 27248,
+     "timp_partial": 1759,
+     "fara_contract": 515,
+     "somaj": 0,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "22",
+     "transa": "30001-40000",
+     "numar": 52936,
+     "venit_mediu": 34100,
+     "timp_partial": 1389,
+     "fara_contract": 665,
+     "somaj": 0,
+     "contract_individual": 6
+    },
+    {
+     "grupa": "23",
+     "transa": "40001-43099",
+     "numar": 7416,
+     "venit_mediu": 41523,
+     "timp_partial": 145,
+     "fara_contract": 136,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "24",
+     "transa": "43100",
+     "numar": 4,
+     "venit_mediu": 43100,
+     "timp_partial": 0,
+     "fara_contract": 0,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "25",
+     "transa": "Peste 43100",
+     "numar": 25314,
+     "venit_mediu": 69694,
+     "timp_partial": 556,
+     "fara_contract": 1348,
+     "somaj": 0,
+     "contract_individual": 10
+    }
+   ],
+   "judete": [
+    {
+     "cod": "011",
+     "judet": "ALBA",
+     "angajatori": 9189,
+     "fond_salarii": 581535634,
+     "asigurati": 90268,
+     "salariu_mediu": 6442
+    },
+    {
+     "cod": "021",
+     "judet": "ARAD",
+     "angajatori": 11264,
+     "fond_salarii": 699229602,
+     "asigurati": 113395,
+     "salariu_mediu": 6166
+    },
+    {
+     "cod": "031",
+     "judet": "ARGES",
+     "angajatori": 15584,
+     "fond_salarii": 1181139675,
+     "asigurati": 169610,
+     "salariu_mediu": 6964
+    },
+    {
+     "cod": "041",
+     "judet": "BACAU",
+     "angajatori": 10452,
+     "fond_salarii": 804349220,
+     "asigurati": 121391,
+     "salariu_mediu": 6626
+    },
+    {
+     "cod": "051",
+     "judet": "BIHOR",
+     "angajatori": 18604,
+     "fond_salarii": 965049468,
+     "asigurati": 163327,
+     "salariu_mediu": 5909
+    },
+    {
+     "cod": "061",
+     "judet": "BISTRITA",
+     "angajatori": 6840,
+     "fond_salarii": 353332815,
+     "asigurati": 63854,
+     "salariu_mediu": 5533
+    },
+    {
+     "cod": "071",
+     "judet": "BOTOSANI",
+     "angajatori": 5378,
+     "fond_salarii": 308011251,
+     "asigurati": 50627,
+     "salariu_mediu": 6084
+    },
+    {
+     "cod": "081",
+     "judet": "BRASOV",
+     "angajatori": 18322,
+     "fond_salarii": 1363008353,
+     "asigurati": 184898,
+     "salariu_mediu": 7372
+    },
+    {
+     "cod": "091",
+     "judet": "BRAILA",
+     "angajatori": 6369,
+     "fond_salarii": 296342066,
+     "asigurati": 50758,
+     "salariu_mediu": 5838
+    },
+    {
+     "cod": "101",
+     "judet": "BUZAU",
+     "angajatori": 4353,
+     "fond_salarii": 298907449,
+     "asigurati": 49822,
+     "salariu_mediu": 6000
+    },
+    {
+     "cod": "111",
+     "judet": "CARAS SEVERIN",
+     "angajatori": 4375,
+     "fond_salarii": 233486277,
+     "asigurati": 39772,
+     "salariu_mediu": 5871
+    },
+    {
+     "cod": "121",
+     "judet": "CLUJ",
+     "angajatori": 31987,
+     "fond_salarii": 2631520668,
+     "asigurati": 298278,
+     "salariu_mediu": 8822
+    },
+    {
+     "cod": "131",
+     "judet": "CONSTANTA",
+     "angajatori": 21982,
+     "fond_salarii": 1090501750,
+     "asigurati": 173503,
+     "salariu_mediu": 6285
+    },
+    {
+     "cod": "141",
+     "judet": "COVASNA",
+     "angajatori": 4237,
+     "fond_salarii": 250910913,
+     "asigurati": 41816,
+     "salariu_mediu": 6000
+    },
+    {
+     "cod": "151",
+     "judet": "DAMBOVITA",
+     "angajatori": 8576,
+     "fond_salarii": 478200933,
+     "asigurati": 79617,
+     "salariu_mediu": 6006
+    },
+    {
+     "cod": "161",
+     "judet": "DOLJ",
+     "angajatori": 14249,
+     "fond_salarii": 906076813,
+     "asigurati": 136453,
+     "salariu_mediu": 6640
+    },
+    {
+     "cod": "171",
+     "judet": "GALATI",
+     "angajatori": 11026,
+     "fond_salarii": 657487948,
+     "asigurati": 103162,
+     "salariu_mediu": 6373
+    },
+    {
+     "cod": "181",
+     "judet": "GORJ",
+     "angajatori": 6344,
+     "fond_salarii": 424646072,
+     "asigurati": 63684,
+     "salariu_mediu": 6668
+    },
+    {
+     "cod": "191",
+     "judet": "HARGHITA",
+     "angajatori": 7359,
+     "fond_salarii": 416940868,
+     "asigurati": 72072,
+     "salariu_mediu": 5785
+    },
+    {
+     "cod": "201",
+     "judet": "HUNEDOARA",
+     "angajatori": 8643,
+     "fond_salarii": 456734276,
+     "asigurati": 77096,
+     "salariu_mediu": 5924
+    },
+    {
+     "cod": "211",
+     "judet": "IALOMITA",
+     "angajatori": 4461,
+     "fond_salarii": 216644369,
+     "asigurati": 35891,
+     "salariu_mediu": 6036
+    },
+    {
+     "cod": "221",
+     "judet": "IASI",
+     "angajatori": 19126,
+     "fond_salarii": 1318765530,
+     "asigurati": 184327,
+     "salariu_mediu": 7154
+    },
+    {
+     "cod": "231",
+     "judet": "GIURGIU",
+     "angajatori": 4608,
+     "fond_salarii": 216685140,
+     "asigurati": 35652,
+     "salariu_mediu": 6078
+    },
+    {
+     "cod": "241",
+     "judet": "MARAMURES",
+     "angajatori": 12255,
+     "fond_salarii": 630700409,
+     "asigurati": 113226,
+     "salariu_mediu": 5570
+    },
+    {
+     "cod": "251",
+     "judet": "MEHEDINTI",
+     "angajatori": 3644,
+     "fond_salarii": 179839000,
+     "asigurati": 30918,
+     "salariu_mediu": 5817
+    },
+    {
+     "cod": "261",
+     "judet": "MURES",
+     "angajatori": 13812,
+     "fond_salarii": 893819556,
+     "asigurati": 135447,
+     "salariu_mediu": 6599
+    },
+    {
+     "cod": "271",
+     "judet": "NEAMT",
+     "angajatori": 8789,
+     "fond_salarii": 450132519,
+     "asigurati": 78076,
+     "salariu_mediu": 5765
+    },
+    {
+     "cod": "281",
+     "judet": "OLT",
+     "angajatori": 6252,
+     "fond_salarii": 455386185,
+     "asigurati": 67063,
+     "salariu_mediu": 6790
+    },
+    {
+     "cod": "291",
+     "judet": "PRAHOVA",
+     "angajatori": 17292,
+     "fond_salarii": 1185533982,
+     "asigurati": 177984,
+     "salariu_mediu": 6661
+    },
+    {
+     "cod": "301",
+     "judet": "SATU MARE",
+     "angajatori": 7575,
+     "fond_salarii": 433127206,
+     "asigurati": 75020,
+     "salariu_mediu": 5773
+    },
+    {
+     "cod": "311",
+     "judet": "SALAJ",
+     "angajatori": 5182,
+     "fond_salarii": 271773402,
+     "asigurati": 45921,
+     "salariu_mediu": 5918
+    },
+    {
+     "cod": "321",
+     "judet": "SIBIU",
+     "angajatori": 11790,
+     "fond_salarii": 1068338340,
+     "asigurati": 140131,
+     "salariu_mediu": 7624
+    },
+    {
+     "cod": "331",
+     "judet": "SUCEAVA",
+     "angajatori": 14655,
+     "fond_salarii": 667665697,
+     "asigurati": 124572,
+     "salariu_mediu": 5360
+    },
+    {
+     "cod": "341",
+     "judet": "TELEORMAN",
+     "angajatori": 4508,
+     "fond_salarii": 235844636,
+     "asigurati": 39637,
+     "salariu_mediu": 5950
+    },
+    {
+     "cod": "351",
+     "judet": "TIMIS",
+     "angajatori": 23359,
+     "fond_salarii": 2100497508,
+     "asigurati": 258714,
+     "salariu_mediu": 8119
+    },
+    {
+     "cod": "361",
+     "judet": "TULCEA",
+     "angajatori": 4286,
+     "fond_salarii": 276403867,
+     "asigurati": 43127,
+     "salariu_mediu": 6409
+    },
+    {
+     "cod": "371",
+     "judet": "VASLUI",
+     "angajatori": 5589,
+     "fond_salarii": 285610577,
+     "asigurati": 52302,
+     "salariu_mediu": 5461
+    },
+    {
+     "cod": "381",
+     "judet": "VALCEA",
+     "angajatori": 8221,
+     "fond_salarii": 440269994,
+     "asigurati": 77858,
+     "salariu_mediu": 5655
+    },
+    {
+     "cod": "391",
+     "judet": "VRANCEA",
+     "angajatori": 5969,
+     "fond_salarii": 316713021,
+     "asigurati": 55941,
+     "salariu_mediu": 5662
+    },
+    {
+     "cod": "401",
+     "judet": "CALARASI",
+     "angajatori": 3580,
+     "fond_salarii": 213065806,
+     "asigurati": 33987,
+     "salariu_mediu": 6269
+    },
+    {
+     "cod": "411",
+     "judet": "BUCURESTI",
+     "angajatori": 98717,
+     "fond_salarii": 14730222018,
+     "asigurati": 1477105,
+     "salariu_mediu": 9972
+    },
+    {
+     "cod": "471",
+     "judet": "ILFOV",
+     "angajatori": 27352,
+     "fond_salarii": 1866272848,
+     "asigurati": 252094,
+     "salariu_mediu": 7403
+    }
+   ]
+  },
+  {
+   "year": 2026,
+   "month": 2,
+   "luna": "Februarie",
+   "period": "2026.02",
+   "total_asigurati": 5189556,
+   "salarii": [
+    {
+     "grupa": "0 (*)",
+     "transa": "Fără venit",
+     "numar": 44501,
+     "venit_mediu": 0,
+     "timp_partial": 2312,
+     "fara_contract": 836,
+     "somaj": 448,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "1",
+     "transa": "1-4049",
+     "numar": 730834,
+     "venit_mediu": 3210,
+     "timp_partial": 301431,
+     "fara_contract": 135831,
+     "somaj": 71209,
+     "contract_individual": 387
+    },
+    {
+     "grupa": "2",
+     "transa": "4050",
+     "numar": 9884,
+     "venit_mediu": 4050,
+     "timp_partial": 2983,
+     "fara_contract": 9714,
+     "somaj": 0,
+     "contract_individual": 14909
+    },
+    {
+     "grupa": "3",
+     "transa": "4051-4581",
+     "numar": 811087,
+     "venit_mediu": 4208,
+     "timp_partial": 23965,
+     "fara_contract": 5180,
+     "somaj": 57,
+     "contract_individual": 102
+    },
+    {
+     "grupa": "4",
+     "transa": "4582",
+     "numar": 93744,
+     "venit_mediu": 4582,
+     "timp_partial": 492,
+     "fara_contract": 310,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "5",
+     "transa": "4583-5000",
+     "numar": 311174,
+     "venit_mediu": 4763,
+     "timp_partial": 10152,
+     "fara_contract": 1413,
+     "somaj": 103,
+     "contract_individual": 197
+    },
+    {
+     "grupa": "6",
+     "transa": "5001-6000",
+     "numar": 558546,
+     "venit_mediu": 5484,
+     "timp_partial": 20310,
+     "fara_contract": 2300,
+     "somaj": 45,
+     "contract_individual": 238
+    },
+    {
+     "grupa": "7",
+     "transa": "6001-7000",
+     "numar": 428450,
+     "venit_mediu": 6509,
+     "timp_partial": 12725,
+     "fara_contract": 1312,
+     "somaj": 11,
+     "contract_individual": 46
+    },
+    {
+     "grupa": "8",
+     "transa": "7001-8000",
+     "numar": 378949,
+     "venit_mediu": 7502,
+     "timp_partial": 10103,
+     "fara_contract": 1311,
+     "somaj": 4,
+     "contract_individual": 125
+    },
+    {
+     "grupa": "9",
+     "transa": "8001-8619",
+     "numar": 209892,
+     "venit_mediu": 8327,
+     "timp_partial": 6455,
+     "fara_contract": 3425,
+     "somaj": 4,
+     "contract_individual": 23
+    },
+    {
+     "grupa": "10",
+     "transa": "8620",
+     "numar": 364,
+     "venit_mediu": 8620,
+     "timp_partial": 10,
+     "fara_contract": 3,
+     "somaj": 0,
+     "contract_individual": 7
+    },
+    {
+     "grupa": "11",
+     "transa": "8621-9000",
+     "numar": 114210,
+     "venit_mediu": 8808,
+     "timp_partial": 3125,
+     "fara_contract": 463,
+     "somaj": 2,
+     "contract_individual": 11
+    },
+    {
+     "grupa": "12",
+     "transa": "9001-10000",
+     "numar": 254252,
+     "venit_mediu": 9499,
+     "timp_partial": 7060,
+     "fara_contract": 1255,
+     "somaj": 5,
+     "contract_individual": 76
+    },
+    {
+     "grupa": "13",
+     "transa": "10001-12000",
+     "numar": 409348,
+     "venit_mediu": 10926,
+     "timp_partial": 11432,
+     "fara_contract": 1839,
+     "somaj": 0,
+     "contract_individual": 32
+    },
+    {
+     "grupa": "14",
+     "transa": "12001-13000",
+     "numar": 145333,
+     "venit_mediu": 12488,
+     "timp_partial": 3540,
+     "fara_contract": 751,
+     "somaj": 2,
+     "contract_individual": 3
+    },
+    {
+     "grupa": "15",
+     "transa": "13001-15000",
+     "numar": 215611,
+     "venit_mediu": 13876,
+     "timp_partial": 4601,
+     "fara_contract": 1270,
+     "somaj": 1,
+     "contract_individual": 16
+    },
+    {
+     "grupa": "16",
+     "transa": "15001-16000",
+     "numar": 63927,
+     "venit_mediu": 15476,
+     "timp_partial": 1556,
+     "fara_contract": 631,
+     "somaj": 1,
+     "contract_individual": 13
+    },
+    {
+     "grupa": "17",
+     "transa": "16001-18000",
+     "numar": 96419,
+     "venit_mediu": 16970,
+     "timp_partial": 3188,
+     "fara_contract": 1094,
+     "somaj": 2,
+     "contract_individual": 7
+    },
+    {
+     "grupa": "18",
+     "transa": "18001-20000",
+     "numar": 62864,
+     "venit_mediu": 18972,
+     "timp_partial": 2110,
+     "fara_contract": 830,
+     "somaj": 0,
+     "contract_individual": 17
+    },
+    {
+     "grupa": "19",
+     "transa": "20001-22000",
+     "numar": 48065,
+     "venit_mediu": 20947,
+     "timp_partial": 1713,
+     "fara_contract": 495,
+     "somaj": 1,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "20",
+     "transa": "22001-25000",
+     "numar": 51310,
+     "venit_mediu": 23417,
+     "timp_partial": 1645,
+     "fara_contract": 382,
+     "somaj": 1,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "21",
+     "transa": "25001-30000",
+     "numar": 59567,
+     "venit_mediu": 27232,
+     "timp_partial": 1928,
+     "fara_contract": 553,
+     "somaj": 0,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "22",
+     "transa": "30001-40000",
+     "numar": 53627,
+     "venit_mediu": 34082,
+     "timp_partial": 1692,
+     "fara_contract": 701,
+     "somaj": 0,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "23",
+     "transa": "40001-43099",
+     "numar": 7444,
+     "venit_mediu": 41542,
+     "timp_partial": 180,
+     "fara_contract": 120,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "24",
+     "transa": "43100",
+     "numar": 6,
+     "venit_mediu": 43100,
+     "timp_partial": 0,
+     "fara_contract": 0,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "25",
+     "transa": "Peste 43100",
+     "numar": 30148,
+     "venit_mediu": 79911,
+     "timp_partial": 636,
+     "fara_contract": 1444,
+     "somaj": 0,
+     "contract_individual": 10
+    }
+   ],
+   "judete": [
+    {
+     "cod": "011",
+     "judet": "ALBA",
+     "angajatori": 10062,
+     "fond_salarii": 621216957,
+     "asigurati": 100195,
+     "salariu_mediu": 6200
+    },
+    {
+     "cod": "021",
+     "judet": "ARAD",
+     "angajatori": 12160,
+     "fond_salarii": 719183598,
+     "asigurati": 119682,
+     "salariu_mediu": 6009
+    },
+    {
+     "cod": "031",
+     "judet": "ARGES",
+     "angajatori": 16875,
+     "fond_salarii": 1331038328,
+     "asigurati": 185561,
+     "salariu_mediu": 7173
+    },
+    {
+     "cod": "041",
+     "judet": "BACAU",
+     "angajatori": 11278,
+     "fond_salarii": 877932402,
+     "asigurati": 132401,
+     "salariu_mediu": 6631
+    },
+    {
+     "cod": "051",
+     "judet": "BIHOR",
+     "angajatori": 20015,
+     "fond_salarii": 1026591890,
+     "asigurati": 174648,
+     "salariu_mediu": 5878
+    },
+    {
+     "cod": "061",
+     "judet": "BISTRITA",
+     "angajatori": 7475,
+     "fond_salarii": 392292292,
+     "asigurati": 71386,
+     "salariu_mediu": 5495
+    },
+    {
+     "cod": "071",
+     "judet": "BOTOSANI",
+     "angajatori": 5864,
+     "fond_salarii": 341818430,
+     "asigurati": 56249,
+     "salariu_mediu": 6077
+    },
+    {
+     "cod": "081",
+     "judet": "BRASOV",
+     "angajatori": 20232,
+     "fond_salarii": 1440056368,
+     "asigurati": 203970,
+     "salariu_mediu": 7060
+    },
+    {
+     "cod": "091",
+     "judet": "BRAILA",
+     "angajatori": 6805,
+     "fond_salarii": 308158278,
+     "asigurati": 55918,
+     "salariu_mediu": 5511
+    },
+    {
+     "cod": "101",
+     "judet": "BUZAU",
+     "angajatori": 8400,
+     "fond_salarii": 485624931,
+     "asigurati": 83116,
+     "salariu_mediu": 5843
+    },
+    {
+     "cod": "111",
+     "judet": "CARAS SEVERIN",
+     "angajatori": 4783,
+     "fond_salarii": 249904055,
+     "asigurati": 44756,
+     "salariu_mediu": 5584
+    },
+    {
+     "cod": "121",
+     "judet": "CLUJ",
+     "angajatori": 33645,
+     "fond_salarii": 2715461077,
+     "asigurati": 321542,
+     "salariu_mediu": 8445
+    },
+    {
+     "cod": "131",
+     "judet": "CONSTANTA",
+     "angajatori": 23002,
+     "fond_salarii": 1116458617,
+     "asigurati": 183243,
+     "salariu_mediu": 6093
+    },
+    {
+     "cod": "141",
+     "judet": "COVASNA",
+     "angajatori": 4512,
+     "fond_salarii": 258970943,
+     "asigurati": 43954,
+     "salariu_mediu": 5892
+    },
+    {
+     "cod": "151",
+     "judet": "DAMBOVITA",
+     "angajatori": 9169,
+     "fond_salarii": 502591501,
+     "asigurati": 84805,
+     "salariu_mediu": 5926
+    },
+    {
+     "cod": "161",
+     "judet": "DOLJ",
+     "angajatori": 16097,
+     "fond_salarii": 958062195,
+     "asigurati": 150433,
+     "salariu_mediu": 6369
+    },
+    {
+     "cod": "171",
+     "judet": "GALATI",
+     "angajatori": 11776,
+     "fond_salarii": 713630551,
+     "asigurati": 114239,
+     "salariu_mediu": 6247
+    },
+    {
+     "cod": "181",
+     "judet": "GORJ",
+     "angajatori": 6874,
+     "fond_salarii": 416196827,
+     "asigurati": 65417,
+     "salariu_mediu": 6362
+    },
+    {
+     "cod": "191",
+     "judet": "HARGHITA",
+     "angajatori": 7808,
+     "fond_salarii": 434781422,
+     "asigurati": 76783,
+     "salariu_mediu": 5662
+    },
+    {
+     "cod": "201",
+     "judet": "HUNEDOARA",
+     "angajatori": 9428,
+     "fond_salarii": 480450380,
+     "asigurati": 85953,
+     "salariu_mediu": 5590
+    },
+    {
+     "cod": "211",
+     "judet": "IALOMITA",
+     "angajatori": 4825,
+     "fond_salarii": 230147640,
+     "asigurati": 39993,
+     "salariu_mediu": 5755
+    },
+    {
+     "cod": "221",
+     "judet": "IASI",
+     "angajatori": 20676,
+     "fond_salarii": 1401065264,
+     "asigurati": 206911,
+     "salariu_mediu": 6771
+    },
+    {
+     "cod": "231",
+     "judet": "GIURGIU",
+     "angajatori": 5157,
+     "fond_salarii": 234891438,
+     "asigurati": 41466,
+     "salariu_mediu": 5665
+    },
+    {
+     "cod": "241",
+     "judet": "MARAMURES",
+     "angajatori": 12953,
+     "fond_salarii": 647091922,
+     "asigurati": 119538,
+     "salariu_mediu": 5413
+    },
+    {
+     "cod": "251",
+     "judet": "MEHEDINTI",
+     "angajatori": 4065,
+     "fond_salarii": 194466549,
+     "asigurati": 34762,
+     "salariu_mediu": 5594
+    },
+    {
+     "cod": "261",
+     "judet": "MURES",
+     "angajatori": 14607,
+     "fond_salarii": 941574836,
+     "asigurati": 144514,
+     "salariu_mediu": 6515
+    },
+    {
+     "cod": "271",
+     "judet": "NEAMT",
+     "angajatori": 9415,
+     "fond_salarii": 471350012,
+     "asigurati": 82925,
+     "salariu_mediu": 5684
+    },
+    {
+     "cod": "281",
+     "judet": "OLT",
+     "angajatori": 6732,
+     "fond_salarii": 460587013,
+     "asigurati": 73639,
+     "salariu_mediu": 6255
+    },
+    {
+     "cod": "291",
+     "judet": "PRAHOVA",
+     "angajatori": 18681,
+     "fond_salarii": 1247117172,
+     "asigurati": 191187,
+     "salariu_mediu": 6523
+    },
+    {
+     "cod": "301",
+     "judet": "SATU MARE",
+     "angajatori": 8087,
+     "fond_salarii": 469567484,
+     "asigurati": 81657,
+     "salariu_mediu": 5750
+    },
+    {
+     "cod": "311",
+     "judet": "SALAJ",
+     "angajatori": 5383,
+     "fond_salarii": 276660103,
+     "asigurati": 48277,
+     "salariu_mediu": 5731
+    },
+    {
+     "cod": "321",
+     "judet": "SIBIU",
+     "angajatori": 12583,
+     "fond_salarii": 1110231308,
+     "asigurati": 151519,
+     "salariu_mediu": 7327
+    },
+    {
+     "cod": "331",
+     "judet": "SUCEAVA",
+     "angajatori": 15744,
+     "fond_salarii": 708711546,
+     "asigurati": 134547,
+     "salariu_mediu": 5267
+    },
+    {
+     "cod": "341",
+     "judet": "TELEORMAN",
+     "angajatori": 5009,
+     "fond_salarii": 253867566,
+     "asigurati": 45207,
+     "salariu_mediu": 5616
+    },
+    {
+     "cod": "351",
+     "judet": "TIMIS",
+     "angajatori": 24758,
+     "fond_salarii": 2153795874,
+     "asigurati": 268482,
+     "salariu_mediu": 8022
+    },
+    {
+     "cod": "361",
+     "judet": "TULCEA",
+     "angajatori": 4616,
+     "fond_salarii": 280470439,
+     "asigurati": 46365,
+     "salariu_mediu": 6049
+    },
+    {
+     "cod": "371",
+     "judet": "VASLUI",
+     "angajatori": 6040,
+     "fond_salarii": 309174241,
+     "asigurati": 57346,
+     "salariu_mediu": 5391
+    },
+    {
+     "cod": "381",
+     "judet": "VALCEA",
+     "angajatori": 8699,
+     "fond_salarii": 466071555,
+     "asigurati": 84198,
+     "salariu_mediu": 5535
+    },
+    {
+     "cod": "391",
+     "judet": "VRANCEA",
+     "angajatori": 6323,
+     "fond_salarii": 327509706,
+     "asigurati": 58513,
+     "salariu_mediu": 5597
+    },
+    {
+     "cod": "401",
+     "judet": "CALARASI",
+     "angajatori": 4841,
+     "fond_salarii": 256034418,
+     "asigurati": 42491,
+     "salariu_mediu": 6026
+    },
+    {
+     "cod": "411",
+     "judet": "BUCURESTI",
+     "angajatori": 108374,
+     "fond_salarii": 15708870164,
+     "asigurati": 1617756,
+     "salariu_mediu": 9710
+    },
+    {
+     "cod": "471",
+     "judet": "ILFOV",
+     "angajatori": 30425,
+     "fond_salarii": 1962330155,
+     "asigurati": 278770,
+     "salariu_mediu": 7039
+    }
+   ]
+  },
+  {
+   "year": 2026,
+   "month": 3,
+   "luna": "Martie",
+   "period": "2026.03",
+   "total_asigurati": 5210605,
+   "salarii": [
+    {
+     "grupa": "0 (*)",
+     "transa": "Fără venit",
+     "numar": 41951,
+     "venit_mediu": 0,
+     "timp_partial": 2462,
+     "fara_contract": 792,
+     "somaj": 460,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "1",
+     "transa": "1-4049",
+     "numar": 722554,
+     "venit_mediu": 3190,
+     "timp_partial": 308112,
+     "fara_contract": 142327,
+     "somaj": 67436,
+     "contract_individual": 324
+    },
+    {
+     "grupa": "2",
+     "transa": "4050",
+     "numar": 10114,
+     "venit_mediu": 4050,
+     "timp_partial": 3115,
+     "fara_contract": 10099,
+     "somaj": 0,
+     "contract_individual": 14858
+    },
+    {
+     "grupa": "3",
+     "transa": "4051-4581",
+     "numar": 795458,
+     "venit_mediu": 4211,
+     "timp_partial": 24585,
+     "fara_contract": 5985,
+     "somaj": 56,
+     "contract_individual": 103
+    },
+    {
+     "grupa": "4",
+     "transa": "4582",
+     "numar": 99325,
+     "venit_mediu": 4582,
+     "timp_partial": 516,
+     "fara_contract": 308,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "5",
+     "transa": "4583-5000",
+     "numar": 308339,
+     "venit_mediu": 4764,
+     "timp_partial": 10368,
+     "fara_contract": 1845,
+     "somaj": 106,
+     "contract_individual": 197
+    },
+    {
+     "grupa": "6",
+     "transa": "5001-6000",
+     "numar": 546158,
+     "venit_mediu": 5484,
+     "timp_partial": 19484,
+     "fara_contract": 3484,
+     "somaj": 41,
+     "contract_individual": 238
+    },
+    {
+     "grupa": "7",
+     "transa": "6001-7000",
+     "numar": 422512,
+     "venit_mediu": 6511,
+     "timp_partial": 12390,
+     "fara_contract": 1853,
+     "somaj": 13,
+     "contract_individual": 45
+    },
+    {
+     "grupa": "8",
+     "transa": "7001-8000",
+     "numar": 373581,
+     "venit_mediu": 7502,
+     "timp_partial": 10038,
+     "fara_contract": 1500,
+     "somaj": 6,
+     "contract_individual": 128
+    },
+    {
+     "grupa": "9",
+     "transa": "8001-8619",
+     "numar": 206683,
+     "venit_mediu": 8324,
+     "timp_partial": 6575,
+     "fara_contract": 3561,
+     "somaj": 3,
+     "contract_individual": 22
+    },
+    {
+     "grupa": "10",
+     "transa": "8620",
+     "numar": 312,
+     "venit_mediu": 8620,
+     "timp_partial": 14,
+     "fara_contract": 3,
+     "somaj": 0,
+     "contract_individual": 7
+    },
+    {
+     "grupa": "11",
+     "transa": "8621-9000",
+     "numar": 112132,
+     "venit_mediu": 8809,
+     "timp_partial": 3140,
+     "fara_contract": 517,
+     "somaj": 2,
+     "contract_individual": 11
+    },
+    {
+     "grupa": "12",
+     "transa": "9001-10000",
+     "numar": 253635,
+     "venit_mediu": 9501,
+     "timp_partial": 7226,
+     "fara_contract": 1278,
+     "somaj": 6,
+     "contract_individual": 72
+    },
+    {
+     "grupa": "13",
+     "transa": "10001-12000",
+     "numar": 413822,
+     "venit_mediu": 10925,
+     "timp_partial": 11988,
+     "fara_contract": 1895,
+     "somaj": 0,
+     "contract_individual": 34
+    },
+    {
+     "grupa": "14",
+     "transa": "12001-13000",
+     "numar": 146898,
+     "venit_mediu": 12486,
+     "timp_partial": 3796,
+     "fara_contract": 766,
+     "somaj": 4,
+     "contract_individual": 3
+    },
+    {
+     "grupa": "15",
+     "transa": "13001-15000",
+     "numar": 225788,
+     "venit_mediu": 13883,
+     "timp_partial": 4883,
+     "fara_contract": 1422,
+     "somaj": 1,
+     "contract_individual": 15
+    },
+    {
+     "grupa": "16",
+     "transa": "15001-16000",
+     "numar": 67113,
+     "venit_mediu": 15477,
+     "timp_partial": 1688,
+     "fara_contract": 641,
+     "somaj": 1,
+     "contract_individual": 14
+    },
+    {
+     "grupa": "17",
+     "transa": "16001-18000",
+     "numar": 100900,
+     "venit_mediu": 16972,
+     "timp_partial": 3249,
+     "fara_contract": 1093,
+     "somaj": 1,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "18",
+     "transa": "18001-20000",
+     "numar": 66142,
+     "venit_mediu": 18977,
+     "timp_partial": 2133,
+     "fara_contract": 882,
+     "somaj": 0,
+     "contract_individual": 17
+    },
+    {
+     "grupa": "19",
+     "transa": "20001-22000",
+     "numar": 51303,
+     "venit_mediu": 20943,
+     "timp_partial": 1804,
+     "fara_contract": 525,
+     "somaj": 1,
+     "contract_individual": 4
+    },
+    {
+     "grupa": "20",
+     "transa": "22001-25000",
+     "numar": 55882,
+     "venit_mediu": 23404,
+     "timp_partial": 1715,
+     "fara_contract": 434,
+     "somaj": 1,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "21",
+     "transa": "25001-30000",
+     "numar": 63492,
+     "venit_mediu": 27257,
+     "timp_partial": 1997,
+     "fara_contract": 606,
+     "somaj": 0,
+     "contract_individual": 9
+    },
+    {
+     "grupa": "22",
+     "transa": "30001-40000",
+     "numar": 62397,
+     "venit_mediu": 34218,
+     "timp_partial": 1954,
+     "fara_contract": 691,
+     "somaj": 0,
+     "contract_individual": 5
+    },
+    {
+     "grupa": "23",
+     "transa": "40001-43099",
+     "numar": 9823,
+     "venit_mediu": 41546,
+     "timp_partial": 192,
+     "fara_contract": 149,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "24",
+     "transa": "43100",
+     "numar": 5,
+     "venit_mediu": 43100,
+     "timp_partial": 0,
+     "fara_contract": 0,
+     "somaj": 0,
+     "contract_individual": 0
+    },
+    {
+     "grupa": "25",
+     "transa": "Peste 43100",
+     "numar": 54286,
+     "venit_mediu": 80799,
+     "timp_partial": 983,
+     "fara_contract": 1683,
+     "somaj": 0,
+     "contract_individual": 11
+    }
+   ],
+   "judete": [
+    {
+     "cod": "011",
+     "judet": "ALBA",
+     "angajatori": 10362,
+     "fond_salarii": 620625253,
+     "asigurati": 100483,
+     "salariu_mediu": 6176
+    },
+    {
+     "cod": "021",
+     "judet": "ARAD",
+     "angajatori": 12426,
+     "fond_salarii": 748445410,
+     "asigurati": 120548,
+     "salariu_mediu": 6209
+    },
+    {
+     "cod": "031",
+     "judet": "ARGES",
+     "angajatori": 17216,
+     "fond_salarii": 1193595647,
+     "asigurati": 185710,
+     "salariu_mediu": 6427
+    },
+    {
+     "cod": "041",
+     "judet": "BACAU",
+     "angajatori": 11861,
+     "fond_salarii": 947557710,
+     "asigurati": 133507,
+     "salariu_mediu": 7097
+    },
+    {
+     "cod": "051",
+     "judet": "BIHOR",
+     "angajatori": 20445,
+     "fond_salarii": 1031719160,
+     "asigurati": 175876,
+     "salariu_mediu": 5866
+    },
+    {
+     "cod": "061",
+     "judet": "BISTRITA",
+     "angajatori": 8110,
+     "fond_salarii": 409293357,
+     "asigurati": 73206,
+     "salariu_mediu": 5591
+    },
+    {
+     "cod": "071",
+     "judet": "BOTOSANI",
+     "angajatori": 5865,
+     "fond_salarii": 354167954,
+     "asigurati": 55878,
+     "salariu_mediu": 6338
+    },
+    {
+     "cod": "081",
+     "judet": "BRASOV",
+     "angajatori": 20987,
+     "fond_salarii": 1544783917,
+     "asigurati": 204214,
+     "salariu_mediu": 7565
+    },
+    {
+     "cod": "091",
+     "judet": "BRAILA",
+     "angajatori": 6911,
+     "fond_salarii": 307230795,
+     "asigurati": 56168,
+     "salariu_mediu": 5470
+    },
+    {
+     "cod": "101",
+     "judet": "BUZAU",
+     "angajatori": 8406,
+     "fond_salarii": 496322386,
+     "asigurati": 81965,
+     "salariu_mediu": 6055
+    },
+    {
+     "cod": "111",
+     "judet": "CARAS SEVERIN",
+     "angajatori": 5020,
+     "fond_salarii": 256110796,
+     "asigurati": 45188,
+     "salariu_mediu": 5668
+    },
+    {
+     "cod": "121",
+     "judet": "CLUJ",
+     "angajatori": 34837,
+     "fond_salarii": 2937691314,
+     "asigurati": 326166,
+     "salariu_mediu": 9007
+    },
+    {
+     "cod": "131",
+     "judet": "CONSTANTA",
+     "angajatori": 23250,
+     "fond_salarii": 1162623238,
+     "asigurati": 184253,
+     "salariu_mediu": 6310
+    },
+    {
+     "cod": "141",
+     "judet": "COVASNA",
+     "angajatori": 4578,
+     "fond_salarii": 264010616,
+     "asigurati": 44317,
+     "salariu_mediu": 5957
+    },
+    {
+     "cod": "151",
+     "judet": "DAMBOVITA",
+     "angajatori": 9753,
+     "fond_salarii": 508962129,
+     "asigurati": 85699,
+     "salariu_mediu": 5939
+    },
+    {
+     "cod": "161",
+     "judet": "DOLJ",
+     "angajatori": 16351,
+     "fond_salarii": 961000742,
+     "asigurati": 150815,
+     "salariu_mediu": 6372
+    },
+    {
+     "cod": "171",
+     "judet": "GALATI",
+     "angajatori": 11932,
+     "fond_salarii": 726425086,
+     "asigurati": 113686,
+     "salariu_mediu": 6390
+    },
+    {
+     "cod": "181",
+     "judet": "GORJ",
+     "angajatori": 7004,
+     "fond_salarii": 435001490,
+     "asigurati": 68063,
+     "salariu_mediu": 6391
+    },
+    {
+     "cod": "191",
+     "judet": "HARGHITA",
+     "angajatori": 8099,
+     "fond_salarii": 445259703,
+     "asigurati": 77141,
+     "salariu_mediu": 5772
+    },
+    {
+     "cod": "201",
+     "judet": "HUNEDOARA",
+     "angajatori": 9626,
+     "fond_salarii": 500676372,
+     "asigurati": 87620,
+     "salariu_mediu": 5714
+    },
+    {
+     "cod": "211",
+     "judet": "IALOMITA",
+     "angajatori": 5005,
+     "fond_salarii": 233803178,
+     "asigurati": 40473,
+     "salariu_mediu": 5777
+    },
+    {
+     "cod": "221",
+     "judet": "IASI",
+     "angajatori": 21594,
+     "fond_salarii": 1460989704,
+     "asigurati": 208397,
+     "salariu_mediu": 7011
+    },
+    {
+     "cod": "231",
+     "judet": "GIURGIU",
+     "angajatori": 5266,
+     "fond_salarii": 237079688,
+     "asigurati": 41007,
+     "salariu_mediu": 5781
+    },
+    {
+     "cod": "241",
+     "judet": "MARAMURES",
+     "angajatori": 13216,
+     "fond_salarii": 662131959,
+     "asigurati": 120190,
+     "salariu_mediu": 5509
+    },
+    {
+     "cod": "251",
+     "judet": "MEHEDINTI",
+     "angajatori": 4292,
+     "fond_salarii": 199261466,
+     "asigurati": 35407,
+     "salariu_mediu": 5628
+    },
+    {
+     "cod": "261",
+     "judet": "MURES",
+     "angajatori": 15101,
+     "fond_salarii": 975116946,
+     "asigurati": 145069,
+     "salariu_mediu": 6722
+    },
+    {
+     "cod": "271",
+     "judet": "NEAMT",
+     "angajatori": 9695,
+     "fond_salarii": 485349297,
+     "asigurati": 83847,
+     "salariu_mediu": 5789
+    },
+    {
+     "cod": "281",
+     "judet": "OLT",
+     "angajatori": 7107,
+     "fond_salarii": 478083476,
+     "asigurati": 74596,
+     "salariu_mediu": 6409
+    },
+    {
+     "cod": "291",
+     "judet": "PRAHOVA",
+     "angajatori": 19108,
+     "fond_salarii": 1342825052,
+     "asigurati": 192519,
+     "salariu_mediu": 6975
+    },
+    {
+     "cod": "301",
+     "judet": "SATU MARE",
+     "angajatori": 8462,
+     "fond_salarii": 488220055,
+     "asigurati": 82821,
+     "salariu_mediu": 5895
+    },
+    {
+     "cod": "311",
+     "judet": "SALAJ",
+     "angajatori": 5572,
+     "fond_salarii": 283236285,
+     "asigurati": 48923,
+     "salariu_mediu": 5789
+    },
+    {
+     "cod": "321",
+     "judet": "SIBIU",
+     "angajatori": 13239,
+     "fond_salarii": 1150443848,
+     "asigurati": 152761,
+     "salariu_mediu": 7531
+    },
+    {
+     "cod": "331",
+     "judet": "SUCEAVA",
+     "angajatori": 15958,
+     "fond_salarii": 724258600,
+     "asigurati": 135806,
+     "salariu_mediu": 5333
+    },
+    {
+     "cod": "341",
+     "judet": "TELEORMAN",
+     "angajatori": 5038,
+     "fond_salarii": 255812906,
+     "asigurati": 44979,
+     "salariu_mediu": 5687
+    },
+    {
+     "cod": "351",
+     "judet": "TIMIS",
+     "angajatori": 25786,
+     "fond_salarii": 2347302598,
+     "asigurati": 271217,
+     "salariu_mediu": 8655
+    },
+    {
+     "cod": "361",
+     "judet": "TULCEA",
+     "angajatori": 4879,
+     "fond_salarii": 291214550,
+     "asigurati": 46927,
+     "salariu_mediu": 6206
+    },
+    {
+     "cod": "371",
+     "judet": "VASLUI",
+     "angajatori": 6250,
+     "fond_salarii": 311954189,
+     "asigurati": 57399,
+     "salariu_mediu": 5435
+    },
+    {
+     "cod": "381",
+     "judet": "VALCEA",
+     "angajatori": 8966,
+     "fond_salarii": 475068904,
+     "asigurati": 84642,
+     "salariu_mediu": 5613
+    },
+    {
+     "cod": "391",
+     "judet": "VRANCEA",
+     "angajatori": 6517,
+     "fond_salarii": 328481763,
+     "asigurati": 59919,
+     "salariu_mediu": 5482
+    },
+    {
+     "cod": "401",
+     "judet": "CALARASI",
+     "angajatori": 4912,
+     "fond_salarii": 258267549,
+     "asigurati": 41978,
+     "salariu_mediu": 6152
+    },
+    {
+     "cod": "411",
+     "judet": "BUCURESTI",
+     "angajatori": 113962,
+     "fond_salarii": 17524569730,
+     "asigurati": 1633975,
+     "salariu_mediu": 10725
+    },
+    {
+     "cod": "471",
+     "judet": "ILFOV",
+     "angajatori": 31959,
+     "fond_salarii": 2098952532,
+     "asigurati": 285057,
+     "salariu_mediu": 7363
+    }
+   ]
+  },
   {
    "year": 2026,
    "month": 4,
