@@ -2,9 +2,9 @@
   "meta": {
     "sursa": "Bursa Română de Mărfuri (BRM)",
     "url": "https://brm.ro/cotatii-cereale/",
-    "actualizat": "S29 16-22 iulie 2026",
+    "actualizat": "S30 23-29 iulie 2026",
     "frecventa": "saptamanal",
-    "ultima_rulare": "2026-07-27"
+    "ultima_rulare": "2026-08-03"
   },
   "saptamani": [
     {
@@ -397,6 +397,20 @@
         "VEST": 1041,
         "EST": 1033,
         "SUD": 946
+      }
+    },
+    {
+      "nr": 30,
+      "label": "23-29 iulie 2026",
+      "grau": {
+        "VEST": 924,
+        "EST": 931,
+        "SUD": 901
+      },
+      "porumb": {
+        "VEST": 1009,
+        "EST": 1033,
+        "SUD": 900
       }
     }
   ]
