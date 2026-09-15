@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://www.24reco.com/sitemap.xml',
-    host: 'https://www.24reco.com',
+    sitemap: 'https://24reco.com/sitemap.xml',
+    host: 'https://24reco.com',
   }
 }
