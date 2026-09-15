@@ -4,9 +4,9 @@ import Link from 'next/link'
 
 const INDUSTRII = [
   { icon: '🌾', title: 'Agricultură', sub: 'Producție · Suprafețe', href: '/industrii/agricultura' },
-  { icon: '🏗️', title: 'Construcții', sub: 'Autorizații · Lucrări', href: '/Industrii - Constructii.html' },
-  { icon: '🏠', title: 'Imobiliare', sub: 'Tranzacții · ANCPI', href: '/Industrii - Imobiliare.html' },
-  { icon: '🚛', title: 'Transport', sub: 'Marfă · Operatori', href: '/Industrii - Transport.html' },
+  { icon: '🏗️', title: 'Construcții', sub: 'Autorizații · Lucrări', href: '/industrii/constructii' },
+  { icon: '🏠', title: 'Imobiliare', sub: 'Tranzacții · ANCPI', href: '/imobiliare' },
+  { icon: '🚛', title: 'Transport', sub: 'Marfă · Operatori', href: '/transport' },
   { icon: '🏭', title: 'Industrie', sub: 'Exporturi · CSCI', href: '/industrii/industrie' },
   { icon: '🛒', title: 'Comerț', sub: 'Înmatriculări auto · DRPCIV', href: '/comert' },
   { icon: '✈️', title: 'Turism', sub: 'Sosiri · Cazare', href: '/industrii/turism' },
@@ -21,7 +21,7 @@ const INSTITUTII = [
 ]
 
 const RAPOARTE = [
-  { icon: '📊', title: 'Situații Financiare', sub: 'Bilanț · Companii', href: '/Rapoarte - Situatii Financiare.html' },
+  { icon: '📊', title: 'Situații Financiare', sub: 'Bilanț · Companii', href: '/rapoarte/date-financiare' },
   { icon: '🗳️', title: 'Alegeri Locale 2024', sub: 'Județe · Comune', href: '/Rapoarte - Alegeri Locale 2024.html' },
 ]
 
