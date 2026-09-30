@@ -17,6 +17,21 @@ export const diferenta = (a: number, b: number) => {
   return `cu ${fmt1(Math.abs(p))}% ${p < 0 ? 'mai puțin' : 'mai mult'}`
 }
 
+/** „a crescut cu 16,2%” / „a scăzut cu 3,1%” / „a crescut de 2,3 ori” / „a rămas cam la fel” */
+export const schimbare = (a: number, b: number) => {
+  const p = pct(a, b)
+  if (Math.abs(p) < 1) return 'a rămas cam la fel'
+  if (p >= 100) return `a crescut de ${fmt1(a / b)} ori`
+  return `${p > 0 ? 'a crescut' : 'a scăzut'} cu ${fmt1(Math.abs(p))}%`
+}
+
+/** „308 mii”, dar „70 de mii” (regula lui „de” după numerale ≥ 20); sub 100 cu o zecimală */
+export const mii = (v: number) => {
+  if (v < 100) return `${fmt1(v)} mii`
+  const r = Math.round(v) % 100
+  return `${fmt0(v)} ${r === 0 || r >= 20 ? 'de ' : ''}mii`
+}
+
 export type Punct = { an: number; luna: number } // luna: 0 = ianuarie
 export const numeLuna = (p: Punct) => `${LUNI[p.luna]} ${p.an}`
 export const eticheta = (p: Punct) => `${LUNI_SCURT[p.luna]} ${String(p.an).slice(2)}`

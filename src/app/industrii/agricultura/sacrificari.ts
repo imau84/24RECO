@@ -1,6 +1,6 @@
 import type { Analysis, Topic } from '@/components/ModelA'
 import sacrificariData from '@/data/agricultura/sacrificari_data.json'
-import { LUNI, fmt0, fmt1, pct, semn, cap, diferenta, numeLuna, eticheta, parsePerioada } from './util'
+import { LUNI, fmt0, fmt1, pct, semn, cap, diferenta, mii, numeLuna, eticheta, parsePerioada } from './util'
 
 /* Sacrificări de animale în abatoare — Eurostat apro_mt_pheadm, mii capete/lună.
    Toate textele se calculează din date, ca să rămână corecte la actualizare. */
@@ -12,13 +12,6 @@ const SPECII: Record<Specie, { tab: string; animale: string; color: string; ce: 
   bovine: { tab: 'Bovine', animale: 'bovine', color: '#e0a020', ce: 'vaci, tauri și viței' },
 }
 const ORDINE: Specie[] = ['porcine', 'ovine', 'bovine']
-
-// „308 mii”, dar „70 de mii” (regula lui „de” după numerale ≥ 20)
-const mii = (v: number) => {
-  if (v < 100) return `${fmt1(v)} mii`
-  const r = Math.round(v) % 100
-  return `${fmt0(v)} ${r === 0 || r >= 20 ? 'de ' : ''}mii`
-}
 
 /* ── Date ── */
 const { meta } = sacrificariData

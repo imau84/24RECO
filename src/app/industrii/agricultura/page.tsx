@@ -2,6 +2,7 @@ import ModelA, { type Analysis, type Kpi } from '@/components/ModelA'
 import agriculturaData from '@/data/agricultura/agricultura_data.json'
 import { lapteTopic } from './lapte'
 import { sacrificariTopic } from './sacrificari'
+import { carneTopic } from './carne'
 
 /* Pagina e Server Component: calculele de mai jos rulează la build,
    iar textul (KPI-uri, „pe scurt”) ajunge în HTML-ul văzut de Google. */
@@ -156,7 +157,7 @@ export default function AgriculturaPage() {
           chips: [`● Actualizat: ${scurt(meta.actualizat)}`, '🔁 săptămânal', `📅 ${n} săptămâni din 2026`],
           analyses: [analizaComparatie(), analizaZone(), analizaEvolutie('grau'), analizaEvolutie('porumb')],
         }],
-      }, lapteTopic(), sacrificariTopic()]}
+      }, lapteTopic(), sacrificariTopic(), carneTopic()]}
     />
   )
 }

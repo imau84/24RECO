@@ -1,0 +1,463 @@
+{
+    "meta":  {
+                 "sursa":  "Eurostat (European Commission)",
+                 "indicator":  "apro_mt_pwgtm (meatitem=SLAUGHT, unit=THS_T, meat=B3100/B7000)",
+                 "url":  "https://ec.europa.eu/eurostat/databrowser/view/apro_mt_pwgtm/default/table?lang=en",
+                 "unitate":  "mii tone (greutate carcasă)",
+                 "frecventa":  "lunar",
+                 "perioada":  "2019-01 - 2026-06",
+                 "data_extragerii":  "2026-09-15 21:39"
+             },
+    "luni":  [
+                 {
+                     "perioada":  "2019-01",
+                     "porc":  26.37,
+                     "pasare":  40.91
+                 },
+                 {
+                     "perioada":  "2019-02",
+                     "porc":  27.63,
+                     "pasare":  36.25
+                 },
+                 {
+                     "perioada":  "2019-03",
+                     "porc":  29.39,
+                     "pasare":  38.04
+                 },
+                 {
+                     "perioada":  "2019-04",
+                     "porc":  32.44,
+                     "pasare":  37.53
+                 },
+                 {
+                     "perioada":  "2019-05",
+                     "porc":  27.91,
+                     "pasare":  42.17
+                 },
+                 {
+                     "perioada":  "2019-06",
+                     "porc":  25.49,
+                     "pasare":  38.9
+                 },
+                 {
+                     "perioada":  "2019-07",
+                     "porc":  28.48,
+                     "pasare":  43.24
+                 },
+                 {
+                     "perioada":  "2019-08",
+                     "porc":  27.2,
+                     "pasare":  42.19
+                 },
+                 {
+                     "perioada":  "2019-09",
+                     "porc":  27.82,
+                     "pasare":  40.21
+                 },
+                 {
+                     "perioada":  "2019-10",
+                     "porc":  29.94,
+                     "pasare":  44.27
+                 },
+                 {
+                     "perioada":  "2019-11",
+                     "porc":  27.18,
+                     "pasare":  40.23
+                 },
+                 {
+                     "perioada":  "2019-12",
+                     "porc":  32.68,
+                     "pasare":  38.34
+                 },
+                 {
+                     "perioada":  "2020-01",
+                     "porc":  21.39,
+                     "pasare":  40.66
+                 },
+                 {
+                     "perioada":  "2020-02",
+                     "porc":  25.23,
+                     "pasare":  35.48
+                 },
+                 {
+                     "perioada":  "2020-03",
+                     "porc":  27.56,
+                     "pasare":  40.33
+                 },
+                 {
+                     "perioada":  "2020-04",
+                     "porc":  24.71,
+                     "pasare":  38.21
+                 },
+                 {
+                     "perioada":  "2020-05",
+                     "porc":  27.54,
+                     "pasare":  37.22
+                 },
+                 {
+                     "perioada":  "2020-06",
+                     "porc":  28.44,
+                     "pasare":  37.9
+                 },
+                 {
+                     "perioada":  "2020-07",
+                     "porc":  25.59,
+                     "pasare":  39.54
+                 },
+                 {
+                     "perioada":  "2020-08",
+                     "porc":  26.87,
+                     "pasare":  38.11
+                 },
+                 {
+                     "perioada":  "2020-09",
+                     "porc":  28.94,
+                     "pasare":  40.27
+                 },
+                 {
+                     "perioada":  "2020-10",
+                     "porc":  29.79,
+                     "pasare":  41.15
+                 },
+                 {
+                     "perioada":  "2020-11",
+                     "porc":  31.65,
+                     "pasare":  36.67
+                 },
+                 {
+                     "perioada":  "2020-12",
+                     "porc":  33.65,
+                     "pasare":  36.78
+                 },
+                 {
+                     "perioada":  "2021-01",
+                     "porc":  23.71,
+                     "pasare":  36.59
+                 },
+                 {
+                     "perioada":  "2021-02",
+                     "porc":  24.33,
+                     "pasare":  33.35
+                 },
+                 {
+                     "perioada":  "2021-03",
+                     "porc":  27.67,
+                     "pasare":  39.3
+                 },
+                 {
+                     "perioada":  "2021-04",
+                     "porc":  28.87,
+                     "pasare":  40.18
+                 },
+                 {
+                     "perioada":  "2021-05",
+                     "porc":  26.55,
+                     "pasare":  39.68
+                 },
+                 {
+                     "perioada":  "2021-06",
+                     "porc":  27.79,
+                     "pasare":  39.11
+                 },
+                 {
+                     "perioada":  "2021-07",
+                     "porc":  24.86,
+                     "pasare":  40.63
+                 },
+                 {
+                     "perioada":  "2021-08",
+                     "porc":  27.21,
+                     "pasare":  37.55
+                 },
+                 {
+                     "perioada":  "2021-09",
+                     "porc":  21.97,
+                     "pasare":  40.13
+                 },
+                 {
+                     "perioada":  "2021-10",
+                     "porc":  23.42,
+                     "pasare":  40.03
+                 },
+                 {
+                     "perioada":  "2021-11",
+                     "porc":  27.26,
+                     "pasare":  40.5
+                 },
+                 {
+                     "perioada":  "2021-12",
+                     "porc":  27.45,
+                     "pasare":  38.27
+                 },
+                 {
+                     "perioada":  "2022-01",
+                     "porc":  20.4,
+                     "pasare":  36.44
+                 },
+                 {
+                     "perioada":  "2022-02",
+                     "porc":  20.69,
+                     "pasare":  35.67
+                 },
+                 {
+                     "perioada":  "2022-03",
+                     "porc":  21.34,
+                     "pasare":  40.7
+                 },
+                 {
+                     "perioada":  "2022-04",
+                     "porc":  22.99,
+                     "pasare":  39.55
+                 },
+                 {
+                     "perioada":  "2022-05",
+                     "porc":  24.14,
+                     "pasare":  42.82
+                 },
+                 {
+                     "perioada":  "2022-06",
+                     "porc":  20.68,
+                     "pasare":  42.08
+                 },
+                 {
+                     "perioada":  "2022-07",
+                     "porc":  21.02,
+                     "pasare":  40.96
+                 },
+                 {
+                     "perioada":  "2022-08",
+                     "porc":  21.6,
+                     "pasare":  43.51
+                 },
+                 {
+                     "perioada":  "2022-09",
+                     "porc":  21.01,
+                     "pasare":  42.63
+                 },
+                 {
+                     "perioada":  "2022-10",
+                     "porc":  23.82,
+                     "pasare":  42.68
+                 },
+                 {
+                     "perioada":  "2022-11",
+                     "porc":  23.16,
+                     "pasare":  44.05
+                 },
+                 {
+                     "perioada":  "2022-12",
+                     "porc":  26.34,
+                     "pasare":  40.14
+                 },
+                 {
+                     "perioada":  "2023-01",
+                     "porc":  18.97,
+                     "pasare":  41.69
+                 },
+                 {
+                     "perioada":  "2023-02",
+                     "porc":  20.71,
+                     "pasare":  37.57
+                 },
+                 {
+                     "perioada":  "2023-03",
+                     "porc":  22.11,
+                     "pasare":  42.22
+                 },
+                 {
+                     "perioada":  "2023-04",
+                     "porc":  23.18,
+                     "pasare":  38.64
+                 },
+                 {
+                     "perioada":  "2023-05",
+                     "porc":  21.57,
+                     "pasare":  46.62
+                 },
+                 {
+                     "perioada":  "2023-06",
+                     "porc":  17.8,
+                     "pasare":  43.82
+                 },
+                 {
+                     "perioada":  "2023-07",
+                     "porc":  21.06,
+                     "pasare":  42.08
+                 },
+                 {
+                     "perioada":  "2023-08",
+                     "porc":  21.92,
+                     "pasare":  45.4
+                 },
+                 {
+                     "perioada":  "2023-09",
+                     "porc":  20.72,
+                     "pasare":  43.57
+                 },
+                 {
+                     "perioada":  "2023-10",
+                     "porc":  24.9,
+                     "pasare":  45.79
+                 },
+                 {
+                     "perioada":  "2023-11",
+                     "porc":  24.54,
+                     "pasare":  44.8
+                 },
+                 {
+                     "perioada":  "2023-12",
+                     "porc":  26.32,
+                     "pasare":  38.5
+                 },
+                 {
+                     "perioada":  "2024-01",
+                     "porc":  18.93,
+                     "pasare":  45.12
+                 },
+                 {
+                     "perioada":  "2024-02",
+                     "porc":  20.57,
+                     "pasare":  43.83
+                 },
+                 {
+                     "perioada":  "2024-03",
+                     "porc":  21.28,
+                     "pasare":  45.73
+                 },
+                 {
+                     "perioada":  "2024-04",
+                     "porc":  25.25,
+                     "pasare":  48.23
+                 },
+                 {
+                     "perioada":  "2024-05",
+                     "porc":  23.81,
+                     "pasare":  47.32
+                 },
+                 {
+                     "perioada":  "2024-06",
+                     "porc":  22.52,
+                     "pasare":  43.12
+                 },
+                 {
+                     "perioada":  "2024-07",
+                     "porc":  22.68,
+                     "pasare":  46.97
+                 },
+                 {
+                     "perioada":  "2024-08",
+                     "porc":  23.58,
+                     "pasare":  45.75
+                 },
+                 {
+                     "perioada":  "2024-09",
+                     "porc":  23.84,
+                     "pasare":  43.92
+                 },
+                 {
+                     "perioada":  "2024-10",
+                     "porc":  28.19,
+                     "pasare":  47.81
+                 },
+                 {
+                     "perioada":  "2024-11",
+                     "porc":  26.91,
+                     "pasare":  43.54
+                 },
+                 {
+                     "perioada":  "2024-12",
+                     "porc":  30.7,
+                     "pasare":  44.49
+                 },
+                 {
+                     "perioada":  "2025-01",
+                     "porc":  21.72,
+                     "pasare":  51.16
+                 },
+                 {
+                     "perioada":  "2025-02",
+                     "porc":  24.21,
+                     "pasare":  40.77
+                 },
+                 {
+                     "perioada":  "2025-03",
+                     "porc":  26.02,
+                     "pasare":  39.05
+                 },
+                 {
+                     "perioada":  "2025-04",
+                     "porc":  28.53,
+                     "pasare":  50.71
+                 },
+                 {
+                     "perioada":  "2025-05",
+                     "porc":  25.1,
+                     "pasare":  42.29
+                 },
+                 {
+                     "perioada":  "2025-06",
+                     "porc":  23.92,
+                     "pasare":  50.52
+                 },
+                 {
+                     "perioada":  "2025-07",
+                     "porc":  23.83,
+                     "pasare":  61.16
+                 },
+                 {
+                     "perioada":  "2025-08",
+                     "porc":  23.85,
+                     "pasare":  48.47
+                 },
+                 {
+                     "perioada":  "2025-09",
+                     "porc":  25.61,
+                     "pasare":  50.55
+                 },
+                 {
+                     "perioada":  "2025-10",
+                     "porc":  27.9,
+                     "pasare":  53.94
+                 },
+                 {
+                     "perioada":  "2025-11",
+                     "porc":  26.5,
+                     "pasare":  49.93
+                 },
+                 {
+                     "perioada":  "2025-12",
+                     "porc":  30.66,
+                     "pasare":  48.27
+                 },
+                 {
+                     "perioada":  "2026-01",
+                     "porc":  23.72,
+                     "pasare":  52.63
+                 },
+                 {
+                     "perioada":  "2026-02",
+                     "porc":  23.98,
+                     "pasare":  50.83
+                 },
+                 {
+                     "perioada":  "2026-03",
+                     "porc":  28.74,
+                     "pasare":  53.24
+                 },
+                 {
+                     "perioada":  "2026-04",
+                     "porc":  26.94,
+                     "pasare":  51.81
+                 },
+                 {
+                     "perioada":  "2026-05",
+                     "porc":  27.81,
+                     "pasare":  53.64
+                 },
+                 {
+                     "perioada":  "2026-06",
+                     "porc":  27.8,
+                     "pasare":  56.26
+                 }
+             ]
+}
