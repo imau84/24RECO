@@ -144,13 +144,16 @@ export default function AgriculturaPage() {
     <ModelA
       crumbs={[{ label: 'Acasă', href: '/' }, { label: 'Industrii', href: '/#industrii' }, { label: 'Agricultură' }]}
       icon="🌾"
-      title="Prețuri cereale"
-      sub="Cât costă o tonă de grâu și de porumb în România, săptămână de săptămână"
-      chips={[`● Actualizat: ${scurt(meta.actualizat)}`, '🔁 săptămânal', `📅 ${n} săptămâni din 2026`]}
+      title="Agricultură"
+      sub="Prețuri și date din agricultura României, pe înțelesul tuturor"
       theme={{ accent: '#22b07d', accent2: '#5cc99a', tint: '#e6f6ef', tintBorder: '#c4ead9', tintInk: '#185c43' }}
-      sources={[{
-        key: 'BRM', tag: 'bursă', label: 'Bursa Română de Mărfuri', link: 'brm.ro/cotatii-cereale', url: meta.url, freq: 'săptămânal',
-        analyses: [analizaComparatie(), analizaZone(), analizaEvolutie('grau'), analizaEvolutie('porumb')],
+      topics={[{
+        key: 'cereale', label: 'Prețuri cereale', icon: '🌾',
+        sources: [{
+          key: 'BRM', tag: 'bursă', label: 'Bursa Română de Mărfuri', link: 'brm.ro/cotatii-cereale', url: meta.url, freq: 'săptămânal',
+          chips: [`● Actualizat: ${scurt(meta.actualizat)}`, '🔁 săptămânal', `📅 ${n} săptămâni din 2026`],
+          analyses: [analizaComparatie(), analizaZone(), analizaEvolutie('grau'), analizaEvolutie('porumb')],
+        }],
       }]}
     />
   )

@@ -48,8 +48,13 @@ export type Source = {
   link: string
   url?: string
   freq: string
+  /** chip-urile din bara de sus când e activă sursa (ex. „Actualizat: …”) */
+  chips?: string[]
   analyses: Analysis[]
 }
+
+/** Tema (tab nivel 1, ex. „Prețuri cereale”) → surse (sub-tab) → analize */
+export type Topic = { key: string; label: string; icon?: string; sources: Source[] }
 
 export type Theme = {
   accent: string   // culoarea categoriei (ex. #22b07d)
@@ -66,21 +71,27 @@ export type ModelAProps = {
   icon: string
   title: string
   sub: string
-  chips: string[]
+  chips?: string[]
   theme: Theme
-  sources: Source[]
+  /** fie `topics` (3 niveluri: temă › sursă › analiză), fie doar `sources` (2 niveluri) */
+  topics?: Topic[]
+  sources?: Source[]
 }
 
 const PALETTE = ['#5b4be0', '#e5544b', '#22b07d', '#e0a020', '#3b82f6', '#12a5b8', '#e0559c', '#7c5ce6']
 const fmt = (n: number) => new Intl.NumberFormat('ro-RO').format(n)
 const AXIS = { fontSize: 11, fill: '#9aa3b8' }
 
-export default function ModelA({ crumbs, icon, title, sub, chips, theme, sources }: ModelAProps) {
-  const [srcKey, setSrcKey] = useState(sources[0].key)
+export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics, sources }: ModelAProps) {
+  const allTopics: Topic[] = topics ?? [{ key: '_', label: '', sources: sources ?? [] }]
+  const [topicKey, setTopicKey] = useState(allTopics[0].key)
+  const topic = allTopics.find(t => t.key === topicKey) || allTopics[0]
+  const [srcKey, setSrcKey] = useState(topic.sources[0].key)
   const [anIdx, setAnIdx] = useState(0)
   const [view, setView] = useState<'grafic' | 'tabel'>('grafic')
 
-  const source = sources.find(s => s.key === srcKey) || sources[0]
+  const source = topic.sources.find(s => s.key === srcKey) || topic.sources[0]
+  const heroChips = source.chips ?? chips ?? []
   const an = source.analyses[Math.min(anIdx, source.analyses.length - 1)]
   const multi = an.series.length > 1
   const colorOf = (s: Series, i: number) => s.color || (multi ? PALETTE[i % PALETTE.length] : theme.accent)
@@ -132,7 +143,13 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, sources
         .ma-sub{font-size:14px;opacity:.95}
         .ma-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
         .ma-chip{font-size:12px;font-weight:600;background:rgba(255,255,255,.18);padding:5px 11px;border-radius:100px}
-        .ma-l1{display:flex;gap:8px;flex-wrap:wrap}
+        .ma-l0{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+        .ma-l0 button{font:inherit;font-size:15px;font-weight:800;color:var(--ink2);background:#fff;border:1px solid var(--line);border-radius:100px;padding:10px 18px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+        .ma-l0 button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+        .ma-l1{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+        .ma-l1 .lbl{font-size:12px;font-weight:600;color:var(--mute);margin-right:2px}
+        .ma-l1.sub button{font-size:13px;padding:6px 13px}
+        .ma-l1.sub button.on{background:${theme.tint};color:${theme.tintInk};border-color:var(--brand)}
         .ma-l1 button{font:inherit;font-size:14px;font-weight:700;color:var(--ink2);background:#fff;border:1px solid var(--line);border-radius:100px;padding:9px 16px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
         .ma-l1 .tag{font-size:10.5px;font-weight:700;color:#fff;background:var(--mute);border-radius:5px;padding:1px 6px}
         .ma-l1 button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
@@ -186,12 +203,24 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, sources
           </div>
         </div>
         <div className="ma-chips">
-          {chips.map(c => <span key={c} className="ma-chip">{c}</span>)}
+          {heroChips.map(c => <span key={c} className="ma-chip">{c}</span>)}
         </div>
       </div>
 
-      <div className="ma-l1">
-        {sources.map(s => (
+      {topics && (
+        <div className="ma-l0">
+          {topics.map(t => (
+            <button key={t.key} className={t === topic ? 'on' : ''}
+              onClick={() => { setTopicKey(t.key); setSrcKey(t.sources[0].key); setAnIdx(0) }}>
+              {t.icon && <span>{t.icon}</span>}{t.label}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <div className={topics ? 'ma-l1 sub' : 'ma-l1'}>
+        {topics && <span className="lbl">Sursa datelor:</span>}
+        {topic.sources.map(s => (
           <button key={s.key} className={s.key === srcKey ? 'on' : ''} onClick={() => { setSrcKey(s.key); setAnIdx(0) }}>
             {s.label} <span className="tag">{s.tag}</span>
           </button>
