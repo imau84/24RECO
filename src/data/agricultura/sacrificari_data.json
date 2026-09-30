@@ -1,0 +1,553 @@
+{
+    "meta":  {
+                 "sursa":  "Eurostat (European Commission)",
+                 "indicator":  "apro_mt_pheadm (meatitem=SLAUGHT, unit=THS_HD, meat=B1000/B3100/B4100)",
+                 "url":  "https://ec.europa.eu/eurostat/databrowser/view/apro_mt_pheadm/default/table?lang=en",
+                 "unitate":  "mii capete",
+                 "frecventa":  "lunar",
+                 "perioada":  "2019-01 - 2026-06",
+                 "data_extragerii":  "2026-09-15 21:39"
+             },
+    "luni":  [
+                 {
+                     "perioada":  "2019-01",
+                     "bovine":  18.57,
+                     "porcine":  291.97,
+                     "ovine":  31.89
+                 },
+                 {
+                     "perioada":  "2019-02",
+                     "bovine":  16.3,
+                     "porcine":  299.92,
+                     "ovine":  16.86
+                 },
+                 {
+                     "perioada":  "2019-03",
+                     "bovine":  17.3,
+                     "porcine":  321.21,
+                     "ovine":  20.43
+                 },
+                 {
+                     "perioada":  "2019-04",
+                     "bovine":  16.43,
+                     "porcine":  364.86,
+                     "ovine":  233.94
+                 },
+                 {
+                     "perioada":  "2019-05",
+                     "bovine":  19.57,
+                     "porcine":  313.23,
+                     "ovine":  72.97
+                 },
+                 {
+                     "perioada":  "2019-06",
+                     "bovine":  16.32,
+                     "porcine":  290.38,
+                     "ovine":  49.03
+                 },
+                 {
+                     "perioada":  "2019-07",
+                     "bovine":  15.25,
+                     "porcine":  334.86,
+                     "ovine":  63.12
+                 },
+                 {
+                     "perioada":  "2019-08",
+                     "bovine":  15.03,
+                     "porcine":  323.22,
+                     "ovine":  91.37
+                 },
+                 {
+                     "perioada":  "2019-09",
+                     "bovine":  14.84,
+                     "porcine":  331.5,
+                     "ovine":  75.19
+                 },
+                 {
+                     "perioada":  "2019-10",
+                     "bovine":  16.06,
+                     "porcine":  349.39,
+                     "ovine":  74.89
+                 },
+                 {
+                     "perioada":  "2019-11",
+                     "bovine":  15.87,
+                     "porcine":  313.91,
+                     "ovine":  46.27
+                 },
+                 {
+                     "perioada":  "2019-12",
+                     "bovine":  14.52,
+                     "porcine":  386.35,
+                     "ovine":  30.66
+                 },
+                 {
+                     "perioada":  "2020-01",
+                     "bovine":  10.57,
+                     "porcine":  240.6,
+                     "ovine":  19.14
+                 },
+                 {
+                     "perioada":  "2020-02",
+                     "bovine":  9.92,
+                     "porcine":  276.37,
+                     "ovine":  10.48
+                 },
+                 {
+                     "perioada":  "2020-03",
+                     "bovine":  9.99,
+                     "porcine":  307.5,
+                     "ovine":  19.72
+                 },
+                 {
+                     "perioada":  "2020-04",
+                     "bovine":  8.1,
+                     "porcine":  267.17,
+                     "ovine":  137.88
+                 },
+                 {
+                     "perioada":  "2020-05",
+                     "bovine":  9.52,
+                     "porcine":  296.86,
+                     "ovine":  33.45
+                 },
+                 {
+                     "perioada":  "2020-06",
+                     "bovine":  10.02,
+                     "porcine":  315.65,
+                     "ovine":  28.08
+                 },
+                 {
+                     "perioada":  "2020-07",
+                     "bovine":  11.53,
+                     "porcine":  290.82,
+                     "ovine":  50.26
+                 },
+                 {
+                     "perioada":  "2020-08",
+                     "bovine":  11.54,
+                     "porcine":  302.38,
+                     "ovine":  38.79
+                 },
+                 {
+                     "perioada":  "2020-09",
+                     "bovine":  12.49,
+                     "porcine":  326.93,
+                     "ovine":  28.77
+                 },
+                 {
+                     "perioada":  "2020-10",
+                     "bovine":  12.82,
+                     "porcine":  331.16,
+                     "ovine":  35.39
+                 },
+                 {
+                     "perioada":  "2020-11",
+                     "bovine":  12.14,
+                     "porcine":  353.21,
+                     "ovine":  26.53
+                 },
+                 {
+                     "perioada":  "2020-12",
+                     "bovine":  13.27,
+                     "porcine":  386.55,
+                     "ovine":  19.16
+                 },
+                 {
+                     "perioada":  "2021-01",
+                     "bovine":  11.17,
+                     "porcine":  265.45,
+                     "ovine":  8.84
+                 },
+                 {
+                     "perioada":  "2021-02",
+                     "bovine":  10.71,
+                     "porcine":  269.44,
+                     "ovine":  7.58
+                 },
+                 {
+                     "perioada":  "2021-03",
+                     "bovine":  11.36,
+                     "porcine":  303.61,
+                     "ovine":  55.83
+                 },
+                 {
+                     "perioada":  "2021-04",
+                     "bovine":  11.18,
+                     "porcine":  311.02,
+                     "ovine":  97.05
+                 },
+                 {
+                     "perioada":  "2021-05",
+                     "bovine":  10.27,
+                     "porcine":  282.35,
+                     "ovine":  13.76
+                 },
+                 {
+                     "perioada":  "2021-06",
+                     "bovine":  11.25,
+                     "porcine":  299.7,
+                     "ovine":  13.37
+                 },
+                 {
+                     "perioada":  "2021-07",
+                     "bovine":  12.73,
+                     "porcine":  284.32,
+                     "ovine":  27.18
+                 },
+                 {
+                     "perioada":  "2021-08",
+                     "bovine":  12.58,
+                     "porcine":  316.94,
+                     "ovine":  22.48
+                 },
+                 {
+                     "perioada":  "2021-09",
+                     "bovine":  13.68,
+                     "porcine":  253.13,
+                     "ovine":  31.93
+                 },
+                 {
+                     "perioada":  "2021-10",
+                     "bovine":  13.76,
+                     "porcine":  258.18,
+                     "ovine":  36.35
+                 },
+                 {
+                     "perioada":  "2021-11",
+                     "bovine":  17.48,
+                     "porcine":  298.12,
+                     "ovine":  38.88
+                 },
+                 {
+                     "perioada":  "2021-12",
+                     "bovine":  16.1,
+                     "porcine":  308.66,
+                     "ovine":  32.54
+                 },
+                 {
+                     "perioada":  "2022-01",
+                     "bovine":  12.59,
+                     "porcine":  228.87,
+                     "ovine":  12.18
+                 },
+                 {
+                     "perioada":  "2022-02",
+                     "bovine":  12.63,
+                     "porcine":  228.36,
+                     "ovine":  9.67
+                 },
+                 {
+                     "perioada":  "2022-03",
+                     "bovine":  12.08,
+                     "porcine":  233.76,
+                     "ovine":  14.71
+                 },
+                 {
+                     "perioada":  "2022-04",
+                     "bovine":  10.71,
+                     "porcine":  253.97,
+                     "ovine":  100.17
+                 },
+                 {
+                     "perioada":  "2022-05",
+                     "bovine":  12.42,
+                     "porcine":  266.6,
+                     "ovine":  11.86
+                 },
+                 {
+                     "perioada":  "2022-06",
+                     "bovine":  12.25,
+                     "porcine":  237.82,
+                     "ovine":  10.72
+                 },
+                 {
+                     "perioada":  "2022-07",
+                     "bovine":  12.8,
+                     "porcine":  246.04,
+                     "ovine":  23.8
+                 },
+                 {
+                     "perioada":  "2022-08",
+                     "bovine":  14.19,
+                     "porcine":  261.84,
+                     "ovine":  20.43
+                 },
+                 {
+                     "perioada":  "2022-09",
+                     "bovine":  14.97,
+                     "porcine":  250.51,
+                     "ovine":  29.82
+                 },
+                 {
+                     "perioada":  "2022-10",
+                     "bovine":  14.03,
+                     "porcine":  276.57,
+                     "ovine":  30.11
+                 },
+                 {
+                     "perioada":  "2022-11",
+                     "bovine":  15.51,
+                     "porcine":  266.38,
+                     "ovine":  22.07
+                 },
+                 {
+                     "perioada":  "2022-12",
+                     "bovine":  12.7,
+                     "porcine":  305.97,
+                     "ovine":  18.36
+                 },
+                 {
+                     "perioada":  "2023-01",
+                     "bovine":  10.85,
+                     "porcine":  212.5,
+                     "ovine":  11.19
+                 },
+                 {
+                     "perioada":  "2023-02",
+                     "bovine":  10.52,
+                     "porcine":  229.21,
+                     "ovine":  7.89
+                 },
+                 {
+                     "perioada":  "2023-03",
+                     "bovine":  11.52,
+                     "porcine":  244.74,
+                     "ovine":  24.59
+                 },
+                 {
+                     "perioada":  "2023-04",
+                     "bovine":  9.07,
+                     "porcine":  262.93,
+                     "ovine":  97.53
+                 },
+                 {
+                     "perioada":  "2023-05",
+                     "bovine":  11.2,
+                     "porcine":  250.13,
+                     "ovine":  15.14
+                 },
+                 {
+                     "perioada":  "2023-06",
+                     "bovine":  9.67,
+                     "porcine":  206.67,
+                     "ovine":  21.41
+                 },
+                 {
+                     "perioada":  "2023-07",
+                     "bovine":  10.61,
+                     "porcine":  246.35,
+                     "ovine":  13.02
+                 },
+                 {
+                     "perioada":  "2023-08",
+                     "bovine":  11.56,
+                     "porcine":  258.35,
+                     "ovine":  16.02
+                 },
+                 {
+                     "perioada":  "2023-09",
+                     "bovine":  11.25,
+                     "porcine":  239.87,
+                     "ovine":  19.39
+                 },
+                 {
+                     "perioada":  "2023-10",
+                     "bovine":  14.63,
+                     "porcine":  285.6,
+                     "ovine":  25.74
+                 },
+                 {
+                     "perioada":  "2023-11",
+                     "bovine":  14.35,
+                     "porcine":  280.68,
+                     "ovine":  20.16
+                 },
+                 {
+                     "perioada":  "2023-12",
+                     "bovine":  11.57,
+                     "porcine":  305.06,
+                     "ovine":  22.04
+                 },
+                 {
+                     "perioada":  "2024-01",
+                     "bovine":  11.4,
+                     "porcine":  212.82,
+                     "ovine":  13.5
+                 },
+                 {
+                     "perioada":  "2024-02",
+                     "bovine":  11.85,
+                     "porcine":  230.55,
+                     "ovine":  11.55
+                 },
+                 {
+                     "perioada":  "2024-03",
+                     "bovine":  11.33,
+                     "porcine":  235.37,
+                     "ovine":  53.5
+                 },
+                 {
+                     "perioada":  "2024-04",
+                     "bovine":  11.83,
+                     "porcine":  281.39,
+                     "ovine":  81.87
+                 },
+                 {
+                     "perioada":  "2024-05",
+                     "bovine":  10.01,
+                     "porcine":  264.54,
+                     "ovine":  27.49
+                 },
+                 {
+                     "perioada":  "2024-06",
+                     "bovine":  9.7,
+                     "porcine":  257.42,
+                     "ovine":  31.1
+                 },
+                 {
+                     "perioada":  "2024-07",
+                     "bovine":  13.17,
+                     "porcine":  264.8,
+                     "ovine":  18.98
+                 },
+                 {
+                     "perioada":  "2024-08",
+                     "bovine":  12.03,
+                     "porcine":  277.94,
+                     "ovine":  43.3
+                 },
+                 {
+                     "perioada":  "2024-09",
+                     "bovine":  12.58,
+                     "porcine":  274.94,
+                     "ovine":  46.04
+                 },
+                 {
+                     "perioada":  "2024-10",
+                     "bovine":  15.87,
+                     "porcine":  316.85,
+                     "ovine":  51.68
+                 },
+                 {
+                     "perioada":  "2024-11",
+                     "bovine":  17.07,
+                     "porcine":  295.68,
+                     "ovine":  46.73
+                 },
+                 {
+                     "perioada":  "2024-12",
+                     "bovine":  14.16,
+                     "porcine":  348.0,
+                     "ovine":  44.24
+                 },
+                 {
+                     "perioada":  "2025-01",
+                     "bovine":  13.84,
+                     "porcine":  237.28,
+                     "ovine":  36.64
+                 },
+                 {
+                     "perioada":  "2025-02",
+                     "bovine":  13.31,
+                     "porcine":  257.44,
+                     "ovine":  36.59
+                 },
+                 {
+                     "perioada":  "2025-03",
+                     "bovine":  13.34,
+                     "porcine":  278.17,
+                     "ovine":  55.22
+                 },
+                 {
+                     "perioada":  "2025-04",
+                     "bovine":  12.99,
+                     "porcine":  305.71,
+                     "ovine":  289.2
+                 },
+                 {
+                     "perioada":  "2025-05",
+                     "bovine":  12.51,
+                     "porcine":  273.23,
+                     "ovine":  76.97
+                 },
+                 {
+                     "perioada":  "2025-06",
+                     "bovine":  14.46,
+                     "porcine":  271.11,
+                     "ovine":  71.53
+                 },
+                 {
+                     "perioada":  "2025-07",
+                     "bovine":  15.36,
+                     "porcine":  276.84,
+                     "ovine":  85.14
+                 },
+                 {
+                     "perioada":  "2025-08",
+                     "bovine":  13.63,
+                     "porcine":  277.13,
+                     "ovine":  103.13
+                 },
+                 {
+                     "perioada":  "2025-09",
+                     "bovine":  15.89,
+                     "porcine":  294.76,
+                     "ovine":  89.44
+                 },
+                 {
+                     "perioada":  "2025-10",
+                     "bovine":  19.33,
+                     "porcine":  308.27,
+                     "ovine":  90.08
+                 },
+                 {
+                     "perioada":  "2025-11",
+                     "bovine":  17.27,
+                     "porcine":  288.41,
+                     "ovine":  75.06
+                 },
+                 {
+                     "perioada":  "2025-12",
+                     "bovine":  14.61,
+                     "porcine":  342.46,
+                     "ovine":  76.91
+                 },
+                 {
+                     "perioada":  "2026-01",
+                     "bovine":  11.93,
+                     "porcine":  253.3,
+                     "ovine":  33.4
+                 },
+                 {
+                     "perioada":  "2026-02",
+                     "bovine":  11.7,
+                     "porcine":  253.42,
+                     "ovine":  27.28
+                 },
+                 {
+                     "perioada":  "2026-03",
+                     "bovine":  13.47,
+                     "porcine":  307.22,
+                     "ovine":  189.45
+                 },
+                 {
+                     "perioada":  "2026-04",
+                     "bovine":  11.37,
+                     "porcine":  291.74,
+                     "ovine":  158.02
+                 },
+                 {
+                     "perioada":  "2026-05",
+                     "bovine":  11.17,
+                     "porcine":  299.52,
+                     "ovine":  78.74
+                 },
+                 {
+                     "perioada":  "2026-06",
+                     "bovine":  10.47,
+                     "porcine":  308.46,
+                     "ovine":  70.53
+                 }
+             ]
+}

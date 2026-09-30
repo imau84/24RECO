@@ -17,7 +17,14 @@ export type Kpi = {
   hint?: string
 }
 
-export type Series = { name: string; data: number[]; color?: string }
+export type Series = {
+  name: string
+  /** null = lună/perioadă fără date (apare ca „—” în tabel și gol în grafic) */
+  data: (number | null)[]
+  color?: string
+  /** culoare per punct (ex. verde/roșu pentru creștere/scădere) */
+  colors?: string[]
+}
 
 export type Analysis = {
   name: string
@@ -38,6 +45,8 @@ export type Analysis = {
   tableNewestFirst?: boolean
   /** axa Y pornește de la minimul datelor, nu de la 0 (doar la grafic linie) */
   zoomY?: boolean
+  /** sufix pentru valori în tooltip/tabel (ex. „%”) */
+  valueSuffix?: string
   footnote?: string
 }
 
@@ -79,7 +88,7 @@ export type ModelAProps = {
 }
 
 const PALETTE = ['#5b4be0', '#e5544b', '#22b07d', '#e0a020', '#3b82f6', '#12a5b8', '#e0559c', '#7c5ce6']
-const fmt = (n: number) => new Intl.NumberFormat('ro-RO').format(n)
+const fmt = (n: number | null) => (n == null ? '—' : new Intl.NumberFormat('ro-RO').format(n))
 const AXIS = { fontSize: 11, fill: '#9aa3b8' }
 
 export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics, sources }: ModelAProps) {
@@ -98,31 +107,32 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
 
   // rânduri pentru Recharts: { name, full, s0, s1, ... }
   const rows = an.labels.map((l, i) => {
-    const r: Record<string, string | number> = { name: l, full: an.labelsLong?.[i] ?? l }
+    const r: Record<string, string | number | null> = { name: l, full: an.labelsLong?.[i] ?? l }
     an.series.forEach((s, j) => { r['s' + j] = s.data[i] })
     return r
   })
-  const total = an.series[0].data.reduce((a, b) => a + b, 0)
+  const all = an.series.flatMap(s => s.data).filter((v): v is number => v != null)
+  const total = an.series[0].data.reduce<number>((a, b) => a + (b ?? 0), 0)
   const tableRows = an.labels.map((_, i) => i)
   if (an.tableNewestFirst) tableRows.reverse()
+  const sfx = an.valueSuffix ?? ''
 
   const tooltip = (
     <Tooltip
-      formatter={(v: number, key: string) => [fmt(v), an.series[Number(String(key).slice(1))]?.name ?? '']}
+      formatter={(v: number, key: string) => [fmt(v) + sfx, an.series[Number(String(key).slice(1))]?.name ?? '']}
       labelFormatter={(_: unknown, p: { payload?: { full?: string } }[]) => p?.[0]?.payload?.full ?? ''}
     />
   )
-  // zoomY: axa pornește aproape de minim, cu gradații rotunde (ex. 850, 900, 950…)
-  let yTicks: number[] | undefined
-  if (an.zoomY) {
-    const all = an.series.flatMap(s => s.data)
-    const span = Math.max(...all) - Math.min(...all)
-    const step = [10, 20, 25, 50, 100, 200, 250, 500, 1000, 2000, 5000].find(s => span / s <= 6) ?? 10000
-    const lo = Math.floor(Math.min(...all) / step) * step, hi = Math.ceil(Math.max(...all) / step) * step
-    yTicks = []
-    for (let v = lo; v <= hi; v += step) yTicks.push(v)
-  }
-  const yDomain: [number, number | 'auto'] = yTicks ? [yTicks[0], yTicks[yTicks.length - 1]] : [0, 'auto']
+  // gradații rotunde pe axa Y (ex. 850, 900, 950… sau 0, 500, 1.000…)
+  // zoomY: axa pornește aproape de minim; altfel de la 0 (sau sub 0, dacă există valori negative)
+  const yMin = an.zoomY ? Math.min(...all) : Math.min(0, ...all)
+  const yMax = Math.max(0, ...all)
+  const span = yMax - yMin || 1
+  const step = [1, 2, 2.5, 5].flatMap(m => [1, 10, 100, 1000, 10000, 100000].map(p => m * p))
+    .sort((a, b) => a - b).find(s => span / s <= 6) ?? 1000000
+  const yTicks: number[] = []
+  for (let v = Math.floor(yMin / step) * step; v <= Math.ceil(yMax / step) * step + 1e-9; v += step) yTicks.push(Math.round(v * 100) / 100)
+  const yDomain: [number, number] = [yTicks[0], yTicks[yTicks.length - 1]]
 
   return (
     <main className="ma">
@@ -284,12 +294,14 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
                 ) : (
                   <BarChart data={rows}>
                     <CartesianGrid vertical={false} stroke="#eef0f6" />
-                    <XAxis dataKey="name" tick={AXIS} />
-                    <YAxis tick={AXIS} tickFormatter={fmt} width={52} />
+                    <XAxis dataKey="name" tick={AXIS} minTickGap={8} />
+                    <YAxis tick={AXIS} tickFormatter={fmt} domain={yDomain} ticks={yTicks} width={52} />
                     {tooltip}
                     {an.series.map((s, i) => (
                       <Bar key={s.name} dataKey={'s' + i} fill={colorOf(s, i)} radius={[6, 6, 0, 0]} isAnimationActive={false}>
-                        {!multi && rows.map((_, j) => <Cell key={j} fill={PALETTE[j % PALETTE.length]} />)}
+                        {s.colors
+                          ? rows.map((_, j) => <Cell key={j} fill={s.colors![j]} />)
+                          : !multi && !s.color && rows.map((_, j) => <Cell key={j} fill={PALETTE[j % PALETTE.length]} />)}
                       </Bar>
                     ))}
                   </BarChart>
@@ -311,8 +323,8 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
                 {tableRows.map(i => (
                   <tr key={i}>
                     <td>{an.labelsLong?.[i] ?? an.labels[i]}</td>
-                    {an.series.map(s => <td key={s.name} className="n">{fmt(s.data[i])}</td>)}
-                    {an.share && <td className="n">{total ? (an.series[0].data[i] / total * 100).toFixed(1) : 0}%</td>}
+                    {an.series.map(s => <td key={s.name} className="n">{s.data[i] == null ? '—' : fmt(s.data[i]) + sfx}</td>)}
+                    {an.share && <td className="n">{total ? ((an.series[0].data[i] ?? 0) / total * 100).toFixed(1) : 0}%</td>}
                   </tr>
                 ))}
               </tbody>

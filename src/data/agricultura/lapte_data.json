@@ -1,0 +1,377 @@
+{
+    "meta":  {
+                 "sursa":  "Eurostat (European Commission)",
+                 "indicator":  "apro_mk_colm (dairyprod=D1110D, milkitem=PRD, unit=THS_T)",
+                 "url":  "https://ec.europa.eu/eurostat/databrowser/view/apro_mk_colm/default/table?lang=en",
+                 "unitate":  "mii tone",
+                 "frecventa":  "lunar",
+                 "perioada":  "2019-01 - 2026-07",
+                 "data_extragerii":  "2026-09-15 21:39"
+             },
+    "luni":  [
+                 {
+                     "perioada":  "2019-01",
+                     "valoare":  86.72
+                 },
+                 {
+                     "perioada":  "2019-02",
+                     "valoare":  82.34
+                 },
+                 {
+                     "perioada":  "2019-03",
+                     "valoare":  98.32
+                 },
+                 {
+                     "perioada":  "2019-04",
+                     "valoare":  98.91
+                 },
+                 {
+                     "perioada":  "2019-05",
+                     "valoare":  111.77
+                 },
+                 {
+                     "perioada":  "2019-06",
+                     "valoare":  104.16
+                 },
+                 {
+                     "perioada":  "2019-07",
+                     "valoare":  103.95
+                 },
+                 {
+                     "perioada":  "2019-08",
+                     "valoare":  94.95
+                 },
+                 {
+                     "perioada":  "2019-09",
+                     "valoare":  87.98
+                 },
+                 {
+                     "perioada":  "2019-10",
+                     "valoare":  87.26
+                 },
+                 {
+                     "perioada":  "2019-11",
+                     "valoare":  81.35
+                 },
+                 {
+                     "perioada":  "2019-12",
+                     "valoare":  84.64
+                 },
+                 {
+                     "perioada":  "2020-01",
+                     "valoare":  85.64
+                 },
+                 {
+                     "perioada":  "2020-02",
+                     "valoare":  85.12
+                 },
+                 {
+                     "perioada":  "2020-03",
+                     "valoare":  95.74
+                 },
+                 {
+                     "perioada":  "2020-04",
+                     "valoare":  94.83
+                 },
+                 {
+                     "perioada":  "2020-05",
+                     "valoare":  107.61
+                 },
+                 {
+                     "perioada":  "2020-06",
+                     "valoare":  108.98
+                 },
+                 {
+                     "perioada":  "2020-07",
+                     "valoare":  106.97
+                 },
+                 {
+                     "perioada":  "2020-08",
+                     "valoare":  99.08
+                 },
+                 {
+                     "perioada":  "2020-09",
+                     "valoare":  91.52
+                 },
+                 {
+                     "perioada":  "2020-10",
+                     "valoare":  89.99
+                 },
+                 {
+                     "perioada":  "2020-11",
+                     "valoare":  83.54
+                 },
+                 {
+                     "perioada":  "2020-12",
+                     "valoare":  85.88
+                 },
+                 {
+                     "perioada":  "2021-01",
+                     "valoare":  87.41
+                 },
+                 {
+                     "perioada":  "2021-02",
+                     "valoare":  81.08
+                 },
+                 {
+                     "perioada":  "2021-03",
+                     "valoare":  95.7
+                 },
+                 {
+                     "perioada":  "2021-04",
+                     "valoare":  96.12
+                 },
+                 {
+                     "perioada":  "2021-05",
+                     "valoare":  113.34
+                 },
+                 {
+                     "perioada":  "2021-06",
+                     "valoare":  111.71
+                 },
+                 {
+                     "perioada":  "2021-07",
+                     "valoare":  104.86
+                 },
+                 {
+                     "perioada":  "2021-08",
+                     "valoare":  95.66
+                 },
+                 {
+                     "perioada":  "2021-09",
+                     "valoare":  89.09
+                 },
+                 {
+                     "perioada":  "2021-10",
+                     "valoare":  88.13
+                 },
+                 {
+                     "perioada":  "2021-11",
+                     "valoare":  80.44
+                 },
+                 {
+                     "perioada":  "2021-12",
+                     "valoare":  82.12
+                 },
+                 {
+                     "perioada":  "2022-01",
+                     "valoare":  85.12
+                 },
+                 {
+                     "perioada":  "2022-02",
+                     "valoare":  79.12
+                 },
+                 {
+                     "perioada":  "2022-03",
+                     "valoare":  91.19
+                 },
+                 {
+                     "perioada":  "2022-04",
+                     "valoare":  90.77
+                 },
+                 {
+                     "perioada":  "2022-05",
+                     "valoare":  106.88
+                 },
+                 {
+                     "perioada":  "2022-06",
+                     "valoare":  105.59
+                 },
+                 {
+                     "perioada":  "2022-07",
+                     "valoare":  99.34
+                 },
+                 {
+                     "perioada":  "2022-08",
+                     "valoare":  97.84
+                 },
+                 {
+                     "perioada":  "2022-09",
+                     "valoare":  94.46
+                 },
+                 {
+                     "perioada":  "2022-10",
+                     "valoare":  98.83
+                 },
+                 {
+                     "perioada":  "2022-11",
+                     "valoare":  92.02
+                 },
+                 {
+                     "perioada":  "2022-12",
+                     "valoare":  92.63
+                 },
+                 {
+                     "perioada":  "2023-01",
+                     "valoare":  95.42
+                 },
+                 {
+                     "perioada":  "2023-02",
+                     "valoare":  88.79
+                 },
+                 {
+                     "perioada":  "2023-03",
+                     "valoare":  104.83
+                 },
+                 {
+                     "perioada":  "2023-04",
+                     "valoare":  103.21
+                 },
+                 {
+                     "perioada":  "2023-05",
+                     "valoare":  120.5
+                 },
+                 {
+                     "perioada":  "2023-06",
+                     "valoare":  113.33
+                 },
+                 {
+                     "perioada":  "2023-07",
+                     "valoare":  106.68
+                 },
+                 {
+                     "perioada":  "2023-08",
+                     "valoare":  101.24
+                 },
+                 {
+                     "perioada":  "2023-09",
+                     "valoare":  94.34
+                 },
+                 {
+                     "perioada":  "2023-10",
+                     "valoare":  94.67
+                 },
+                 {
+                     "perioada":  "2023-11",
+                     "valoare":  87.6
+                 },
+                 {
+                     "perioada":  "2023-12",
+                     "valoare":  93.93
+                 },
+                 {
+                     "perioada":  "2024-01",
+                     "valoare":  97.42
+                 },
+                 {
+                     "perioada":  "2024-02",
+                     "valoare":  95.56
+                 },
+                 {
+                     "perioada":  "2024-03",
+                     "valoare":  107.32
+                 },
+                 {
+                     "perioada":  "2024-04",
+                     "valoare":  112.55
+                 },
+                 {
+                     "perioada":  "2024-05",
+                     "valoare":  123.24
+                 },
+                 {
+                     "perioada":  "2024-06",
+                     "valoare":  112.94
+                 },
+                 {
+                     "perioada":  "2024-07",
+                     "valoare":  108.89
+                 },
+                 {
+                     "perioada":  "2024-08",
+                     "valoare":  106.64
+                 },
+                 {
+                     "perioada":  "2024-09",
+                     "valoare":  96.04
+                 },
+                 {
+                     "perioada":  "2024-10",
+                     "valoare":  99.89
+                 },
+                 {
+                     "perioada":  "2024-11",
+                     "valoare":  97.45
+                 },
+                 {
+                     "perioada":  "2024-12",
+                     "valoare":  102.16
+                 },
+                 {
+                     "perioada":  "2025-01",
+                     "valoare":  95.74
+                 },
+                 {
+                     "perioada":  "2025-02",
+                     "valoare":  91.87
+                 },
+                 {
+                     "perioada":  "2025-03",
+                     "valoare":  106.3
+                 },
+                 {
+                     "perioada":  "2025-04",
+                     "valoare":  105.21
+                 },
+                 {
+                     "perioada":  "2025-05",
+                     "valoare":  118.71
+                 },
+                 {
+                     "perioada":  "2025-06",
+                     "valoare":  110.17
+                 },
+                 {
+                     "perioada":  "2025-07",
+                     "valoare":  104.6
+                 },
+                 {
+                     "perioada":  "2025-08",
+                     "valoare":  104.0
+                 },
+                 {
+                     "perioada":  "2025-09",
+                     "valoare":  95.06
+                 },
+                 {
+                     "perioada":  "2025-10",
+                     "valoare":  94.28
+                 },
+                 {
+                     "perioada":  "2025-11",
+                     "valoare":  88.25
+                 },
+                 {
+                     "perioada":  "2025-12",
+                     "valoare":  92.91
+                 },
+                 {
+                     "perioada":  "2026-01",
+                     "valoare":  83.72
+                 },
+                 {
+                     "perioada":  "2026-02",
+                     "valoare":  85.78
+                 },
+                 {
+                     "perioada":  "2026-03",
+                     "valoare":  93.15
+                 },
+                 {
+                     "perioada":  "2026-04",
+                     "valoare":  90.65
+                 },
+                 {
+                     "perioada":  "2026-05",
+                     "valoare":  107.64
+                 },
+                 {
+                     "perioada":  "2026-06",
+                     "valoare":  93.48
+                 },
+                 {
+                     "perioada":  "2026-07",
+                     "valoare":  95.06
+                 }
+             ]
+}
