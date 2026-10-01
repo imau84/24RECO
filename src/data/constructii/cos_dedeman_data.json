@@ -1,0 +1,289 @@
+{
+  "observatii": [
+    {
+      "luna": "2026-10",
+      "data": "2026-10-01",
+      "produse": {
+        "6044033": {
+          "pret": 36.91,
+          "pret_unitar": 0.92,
+          "unitate": "kg",
+          "unitate_pachet": "sac"
+        },
+        "6062991": {
+          "pret": 36.99,
+          "pret_unitar": 0.92,
+          "unitate": "kg",
+          "unitate_pachet": "sac"
+        },
+        "6011034": {
+          "pret": 36.99,
+          "pret_unitar": 0.92,
+          "unitate": "kg",
+          "unitate_pachet": "sac"
+        },
+        "6061564": {
+          "pret": 18.5,
+          "unitate_pachet": "sac"
+        },
+        "6059766": {
+          "pret": 18.98,
+          "unitate_pachet": "sac"
+        },
+        "6065094": {
+          "pret": 533.0,
+          "unitate_pachet": "m3"
+        },
+        "6065096": {
+          "pret": 533.0,
+          "unitate_pachet": "m3"
+        },
+        "6006574": {
+          "pret": 3.57,
+          "unitate_pachet": "bucată"
+        },
+        "6025878": {
+          "pret": 344.9,
+          "pret_unitar": 10.35,
+          "unitate": "m2",
+          "unitate_pachet": "m3"
+        },
+        "6025880": {
+          "pret": 319.96,
+          "pret_unitar": 16.0,
+          "unitate": "m2",
+          "unitate_pachet": "m3"
+        },
+        "6046746": {
+          "pret": 451.4,
+          "pret_unitar": 45.14,
+          "unitate": "m2",
+          "unitate_pachet": "m3"
+        },
+        "6016677": {
+          "pret": 2.55,
+          "pret_unitar": 51.0,
+          "unitate": "pachet",
+          "unitate_pachet": "bucată"
+        },
+        "6037924": {
+          "pret": 1.2,
+          "pret_unitar": 24.0,
+          "unitate": "pachet",
+          "unitate_pachet": "bucată"
+        },
+        "6029542": {
+          "pret": 86.13,
+          "pret_unitar": 43.07,
+          "unitate": "m2",
+          "unitate_pachet": "bucată"
+        },
+        "6050575": {
+          "pret": 91.39,
+          "unitate_pachet": "rolă"
+        },
+        "5009135": {
+          "pret": 41.9,
+          "pret_unitar": 1.68,
+          "unitate": "kg",
+          "unitate_pachet": "bucată"
+        },
+        "6068692": {
+          "pret": 16.99,
+          "unitate_pachet": "bucată"
+        },
+        "6012314": {
+          "pret": 39.2,
+          "pret_unitar": 1.57,
+          "unitate": "kg",
+          "unitate_pachet": "sac"
+        },
+        "5008952": {
+          "pret": 26.98,
+          "pret_unitar": 0.9,
+          "unitate": "kg",
+          "unitate_pachet": "bucată"
+        },
+        "5006960": {
+          "pret": 48.19,
+          "unitate_pachet": "bucată",
+          "promo": true,
+          "pret_vechi": 53.62
+        },
+        "5009550": {
+          "pret": 109.0,
+          "pret_unitar": 34.94,
+          "unitate": "m2",
+          "unitate_pachet": "bucată"
+        }
+      }
+    }
+  ],
+  "meta": {
+    "titlu": "Coșul de materiale de construcții — indice 24reco",
+    "sursa": "Prețuri de raft publicate pe dedeman.ro, colectate de 24reco.com",
+    "url": "https://www.dedeman.ro",
+    "metoda": "Prețul pe unitate (lei/kg, lei/mp…) al fiecărui produs, la data de 1 a lunii. Indice de grupă = media geometrică a raporturilor de preț față de prima observație; indice general = media ponderată a grupelor.",
+    "frecventa": "lunar, ziua 1"
+  },
+  "grupe": [
+    {
+      "key": "ciment",
+      "nume": "Ciment și lianți",
+      "pondere": 22
+    },
+    {
+      "key": "zidarie",
+      "nume": "Zidărie (BCA, cărămidă)",
+      "pondere": 15
+    },
+    {
+      "key": "termo",
+      "nume": "Termoizolație",
+      "pondere": 18
+    },
+    {
+      "key": "otel",
+      "nume": "Oțel-beton și armături",
+      "pondere": 20
+    },
+    {
+      "key": "adezivi",
+      "nume": "Adezivi și mortare",
+      "pondere": 15
+    },
+    {
+      "key": "gips",
+      "nume": "Gips-carton",
+      "pondere": 10
+    }
+  ],
+  "cos": [
+    {
+      "cod": "6044033",
+      "grupa": "ciment",
+      "nume": "Ciment Holcim SapaBet 22.5X, 40 kg",
+      "url": "https://www.dedeman.ro/ro/ciment-holcim-sapabet-22-5x-sac-40-kg/p/6044033"
+    },
+    {
+      "cod": "6062991",
+      "grupa": "ciment",
+      "nume": "Ciment Holcim Ecoplanet Plus 42.5 N, 40 kg",
+      "url": "https://www.dedeman.ro/ro/ciment-compozit-pentru-structuri-din-beton-holcim-ecoplanet-plus-42-5-n-40-kg/p/6062991"
+    },
+    {
+      "cod": "6011034",
+      "grupa": "ciment",
+      "nume": "Ciment Romcim Ultra 42,5, 40 kg",
+      "url": "https://www.dedeman.ro/ro/ciment-romcim-ultra-42-5-40-kg/p/6011034"
+    },
+    {
+      "cod": "6061564",
+      "grupa": "ciment",
+      "nume": "Ciment Heidelberg Evobuild CEM II 42,5R, 20 kg",
+      "url": "https://www.dedeman.ro/ro/ciment-portland-heidelberg-materials-cem-ii-b-m-s-ll-42-5-r-evobuild-20-kg/p/6061564"
+    },
+    {
+      "cod": "6059766",
+      "grupa": "ciment",
+      "nume": "Ciment zidărie Heidelberg Evobuild Z-100, 20 kg",
+      "url": "https://www.dedeman.ro/ro/ciment-pentru-zidarie-heidelberg-materials-evobuild-z-100-20-kg/p/6059766"
+    },
+    {
+      "cod": "6065094",
+      "grupa": "zidarie",
+      "nume": "BCA Performo Clasic 650×100×250 mm",
+      "url": "https://www.dedeman.ro/ro/bca-performo-clasic-650-x-100-x-250-mm-lxgxh/p/6065094"
+    },
+    {
+      "cod": "6065096",
+      "grupa": "zidarie",
+      "nume": "BCA Performo Clasic 650×200×250 mm",
+      "url": "https://www.dedeman.ro/ro/bca-performo-clasic-650-x-200-x-250-mm-lxgxh/p/6065096"
+    },
+    {
+      "cod": "6006574",
+      "grupa": "zidarie",
+      "nume": "Cărămidă plină Helios P63A 230×115×63 mm",
+      "url": "https://www.dedeman.ro/ro/caramida-interior/-exterior-helios-plina-rosu-p63a-230-x-115-x-63-mm/p/6006574"
+    },
+    {
+      "cod": "6025878",
+      "grupa": "termo",
+      "nume": "Polistiren Baudeman EPS 80, 3 cm",
+      "url": "https://www.dedeman.ro/ro/polistiren-expandat-pentru-fatada-baudeman-eps-80-3-cm/p/6025878"
+    },
+    {
+      "cod": "6025880",
+      "grupa": "termo",
+      "nume": "Polistiren Baudeman EPS 80, 5 cm",
+      "url": "https://www.dedeman.ro/ro/polistiren-expandat-pentru-fatada-baudeman-eps-80-5-cm/p/6025880"
+    },
+    {
+      "cod": "6046746",
+      "grupa": "termo",
+      "nume": "Polistiren Baudeman EPS 100, 10 cm",
+      "url": "https://www.dedeman.ro/ro/polistiren-expandat-pentru-fatada-baudeman-eps-100-10-cm/p/6046746"
+    },
+    {
+      "cod": "6016677",
+      "grupa": "otel",
+      "nume": "Etrier fier beton B500A 200×200×8 mm",
+      "url": "https://www.dedeman.ro/ro/etrier-fier-beton-b500a-200-x-200-x-8-mm/p/6016677"
+    },
+    {
+      "cod": "6037924",
+      "grupa": "otel",
+      "nume": "Etrier fier beton B500A 150×150×6 mm",
+      "url": "https://www.dedeman.ro/ro/etrier-fier-beton-b500a-150-x-150-x-6-mm/p/6037924"
+    },
+    {
+      "cod": "6029542",
+      "grupa": "otel",
+      "nume": "Plasă sudată zincată Edilplan D3, 1×2 m",
+      "url": "https://www.dedeman.ro/ro/panou-zincat-edilplan-diametru-3-mm-1000-x-2000-mm-ochi-50-x-50-mm/p/6029542"
+    },
+    {
+      "cod": "6050575",
+      "grupa": "otel",
+      "nume": "Sârmă neagră de legat 3 mm, rolă 10 kg",
+      "url": "https://www.dedeman.ro/ro/sarma-neagra-3-mm-rola-10-kg/p/6050575"
+    },
+    {
+      "cod": "5009135",
+      "grupa": "adezivi",
+      "nume": "Adeziv gresie/faianță Adeplast AF-E, 25 kg",
+      "url": "https://www.dedeman.ro/ro/adeziv-pentru-gresie-si-faianta-adeplast-af-e-exterior-gri-25-kg/p/5009135"
+    },
+    {
+      "cod": "6068692",
+      "grupa": "adezivi",
+      "nume": "Adeziv gresie/faianță Etalon, 25 kg",
+      "url": "https://www.dedeman.ro/ro/adeziv-standard-pentru-gresie-si-faianta-etalon-interior-25-kg/p/6068692"
+    },
+    {
+      "cod": "6012314",
+      "grupa": "adezivi",
+      "nume": "Adeziv BCA Ytong Fix N220, 25 kg",
+      "url": "https://www.dedeman.ro/ro/adeziv-bca-ytong-fix-n220-sac-25-kg/p/6012314"
+    },
+    {
+      "cod": "5008952",
+      "grupa": "adezivi",
+      "nume": "Mortar tencuială Adeplast Klasiko, 30 kg",
+      "url": "https://www.dedeman.ro/ro/mortar-de-tencuiala-adeplast-klasiko-gri-interior/-exterior-30-kg/p/5008952"
+    },
+    {
+      "cod": "5006960",
+      "grupa": "gips",
+      "nume": "Placă gips-carton Rigips RBI 12.5×1200×2000 mm",
+      "url": "https://www.dedeman.ro/ro/placa-gips-carton-tip-h-protectie-umiditate-rigips-rbi-12-5-x-1200-x-2000-mm/p/5006960"
+    },
+    {
+      "cod": "5009550",
+      "grupa": "gips",
+      "nume": "Placă gips-carton + polistiren Rigitherm 20PS",
+      "url": "https://www.dedeman.ro/ro/placa-gips-carton-si-polistiren-termoizolare-rigitherm-20ps-9-5-x-1200-x-2600-mm-rigips/p/5009550"
+    }
+  ]
+}

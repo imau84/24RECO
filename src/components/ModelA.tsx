@@ -28,7 +28,8 @@ export type Series = {
 
 export type Analysis = {
   name: string
-  type: 'bar' | 'line' | 'pie'
+  /** 'table' = doar tabel, fără grafic */
+  type: 'bar' | 'line' | 'pie' | 'table'
   unit: string
   /** rândul „pe scurt” — limbaj simplu */
   plain: string
@@ -48,6 +49,8 @@ export type Analysis = {
   /** sufix pentru valori în tooltip/tabel (ex. „%”) */
   valueSuffix?: string
   footnote?: string
+  /** coloane text suplimentare în tabel, după valori (ex. unitatea de măsură) */
+  extraCols?: { name: string; values: string[] }[]
 }
 
 export type Source = {
@@ -259,13 +262,15 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
       <div className="ma-card">
         <div className="ma-ch">
           <h3>{an.name} — {an.unit}</h3>
-          <div className="ma-seg">
-            <button className={view === 'grafic' ? 'on' : ''} onClick={() => setView('grafic')}>📈 Grafic</button>
-            <button className={view === 'tabel' ? 'on' : ''} onClick={() => setView('tabel')}>⊞ Tabel</button>
-          </div>
+          {an.type !== 'table' && (
+            <div className="ma-seg">
+              <button className={view === 'grafic' ? 'on' : ''} onClick={() => setView('grafic')}>📈 Grafic</button>
+              <button className={view === 'tabel' ? 'on' : ''} onClick={() => setView('tabel')}>⊞ Tabel</button>
+            </div>
+          )}
         </div>
 
-        {view === 'grafic' ? (
+        {view === 'grafic' && an.type !== 'table' ? (
           <>
             {multi && (
               <div className="ma-legend">
@@ -317,6 +322,7 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
                   <th>{an.labelCol}</th>
                   {an.series.map(s => <th key={s.name} className="n">{s.name}</th>)}
                   {an.share && <th className="n">Pondere</th>}
+                  {an.extraCols?.map(c => <th key={c.name}>{c.name}</th>)}
                 </tr>
               </thead>
               <tbody>
@@ -325,6 +331,7 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
                     <td>{an.labelsLong?.[i] ?? an.labels[i]}</td>
                     {an.series.map(s => <td key={s.name} className="n">{s.data[i] == null ? '—' : fmt(s.data[i]) + sfx}</td>)}
                     {an.share && <td className="n">{total ? ((an.series[0].data[i] ?? 0) / total * 100).toFixed(1) : 0}%</td>}
+                    {an.extraCols?.map(c => <td key={c.name}>{c.values[i]}</td>)}
                   </tr>
                 ))}
               </tbody>

@@ -1,0 +1,65 @@
+name: Actualizare Coș Materiale Construcții (Dedeman)
+
+on:
+  schedule:
+    - cron: '0 5 1 * *'  # ziua 1 a lunii, 08:00 ora României (vara) / 07:00 (iarna)
+  workflow_dispatch:
+
+jobs:
+  update-cos:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Colectare prețuri (20+ pagini, o cerere la 4 secunde)
+        env:
+          ARHIVA_DIR: ${{ runner.temp }}/arhiva-dedeman
+        run: python scripts/fetch_cos_dedeman.py
+
+      # HTML-ul brut al fiecărei pagini — dovada observației, dacă un număr e contestat
+      - name: Arhivare HTML brut
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: arhiva-dedeman-${{ github.run_id }}
+          path: ${{ runner.temp }}/arhiva-dedeman
+          retention-days: 90
+          if-no-files-found: ignore
+
+      - name: Verificare modificări
+        id: check_changes
+        run: |
+          if git diff --quiet src/data/constructii/cos_dedeman_data.json; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ Nicio modificare"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "✅ Observație nouă"
+          fi
+
+      - name: Commit și push
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/constructii/cos_dedeman_data.json
+          git commit -m "actualizare coș materiale Dedeman $(date +'%Y-%m')"
+          git pull --rebase
+          git push
+
+      - name: Rezumat
+        if: always()
+        run: |
+          echo "### Coș materiale Dedeman" >> $GITHUB_STEP_SUMMARY
+          echo "- Data: $(date +'%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "- Modificat: ${{ steps.check_changes.outputs.changed }}" >> $GITHUB_STEP_SUMMARY
+          python -c "import json;o=json.load(open('src/data/constructii/cos_dedeman_data.json',encoding='utf-8'))['observatii'][-1];print(f\"- Luna: {o['luna']} · produse citite: {len(o['produse'])}\");[print(f'- ⚠️ {e}') for e in o.get('erori',[])]" >> $GITHUB_STEP_SUMMARY
