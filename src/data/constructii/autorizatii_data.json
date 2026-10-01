@@ -1,0 +1,651 @@
+{
+  "meta": {
+    "titlu": "Autorizații de construire pentru clădiri",
+    "sursa": "Eurostat (date raportate de Institutul Național de Statistică)",
+    "dataset": "sts_cobp_m",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/sts_cobp_m/default/table?lang=en",
+    "unitate": "Indice, 2021 = 100 (suprafață utilă autorizată)",
+    "frecventa": "lunar",
+    "perioada": "2019-01 - 2026-07",
+    "data_extragerii": "2026-10-01 11:50"
+  },
+  "luni": [
+    {
+      "perioada": "2019-01",
+      "total": 82.7,
+      "rezidentiale": 85.2,
+      "nerezidentiale": 73.4,
+      "ue27": 86.2
+    },
+    {
+      "perioada": "2019-02",
+      "total": 79.7,
+      "rezidentiale": 71.4,
+      "nerezidentiale": 110.9,
+      "ue27": 82.4
+    },
+    {
+      "perioada": "2019-03",
+      "total": 88.9,
+      "rezidentiale": 84.2,
+      "nerezidentiale": 106.2,
+      "ue27": 93.6
+    },
+    {
+      "perioada": "2019-04",
+      "total": 80.1,
+      "rezidentiale": 81.9,
+      "nerezidentiale": 73.5,
+      "ue27": 90.4
+    },
+    {
+      "perioada": "2019-05",
+      "total": 102.1,
+      "rezidentiale": 99.5,
+      "nerezidentiale": 111.7,
+      "ue27": 99.2
+    },
+    {
+      "perioada": "2019-06",
+      "total": 104.2,
+      "rezidentiale": 95.0,
+      "nerezidentiale": 138.8,
+      "ue27": 97.2
+    },
+    {
+      "perioada": "2019-07",
+      "total": 99.8,
+      "rezidentiale": 99.0,
+      "nerezidentiale": 103.1,
+      "ue27": 109.5
+    },
+    {
+      "perioada": "2019-08",
+      "total": 112.0,
+      "rezidentiale": 111.9,
+      "nerezidentiale": 112.6,
+      "ue27": 83.5
+    },
+    {
+      "perioada": "2019-09",
+      "total": 91.0,
+      "rezidentiale": 84.0,
+      "nerezidentiale": 117.3,
+      "ue27": 95.3
+    },
+    {
+      "perioada": "2019-10",
+      "total": 99.0,
+      "rezidentiale": 98.4,
+      "nerezidentiale": 101.3,
+      "ue27": 104.1
+    },
+    {
+      "perioada": "2019-11",
+      "total": 95.2,
+      "rezidentiale": 89.5,
+      "nerezidentiale": 116.4,
+      "ue27": 92.9
+    },
+    {
+      "perioada": "2019-12",
+      "total": 107.2,
+      "rezidentiale": 94.1,
+      "nerezidentiale": 156.1,
+      "ue27": 100.3
+    },
+    {
+      "perioada": "2020-01",
+      "total": 46.1,
+      "rezidentiale": 47.2,
+      "nerezidentiale": 41.8,
+      "ue27": 82.3
+    },
+    {
+      "perioada": "2020-02",
+      "total": 79.3,
+      "rezidentiale": 82.3,
+      "nerezidentiale": 68.3,
+      "ue27": 84.2
+    },
+    {
+      "perioada": "2020-03",
+      "total": 87.8,
+      "rezidentiale": 84.4,
+      "nerezidentiale": 100.5,
+      "ue27": 87.0
+    },
+    {
+      "perioada": "2020-04",
+      "total": 64.8,
+      "rezidentiale": 63.7,
+      "nerezidentiale": 68.7,
+      "ue27": 78.4
+    },
+    {
+      "perioada": "2020-05",
+      "total": 81.4,
+      "rezidentiale": 69.2,
+      "nerezidentiale": 126.9,
+      "ue27": 77.1
+    },
+    {
+      "perioada": "2020-06",
+      "total": 109.3,
+      "rezidentiale": 105.4,
+      "nerezidentiale": 124.0,
+      "ue27": 97.2
+    },
+    {
+      "perioada": "2020-07",
+      "total": 100.9,
+      "rezidentiale": 94.8,
+      "nerezidentiale": 123.7,
+      "ue27": 96.1
+    },
+    {
+      "perioada": "2020-08",
+      "total": 110.9,
+      "rezidentiale": 103.1,
+      "nerezidentiale": 139.9,
+      "ue27": 80.6
+    },
+    {
+      "perioada": "2020-09",
+      "total": 116.5,
+      "rezidentiale": 125.6,
+      "nerezidentiale": 82.8,
+      "ue27": 99.9
+    },
+    {
+      "perioada": "2020-10",
+      "total": 100.0,
+      "rezidentiale": 101.2,
+      "nerezidentiale": 95.6,
+      "ue27": 100.9
+    },
+    {
+      "perioada": "2020-11",
+      "total": 84.8,
+      "rezidentiale": 83.1,
+      "nerezidentiale": 91.2,
+      "ue27": 93.8
+    },
+    {
+      "perioada": "2020-12",
+      "total": 78.9,
+      "rezidentiale": 79.5,
+      "nerezidentiale": 76.5,
+      "ue27": 94.8
+    },
+    {
+      "perioada": "2021-01",
+      "total": 74.0,
+      "rezidentiale": 65.8,
+      "nerezidentiale": 104.8,
+      "ue27": 83.4
+    },
+    {
+      "perioada": "2021-02",
+      "total": 84.5,
+      "rezidentiale": 78.2,
+      "nerezidentiale": 107.8,
+      "ue27": 88.3
+    },
+    {
+      "perioada": "2021-03",
+      "total": 110.6,
+      "rezidentiale": 113.2,
+      "nerezidentiale": 101.2,
+      "ue27": 111.7
+    },
+    {
+      "perioada": "2021-04",
+      "total": 98.9,
+      "rezidentiale": 99.8,
+      "nerezidentiale": 95.7,
+      "ue27": 96.1
+    },
+    {
+      "perioada": "2021-05",
+      "total": 92.6,
+      "rezidentiale": 96.9,
+      "nerezidentiale": 76.6,
+      "ue27": 99.5
+    },
+    {
+      "perioada": "2021-06",
+      "total": 103.1,
+      "rezidentiale": 108.2,
+      "nerezidentiale": 84.2,
+      "ue27": 109.3
+    },
+    {
+      "perioada": "2021-07",
+      "total": 108.7,
+      "rezidentiale": 112.8,
+      "nerezidentiale": 93.5,
+      "ue27": 105.8
+    },
+    {
+      "perioada": "2021-08",
+      "total": 111.6,
+      "rezidentiale": 118.4,
+      "nerezidentiale": 85.9,
+      "ue27": 94.6
+    },
+    {
+      "perioada": "2021-09",
+      "total": 116.7,
+      "rezidentiale": 118.4,
+      "nerezidentiale": 110.1,
+      "ue27": 106.1
+    },
+    {
+      "perioada": "2021-10",
+      "total": 91.2,
+      "rezidentiale": 90.0,
+      "nerezidentiale": 95.6,
+      "ue27": 101.7
+    },
+    {
+      "perioada": "2021-11",
+      "total": 97.7,
+      "rezidentiale": 94.0,
+      "nerezidentiale": 111.8,
+      "ue27": 97.0
+    },
+    {
+      "perioada": "2021-12",
+      "total": 110.4,
+      "rezidentiale": 104.3,
+      "nerezidentiale": 132.8,
+      "ue27": 106.5
+    },
+    {
+      "perioada": "2022-01",
+      "total": 66.3,
+      "rezidentiale": 59.7,
+      "nerezidentiale": 90.8,
+      "ue27": 86.3
+    },
+    {
+      "perioada": "2022-02",
+      "total": 96.9,
+      "rezidentiale": 80.4,
+      "nerezidentiale": 158.3,
+      "ue27": 94.5
+    },
+    {
+      "perioada": "2022-03",
+      "total": 118.7,
+      "rezidentiale": 110.8,
+      "nerezidentiale": 147.8,
+      "ue27": 114.8
+    },
+    {
+      "perioada": "2022-04",
+      "total": 99.4,
+      "rezidentiale": 88.2,
+      "nerezidentiale": 141.3,
+      "ue27": 96.6
+    },
+    {
+      "perioada": "2022-05",
+      "total": 100.9,
+      "rezidentiale": 103.3,
+      "nerezidentiale": 92.0,
+      "ue27": 106.8
+    },
+    {
+      "perioada": "2022-06",
+      "total": 94.0,
+      "rezidentiale": 94.6,
+      "nerezidentiale": 91.6,
+      "ue27": 102.4
+    },
+    {
+      "perioada": "2022-07",
+      "total": 109.1,
+      "rezidentiale": 113.0,
+      "nerezidentiale": 94.3,
+      "ue27": 98.5
+    },
+    {
+      "perioada": "2022-08",
+      "total": 100.3,
+      "rezidentiale": 105.8,
+      "nerezidentiale": 79.7,
+      "ue27": 91.4
+    },
+    {
+      "perioada": "2022-09",
+      "total": 116.2,
+      "rezidentiale": 112.1,
+      "nerezidentiale": 131.7,
+      "ue27": 97.6
+    },
+    {
+      "perioada": "2022-10",
+      "total": 99.3,
+      "rezidentiale": 88.9,
+      "nerezidentiale": 138.3,
+      "ue27": 91.1
+    },
+    {
+      "perioada": "2022-11",
+      "total": 91.0,
+      "rezidentiale": 90.7,
+      "nerezidentiale": 91.9,
+      "ue27": 89.1
+    },
+    {
+      "perioada": "2022-12",
+      "total": 95.2,
+      "rezidentiale": 84.2,
+      "nerezidentiale": 136.5,
+      "ue27": 92.4
+    },
+    {
+      "perioada": "2023-01",
+      "total": 61.5,
+      "rezidentiale": 55.5,
+      "nerezidentiale": 83.9,
+      "ue27": 78.2
+    },
+    {
+      "perioada": "2023-02",
+      "total": 90.0,
+      "rezidentiale": 78.9,
+      "nerezidentiale": 131.4,
+      "ue27": 81.1
+    },
+    {
+      "perioada": "2023-03",
+      "total": 86.5,
+      "rezidentiale": 82.8,
+      "nerezidentiale": 100.5,
+      "ue27": 88.7
+    },
+    {
+      "perioada": "2023-04",
+      "total": 72.2,
+      "rezidentiale": 57.7,
+      "nerezidentiale": 126.2,
+      "ue27": 78.3
+    },
+    {
+      "perioada": "2023-05",
+      "total": 85.7,
+      "rezidentiale": 74.8,
+      "nerezidentiale": 126.6,
+      "ue27": 83.7
+    },
+    {
+      "perioada": "2023-06",
+      "total": 89.6,
+      "rezidentiale": 81.3,
+      "nerezidentiale": 120.5,
+      "ue27": 88.5
+    },
+    {
+      "perioada": "2023-07",
+      "total": 102.6,
+      "rezidentiale": 86.3,
+      "nerezidentiale": 163.4,
+      "ue27": 86.3
+    },
+    {
+      "perioada": "2023-08",
+      "total": 74.9,
+      "rezidentiale": 72.5,
+      "nerezidentiale": 83.6,
+      "ue27": 71.9
+    },
+    {
+      "perioada": "2023-09",
+      "total": 68.8,
+      "rezidentiale": 62.6,
+      "nerezidentiale": 92.1,
+      "ue27": 79.1
+    },
+    {
+      "perioada": "2023-10",
+      "total": 81.2,
+      "rezidentiale": 68.1,
+      "nerezidentiale": 130.0,
+      "ue27": 85.9
+    },
+    {
+      "perioada": "2023-11",
+      "total": 86.9,
+      "rezidentiale": 63.1,
+      "nerezidentiale": 175.4,
+      "ue27": 77.2
+    },
+    {
+      "perioada": "2023-12",
+      "total": 93.6,
+      "rezidentiale": 77.8,
+      "nerezidentiale": 152.4,
+      "ue27": 83.8
+    },
+    {
+      "perioada": "2024-01",
+      "total": 45.3,
+      "rezidentiale": 42.3,
+      "nerezidentiale": 56.6,
+      "ue27": 65.7
+    },
+    {
+      "perioada": "2024-02",
+      "total": 67.0,
+      "rezidentiale": 63.0,
+      "nerezidentiale": 82.1,
+      "ue27": 77.4
+    },
+    {
+      "perioada": "2024-03",
+      "total": 79.8,
+      "rezidentiale": 69.5,
+      "nerezidentiale": 118.4,
+      "ue27": 85.1
+    },
+    {
+      "perioada": "2024-04",
+      "total": 114.9,
+      "rezidentiale": 85.7,
+      "nerezidentiale": 223.7,
+      "ue27": 83.3
+    },
+    {
+      "perioada": "2024-05",
+      "total": 75.9,
+      "rezidentiale": 70.6,
+      "nerezidentiale": 95.8,
+      "ue27": 76.5
+    },
+    {
+      "perioada": "2024-06",
+      "total": 65.1,
+      "rezidentiale": 61.9,
+      "nerezidentiale": 77.4,
+      "ue27": 83.6
+    },
+    {
+      "perioada": "2024-07",
+      "total": 82.7,
+      "rezidentiale": 78.0,
+      "nerezidentiale": 100.5,
+      "ue27": 87.1
+    },
+    {
+      "perioada": "2024-08",
+      "total": 77.0,
+      "rezidentiale": 80.0,
+      "nerezidentiale": 66.2,
+      "ue27": 78.1
+    },
+    {
+      "perioada": "2024-09",
+      "total": 74.3,
+      "rezidentiale": 68.9,
+      "nerezidentiale": 94.6,
+      "ue27": 78.5
+    },
+    {
+      "perioada": "2024-10",
+      "total": 102.8,
+      "rezidentiale": 102.9,
+      "nerezidentiale": 102.4,
+      "ue27": 80.0
+    },
+    {
+      "perioada": "2024-11",
+      "total": 73.5,
+      "rezidentiale": 66.4,
+      "nerezidentiale": 100.2,
+      "ue27": 71.2
+    },
+    {
+      "perioada": "2024-12",
+      "total": 103.2,
+      "rezidentiale": 83.3,
+      "nerezidentiale": 177.3,
+      "ue27": 87.8
+    },
+    {
+      "perioada": "2025-01",
+      "total": 64.9,
+      "rezidentiale": 46.4,
+      "nerezidentiale": 134.0,
+      "ue27": 70.5
+    },
+    {
+      "perioada": "2025-02",
+      "total": 68.5,
+      "rezidentiale": 59.5,
+      "nerezidentiale": 102.0,
+      "ue27": 74.3
+    },
+    {
+      "perioada": "2025-03",
+      "total": 75.1,
+      "rezidentiale": 71.6,
+      "nerezidentiale": 88.5,
+      "ue27": 80.4
+    },
+    {
+      "perioada": "2025-04",
+      "total": 72.7,
+      "rezidentiale": 65.2,
+      "nerezidentiale": 100.5,
+      "ue27": 81.2
+    },
+    {
+      "perioada": "2025-05",
+      "total": 87.0,
+      "rezidentiale": 75.3,
+      "nerezidentiale": 130.4,
+      "ue27": 74.4
+    },
+    {
+      "perioada": "2025-06",
+      "total": 116.7,
+      "rezidentiale": 105.3,
+      "nerezidentiale": 159.3,
+      "ue27": 87.1
+    },
+    {
+      "perioada": "2025-07",
+      "total": 111.8,
+      "rezidentiale": 104.1,
+      "nerezidentiale": 140.7,
+      "ue27": 90.2
+    },
+    {
+      "perioada": "2025-08",
+      "total": 92.0,
+      "rezidentiale": 77.6,
+      "nerezidentiale": 145.3,
+      "ue27": 75.5
+    },
+    {
+      "perioada": "2025-09",
+      "total": 108.2,
+      "rezidentiale": 99.9,
+      "nerezidentiale": 139.1,
+      "ue27": 87.9
+    },
+    {
+      "perioada": "2025-10",
+      "total": 85.7,
+      "rezidentiale": 83.2,
+      "nerezidentiale": 95.1,
+      "ue27": 87.6
+    },
+    {
+      "perioada": "2025-11",
+      "total": 88.9,
+      "rezidentiale": 86.9,
+      "nerezidentiale": 96.4,
+      "ue27": 76.7
+    },
+    {
+      "perioada": "2025-12",
+      "total": 93.5,
+      "rezidentiale": 88.6,
+      "nerezidentiale": 111.7,
+      "ue27": 88.3
+    },
+    {
+      "perioada": "2026-01",
+      "total": 57.3,
+      "rezidentiale": 54.0,
+      "nerezidentiale": 69.3,
+      "ue27": 74.1
+    },
+    {
+      "perioada": "2026-02",
+      "total": 72.7,
+      "rezidentiale": 64.7,
+      "nerezidentiale": 102.6,
+      "ue27": 75.6
+    },
+    {
+      "perioada": "2026-03",
+      "total": 103.0,
+      "rezidentiale": 70.8,
+      "nerezidentiale": 222.9,
+      "ue27": 91.8
+    },
+    {
+      "perioada": "2026-04",
+      "total": 87.3,
+      "rezidentiale": 84.4,
+      "nerezidentiale": 98.2,
+      "ue27": 80.7
+    },
+    {
+      "perioada": "2026-05",
+      "total": 85.0,
+      "rezidentiale": 81.8,
+      "nerezidentiale": 97.1,
+      "ue27": 76.1
+    },
+    {
+      "perioada": "2026-06",
+      "total": 97.0,
+      "rezidentiale": 96.5,
+      "nerezidentiale": 99.1,
+      "ue27": null
+    },
+    {
+      "perioada": "2026-07",
+      "total": 79.1,
+      "rezidentiale": 70.5,
+      "nerezidentiale": 111.2,
+      "ue27": null
+    }
+  ]
+}

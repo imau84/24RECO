@@ -1,0 +1,51 @@
+name: Actualizare Date Construcții — Autorizații (Eurostat)
+
+on:
+  schedule:
+    - cron: '0 6 22 * *'  # lunar, pe 22 (Eurostat publică STS în jurul zilei 15–20)
+  workflow_dispatch:
+
+jobs:
+  update-autorizatii:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Rulare script fetch
+        run: python scripts/fetch_constructii_autorizatii.py
+
+      - name: Verificare modificări
+        id: check_changes
+        run: |
+          if git diff --quiet src/data/constructii/autorizatii_data.json; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ Nicio modificare"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "✅ Date noi detectate"
+          fi
+
+      - name: Commit și push
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/constructii/autorizatii_data.json
+          git commit -m "actualizare date construcții autorizații Eurostat $(date +'%Y-%m-%d')"
+          git pull --rebase
+          git push
+
+      - name: Rezumat
+        run: |
+          echo "### Construcții — autorizații" >> $GITHUB_STEP_SUMMARY
+          echo "- Data: $(date +'%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "- Modificat: ${{ steps.check_changes.outputs.changed }}" >> $GITHUB_STEP_SUMMARY
