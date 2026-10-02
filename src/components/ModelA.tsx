@@ -138,7 +138,7 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
   const yMin = an.zoomY ? Math.min(...all) : Math.min(0, ...all)
   const yMax = Math.max(0, ...all)
   const span = yMax - yMin || 1
-  const step = [1, 2, 2.5, 5].flatMap(m => [1, 10, 100, 1000, 10000, 100000].map(p => m * p))
+  const step = [1, 2, 2.5, 5].flatMap(m => [0.01, 0.1, 1, 10, 100, 1000, 10000, 100000].map(p => Math.round(m * p * 100) / 100))
     .sort((a, b) => a - b).find(s => span / s <= 6) ?? 1000000
   const yTicks: number[] = []
   for (let v = Math.floor(yMin / step) * step; v <= Math.ceil(yMax / step) * step + 1e-9; v += step) yTicks.push(Math.round(v * 100) / 100)
