@@ -19,6 +19,8 @@ export type EurostatSet = {
   agregare: 'suma' | 'medie'
   note: string[]
   url: string
+  /** numele sursei în subsol (implicit „Eurostat”) */
+  sursa?: string
   actualizat: string
   perioade: string[]
   serii: { nume: string; valori: (number | null)[]; provizorii: number[] }[]
@@ -28,9 +30,6 @@ const LUNI = ['ianuarie', 'februarie', 'martie', 'aprilie', 'mai', 'iunie', 'iul
 const LUNI_SCURT = ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sep', 'Oct', 'Noi', 'Dec']
 const PALETA = ['#12a5b8', '#e5544b', '#5b4be0', '#e0a020', '#22b07d', '#e0559c', '#3b82f6', '#7c5ce6', '#8a6d3b', '#5a6178', '#0b5f6a', '#c2410c']
 
-const nf = (z: number) => new Intl.NumberFormat('en-US', { minimumFractionDigits: z, maximumFractionDigits: z })
-const pctFmt = nf(1)
-const semn = (p: number) => `${p > 0 ? '+' : p < 0 ? '−' : ''}${pctFmt.format(Math.abs(p))}%`
 
 /** „2026-03” → { an: 2026, poz: 3 }; „2026-Q1” → { an: 2026, poz: 1 } */
 const parse = (p: string) => (p.includes('Q') ? { an: +p.slice(0, 4), poz: +p.slice(-1) } : { an: +p.slice(0, 4), poz: +p.slice(5, 7) })
@@ -43,7 +42,11 @@ const eticheta = (p: string, lung = false) => {
 type Rand = { p: string; an: number; poz: number; et: string; vals: (number | null)[]; prov: boolean[]; yoy: number | null }
 type SortCol = 'p' | 'yoy' | number
 
-export default function EurostatExplorer({ set, accent = '#12a5b8' }: { set: EurostatSet; accent?: string }) {
+/** locale: 'en-US' → 1,234.5 (implicit, cerut pentru Eurostat); 'ro-RO' → 1.234,5 */
+export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en-US' }: { set: EurostatSet; accent?: string; locale?: string }) {
+  const nf = (z: number) => new Intl.NumberFormat(locale, { minimumFractionDigits: z, maximumFractionDigits: z })
+  const pctFmt = nf(1)
+  const semn = (p: number) => `${p > 0 ? '+' : p < 0 ? '−' : ''}${pctFmt.format(Math.abs(p))}%`
   const f = nf(set.zecimale)
   const fmt = (v: number | null | undefined) => (v == null ? '—' : f.format(v))
   const perAn = set.freq === 'Q' ? 4 : 12
@@ -114,7 +117,7 @@ export default function EurostatExplorer({ set, accent = '#12a5b8' }: { set: Eur
   const ticks: number[] = []
   for (let v = Math.floor(jos / pas) * pas; v <= Math.ceil(yMax / pas) * pas + 1e-9; v += pas) ticks.push(Math.round(v * 10) / 10)
   const dom: [number, number] = [ticks[0], ticks[ticks.length - 1]]
-  const scurt = new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 })
+  const scurt = new Intl.NumberFormat(locale, { maximumFractionDigits: 1 })
   const axa = (v: number) => (Math.abs(v) >= 1e6 ? `${scurt.format(v / 1e6)}M` : Math.abs(v) >= 1e3 && yMax >= 1e4 ? `${scurt.format(v / 1e3)}k` : scurt.format(v))
 
   /* ── Tabel ── */
@@ -275,7 +278,7 @@ export default function EurostatExplorer({ set, accent = '#12a5b8' }: { set: Eur
           </table>
         </div>
         <div className="ma-src">
-          📌 Sursă: Eurostat · <a href={set.url} target="_blank" rel="noopener noreferrer">{set.cod}</a> · Prelucrare: 24reco.com · verificat lunar (ultima schimbare a datelor: {set.actualizat})
+          📌 Sursă: {set.sursa ?? 'Eurostat'} · <a href={set.url} target="_blank" rel="noopener noreferrer">{set.cod}</a> · Prelucrare: 24reco.com · verificat lunar (ultima schimbare a datelor: {set.actualizat})
           {areProv && <><br />* valoare provizorie sau estimată — Eurostat o poate revizui.</>}
           <ul className="ex-notes">{set.note.map(n => <li key={n}>{n}</li>)}</ul>
         </div>

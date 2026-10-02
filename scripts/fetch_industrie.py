@@ -14,7 +14,7 @@ Strategie (cea mai simpla & robusta):
      = ~5.300 celule, mult sub limita de 30.000 -> un singur request descarca tot.
   3. POST /tempo-ins/pivot         -> raspuns CSV
   4. Parseaza CSV (detectie coloane pe baza continutului, robust la reordonare)
-  5. Reconstruieste blocul RAW, PASTREAZA blocul JD existent (judete - alta matrice)
+  5. Reconstruieste blocul RAW; blocul JD (judete) vine din matricea EXP101J (vezi fetch_judete)
   6. Scrie src/data/industrie/industrie_data.json doar daca s-a schimbat ceva
 
 Ruleaza fara browser (doar HTTP) -> rapid si stabil in GitHub Actions.
@@ -251,6 +251,53 @@ def parse_csv(text: str, meta: dict) -> dict:
     return raw
 
 
+# ─── Județe: EXP101J (exporturi pe județe și secțiuni NC, lunar) ────────────
+JD_MATRIX = "EXP101J"
+JD_ANI = 3   # anul curent + 2 ani în urmă (o cerere pe an: 44 județe × 23 secțiuni × 12 luni ≈ 12.000 celule)
+
+
+def fetch_judete(old_jd: dict) -> dict:
+    """Returnează JD = {judet: {sectiune: {an: {luna: valoare}}}} pentru ultimii JD_ANI ani.
+    Păstrăm doar „Total” și cele 22 de secțiuni NC (I.–XXII.), fără capitolele de detaliu."""
+    log(f"  GET {BASE}/matrix/{JD_MATRIX}")
+    meta = requests.get(f"{BASE}/matrix/{JD_MATRIX}", headers=HEADERS, timeout=60).json()
+    dims, det = meta["dimensionsMap"], meta["details"]
+    judete, sectiuni, luni, um = dims[0]["options"], dims[1]["options"], dims[2]["options"], dims[3]["options"]
+    sectiuni = [o for o in sectiuni if o["label"].strip() == "Total" or re.match(r"^[IVXL]+\. ", o["label"].strip())]
+    ani = sorted({parse_luna(o["label"])[0] for o in luni if parse_luna(o["label"]) and parse_luna(o["label"])[1]})
+    ani = ani[-JD_ANI:]
+    jd: dict = {}
+    for an in ani:
+        luni_an = [o for o in luni if (parse_luna(o["label"]) or (0, 0)) [0] == an and parse_luna(o["label"])[1]]
+        enc = ":".join([
+            ",".join(str(o["nomItemId"]) for o in judete),
+            ",".join(str(o["nomItemId"]) for o in sectiuni),
+            ",".join(str(o["nomItemId"]) for o in luni_an),
+            str(um[0]["nomItemId"]),
+        ])
+        body = {"language": "ro", "arr": [], "matrixName": meta["matrixName"], "matrixDetails": det,
+                "encQuery": enc, "matCode": JD_MATRIX, "matMaxDim": det["matMaxDim"],
+                "matUMSpec": det["matUMSpec"], "matRegJ": det.get("matRegJ", 0)}
+        r = requests.post(PIVOT_URL, json=body, headers=HEADERS, timeout=180)
+        r.raise_for_status()
+        n = 0
+        for line in r.content.decode("utf-8", errors="ignore").splitlines()[1:]:
+            # „Judet, Sectiune (poate conține virgule), Luna …, UM, Valoare” → parsăm de la dreapta
+            p_ = [x.strip() for x in line.split(", ")]
+            if len(p_) < 5:
+                continue
+            val, _um, luna = to_number(p_[-1]), p_[-2], parse_luna(p_[-3])
+            jud, sec = p_[0], norm_sectiune(", ".join(p_[1:-3]))
+            if not luna or not luna[1]:
+                continue
+            jd.setdefault(jud, {}).setdefault(sec, {}).setdefault(str(luna[0]), {})[str(luna[1])] = val
+            n += 1
+        log(f"  {JD_MATRIX} {an}: {n} celule")
+    if "TOTAL" not in jd or len(jd) < 40:
+        raise RuntimeError(f"Date județe suspecte ({len(jd)} județe).")
+    return jd
+
+
 # ─── Pas 5-6: merge + scriere ────────────────────────────────────────────────
 def latest_month(raw: dict):
     best = (0, 0)
@@ -280,9 +327,17 @@ def main():
     ly_old = latest_month(old_raw) if old_raw else (0, 0)
     log(f"  Ultima luna noua: {ly_new}  |  veche: {ly_old}")
 
+    # Județe (EXP101J): dacă INS nu răspunde, păstrăm blocul JD existent
+    jd = existing.get("JD", {})
+    try:
+        jd = fetch_judete(jd)
+    except Exception as e:
+        log(f"  ATENȚIE: județele nu au putut fi actualizate ({e}); păstrez datele vechi.")
+
     out = {
-        **existing,                      # pastram orice alte chei (ex. JD - judete)
+        **existing,
         "RAW": raw,
+        "JD": jd,
         "matrice": MATRIX,
         "sursa": "INS Romania, EXP101I (Exporturi FOB pe sectiuni CSCI Rev.4)",
         "unitate": "mii EUR",

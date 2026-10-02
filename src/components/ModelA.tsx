@@ -51,6 +51,8 @@ export type Analysis = {
   footnote?: string
   /** coloane text suplimentare în tabel, după valori (ex. unitatea de măsură) */
   extraCols?: { name: string; values: string[] }[]
+  /** conținut propriu (ex. un explorator) afișat în locul KPI-urilor, textului și graficului */
+  content?: ReactNode
 }
 
 export type Source = {
@@ -71,7 +73,7 @@ export type Source = {
 }
 
 /** Tema (tab nivel 1, ex. „Prețuri cereale”) → surse (sub-tab) → analize */
-export type Topic = { key: string; label: string; icon?: string; sources: Source[] }
+export type Topic = { key: string; label: string; icon?: string; sources: Source[]; /** text scurt sub tab-ul temei */ intro?: string }
 
 export type Theme = {
   accent: string   // culoarea categoriei (ex. #22b07d)
@@ -87,7 +89,8 @@ export type ModelAProps = {
   crumbs: Crumb[]
   icon: string
   title: string
-  sub: string
+  /** subtitlul din bara de sus (opțional) */
+  sub?: string
   chips?: string[]
   theme: Theme
   /** fie `topics` (3 niveluri: temă › sursă › analiză), fie doar `sources` (2 niveluri) */
@@ -210,6 +213,7 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
         .ma-src{font-size:12.5px;color:var(--mute);margin-top:14px;line-height:1.5}
         .ma-src a{color:var(--ink2)}
         .ma-custom{margin-top:16px}
+        .ma-intro{font-size:14.5px;color:var(--ink2);margin:-2px 0 14px;line-height:1.5}
         @media(max-width:820px){.ma-kpis{grid-template-columns:1fr 1fr}}
         @media(max-width:520px){.ma{padding:0 16px 40px}.ma-hero{margin:0 -16px 18px}.ma-kpis{grid-template-columns:1fr}.ma-chart{height:260px}}
       ` }} />
@@ -227,7 +231,7 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
           <div className="ma-ic">{icon}</div>
           <div>
             <h1>{title}</h1>
-            <div className="ma-sub">{sub}</div>
+            {sub && <div className="ma-sub">{sub}</div>}
           </div>
         </div>
         {!chipsBelow && (
@@ -247,6 +251,8 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
           ))}
         </div>
       )}
+
+      {topic.intro && <p className="ma-intro">{topic.intro}</p>}
 
       <div className={topics ? 'ma-l1 sub' : 'ma-l1'}>
         {topics && l1Label && <span className="lbl">{l1Label}</span>}
@@ -270,6 +276,7 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
         ))}
       </div>
 
+      {an.content ? <div className="ma-custom">{an.content}</div> : <>
       <div className="ma-kpis">
         {an.kpis.map(k => (
           <div key={k.label} className="ma-kpi">
@@ -370,6 +377,7 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
           {an.footnote && <><br />{an.footnote}</>}
         </div>
       </div>
+      </>}
       </>}
     </main>
   )
