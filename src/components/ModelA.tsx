@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import Link from 'next/link'
 import {
   BarChart, Bar, LineChart, Line, PieChart, Pie, Cell,
@@ -66,6 +66,8 @@ export type Source = {
   /** chip-urile din bara de sus când e activă sursa (ex. „Actualizat: …”) */
   chips?: string[]
   analyses: Analysis[]
+  /** conținut propriu (ex. un explorator interactiv) afișat în locul analizelor */
+  content?: ReactNode
 }
 
 /** Tema (tab nivel 1, ex. „Prețuri cereale”) → surse (sub-tab) → analize */
@@ -97,6 +99,9 @@ export type ModelAProps = {
   l1Label?: string
 }
 
+/** folosit doar când sursa are `content` și nicio analiză */
+const PLACEHOLDER: Analysis = { name: '', type: 'table', unit: '', plain: '', labels: [], series: [{ name: '', data: [] }], labelCol: '', kpis: [] }
+
 const PALETTE = ['#5b4be0', '#e5544b', '#22b07d', '#e0a020', '#3b82f6', '#12a5b8', '#e0559c', '#7c5ce6']
 const fmt = (n: number | null) => (n == null ? '—' : new Intl.NumberFormat('ro-RO').format(n))
 const AXIS = { fontSize: 11, fill: '#9aa3b8' }
@@ -111,7 +116,7 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
 
   const source = topic.sources.find(s => s.key === srcKey) || topic.sources[0]
   const heroChips = source.chips ?? chips ?? []
-  const an = source.analyses[Math.min(anIdx, source.analyses.length - 1)]
+  const an = source.analyses[Math.min(anIdx, source.analyses.length - 1)] ?? PLACEHOLDER
   const multi = an.series.length > 1
   const colorOf = (s: Series, i: number) => s.color || (multi ? PALETTE[i % PALETTE.length] : theme.accent)
 
@@ -204,6 +209,7 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
         .ma td.n{font-weight:700;font-variant-numeric:tabular-nums}
         .ma-src{font-size:12.5px;color:var(--mute);margin-top:14px;line-height:1.5}
         .ma-src a{color:var(--ink2)}
+        .ma-custom{margin-top:16px}
         @media(max-width:820px){.ma-kpis{grid-template-columns:1fr 1fr}}
         @media(max-width:520px){.ma{padding:0 16px 40px}.ma-hero{margin:0 -16px 18px}.ma-kpis{grid-template-columns:1fr}.ma-chart{height:260px}}
       ` }} />
@@ -257,6 +263,7 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
         </div>
       )}
 
+      {source.content ? <div className="ma-custom">{source.content}</div> : <>
       <div className="ma-l2">
         {source.analyses.map((a, i) => (
           <button key={a.name} className={a === an ? 'on' : ''} onClick={() => setAnIdx(i)}>{a.name}</button>
@@ -363,6 +370,7 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
           {an.footnote && <><br />{an.footnote}</>}
         </div>
       </div>
+      </>}
     </main>
   )
 }

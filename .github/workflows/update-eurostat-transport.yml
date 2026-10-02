@@ -1,0 +1,40 @@
+name: Update Eurostat transport (lunar)
+
+on:
+  schedule:
+    # Lunar, pe 20 (Eurostat publică seturile la date diferite; până pe 20 apar de obicei toate actualizările lunii).
+    - cron: "0 6 20 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalează dependențe
+        run: pip install requests
+
+      - name: Descarcă datele Eurostat
+        run: python scripts/fetch_eurostat_transport.py
+
+      - name: Commit dacă s-a schimbat
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/transport/eurostat.json
+          if git diff --staged --quiet; then
+            echo "Nicio modificare în date."
+          else
+            git commit -m "data: Eurostat transport ($(date +%Y-%m-%d))"
+            git pull --rebase
+            git push
+          fi
