@@ -1,0 +1,56 @@
+name: Actualizare Salariați Industrie (FOM105I)
+
+on:
+  schedule:
+    # INS publică efectivul salariaților cam la 2 luni după luna de referință, fără zi fixă
+    # → verificăm de două ori pe lună; scriptul comite doar dacă apar date noi.
+    - cron: '0 7 5,20 * *'
+  workflow_dispatch:        # Permite rulare manuala din tab-ul Actions
+
+jobs:
+  update-salariati:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalare dependențe
+        run: pip install requests
+
+      - name: Rulare script fetch (FOM105I)
+        run: python scripts/fetch_salariati_industrie.py
+
+      - name: Verificare modificări
+        id: check_changes
+        run: |
+          if [ -z "$(git status --porcelain src/data/industrie/salariati_data.json)" ]; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ Nicio modificare"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "✅ Date noi detectate"
+          fi
+
+      - name: Commit și push
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/industrie/salariati_data.json
+          git commit -m "actualizare salariati industrie FOM105I $(date +'%Y-%m-%d')"
+          git pull --rebase
+          git push
+
+      - name: Rezumat
+        run: |
+          echo "### Salariați Industrie (FOM105I)" >> $GITHUB_STEP_SUMMARY
+          echo "- Data rulare: $(date +'%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "- Modificat: ${{ steps.check_changes.outputs.changed }}" >> $GITHUB_STEP_SUMMARY
