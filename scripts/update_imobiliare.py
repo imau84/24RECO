@@ -229,17 +229,19 @@ def main():
     print(f"Luni existente RAW: {sorted(existing_raw)}")
     print(f"Luni existente RES: {sorted(existing_res)}\n")
 
-    # Determină lunile de verificat: ultimele 3 luni + următoarele 2
+    # Determină lunile de verificat: toate lunile de la cea mai veche lună lipsă
+    # (RAW sau RES) până la luna curentă. Așa nu pierdem luni dacă ANCPI publică
+    # cu întârziere sau site-ul e căzut mai mult timp (ex. incidentul din aug. 2026).
     import datetime
     today = datetime.date.today()
+    last_keys = [max(s) for s in (existing_raw, existing_res) if s]
+    start = min(last_keys) if last_keys else f"{today.year - 1}_01"
+    sy, sm = map(int, start.split("_"))
     months_to_check = []
-    for delta in range(-2, 3):  # 3 luni în urmă → 2 luni în viitor
-        d = today.replace(day=1)
-        # Calculează luna relativă
-        total_months = d.year * 12 + d.month - 1 + delta
-        y = total_months // 12
-        m = total_months % 12 + 1
-        months_to_check.append((y, str(m).zfill(2)))
+    idx = sy * 12 + sm  # luna de după `start`
+    while idx <= today.year * 12 + today.month - 1:
+        months_to_check.append((idx // 12, str(idx % 12 + 1).zfill(2)))
+        idx += 1
 
     added = []
     for year, month_num in months_to_check:
@@ -305,9 +307,17 @@ def main():
     else:
         print("ℹ️  Nicio dată nouă găsită.")
 
-    return len(added)
+    # Alarmă: ANCPI publică de obicei luna precedentă în primele zile ale lunii.
+    # Dacă ultima lună din JSON e mai veche de ~2 luni, jobul pică (GitHub trimite e-mail).
+    last = max(data.get("RAW", {}).keys())
+    ly, lm = map(int, last.split("_"))
+    lag = (today.year * 12 + today.month) - (ly * 12 + lm)
+    if lag > 2:
+        print(f"::error::Date ANCPI învechite: ultima lună este {last} ({lag} luni în urmă). "
+              f"Verifică dacă ancpi.ro mai publică statistici la https://www.ancpi.ro/statistica-<luna>-<an>/")
+        return False
+    return True
 
 
 if __name__ == "__main__":
-    n = main()
-    sys.exit(0 if n >= 0 else 1)
+    sys.exit(0 if main() else 1)

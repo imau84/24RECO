@@ -55,8 +55,11 @@ export type Analysis = {
 
 export type Source = {
   key: string
-  tag: string
+  /** eticheta mică de lângă buton (ex. „oficial”); opțională */
+  tag?: string
   label: string
+  /** numele sursei din subsol, când `label` nu e sursa (ex. label „Toată țara”, credit „ANCPI”) */
+  credit?: string
   link: string
   url?: string
   freq: string
@@ -88,13 +91,17 @@ export type ModelAProps = {
   /** fie `topics` (3 niveluri: temă › sursă › analiză), fie doar `sources` (2 niveluri) */
   topics?: Topic[]
   sources?: Source[]
+  /** chip-urile („Actualizat…”) apar sub tab-uri, lângă analize, nu în bara de sus */
+  chipsBelow?: boolean
+  /** textul din fața tab-urilor de nivel 2 când există `topics` (implicit „Sursa datelor:”; '' = fără) */
+  l1Label?: string
 }
 
 const PALETTE = ['#5b4be0', '#e5544b', '#22b07d', '#e0a020', '#3b82f6', '#12a5b8', '#e0559c', '#7c5ce6']
 const fmt = (n: number | null) => (n == null ? '—' : new Intl.NumberFormat('ro-RO').format(n))
 const AXIS = { fontSize: 11, fill: '#9aa3b8' }
 
-export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics, sources }: ModelAProps) {
+export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics, sources, chipsBelow, l1Label = 'Sursa datelor:' }: ModelAProps) {
   const allTopics: Topic[] = topics ?? [{ key: '_', label: '', sources: sources ?? [] }]
   const [topicKey, setTopicKey] = useState(allTopics[0].key)
   const topic = allTopics.find(t => t.key === topicKey) || allTopics[0]
@@ -156,6 +163,8 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
         .ma-sub{font-size:14px;opacity:.95}
         .ma-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
         .ma-chip{font-size:12px;font-weight:600;background:rgba(255,255,255,.18);padding:5px 11px;border-radius:100px}
+        .ma-chips.below{margin-top:12px}
+        .ma-chips.below .ma-chip{background:${theme.tint};color:${theme.tintInk};border:1px solid ${theme.tintBorder}}
         .ma-l0{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
         .ma-l0 button{font:inherit;font-size:15px;font-weight:800;color:var(--ink2);background:#fff;border:1px solid var(--line);border-radius:100px;padding:10px 18px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
         .ma-l0 button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
@@ -215,9 +224,11 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
             <div className="ma-sub">{sub}</div>
           </div>
         </div>
-        <div className="ma-chips">
-          {heroChips.map(c => <span key={c} className="ma-chip">{c}</span>)}
-        </div>
+        {!chipsBelow && (
+          <div className="ma-chips">
+            {heroChips.map(c => <span key={c} className="ma-chip">{c}</span>)}
+          </div>
+        )}
       </div>
 
       {topics && (
@@ -232,13 +243,19 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
       )}
 
       <div className={topics ? 'ma-l1 sub' : 'ma-l1'}>
-        {topics && <span className="lbl">Sursa datelor:</span>}
+        {topics && l1Label && <span className="lbl">{l1Label}</span>}
         {topic.sources.map(s => (
           <button key={s.key} className={s.key === srcKey ? 'on' : ''} onClick={() => { setSrcKey(s.key); setAnIdx(0) }}>
-            {s.label} <span className="tag">{s.tag}</span>
+            {s.label}{s.tag && <> <span className="tag">{s.tag}</span></>}
           </button>
         ))}
       </div>
+
+      {chipsBelow && heroChips.length > 0 && (
+        <div className="ma-chips below">
+          {heroChips.map(c => <span key={c} className="ma-chip">{c}</span>)}
+        </div>
+      )}
 
       <div className="ma-l2">
         {source.analyses.map((a, i) => (
@@ -340,7 +357,7 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
         )}
 
         <div className="ma-src">
-          📌 Sursă: {source.label} · {source.url
+          📌 Sursă: {source.credit ?? source.label} · {source.url
             ? <a href={source.url} target="_blank" rel="noopener noreferrer">{source.link}</a>
             : source.link} · Prelucrare: 24reco.com · Actualizat {source.freq}
           {an.footnote && <><br />{an.footnote}</>}
