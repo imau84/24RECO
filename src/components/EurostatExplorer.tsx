@@ -23,7 +23,8 @@ export type EurostatSet = {
   sursa?: string
   actualizat: string
   perioade: string[]
-  serii: { nume: string; valori: (number | null)[]; provizorii: number[] }[]
+  /** unitate / zecimale / agregare pe serie suprascriu valorile setului (seturi cu unități amestecate: TWh, MW, %) */
+  serii: { nume: string; valori: (number | null)[]; provizorii: number[]; unitate?: string; zecimale?: number; agregare?: 'suma' | 'medie' }[]
 }
 
 const LUNI = ['ianuarie', 'februarie', 'martie', 'aprilie', 'mai', 'iunie', 'iulie', 'august', 'septembrie', 'octombrie', 'noiembrie', 'decembrie']
@@ -47,8 +48,13 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
   const nf = (z: number) => new Intl.NumberFormat(locale, { minimumFractionDigits: z, maximumFractionDigits: z })
   const pctFmt = nf(1)
   const semn = (p: number) => `${p > 0 ? '+' : p < 0 ? '−' : ''}${pctFmt.format(Math.abs(p))}%`
-  const f = nf(set.zecimale)
-  const fmt = (v: number | null | undefined) => (v == null ? '—' : f.format(v))
+  const fmts = useMemo(() => set.serii.map(s => {
+    const f = nf(s.zecimale ?? set.zecimale)
+    return (v: number | null | undefined) => (v == null ? '—' : f.format(v))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }), [set, locale])
+  /** variația procentuală are sens doar între două valori pozitive (soldurile pot schimba semnul) */
+  const variatie = (v: number | null | undefined, t: number | null | undefined) => (v != null && t != null && v > 0 && t > 0 ? (v - t) / t * 100 : null)
   const perAn = set.freq === 'Q' ? 4 : 12
   const etPoz = set.freq === 'Q' ? ['T1', 'T2', 'T3', 'T4'] : LUNI_SCURT
   const ani = useMemo(() => Array.from(new Set(set.perioade.map(p => parse(p).an))), [set.perioade])
@@ -60,6 +66,9 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
   const [sort, setSort] = useState<{ col: SortCol; dir: 1 | -1 }>({ col: 'p', dir: -1 })
 
   const serie = set.serii[ind]
+  const fmt = fmts[ind]
+  const unitate = serie.unitate ?? set.unitate
+  const agregare = serie.agregare ?? set.agregare
   const idx = useMemo(() => new Map(set.perioade.map((p, i) => [p, i])), [set.perioade])
   const val = (s: number, an: number, poz: number) => {
     const i = idx.get(set.freq === 'Q' ? `${an}-Q${poz}` : `${an}-${String(poz).padStart(2, '0')}`)
@@ -73,16 +82,16 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
     while (u >= 0 && v[u] == null) u--
     const pU = set.perioade[u], { an, poz } = parse(pU)
     const vU = v[u]!, vT = val(ind, an - 1, poz)
-    const pYoY = vT ? (vU - vT) / vT * 100 : null
+    const pYoY = variatie(vU, vT)
     // anul curent (până la ultima perioadă) vs. aceleași perioade din anul trecut
     const agg = (a: number) => {
       const x = Array.from({ length: poz }, (_, k) => val(ind, a, k + 1))
       if (x.some(y => y == null)) return null
       const s = (x as number[]).reduce((p, c) => p + c, 0)
-      return set.agregare === 'suma' ? s : s / x.length
+      return agregare === 'suma' ? s : s / x.length
     }
     const aC = agg(an), aT = agg(an - 1)
-    const pAn = aC != null && aT ? (aC - aT) / aT * 100 : null
+    const pAn = variatie(aC, aT)
     let iMax = 0
     v.forEach((x, i) => { if (x != null && x > (v[iMax] ?? -Infinity)) iMax = i })
     return { pU, vU, vT, pYoY, an, poz, aC, aT, pAn, iMax }
@@ -91,14 +100,19 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
 
   const { pU, vU, vT, pYoY, an, poz, aC, pAn, iMax } = rezumat
   const perioadaAn = poz === perAn ? `tot anul ${an}` : poz === 1 ? eticheta(pU, true) : `${set.freq === 'Q' ? `primele ${poz} trimestre` : `primele ${poz} luni`} din ${an}`
-  const cuvant = set.agregare === 'suma' ? 'Total' : 'Media'
-  const pe_scurt = `În ${eticheta(pU, true)}: ${fmt(vU)} ${set.unitate.startsWith('indice') ? `(${set.unitate})` : set.unitate}` +
+  const cuvant = agregare === 'suma' ? 'Total' : 'Media'
+  const pe_scurt = `În ${eticheta(pU, true)}: ${fmt(vU)} ${unitate.startsWith('indice') ? `(${unitate})` : unitate}` +
     (pYoY != null ? `, cu ${pctFmt.format(Math.abs(pYoY))}% ${set.key === 'preturi' ? (pYoY >= 0 ? 'mai scump' : 'mai ieftin') : pYoY >= 0 ? 'mai mult' : 'mai puțin'} decât în ${eticheta(`${set.perioade[0].includes('Q') ? `${an - 1}-Q${poz}` : `${an - 1}-${String(poz).padStart(2, '0')}`}`, true)}.` : '.') +
-    (pAn != null && poz > 1 ? ` Pe ${perioadaAn}, ${set.agregare === 'suma' ? 'totalul' : 'media'} e ${pAn >= 0 ? 'în creștere' : 'în scădere'} cu ${pctFmt.format(Math.abs(pAn))}% față de aceeași perioadă a anului trecut.` : '')
+    (pAn != null && poz > 1 ? ` Pe ${perioadaAn}, ${agregare === 'suma' ? 'totalul' : 'media'} e ${pAn >= 0 ? 'în creștere' : 'în scădere'} cu ${pctFmt.format(Math.abs(pAn))}% față de aceeași perioadă a anului trecut.` : '')
 
   /* ── Grafic ── */
   const aniGrafic = [...aniSel].sort((a, b) => a - b)
-  const culoareAn = (a: number) => (a === ani[ani.length - 1] ? accent : PALETA[(ani.indexOf(a) + 1) % PALETA.length])
+  // anul curent are culoarea accentului; anii anteriori iau paleta în ordine, de la cel mai recent (cele mai distincte culori pe „ultimii 3”)
+  const paleta = PALETA.filter(c => c.toLowerCase() !== accent.toLowerCase())
+  const culoareAn = (a: number) => {
+    const d = ani.length - 1 - ani.indexOf(a)
+    return d === 0 ? accent : paleta[(d - 1) % paleta.length]
+  }
   const dateGrafic: Record<string, string | number | null>[] = mod === 'suprapus'
     ? etPoz.map((e, k) => {
         const r: Record<string, string | number | null> = { x: e }
@@ -110,12 +124,12 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
     ? dateGrafic.flatMap(r => aniGrafic.map(a => r[String(a)] as number | null))
     : dateGrafic.map(r => r.v as number | null)).filter((x): x is number => x != null)
   const yMin = toate.length ? Math.min(...toate) : 0, yMax = toate.length ? Math.max(...toate) : 1
-  // gradații rotunde: indicii pornesc aproape de minim, cantitățile de la 0
-  const jos = set.unitate.startsWith('indice') ? yMin : 0
+  // gradații rotunde: indicii pornesc aproape de minim, cantitățile de la 0 (sau de sub 0, la solduri negative)
+  const jos = unitate.startsWith('indice') ? yMin : Math.min(0, yMin)
   const pas = [1, 2, 2.5, 5].flatMap(m => [0.1, 1, 10, 100, 1e3, 1e4, 1e5, 1e6].map(p => m * p)).sort((x, y) => x - y)
     .find(x => (yMax - jos) / x <= 5) ?? 1e7
   const ticks: number[] = []
-  for (let v = Math.floor(jos / pas) * pas; v <= Math.ceil(yMax / pas) * pas + 1e-9; v += pas) ticks.push(Math.round(v * 10) / 10)
+  for (let v = Math.floor(jos / pas) * pas; v <= Math.ceil(yMax / pas) * pas + 1e-9; v += pas) ticks.push(Math.round(v * 1000) / 1000)
   const dom: [number, number] = [ticks[0], ticks[ticks.length - 1]]
   const scurt = new Intl.NumberFormat(locale, { maximumFractionDigits: 1 })
   const axa = (v: number) => (Math.abs(v) >= 1e6 ? `${scurt.format(v / 1e6)}M` : Math.abs(v) >= 1e3 && yMax >= 1e4 ? `${scurt.format(v / 1e3)}k` : scurt.format(v))
@@ -128,7 +142,7 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
       p, an: a, poz: z, et: eticheta(p, true),
       vals: set.serii.map(s => s.valori[i]),
       prov: set.serii.map(s => s.provizorii.includes(i)),
-      yoy: v != null && t ? (v - t) / t * 100 : null,
+      yoy: variatie(v, t),
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [set, ind])
@@ -146,6 +160,7 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
   const sorteaza = (col: SortCol) => setSort(s => (s.col === col ? { col, dir: (s.dir * -1) as 1 | -1 } : { col, dir: -1 }))
   const sageata = (col: SortCol) => (sort.col === col ? (sort.dir > 0 ? ' ▲' : ' ▼') : ' ↕')
   const comuta = (a: number) => setAniSel(s => (s.includes(a) ? (s.length > 1 ? s.filter(x => x !== a) : s) : [...s, a]))
+  const mixt = set.serii.some(s => s.unitate)  // unități diferite pe coloane → le scriem sub nume
   const areProv = vizibile.some(r => r.prov.some(Boolean))
 
   return (
@@ -170,6 +185,7 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
         .ex thead th:hover{color:var(--ink)}
         .ex th.sel,.ex td.sel{background:#f2fafb}
         .ex td.up{color:var(--up)}.ex td.down{color:var(--down)}
+        .ex-u{display:block;font-size:11px;font-weight:500;color:var(--mute)}
         .ex-prov{color:var(--mute);font-weight:400;margin-left:2px}
         .ex-notes{margin:10px 0 0;padding-left:18px;font-size:12.5px;color:var(--mute);line-height:1.5}
       ` }} />
@@ -200,13 +216,13 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
           <div className="l">Ultima valoare ({eticheta(pU, true)})</div>
           <div className="v">{fmt(vU)}</div>
           {pYoY != null && <div className={'c ' + (pYoY >= 0 ? 'up' : 'down')}>{pYoY >= 0 ? '▲' : '▼'} {semn(pYoY)} față de anul trecut</div>}
-          <div className="h">{set.unitate}{vT != null ? ` · acum un an: ${fmt(vT)}` : ''}</div>
+          <div className="h">{unitate}{vT != null ? ` · acum un an: ${fmt(vT)}` : ''}</div>
         </div>
         <div className="ma-kpi">
           <div className="l">{cuvant} {poz === perAn || poz === 1 ? 'în' : 'pe'} {perioadaAn}</div>
           <div className="v">{fmt(aC)}</div>
           {pAn != null && <div className={'c ' + (pAn >= 0 ? 'up' : 'down')}>{pAn >= 0 ? '▲' : '▼'} {semn(pAn)} față de aceeași perioadă din {an - 1}</div>}
-          <div className="h">{set.agregare === 'suma' ? 'Adunat pe perioadele publicate.' : 'Media perioadelor publicate.'}</div>
+          <div className="h">{agregare === 'suma' ? 'Adunat pe perioadele publicate.' : 'Media perioadelor publicate.'}</div>
         </div>
         <div className="ma-kpi">
           <div className="l">Cea mai mare valoare</div>
@@ -220,7 +236,7 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
 
       <div className="ma-card" style={{ marginBottom: 14 }}>
         <div className="ma-ch">
-          <h3>{serie.nume} — {set.unitate}</h3>
+          <h3>{serie.nume} — {unitate}</h3>
           <div className="ma-seg">
             <button className={mod === 'suprapus' ? 'on' : ''} onClick={() => setMod('suprapus')}>📅 Ani suprapuși</button>
             <button className={mod === 'continuu' ? 'on' : ''} onClick={() => setMod('continuu')}>📈 Continuu</button>
@@ -259,7 +275,7 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
               <tr>
                 <th onClick={() => sorteaza('p')}>Perioada{sageata('p')}</th>
                 {set.serii.map((s, i) => (
-                  <th key={s.nume} className={'n' + (i === ind ? ' sel' : '')} onClick={() => sorteaza(i)} title="Sortează">{s.nume}{sageata(i)}</th>
+                  <th key={s.nume} className={'n' + (i === ind ? ' sel' : '')} onClick={() => sorteaza(i)} title={`Sortează · ${s.unitate ?? set.unitate}`}>{s.nume}{sageata(i)}{mixt && <span className="ex-u">{s.unitate ?? set.unitate}</span>}</th>
                 ))}
                 <th className="n" onClick={() => sorteaza('yoy')} title={`Variația „${serie.nume}” față de aceeași perioadă a anului trecut`}>Față de anul trecut{sageata('yoy')}</th>
               </tr>
@@ -269,7 +285,7 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
                 <tr key={r.p}>
                   <td>{r.et}</td>
                   {r.vals.map((v, i) => (
-                    <td key={i} className={'n' + (i === ind ? ' sel' : '')}>{fmt(v)}{r.prov[i] && <span className="ex-prov">*</span>}</td>
+                    <td key={i} className={'n' + (i === ind ? ' sel' : '')}>{fmts[i](v)}{r.prov[i] && <span className="ex-prov">*</span>}</td>
                   ))}
                   <td className={'n ' + (r.yoy == null ? '' : r.yoy >= 0 ? 'up' : 'down')}>{r.yoy == null ? '—' : semn(r.yoy)}</td>
                 </tr>
