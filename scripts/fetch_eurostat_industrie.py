@@ -195,7 +195,7 @@ def iesire(cfg: dict, perioade: list, serii: list) -> dict:
              "provizorii": [j for j, i in enumerate(idx) if i in s.get("provizorii", ())]}
         r.update({k: s[k] for k in ("unitate", "zecimale", "agregare") if k in s})
         out.append(r)
-    return {**{k: cfg[k] for k in META}, **({"sursa": cfg["sursa"]} if "sursa" in cfg else {}),
+    return {**{k: cfg[k] for k in META}, **{k: cfg[k] for k in ("sursa", "rata") if k in cfg},
             "actualizat": date.today().isoformat(), "perioade": [perioade[i] for i in idx], "serii": out}
 
 

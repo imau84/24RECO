@@ -2,8 +2,9 @@ name: Update Comerț DRPCIV
 
 on:
   schedule:
-    # Rulează în ziua de 10 a fiecărei luni, la 07:00 UTC (09:00 ora României)
-    - cron: "0 7 10 * *"
+    # Rulează pe 10 și pe 25 ale lunii, la 07:00 UTC (09:00 ora României): DRPCIV nu publică la dată fixă,
+    # iar scriptul completează și lunile din anul curent care lipsesc.
+    - cron: "0 7 10,25 * *"
   workflow_dispatch:
     inputs:
       backfill:

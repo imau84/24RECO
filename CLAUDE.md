@@ -25,5 +25,5 @@ Platformă de rapoarte din date publice românești. Next.js 14 (App Router) + T
 - Paginile de date sunt `"use client"` (randate din client, arată „Se încarcă datele…”) → Google nu vede datele. De migrat la Server Components + ISR din Neon când ajungem la SEO pe conținut.
 
 ### Următorii pași posibili
-1. Șlefuim `/model-a` până e perfect, apoi îl transformăm în component reutilizabil și migrăm paginile reale una câte una (începând cu **Comerț**, care citește `/comert_data.json`).
+1. Migrăm restul paginilor reale pe `ModelA` (Comerț, Industrie și Transport sunt deja mutate; seturile Eurostat/BCE folosesc `EurostatExplorer` + câte un `scripts/fetch_eurostat_*.py` lunar).
 2. Conectăm cifre reale pe plăcile din homepage.

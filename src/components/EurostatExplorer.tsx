@@ -21,6 +21,8 @@ export type EurostatSet = {
   url: string
   /** numele sursei în subsol (implicit „Eurostat”) */
   sursa?: string
+  /** valorile sunt rate în % (inflație, dobânzi): variațiile se dau în puncte procentuale, nu în % din % */
+  rata?: boolean
   actualizat: string
   perioade: string[]
   /** unitate / zecimale / agregare pe serie suprascriu valorile setului (seturi cu unități amestecate: TWh, MW, %) */
@@ -47,14 +49,18 @@ type SortCol = 'p' | 'yoy' | number
 export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en-US' }: { set: EurostatSet; accent?: string; locale?: string }) {
   const nf = (z: number) => new Intl.NumberFormat(locale, { minimumFractionDigits: z, maximumFractionDigits: z })
   const pctFmt = nf(1)
-  const semn = (p: number) => `${p > 0 ? '+' : p < 0 ? '−' : ''}${pctFmt.format(Math.abs(p))}%`
+  const ux = set.rata ? ' pp' : '%'
+  // la rate (inflație, dobânzi) o creștere nu e o veste bună → fără verde/roșu
+  const culoare = (p: number) => (set.rata ? '' : p >= 0 ? 'up' : 'down')
+  const semn = (p: number) => `${p > 0 ? '+' : p < 0 ? '−' : ''}${pctFmt.format(Math.abs(p))}${ux}`
   const fmts = useMemo(() => set.serii.map(s => {
     const f = nf(s.zecimale ?? set.zecimale)
     return (v: number | null | undefined) => (v == null ? '—' : f.format(v))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [set, locale])
   /** variația procentuală are sens doar între două valori pozitive (soldurile pot schimba semnul) */
-  const variatie = (v: number | null | undefined, t: number | null | undefined) => (v != null && t != null && v > 0 && t > 0 ? (v - t) / t * 100 : null)
+  const variatie = (v: number | null | undefined, t: number | null | undefined) =>
+    v == null || t == null ? null : set.rata ? v - t : v > 0 && t > 0 ? (v - t) / t * 100 : null
   const perAn = set.freq === 'Q' ? 4 : 12
   const etPoz = set.freq === 'Q' ? ['T1', 'T2', 'T3', 'T4'] : LUNI_SCURT
   const ani = useMemo(() => Array.from(new Set(set.perioade.map(p => parse(p).an))), [set.perioade])
@@ -101,8 +107,12 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
   const { pU, vU, vT, pYoY, an, poz, aC, pAn, iMax } = rezumat
   const perioadaAn = poz === perAn ? `tot anul ${an}` : poz === 1 ? eticheta(pU, true) : `${set.freq === 'Q' ? `primele ${poz} trimestre` : `primele ${poz} luni`} din ${an}`
   const cuvant = agregare === 'suma' ? 'Total' : 'Media'
-  const pe_scurt = `În ${eticheta(pU, true)}: ${fmt(vU)} ${unitate.startsWith('indice') ? `(${unitate})` : unitate}` +
-    (pYoY != null ? `, cu ${pctFmt.format(Math.abs(pYoY))}% ${set.key === 'preturi' ? (pYoY >= 0 ? 'mai scump' : 'mai ieftin') : pYoY >= 0 ? 'mai mult' : 'mai puțin'} decât în ${eticheta(`${set.perioade[0].includes('Q') ? `${an - 1}-Q${poz}` : `${an - 1}-${String(poz).padStart(2, '0')}`}`, true)}.` : '.') +
+  const anTrecut = eticheta(`${set.perioade[0].includes('Q') ? `${an - 1}-Q${poz}` : `${an - 1}-${String(poz).padStart(2, '0')}`}`, true)
+  const pe_scurt = set.rata
+    ? `În ${eticheta(pU, true)}: ${fmt(vU)}% ${unitate.replace(/^%\s*/, '')}.` + (pYoY != null && vT != null
+      ? ` Acum un an, în ${anTrecut}, era ${fmt(vT)}% — ${Math.abs(pYoY) < 0.05 ? 'practic la fel' : `cu ${pctFmt.format(Math.abs(pYoY))} puncte procentuale ${pYoY > 0 ? 'mai mult' : 'mai puțin'}`}.` : '')
+    : `În ${eticheta(pU, true)}: ${fmt(vU)} ${unitate.startsWith('indice') ? `(${unitate})` : unitate}` +
+    (pYoY != null ? `, cu ${pctFmt.format(Math.abs(pYoY))}% ${set.key === 'preturi' ? (pYoY >= 0 ? 'mai scump' : 'mai ieftin') : pYoY >= 0 ? 'mai mult' : 'mai puțin'} decât în ${anTrecut}.` : '.') +
     (pAn != null && poz > 1 ? ` Pe ${perioadaAn}, ${agregare === 'suma' ? 'totalul' : 'media'} e ${pAn >= 0 ? 'în creștere' : 'în scădere'} cu ${pctFmt.format(Math.abs(pAn))}% față de aceeași perioadă a anului trecut.` : '')
 
   /* ── Grafic ── */
@@ -215,13 +225,13 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
         <div className="ma-kpi">
           <div className="l">Ultima valoare ({eticheta(pU, true)})</div>
           <div className="v">{fmt(vU)}</div>
-          {pYoY != null && <div className={'c ' + (pYoY >= 0 ? 'up' : 'down')}>{pYoY >= 0 ? '▲' : '▼'} {semn(pYoY)} față de anul trecut</div>}
+          {pYoY != null && <div className={'c ' + culoare(pYoY)}>{pYoY >= 0 ? '▲' : '▼'} {semn(pYoY)} față de anul trecut</div>}
           <div className="h">{unitate}{vT != null ? ` · acum un an: ${fmt(vT)}` : ''}</div>
         </div>
         <div className="ma-kpi">
           <div className="l">{cuvant} {poz === perAn || poz === 1 ? 'în' : 'pe'} {perioadaAn}</div>
           <div className="v">{fmt(aC)}</div>
-          {pAn != null && <div className={'c ' + (pAn >= 0 ? 'up' : 'down')}>{pAn >= 0 ? '▲' : '▼'} {semn(pAn)} față de aceeași perioadă din {an - 1}</div>}
+          {pAn != null && <div className={'c ' + culoare(pAn)}>{pAn >= 0 ? '▲' : '▼'} {semn(pAn)} față de aceeași perioadă din {an - 1}</div>}
           <div className="h">{agregare === 'suma' ? 'Adunat pe perioadele publicate.' : 'Media perioadelor publicate.'}</div>
         </div>
         <div className="ma-kpi">
@@ -277,7 +287,7 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
                 {set.serii.map((s, i) => (
                   <th key={s.nume} className={'n' + (i === ind ? ' sel' : '')} onClick={() => sorteaza(i)} title={`Sortează · ${s.unitate ?? set.unitate}`}>{s.nume}{sageata(i)}{mixt && <span className="ex-u">{s.unitate ?? set.unitate}</span>}</th>
                 ))}
-                <th className="n" onClick={() => sorteaza('yoy')} title={`Variația „${serie.nume}” față de aceeași perioadă a anului trecut`}>Față de anul trecut{sageata('yoy')}</th>
+                <th className="n" onClick={() => sorteaza('yoy')} title={`Variația „${serie.nume}” față de aceeași perioadă a anului trecut`}>Față de anul trecut{set.rata ? ' (pp)' : ''}{sageata('yoy')}</th>
               </tr>
             </thead>
             <tbody>
@@ -287,7 +297,7 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
                   {r.vals.map((v, i) => (
                     <td key={i} className={'n' + (i === ind ? ' sel' : '')}>{fmts[i](v)}{r.prov[i] && <span className="ex-prov">*</span>}</td>
                   ))}
-                  <td className={'n ' + (r.yoy == null ? '' : r.yoy >= 0 ? 'up' : 'down')}>{r.yoy == null ? '—' : semn(r.yoy)}</td>
+                  <td className={'n ' + (r.yoy == null ? '' : culoare(r.yoy))}>{r.yoy == null ? '—' : semn(r.yoy)}</td>
                 </tr>
               ))}
             </tbody>
@@ -295,7 +305,8 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
         </div>
         <div className="ma-src">
           📌 Sursă: {set.sursa ?? 'Eurostat'} · <a href={set.url} target="_blank" rel="noopener noreferrer">{set.cod}</a> · Prelucrare: 24reco.com · verificat lunar (ultima schimbare a datelor: {set.actualizat})
-          {areProv && <><br />* valoare provizorie sau estimată — Eurostat o poate revizui.</>}
+          {areProv && <><br />* valoare provizorie sau estimată — {set.sursa ? 'sursa' : 'Eurostat'} o poate revizui.</>}
+          {set.rata && <><br />pp = puncte procentuale: diferența simplă dintre două procente (ex. de la 8% la 6% = −2 pp).</>}
           <ul className="ex-notes">{set.note.map(n => <li key={n}>{n}</li>)}</ul>
         </div>
       </div>

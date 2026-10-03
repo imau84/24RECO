@@ -1,0 +1,41 @@
+name: Update Eurostat comerț (lunar)
+
+on:
+  schedule:
+    # De două ori pe lună: pe 20 (Eurostat — vânzări pe ~7, inflație pe ~19)
+    # și pe 30 (BCE publică creditele și dobânzile în jurul zilei 27–29). Commit doar dacă apar date noi.
+    - cron: "0 6 20,30 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalează dependențe
+        run: pip install requests pandas
+
+      - name: Descarcă datele (Eurostat, BCE)
+        run: python scripts/fetch_eurostat_comert.py
+
+      - name: Commit dacă s-a schimbat
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/comert/eurostat.json
+          if git diff --staged --quiet; then
+            echo "Nicio modificare în date."
+          else
+            git commit -m "data: Eurostat comerț ($(date +%Y-%m-%d))"
+            git pull --rebase
+            git push
+          fi

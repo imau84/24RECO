@@ -10,7 +10,7 @@ const INDUSTRII: Item[] = [
   { icon: '🏠', title: 'Imobiliare', sub: 'Tranzacții · ANCPI', href: '/imobiliare', color: '#3b82f6' },
   { icon: '🚛', title: 'Transport', sub: 'Marfă · Operatori', href: '/transport', color: '#12a5b8' },
   { icon: '🏭', title: 'Industrie', sub: 'Exporturi · INS', href: '/industrii/industrie', color: '#5a6178' },
-  { icon: '🛒', title: 'Comerț', sub: 'Înmatriculări auto · DRPCIV', href: '/comert', color: '#e5544b' },
+  { icon: '🛒', title: 'Comerț', sub: 'Înmatriculări auto · vânzări · inflație · credite', href: '/comert', color: '#e5544b' },
   { icon: '✈️', title: 'Turism', sub: 'Sosiri · Cazare', href: '/industrii/turism', color: '#e0559c' },
 ]
 

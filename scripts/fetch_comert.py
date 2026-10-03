@@ -114,6 +114,15 @@ def is_inmatriculari(title):
     return t.startswith("înmatricul") or t.startswith("inmatricul")
 
 
+def cheie_din_titlu(title):
+    """„Înmatriculări iulie 2026” → „2026_07” (None dacă titlul nu are lună și an)."""
+    m = re.search(r"(\w+)\s+(20\d{2})", (title or "").lower())
+    if not m:
+        return None
+    luni = [x.lower() for x in LABELS]
+    return f"{m.group(2)}_{luni.index(m.group(1)):02d}" if m.group(1) in luni[1:] else None
+
+
 def news_files(item):
     i18n = item.get("i18n") or []
     if not i18n:
@@ -354,6 +363,21 @@ def main():
             sys.exit(1)
         data["months"][res[0]] = res[1]
         updated += 1
+        # completează lunile din anul celei mai noi luni care lipsesc (ex. o rulare sărită
+        # sau publicată după ziua cronului) — altfel ar rămâne goale pentru totdeauna
+        an = res[0][:4]
+        for it in items[1:]:
+            k = cheie_din_titlu((it.get("i18n") or [{}])[0].get("titleDescription"))
+            if not k or not k.startswith(an) or k in data["months"]:
+                continue
+            time.sleep(6)   # pauză între luni, să nu declanșăm WAF-ul
+            try:
+                r = process_item(it)
+                if r and r[0].startswith(an):
+                    data["months"][r[0]] = r[1]
+                    updated += 1
+            except Exception as e:
+                print(f"  ✗ EȘUAT (luna lipsă {k}): {type(e).__name__}: {e}")
 
     if updated == 0:
         print("Nimic de actualizat — nu suprascriu fișierul existent.")
