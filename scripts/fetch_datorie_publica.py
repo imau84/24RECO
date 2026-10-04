@@ -128,8 +128,10 @@ def parse_workbook(xls_bytes: bytes) -> dict:
 
 
 def normalize_period(p: str) -> str:
-    """'2020' -> '2020'; 'Ianuarie 2026' / 'Martie 2026**)' -> '2026-01' etc."""
+    """'2020' / '2020.0' -> '2020'; 'Ianuarie 2026' / 'Martie 2026**)' -> '2026-01' etc."""
     p = p.replace("**)", "").replace("*)", "").strip()
+    if p.endswith(".0") and p[:-2].isdigit():  # xlrd citește anii ca numere (2020.0) în fișierele din 2026
+        return p[:-2]
     luni = {
         "ianuarie": "01", "februarie": "02", "martie": "03", "aprilie": "04",
         "mai": "05", "iunie": "06", "iulie": "07", "august": "08",
@@ -149,7 +151,7 @@ def main():
     store = json.loads(DATA_PATH.read_text(encoding="utf-8"))
 
     parsed = None
-    for year, month, url in candidate_urls(max_months_back=3):
+    for year, month, url in candidate_urls(max_months_back=6):
         content = download(url)
         if content is None:
             continue
@@ -167,28 +169,38 @@ def main():
 
     norm_periods = [normalize_period(p) for p in parsed["periods"]]
 
-    # păstrăm istoricul 2010-2019 din JSON existent, înlocuim 2020+ cu datele noi
+    # Fișierul conține anii încheiați (2020+) și doar ULTIMELE luni ale anului curent, așa că
+    # nu înlocuim tot: îmbinăm perioadele vechi cu cele noi (cele noi au prioritate), păstrăm
+    # istoricul 2010–2019 din JSON și scoatem lunile unui an când apare valoarea lui anuală.
     keep_until = store.get("detailed_from", "2020")
     old_periods = store["periods"]
     cut = old_periods.index(keep_until) if keep_until in old_periods else 10
-    pre = {
-        "periods": old_periods[:cut],
-        "pib": store["pib"][:cut],
-        "total": store["total"][:cut],
-        "pctPIB": store["pctPIB"][:cut],
-        "interna": store["interna"][:cut],
-        "externa": store["externa"][:cut],
-    }
+    serii = ("pib", "total", "pctPIB", "interna", "externa")
+    sectiuni = ("total_detail", "interna_detail", "externa_detail")
 
-    store["periods"] = pre["periods"] + norm_periods
-    store["pib"] = pre["pib"] + (parsed["pib"] or [])
-    store["total"] = pre["total"] + (parsed["total"]["total"] or [])
-    store["pctPIB"] = pre["pctPIB"] + (parsed["total"]["pctPIB"] or [])
-    store["interna"] = pre["interna"] + (parsed["interna"]["total"] or [])
-    store["externa"] = pre["externa"] + (parsed["externa"]["total"] or [])
-    store["total_detail"] = parsed["total"]
-    store["interna_detail"] = parsed["interna"]
-    store["externa_detail"] = parsed["externa"]
+    def din_store(i: int) -> dict:
+        j = i - cut  # seriile detaliate încep la `detailed_from`
+        return {**{k: store[k][i] for k in serii},
+                **{s_: {k: v[j] if v and j < len(v) else None for k, v in store.get(s_, {}).items()} for s_ in sectiuni}}
+
+    def din_fisier(j: int) -> dict:
+        val = lambda arr: arr[j] if arr and j < len(arr) else None
+        sect = {"total_detail": parsed["total"], "interna_detail": parsed["interna"], "externa_detail": parsed["externa"]}
+        return {"pib": val(parsed["pib"]), "total": val(parsed["total"]["total"]), "pctPIB": val(parsed["total"]["pctPIB"]),
+                "interna": val(parsed["interna"]["total"]), "externa": val(parsed["externa"]["total"]),
+                **{s_: {k: val(v) for k, v in d.items()} for s_, d in sect.items()}}
+
+    perioade = {p: din_store(i) for i, p in enumerate(old_periods) if i >= cut}
+    perioade.update({p: din_fisier(j) for j, p in enumerate(norm_periods)})
+    ani = {p for p in perioade if "-" not in p}
+    noi = sorted(p for p in perioade if p[:4] not in ani or "-" not in p)
+
+    store["periods"] = old_periods[:cut] + noi
+    for k in serii:
+        store[k] = store[k][:cut] + [perioade[p][k] for p in noi]
+    for s_ in sectiuni:
+        chei = set().union(*(perioade[p][s_] for p in noi))
+        store[s_] = {k: [perioade[p][s_].get(k) for p in noi] for k in sorted(chei)}
     store["lastUpdated"] = date.today().isoformat()[:7]
 
     DATA_PATH.write_text(json.dumps(store, ensure_ascii=False, indent=1), encoding="utf-8")

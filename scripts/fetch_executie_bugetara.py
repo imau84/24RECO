@@ -12,6 +12,7 @@ Dacă nu există o lună nouă publicată, scriptul nu modifică nimic.
 
 import json
 import sys
+import unicodedata
 from calendar import monthrange
 from datetime import date
 from pathlib import Path
@@ -48,6 +49,11 @@ def download_xlsx(url: str) -> bytes | None:
     return None
 
 
+def fara_diacritice(s: str) -> str:
+    """MF scrie aceeași etichetă când cu, când fără diacritice („in contul” / „în contul”) → comparăm fără ele."""
+    return unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode("ascii")
+
+
 def parse_sinteza(xlsx_bytes: bytes) -> dict:
     """Returnează {label: (prevYearLei, curYearLei)} din foaia 'Sinteza - An 2'."""
     import openpyxl
@@ -55,16 +61,27 @@ def parse_sinteza(xlsx_bytes: bytes) -> dict:
 
     wb = openpyxl.load_workbook(BytesIO(xlsx_bytes), data_only=True)
     ws = wb["Sinteza - An 2"]
+    # coloanele „mil.lei” din antet: prima = anul precedent, a doua = anul curent.
+    # Poziția lor se schimbă între fișiere (în august 2026 a dispărut o coloană goală),
+    # așa că nu folosim indici ficși — altfel se citește „% din PIB” în loc de mil. lei.
+    col_prev = col_cur = None
+    for row in ws.iter_rows(max_row=15, values_only=True):
+        mil = [i for i, c in enumerate(row) if isinstance(c, str) and c.replace(" ", "").lower() == "mil.lei"]
+        if len(mil) >= 2:
+            col_prev, col_cur = mil[0], mil[1]
+            break
+    if col_prev is None:
+        raise RuntimeError("Nu găsesc coloanele „mil.lei” în antetul foii Sinteza — s-a schimbat formatul?")
     out = {}
     for row in ws.iter_rows(values_only=True):
         if not row or not row[0]:
             continue
         label = str(row[0]).replace("\r", " ").replace("\n", " ")
-        label = " ".join(label.split()).strip()
-        if not label or label == "PIB" or label.startswith("Realiz"):
+        label = fara_diacritice(" ".join(label.split()).strip())
+        if not label or label.startswith("Realiz"):
             continue
-        prev_lei = row[1] if isinstance(row[1], (int, float)) else None
-        cur_lei = row[6] if len(row) > 6 and isinstance(row[6], (int, float)) else None
+        prev_lei = row[col_prev] if isinstance(row[col_prev], (int, float)) else None
+        cur_lei = row[col_cur] if len(row) > col_cur and isinstance(row[col_cur], (int, float)) else None
         if prev_lei is None and cur_lei is None:
             continue
         out[label] = (round(prev_lei, 2) if prev_lei is not None else None,
@@ -152,12 +169,14 @@ def main():
             continue
         print(f"Descărcat: {url}")
         raw = parse_sinteza(content)
+        if raw.get("PIB", (None, None))[1]:
+            store["pib2026"] = raw["PIB"][1]  # PIB-ul estimat folosit de MF pentru „% din PIB”
 
         # cumulat pentru luna anterioară (deja stocat) -- necesar pentru diferență
         prev_month_idx = MONTH_KEYS.index(month_key) - 1
         for row in store["rows"]:
             labels = LABEL_MAP.get(row["label"], [row["label"]])
-            cum_cur_26 = sum_raw(raw, labels, 1)  # col index 1 = an curent (.xlsx col G == idx6 in 0-based all cols, dar in parse_sinteza am pus index 1 pt cur in tuple)
+            cum_cur_26 = sum_raw(raw, labels, 1)  # în tuplul din parse_sinteza: index 1 = an curent, 0 = an precedent
             cum_cur_25 = sum_raw(raw, labels, 0)
             if cum_cur_26 is None:
                 continue

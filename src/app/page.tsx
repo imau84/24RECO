@@ -14,19 +14,19 @@ const INDUSTRII: Item[] = [
   { icon: '✈️', title: 'Turism', sub: 'Sosiri · Cazare', href: '/industrii/turism', color: '#e0559c' },
   { icon: '💻', title: 'IT&Comunicații', sub: 'Cifra de afaceri · Salarii · Internet', href: '/industrii/it-comunicatii', color: '#6366f1' },
   { icon: '💰', title: 'Finanțe', sub: 'Bursă · Bănci · Asigurări · Pensii private', href: '/industrii/finante', color: '#b8860b' },
+  { icon: '⚡', title: 'Energie', sub: 'Electricitate · Gaze · Carburanți', href: '/industrii/energie', color: '#16a34a' },
 ]
 
 const INSTITUTII: Item[] = [
-  { icon: '🏦', title: 'BNR', sub: 'Curs · Credite', href: '/institutii/bnr', color: '#334670' },
-  { icon: '👴', title: 'Casa de Pensii', sub: 'Pensionari · Pensia medie', href: '/institutii/casa-pensii', color: '#0ea5b7' },
-  { icon: '📚', title: 'Min. Educației', sub: 'Elevi · Unități', href: '/Institutii publice - Ministerul Educatiei.html', color: '#63a615' },
-  { icon: '💰', title: 'Execuție Bugetară', sub: 'Venituri · Cheltuieli', href: '/institutii-publice/ministerul-finantelor/executie-bugetara', color: '#f0883e' },
-  { icon: '📈', title: 'Datorie Publică', sub: 'Structură · Evoluție', href: '/institutii-publice/ministerul-finantelor/datorie-publica', color: '#7c5ce6' },
+  { icon: '🏦', title: 'BNR', sub: 'Balanța de plăți · Depozite · Credite', href: '/institutii/bnr', color: '#334670' },
+  { icon: '👴', title: 'Casa de Pensii', sub: 'Salariați · Salarii pe județe', href: '/institutii/casa-pensii', color: '#0ea5b7' },
+  { icon: '📚', title: 'Min. Educației', sub: 'Elevi · Evaluare Națională · BAC', href: '/institutii/educatie', color: '#63a615' },
+  { icon: '🏛️', title: 'Min. Finanțe', sub: 'Execuție bugetară · Datorie publică', href: '/institutii-publice/ministerul-finantelor', color: '#f0883e' },
 ]
 
 const RAPOARTE: Item[] = [
   { icon: '📊', title: 'Situații Financiare', sub: 'Bilanțuri companii · ANAF', href: '/rapoarte/date-financiare', color: '#5a6178' },
-  { icon: '🗳️', title: 'Alegeri Locale 2024', sub: 'Județe · Comune', href: '/Rapoarte - Alegeri Locale 2024.html', color: '#e5544b' },
+  { icon: '🗳️', title: 'Alegeri Locale 2024', sub: 'Partide · Prezență pe județe', href: '/rapoarte/alegeri-locale-2024', color: '#e5544b' },
 ]
 
 function Tile({ icon, title, sub, href, color }: Item) {
