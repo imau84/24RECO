@@ -13,7 +13,8 @@ export type EurostatSet = {
   titlu: string
   descriere: string
   cod: string
-  freq: 'M' | 'Q'
+  /** M = lunar, Q = trimestrial („2026-Q1”), S = semestrial („2025-S2”) */
+  freq: 'M' | 'Q' | 'S'
   unitate: string
   zecimale: number
   agregare: 'suma' | 'medie'
@@ -34,11 +35,14 @@ const LUNI_SCURT = ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sep
 const PALETA = ['#12a5b8', '#e5544b', '#5b4be0', '#e0a020', '#22b07d', '#e0559c', '#3b82f6', '#7c5ce6', '#8a6d3b', '#5a6178', '#0b5f6a', '#c2410c']
 
 
-/** „2026-03” → { an: 2026, poz: 3 }; „2026-Q1” → { an: 2026, poz: 1 } */
-const parse = (p: string) => (p.includes('Q') ? { an: +p.slice(0, 4), poz: +p.slice(-1) } : { an: +p.slice(0, 4), poz: +p.slice(5, 7) })
+/** „2026-03” → { an: 2026, poz: 3 }; „2026-Q1” → { an: 2026, poz: 1 }; „2025-S2” → { an: 2025, poz: 2 } */
+const parse = (p: string) => (/[QS]/.test(p) ? { an: +p.slice(0, 4), poz: +p.slice(-1) } : { an: +p.slice(0, 4), poz: +p.slice(5, 7) })
+/** perioada (an, poziție) → cheia din `perioade` */
+const cheie = (freq: 'M' | 'Q' | 'S', an: number, poz: number) => (freq === 'M' ? `${an}-${String(poz).padStart(2, '0')}` : `${an}-${freq}${poz}`)
 const eticheta = (p: string, lung = false) => {
   const { an, poz } = parse(p)
   if (p.includes('Q')) return `${lung ? 'trimestrul ' : 'T'}${poz} ${an}`
+  if (p.includes('S')) return `${lung ? 'semestrul ' : 'S'}${poz} ${an}`
   return `${lung ? LUNI[poz - 1] : LUNI_SCURT[poz - 1]} ${an}`
 }
 
@@ -61,8 +65,9 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
   /** variația procentuală are sens doar între două valori pozitive (soldurile pot schimba semnul) */
   const variatie = (v: number | null | undefined, t: number | null | undefined) =>
     v == null || t == null ? null : set.rata ? v - t : v > 0 && t > 0 ? (v - t) / t * 100 : null
-  const perAn = set.freq === 'Q' ? 4 : 12
-  const etPoz = set.freq === 'Q' ? ['T1', 'T2', 'T3', 'T4'] : LUNI_SCURT
+  const perAn = set.freq === 'Q' ? 4 : set.freq === 'S' ? 2 : 12
+  const etPoz = set.freq === 'Q' ? ['T1', 'T2', 'T3', 'T4'] : set.freq === 'S' ? ['S1', 'S2'] : LUNI_SCURT
+  const numePer = set.freq === 'Q' ? ['trimestru', 'trimestre'] : set.freq === 'S' ? ['semestru', 'semestre'] : ['lună', 'luni']
   const ani = useMemo(() => Array.from(new Set(set.perioade.map(p => parse(p).an))), [set.perioade])
 
   const [ind, setInd] = useState(0)
@@ -77,7 +82,7 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
   const agregare = serie.agregare ?? set.agregare
   const idx = useMemo(() => new Map(set.perioade.map((p, i) => [p, i])), [set.perioade])
   const val = (s: number, an: number, poz: number) => {
-    const i = idx.get(set.freq === 'Q' ? `${an}-Q${poz}` : `${an}-${String(poz).padStart(2, '0')}`)
+    const i = idx.get(cheie(set.freq, an, poz))
     return i == null ? null : set.serii[s].valori[i]
   }
 
@@ -105,9 +110,9 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
   }, [ind, set])
 
   const { pU, vU, vT, pYoY, an, poz, aC, pAn, iMax } = rezumat
-  const perioadaAn = poz === perAn ? `tot anul ${an}` : poz === 1 ? eticheta(pU, true) : `${set.freq === 'Q' ? `primele ${poz} trimestre` : `primele ${poz} luni`} din ${an}`
+  const perioadaAn = poz === perAn ? `tot anul ${an}` : poz === 1 ? eticheta(pU, true) : `primele ${poz} ${numePer[1]} din ${an}`
   const cuvant = agregare === 'suma' ? 'Total' : 'Media'
-  const anTrecut = eticheta(`${set.perioade[0].includes('Q') ? `${an - 1}-Q${poz}` : `${an - 1}-${String(poz).padStart(2, '0')}`}`, true)
+  const anTrecut = eticheta(cheie(set.freq, an - 1, poz), true)
   const pe_scurt = set.rata
     ? `În ${eticheta(pU, true)}: ${fmt(vU)}% ${unitate.replace(/^%\s*/, '')}.` + (pYoY != null && vT != null
       ? ` Acum un an, în ${anTrecut}, era ${fmt(vT)}% — ${Math.abs(pYoY) < 0.05 ? 'practic la fel' : `cu ${pctFmt.format(Math.abs(pYoY))} puncte procentuale ${pYoY > 0 ? 'mai mult' : 'mai puțin'}`}.` : '')
@@ -266,7 +271,7 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
               <Tooltip formatter={(v: number, k: string) => [fmt(v), mod === 'suprapus' ? k : serie.nume]} />
               {mod === 'suprapus'
                 ? aniGrafic.map(a => (
-                    <Line key={a} dataKey={String(a)} stroke={culoareAn(a)} strokeWidth={a === ani[ani.length - 1] ? 3 : 2} dot={set.freq === 'Q'} connectNulls={false} isAnimationActive={false} />
+                    <Line key={a} dataKey={String(a)} stroke={culoareAn(a)} strokeWidth={a === ani[ani.length - 1] ? 3 : 2} dot={set.freq !== 'M'} connectNulls={false} isAnimationActive={false} />
                   ))
                 : <Line dataKey="v" stroke={accent} strokeWidth={2.5} dot={false} isAnimationActive={false} />}
             </LineChart>
@@ -276,8 +281,8 @@ export default function EurostatExplorer({ set, accent = '#12a5b8', locale = 'en
 
       <div className="ma-card">
         <div className="ma-ch">
-          <h3>Tabel — {vizibile.length} {set.freq === 'Q' ? 'trimestre' : 'luni'}</h3>
-          <input type="search" placeholder={set.freq === 'Q' ? 'Caută: T2, 2025…' : 'Caută: mai, 2025…'} value={cauta} onChange={e => setCauta(e.target.value)} aria-label="Filtrează perioadele" />
+          <h3>Tabel — {vizibile.length} {numePer[1]}</h3>
+          <input type="search" placeholder={set.freq === 'Q' ? 'Caută: T2, 2025…' : set.freq === 'S' ? 'Caută: S2, 2025…' : 'Caută: mai, 2025…'} value={cauta} onChange={e => setCauta(e.target.value)} aria-label="Filtrează perioadele" />
         </div>
         <div className="ex-tbl">
           <table>
