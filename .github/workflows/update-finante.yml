@@ -1,0 +1,52 @@
+name: Update Finanțe (lunar)
+
+on:
+  schedule:
+    # Lunar, pe 21: BVB publică buletinul lunii trecute în primele zile, BCE (MIR/BSI/IVF) ~ în prima lună,
+    # ASF actualizează fișierele de pensii lunar, EIOPA și conturile financiare Eurostat sunt trimestriale.
+    # Commit doar dacă apar date noi.
+    - cron: "0 7 21 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalează dependențe
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+          pip install requests pandas numpy openpyxl
+
+      # textul buletinelor BVB din lunile trecute nu se mai schimbă → îl păstrăm între rulări
+      - name: Cache buletine BVB
+        uses: actions/cache@v4
+        with:
+          path: scripts/financiara/cache/bvb
+          key: bvb-${{ github.run_id }}
+          restore-keys: bvb-
+
+      - name: Descarcă și convertește datele (Eurostat, BCE, BIS, BVB, ASF, EIOPA)
+        run: python scripts/fetch_finante.py
+
+      - name: Commit dacă s-a schimbat
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/finante/date.json
+          if git diff --staged --quiet; then
+            echo "Nicio modificare în date."
+          else
+            git commit -m "data: Finanțe ($(date +%Y-%m-%d))"
+            git pull --rebase
+            git push
+          fi

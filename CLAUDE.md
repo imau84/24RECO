@@ -25,5 +25,9 @@ Platformă de rapoarte din date publice românești. Next.js 14 (App Router) + T
 - Paginile de date sunt `"use client"` (randate din client, arată „Se încarcă datele…”) → Google nu vede datele. De migrat la Server Components + ISR din Neon când ajungem la SEO pe conținut.
 
 ### Următorii pași posibili
-1. Migrăm restul paginilor reale pe `ModelA` (Comerț, Industrie, Transport, Turism și IT&Comunicații sunt deja mutate; seturile Eurostat/BCE folosesc `EurostatExplorer` + câte un `scripts/fetch_eurostat_*.py` lunar).
+1. Migrăm restul paginilor reale pe `ModelA` (Comerț, Industrie, Transport, Turism, IT&Comunicații și Finanțe sunt deja mutate; seturile Eurostat/BCE folosesc `EurostatExplorer` + câte un `scripts/fetch_eurostat_*.py` lunar).
 2. Conectăm cifre reale pe plăcile din homepage.
+
+### Finanțe (`/industrii/finante`)
+- Datele vin din pachetul `scripts/financiara/` (20 de scripturi copiate neschimbate; Eurostat, BCE, BIS, BVB, ASF, EIOPA) care scrie Excel-uri în `scripts/financiara/out/` (ignorat de git); `scripts/fetch_finante.py` le rulează și convertește foile de serii în `src/data/finante/date.json`.
+- Seturile BVB (01 02, 01 03, 01 05) parsează PDF-uri cu `pdftotext` din **poppler** (Linux/CI). Pe Windows, `pdftotext` din Git/mingw e xpdf și aliniază coloanele altfel → parserul eșuează; local folosește `--doar-conversie`.
