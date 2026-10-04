@@ -1,0 +1,41 @@
+name: Update IT & Comunicații (lunar)
+
+on:
+  schedule:
+    # Lunar, pe 20: până atunci Eurostat publică luna nouă pentru cifra de afaceri, salarii și prețuri (~17-19);
+    # balanța de plăți e trimestrială; RIPE și APNIC au date zilnice/săptămânale. Commit doar dacă apar date noi.
+    - cron: "0 7 20 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalează dependențe
+        run: pip install requests pandas
+
+      - name: Descarcă datele (Eurostat, RIPE NCC, APNIC)
+        run: python scripts/fetch_it.py
+
+      - name: Commit dacă s-a schimbat
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/it/date.json
+          if git diff --staged --quiet; then
+            echo "Nicio modificare în date."
+          else
+            git commit -m "data: IT & Comunicații ($(date +%Y-%m-%d))"
+            git pull --rebase
+            git push
+          fi

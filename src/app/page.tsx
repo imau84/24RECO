@@ -12,6 +12,7 @@ const INDUSTRII: Item[] = [
   { icon: '🏭', title: 'Industrie', sub: 'Exporturi · INS', href: '/industrii/industrie', color: '#5a6178' },
   { icon: '🛒', title: 'Comerț', sub: 'Înmatriculări auto · vânzări · inflație · credite', href: '/comert', color: '#e5544b' },
   { icon: '✈️', title: 'Turism', sub: 'Sosiri · Cazare', href: '/industrii/turism', color: '#e0559c' },
+  { icon: '💻', title: 'IT&Comunicații', sub: 'Cifra de afaceri · Salarii · Internet', href: '/industrii/it-comunicatii', color: '#6366f1' },
 ]
 
 const INSTITUTII: Item[] = [

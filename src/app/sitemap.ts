@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/industrii/agricultura',
     '/industrii/industrie',
     '/industrii/turism',
+    '/industrii/it-comunicatii',
     '/institutii/bnr',
     '/institutii/casa-pensii',
     '/institutii-publice/ministerul-finantelor/executie-bugetara',
