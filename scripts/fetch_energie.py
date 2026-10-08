@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Energie — 15 statistici despre energia din România → src/data/energie/date.json
+Energie — 16 statistici despre energia din România → src/data/energie/date.json
 Grupate pe sursa datelor (un tab pe pagină pentru fiecare sursă):
 
   Eurostat            01 producția de electricitate pe surse      nrg_cb_pem
@@ -15,6 +15,7 @@ Grupate pe sursa datelor (un tab pe pagină pentru fiecare sursă):
                       13 prețurile producției, industria energiei  sts_inppd_m
                       14 producția industriei energetice           sts_inpr_m
                       15 prețuri finale electricitate și gaz       nrg_pc_202…205 (semestrial)
+                      16 prețul gazului: casnici și firme          nrg_pc_202 + nrg_pc_203 (semestrial)
   Ember               03 cererea de electricitate și emisiile      monthly_full_release_long_format.csv
   Comisia Europeană   08 prețurile carburanților la pompă          Weekly Oil Bulletin (săptămânal → lunar)
   OPCOM               11 prețul angro al electricității (PZU)      export CSV zilnic → lunar
@@ -302,6 +303,38 @@ def e15(meta):
     return construieste(meta, serii)
 
 
+def e16(meta):
+    """Prețul gazului: casnici (nrg_pc_202) și non-casnici (nrg_pc_203) — taxe, monedă, PPS, tranșe de consum.
+    Casnicii se compară cu toate taxele; firmele fără TVA (o recuperează)."""
+    c = es("nrg_pc_202", "S.G3000.GJ_LT20+GJ20-199+GJ_GE200.KWH.I_TAX+X_TAX+X_VAT.EUR+NAC+PPS.RO+EU27_2020", "2007")
+    f = es("nrg_pc_203", "S.G3000.GJ_LT1000+GJ10000-99999+GJ1000000-3999999.KWH.X_TAX+X_VAT.EUR+NAC+PPS.RO+EU27_2020", "2007")
+    k = lambda banda, tax, cur, geo: f"S,G3000,{banda},KWH,{tax},{cur},{geo}"
+    lei, pps = dict(unitate="lei/kWh"), dict(unitate="PPS/kWh")
+
+    def s(src, nume, banda, tax, cur, geo, **extra):
+        return S(nume, val(src, k(banda, tax, cur, geo)), prov(src, k(banda, tax, cur, geo)), **extra)
+
+    return construieste(meta, [
+        s(c, "Casnici, România, cu toate taxele (euro/kWh)", "GJ20-199", "I_TAX", "EUR", "RO"),
+        s(c, "Casnici, media UE, cu toate taxele (euro/kWh)", "GJ20-199", "I_TAX", "EUR", "EU27_2020"),
+        s(c, "Casnici, România, cu toate taxele (lei/kWh)", "GJ20-199", "I_TAX", "NAC", "RO", **lei),
+        s(c, "Casnici, România, fără TVA (euro/kWh)", "GJ20-199", "X_VAT", "EUR", "RO"),
+        s(c, "Casnici, România, fără taxe (euro/kWh)", "GJ20-199", "X_TAX", "EUR", "RO"),
+        s(c, "Casnici, România, la puterea de cumpărare (PPS/kWh)", "GJ20-199", "I_TAX", "PPS", "RO", **pps),
+        s(c, "Casnici, media UE, la puterea de cumpărare (PPS/kWh)", "GJ20-199", "I_TAX", "PPS", "EU27_2020", **pps),
+        s(c, "Casnici cu consum mic, sub 20 GJ/an (euro/kWh)", "GJ_LT20", "I_TAX", "EUR", "RO"),
+        s(c, "Casnici cu consum mare, peste 200 GJ/an (euro/kWh)", "GJ_GE200", "I_TAX", "EUR", "RO"),
+        s(f, "Firme, România, fără TVA (euro/kWh)", "GJ10000-99999", "X_VAT", "EUR", "RO"),
+        s(f, "Firme, media UE, fără TVA (euro/kWh)", "GJ10000-99999", "X_VAT", "EUR", "EU27_2020"),
+        s(f, "Firme, România, fără TVA (lei/kWh)", "GJ10000-99999", "X_VAT", "NAC", "RO", **lei),
+        s(f, "Firme, România, fără taxe (euro/kWh)", "GJ10000-99999", "X_TAX", "EUR", "RO"),
+        s(f, "Firme, România, la puterea de cumpărare (PPS/kWh)", "GJ10000-99999", "X_VAT", "PPS", "RO", **pps),
+        s(f, "Firme, media UE, la puterea de cumpărare (PPS/kWh)", "GJ10000-99999", "X_VAT", "PPS", "EU27_2020", **pps),
+        s(f, "Firme mici, sub 1.000 GJ/an (euro/kWh)", "GJ_LT1000", "X_VAT", "EUR", "RO"),
+        s(f, "Industrie mare, 1–4 milioane GJ/an (euro/kWh)", "GJ1000000-3999999", "X_VAT", "EUR", "RO"),
+    ])
+
+
 # ── Ember ───────────────────────────────────────────────────────────────────
 
 def e03(meta):
@@ -543,6 +576,19 @@ TEME = {
                              "Electricitate: media tuturor consumatorilor. Gaz: banda tipică (casnici 20–199 GJ/an, firme 10.000–99.999 GJ/an).",
                              "Plafonările și compensările din 2022–2025 sunt incluse în prețuri.",
                              "Fără taxe = fără TVA, accize și alte taxe."])),
+            (e16, dict(key="pret-gaz", scurt="Preț gaz", icon="🔥", titlu="Prețul gazelor naturale pentru casnici și firme",
+                       descriere="Cât costă un kWh de gaz în România pentru gospodării și pentru firme, cu și fără taxe, în euro, lei "
+                                 "și la puterea de cumpărare, comparat cu media UE. Un apartament încălzit cu centrală consumă "
+                                 "în jur de 10.000 kWh de gaz pe an.",
+                       cod="nrg_pc_202", url=ES.format("nrg_pc_202"), freq="S", unitate="euro/kWh", zecimale=4, agregare="medie",
+                       note=["Semestrial: S1 = ianuarie–iunie, S2 = iulie–decembrie.",
+                             "Casnici: tranșa standard de consum 20–199 GJ/an (≈ 5.500–55.000 kWh), dacă nu se spune altfel. "
+                             "Firme: 10.000–99.999 GJ/an. 1 GJ ≈ 278 kWh.",
+                             "Casnicii plătesc toate taxele; firmele își recuperează TVA, de aceea pentru ele prețul relevant e „fără TVA”.",
+                             "PPS (standardul puterii de cumpărare) ține cont de cât de scumpă e viața în fiecare țară: "
+                             "arată cât de greu apasă factura, nu doar câți euro costă.",
+                             "Plafonările și compensările din 2022–2025 sunt incluse în prețuri.",
+                             "Setul pentru firme: nrg_pc_203. Datele dinainte de 2007 (nrg_pc_202_h, nrg_pc_203_h) au altă metodologie și nu sunt incluse."])),
         ],
     },
     "ember": {
