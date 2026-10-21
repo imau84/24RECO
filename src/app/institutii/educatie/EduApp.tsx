@@ -31,6 +31,26 @@ const JUDETE_NUME = {
 
 const fmt = (v) => new Intl.NumberFormat('en-US').format(Math.round(v));
 
+/* ── Agregare pe unitate ──
+   edu_data.json are câte un rând pe (unitate × nivel): [judet, loc, formaIdx, nivelIdx, cod, denum, elevi].
+   Strângem rândurile pe cod SIIIR, cu totalul și defalcarea pe niveluri în ordinea ciclurilor școlare. */
+const ORDINE_NIVEL = ['Antepreșcolar', 'Preșcolar', 'Primar', 'Gimnazial', 'Liceal', 'Profesional', 'Postliceal'];
+const cheieNivel = (n) => n.replace(/ş/g, 'ș').replace(/ţ/g, 'ț').replace(/Ş/g, 'Ș').replace(/Ţ/g, 'Ț');
+const rangNivel = (n) => { const i = ORDINE_NIVEL.indexOf(cheieNivel(n)); return i === -1 ? 99 : i; };
+
+const agregaUnitati = (rows, niveluri) => {
+  const m = new Map();
+  for (const u of rows) {
+    let a = m.get(u[4]);
+    if (!a) m.set(u[4], a = { cod: u[4], denum: u[5], judet: u[0], loc: u[1], formaIdx: u[2], elevi: 0, niveluri: [] });
+    a.elevi += u[6];
+    a.niveluri.push({ nivel: niveluri[u[3]], elevi: u[6] });
+  }
+  const arr = [...m.values()];
+  for (const a of arr) a.niveluri.sort((x, y) => rangNivel(x.nivel) - rangNivel(y.nivel));
+  return arr;
+};
+
 /* ── Componenta KPI ── */
 const KPICard = ({ label, value, sub, color = C.blue }) => (
   <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, padding: '14px 18px', flex: 1, minWidth: 0 }}>
@@ -45,7 +65,7 @@ const KPICard = ({ label, value, sub, color = C.blue }) => (
    ════════════════════════════════════════ */
 const AnalizaNationala = ({ data }) => {
   const totalElevi = data.total;
-  const totalUnitati = data.unitati.length;
+  const totalUnitati = React.useMemo(() => new Set(data.unitati.map(u => u[4])).size, [data]);
   const top10Judete = data.agg.judete.slice(0, 10);
   const niveluriOrdonat = data.agg.niveluri;
   const NIVEL_COLORS = {
@@ -244,30 +264,32 @@ const FiltruDetaliat = ({ data }) => {
   const formaIdx = data.forme.indexOf(forma);
   const nivelIdx = data.niveluri.indexOf(nivel);
 
-  // Filter unitati: [judet, loc, formaIdx, nivelIdx, cod, denum, elevi]
+  // Filter unitati: [judet, loc, formaIdx, nivelIdx, cod, denum, elevi], apoi un rând pe cod SIIIR
   const filtered = React.useMemo(() => {
-    return data.unitati.filter(u =>
+    return agregaUnitati(data.unitati.filter(u =>
       u[0] === judet &&
       (loc === '' || u[1] === loc) &&
       (formaIdx === -1 || u[2] === formaIdx) &&
       (nivelIdx === -1 || u[3] === nivelIdx)
-    );
+    ), data.niveluri);
   }, [judet, loc, formaIdx, nivelIdx]);
 
   const sorted = React.useMemo(() => {
     const arr = [...filtered];
-    if (sortBy === 'elevi') arr.sort((a, b) => b[6] - a[6]);
-    else if (sortBy === 'denum') arr.sort((a, b) => a[5].localeCompare(b[5]));
-    else if (sortBy === 'cod') arr.sort((a, b) => a[4].localeCompare(b[4]));
+    if (sortBy === 'elevi') arr.sort((a, b) => b.elevi - a.elevi);
+    else if (sortBy === 'denum') arr.sort((a, b) => a.denum.localeCompare(b.denum));
+    else if (sortBy === 'cod') arr.sort((a, b) => a.cod.localeCompare(b.cod));
     return arr;
   }, [filtered, sortBy]);
 
-  const totalFiltered = filtered.reduce((s, u) => s + u[6], 0);
+  const totalFiltered = filtered.reduce((s, u) => s + u.elevi, 0);
 
-  // Export CSV
+  // Export CSV — un rând pe unitate, cu câte o coloană de elevi pe nivel
   const exportCSV = () => {
-    const header = ['Cod SIIIR', 'Denumire unitate', 'Județ', 'Localitate', 'Forma proprietate', 'Nivel', 'Nr. elevi'];
-    const rows = sorted.map(u => [u[4], u[5], u[0], u[1], data.forme[u[2]], data.niveluri[u[3]], u[6]]);
+    const slug = (n) => cheieNivel(n).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const header = ['cod_siiir', 'denumire', 'judet', 'localitate', 'forma_proprietate', 'total_elevi', ...ORDINE_NIVEL.map(n => `elevi_${slug(n)}`)];
+    const rows = sorted.map(u => [u.cod, u.denum, u.judet, u.loc, data.forme[u.formaIdx], u.elevi,
+      ...ORDINE_NIVEL.map(n => u.niveluri.find(x => cheieNivel(x.nivel) === n)?.elevi ?? '')]);
     const csv = [header, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
     const url = URL.createObjectURL(blob);
@@ -351,10 +373,17 @@ const FiltruDetaliat = ({ data }) => {
                 <tr><td colSpan={3} style={{ padding: 30, textAlign: 'center', color: C.muted, fontSize: 12 }}>Nicio unitate găsită pentru combinația selectată</td></tr>
               )}
               {sorted.map((u, i) => (
-                <tr key={u[4]+i} style={{ background: i%2===0?'#fff':'#fafafa', borderBottom: `1px solid ${C.border}` }}>
-                  <td style={{ padding: '7px 12px', fontFamily: 'DM Mono, monospace', color: C.subtle, fontSize: 10 }}>{u[4]}</td>
-                  <td style={{ padding: '7px 12px', color: C.text, fontWeight: 500 }}>{u[5]}</td>
-                  <td style={{ padding: '7px 12px', textAlign: 'right', fontFamily: 'DM Mono, monospace', fontWeight: 700, color: C.navy }}>{fmt(u[6])}</td>
+                <tr key={u.cod} style={{ background: i%2===0?'#fff':'#fafafa', borderBottom: `1px solid ${C.border}` }}>
+                  <td style={{ padding: '7px 12px', fontFamily: 'DM Mono, monospace', color: C.subtle, fontSize: 10 }}>{u.cod}</td>
+                  <td style={{ padding: '7px 12px', color: C.text, fontWeight: 500 }}>
+                    {u.denum}
+                    {u.niveluri.length > 1 && (
+                      <div style={{ fontSize: 10, color: C.subtle, fontWeight: 400, marginTop: 2 }}>
+                        {u.niveluri.map(n => `${n.nivel} ${fmt(n.elevi)}`).join(' · ')}
+                      </div>
+                    )}
+                  </td>
+                  <td style={{ padding: '7px 12px', textAlign: 'right', fontFamily: 'DM Mono, monospace', fontWeight: 700, color: C.navy }}>{fmt(u.elevi)}</td>
                 </tr>
               ))}
             </tbody>
