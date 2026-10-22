@@ -6,8 +6,8 @@
     "url": "https://ec.europa.eu/eurostat/databrowser/view/sts_cobp_m/default/table?lang=en",
     "unitate": "Indice, 2021 = 100 (suprafață utilă autorizată)",
     "frecventa": "lunar",
-    "perioada": "2019-01 - 2026-07",
-    "data_extragerii": "2026-10-01 11:50"
+    "perioada": "2019-01 - 2026-08",
+    "data_extragerii": "2026-10-22 10:56"
   },
   "luni": [
     {
@@ -239,7 +239,7 @@
       "total": 116.7,
       "rezidentiale": 118.4,
       "nerezidentiale": 110.1,
-      "ue27": 106.1
+      "ue27": 106.2
     },
     {
       "perioada": "2021-10",
@@ -253,7 +253,7 @@
       "total": 97.7,
       "rezidentiale": 94.0,
       "nerezidentiale": 111.8,
-      "ue27": 97.0
+      "ue27": 96.9
     },
     {
       "perioada": "2021-12",
@@ -309,7 +309,7 @@
       "total": 109.1,
       "rezidentiale": 113.0,
       "nerezidentiale": 94.3,
-      "ue27": 98.5
+      "ue27": 98.4
     },
     {
       "perioada": "2022-08",
@@ -442,7 +442,7 @@
       "total": 67.0,
       "rezidentiale": 63.0,
       "nerezidentiale": 82.1,
-      "ue27": 77.4
+      "ue27": 77.5
     },
     {
       "perioada": "2024-03",
@@ -463,7 +463,7 @@
       "total": 75.9,
       "rezidentiale": 70.6,
       "nerezidentiale": 95.8,
-      "ue27": 76.5
+      "ue27": 75.5
     },
     {
       "perioada": "2024-06",
@@ -477,14 +477,14 @@
       "total": 82.7,
       "rezidentiale": 78.0,
       "nerezidentiale": 100.5,
-      "ue27": 87.1
+      "ue27": 87.0
     },
     {
       "perioada": "2024-08",
       "total": 77.0,
       "rezidentiale": 80.0,
       "nerezidentiale": 66.2,
-      "ue27": 78.1
+      "ue27": 78.0
     },
     {
       "perioada": "2024-09",
@@ -512,7 +512,7 @@
       "total": 103.2,
       "rezidentiale": 83.3,
       "nerezidentiale": 177.3,
-      "ue27": 87.8
+      "ue27": 87.9
     },
     {
       "perioada": "2025-01",
@@ -561,7 +561,7 @@
       "total": 111.8,
       "rezidentiale": 104.1,
       "nerezidentiale": 140.7,
-      "ue27": 90.2
+      "ue27": 90.3
     },
     {
       "perioada": "2025-08",
@@ -589,7 +589,7 @@
       "total": 88.9,
       "rezidentiale": 86.9,
       "nerezidentiale": 96.4,
-      "ue27": 76.7
+      "ue27": 76.8
     },
     {
       "perioada": "2025-12",
@@ -610,41 +610,48 @@
       "total": 72.7,
       "rezidentiale": 64.7,
       "nerezidentiale": 102.6,
-      "ue27": 75.6
+      "ue27": 75.7
     },
     {
       "perioada": "2026-03",
       "total": 103.0,
       "rezidentiale": 70.8,
       "nerezidentiale": 222.9,
-      "ue27": 91.8
+      "ue27": 91.7
     },
     {
       "perioada": "2026-04",
       "total": 87.3,
       "rezidentiale": 84.4,
       "nerezidentiale": 98.2,
-      "ue27": 80.7
+      "ue27": 80.5
     },
     {
       "perioada": "2026-05",
       "total": 85.0,
       "rezidentiale": 81.8,
       "nerezidentiale": 97.1,
-      "ue27": 76.1
+      "ue27": 76.0
     },
     {
       "perioada": "2026-06",
       "total": 97.0,
       "rezidentiale": 96.5,
       "nerezidentiale": 99.1,
-      "ue27": null
+      "ue27": 93.1
     },
     {
       "perioada": "2026-07",
       "total": 79.1,
       "rezidentiale": 70.5,
       "nerezidentiale": 111.2,
+      "ue27": null
+    },
+    {
+      "perioada": "2026-08",
+      "total": 78.5,
+      "rezidentiale": 71.4,
+      "nerezidentiale": 105.0,
       "ue27": null
     }
   ]
