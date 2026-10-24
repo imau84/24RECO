@@ -14,8 +14,8 @@ pentru un an, în public/parc-auto/<AAAA>/:
 
 Fiecare valoare e un array de numere în ordinea din index.json -> "coloane"
 (total, vechime în 2 grupări, combustibil). Rândurile cu total 0 nu se scriu.
-În 2018–2019 DGPCI nu separă electric/hibrid: coloanele sunt null, iar listele
-de electrice/hibride lipsesc (null).
+Coloanele care lipsesc din fișierul unui an sunt null: electric/hibrid în 2012–2019
+(iar listele de electrice/hibride sunt null), grupele 0–4 ... peste 12 în 2012.
 
 La final verifică totalurile (fișiere județ vs index, județe vs RO, RO vs foaia
 TOTAL din Excel) și afișează dimensiunea fiecărui fișier.
@@ -78,27 +78,26 @@ class Regiune:
 
 def citeste_csv(an):
     regiuni = defaultdict(Regiune)
-    are_electric = False
+    lipsa = set(range(len(CAMPURI)))  # coloanele goale în tot fișierul
     with open(CSV_DIR / f"parc_auto_{an}.csv", encoding="utf-8") as fh:
         for r in csv.DictReader(fh):
-            if r["electric"] != "":
-                are_electric = True
+            lipsa -= {i for i in lipsa if r[CAMPURI[i]] != ""}
             v = [int(r[k]) if r[k] != "" else 0 for k in CAMPURI]
             regiuni["RO"].adauga(r["marca"], r["model_familie"], v)
             regiuni[r["judet"]].adauga(r["marca"], r["model_familie"], v)
     necunoscute = set(regiuni) - set(JUDETE) - {"RO"}
     if necunoscute:
         sys.exit(f"{an}: coduri de județ necunoscute: {necunoscute}")
-    return regiuni, are_electric
+    return regiuni, lipsa
 
 
-def build(an, regiuni, are_electric):
+def build(an, regiuni, lipsa):
+    are_electric = I_ELECTRIC not in lipsa
+
     def iesire(v):
-        if are_electric:
+        if not lipsa:
             return v
-        v = list(v)
-        v[I_ELECTRIC] = v[I_HIBRID] = None
-        return v
+        return [None if i in lipsa else x for i, x in enumerate(v)]
 
     def ordonat(d):
         return sorted(((k, v) for k, v in d.items() if v[0] > 0), key=lambda kv: (-kv[1][0], kv[0]))
@@ -138,7 +137,9 @@ def build(an, regiuni, are_electric):
         "note": {
             "coloane": "Fiecare array de numere urmează ordinea din „coloane”: total, vechime în ani "
                        "(0–2, 3–5, 6–10, 11–15, 16–20, peste 20 și 0–4, 5–8, 9–12, peste 12), apoi "
-                       "combustibil. „gpl_altele” = total minus benzină, motorină, electric și hibrid.",
+                       "combustibil. „gpl_altele” = total minus benzină, motorină, electric și hibrid."
+                       + (" În acest an DGPCI nu publică grupele 0–4 ... peste 12: coloanele sunt null."
+                          if CAMPURI.index("v_0_4") in lipsa else ""),
             "combustibil": "„hibrid” = benzină+electric, motorină+electric și GPL+electric la un loc."
                            + ("" if are_electric else " În acest an DGPCI publică doar benzină și "
                               "motorină: electric/hibrid sunt null și incluse în „gpl_altele”."),
@@ -164,7 +165,7 @@ def verifica(an, out):
     """Recitește fișierele scrise și verifică totalurile. Întoarce True dacă totul se potrivește."""
     ok = True
     index = json.loads((out / "index.json").read_text(encoding="utf-8"))
-    n = lambda x: x or 0  # noqa: E731  (null în 2018–2019)
+    n = lambda x: x or 0  # noqa: E731  (null = coloană lipsă în acel an)
 
     print("\n  1. Suma mărcilor din judete/<COD>.json = totalul din index.json")
     gresite = []
@@ -214,8 +215,8 @@ def main():
     p.add_argument("an", type=int, help="anul datelor (ex. 2025)")
     an = p.parse_args().an
 
-    regiuni, are_electric = citeste_csv(an)
-    index, fisiere = build(an, regiuni, are_electric)
+    regiuni, lipsa = citeste_csv(an)
+    index, fisiere = build(an, regiuni, lipsa)
 
     out = ROOT / "public" / "parc-auto" / str(an)
     marimi = {"index.json": scrie(out / "index.json", index)}

@@ -4,7 +4,7 @@ verifica.py
 ===========
 Verifică totalurile din CSV-urile extrase: pentru fiecare an, suma pe mărci și
 județe trebuie să fie egală cu rândul „Autoturisme (M1, M1G)” din foaia TOTAL
-(2018–2019: „AUTOTURISM”). Se compară toate coloanele (număr, vechime,
+(2012–2019: „AUTOTURISM”). Se compară toate coloanele (număr, vechime,
 combustibil), apoi fiecare județ cu rândul de rezumat din foaia lui.
 
 Ieșire cu cod 1 dacă vreun total nu se potrivește.

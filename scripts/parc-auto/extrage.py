@@ -2,7 +2,7 @@
 """
 extrage.py
 ==========
-Extrage autoturismele (M1, M1G, M1S, M1GS; în 2018–2019 categoria „AUTOTURISM”)
+Extrage autoturismele (M1, M1G, M1S, M1GS; în 2012–2019 categoria „AUTOTURISM”)
 pe județ, marcă și model, cu vechimea și combustibilul, într-un CSV pe an:
 data/parc-auto/csv/parc_auto_<AAAA>.csv.
 
@@ -139,7 +139,7 @@ def main():
                 comb = [v[k] if k in v else "" for k in COMBUSTIBIL]
                 alt = v["numar"] - sum(x for x in comb if x != "")
                 w.writerow([an, judet, cat, m, mm["model_familie"], mm["model_norm"], mb, mo, v["numar"]]
-                           + [v[k] for k in VECHIME_1 + VECHIME_2] + comb + [alt])
+                           + [v.get(k, "") for k in VECHIME_1 + VECHIME_2] + comb + [alt])
                 total += v["numar"]
                 if mm["model_norm"] == NESPECIFICAT:
                     nesp += v["numar"]

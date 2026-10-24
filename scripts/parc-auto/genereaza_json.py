@@ -8,7 +8,8 @@ pentru fiecare an, la nivel de țară („RO”) și pe fiecare județ:
   top 30 mărci, top 30 familii de modele, top modele electrice, top mărci hibride.
 
 Listele sunt compacte: [marca, numar] / [marca, familie, numar].
-În 2018–2019 fișierele DGPCI au doar benzină și motorină (electric/hibrid = null).
+În 2012–2019 fișierele DGPCI au doar benzină și motorină (electric/hibrid = null);
+2012 nu are grupele de vechime 0-4 ... peste 12 (vechime_4ani = null).
 
 Rulare:  python scripts/parc-auto/genereaza_json.py
 """
@@ -49,12 +50,14 @@ class Agregat:
         self.hibride = Counter()
         self.nespecificat = 0
         self.are_electric = False
+        self.are_vechime_2 = False  # 2012 nu are grupele 0-4 ... peste 12
 
     def adauga(self, r):
         for k in ["numar", "alt_combustibil"] + VECHIME_1 + VECHIME_2 + COMBUSTIBIL:
             if r[k] != "":
                 self.col[k] += int(r[k])
         n = int(r["numar"])
+        self.are_vechime_2 |= r["v_0_4"] != ""
         self.marci[r["marca"]] += n
         if r["model_familie"] == NESPECIFICAT:
             self.nespecificat += n
@@ -72,7 +75,7 @@ class Agregat:
         return {
             "total": c["numar"],
             "vechime": dict(zip(ETICHETE_VECHIME_1, (c[k] for k in VECHIME_1))),
-            "vechime_4ani": dict(zip(ETICHETE_VECHIME_2, (c[k] for k in VECHIME_2))),
+            "vechime_4ani": dict(zip(ETICHETE_VECHIME_2, (c[k] for k in VECHIME_2))) if self.are_vechime_2 else None,
             "combustibil": {
                 "benzina": c["benzina"], "motorina": c["motorina"],
                 "electric": c["electric"] if el else None, "hibrid": c["hibrid"] if el else None,
@@ -111,11 +114,12 @@ def main():
         "actualizat": date.today().isoformat(),
         "sursa": "DGPCI (Ministerul Afacerilor Interne) — „Parc auto la 31.12.AAAA”, dgpci.mai.gov.ro",
         "note": {
-            "categorii": "Autoturisme = categoriile M1, M1G, M1S, M1GS. În 2018–2019 fișierele DGPCI "
+            "categorii": "Autoturisme = categoriile M1, M1G, M1S, M1GS. În 2012–2019 fișierele DGPCI "
                          "folosesc categoria de folosință „AUTOTURISM”, fără împărțirea M1/M1G.",
             "combustibil": "„hibrid” = benzină+electric, motorină+electric și GPL+electric la un loc. "
-                           "„altele” = GPL, alți combustibili sau necompletat. În 2018–2019 DGPCI publică "
+                           "„altele” = GPL, alți combustibili sau necompletat. În 2012–2019 DGPCI publică "
                            "doar benzină și motorină; electricele și hibridele sunt în „altele”.",
+            "vechime": "„vechime_4ani” (0-4 ... peste 12) lipsește în 2012 (null).",
             "modele": "Mărcile și modelele sunt unificate (variante de scriere, greșeli de tastare). "
                       "„model_nespecificat” = mașini fără model în registru.",
         },

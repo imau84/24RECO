@@ -4,6 +4,7 @@ dezarhiveaza.py
 ===============
 Dezarhivează arhivele din data/parc-auto/raw/ în data/parc-auto/extracted/<AAAA>/.
 .7z cu py7zr, .zip cu zipfile. Arhivele din arhive (zip în zip) se desfac și ele.
+Excelurile nearhivate (2012–2017, de pe data.gov.ro) se copiază ca atare.
 Un an deja dezarhivat (folder nevid) se sare; --refa îl reface.
 
 Rulare:  python scripts/parc-auto/dezarhiveaza.py [--refa]
@@ -43,6 +44,9 @@ def desface(arhiva: Path, dest: Path):
                 # Arhivele vechi au nume în cp437 sau cp852 (diacritice); le lăsăm cum vin.
                 _sigur(dest, info.filename)
             z.extractall(dest)
+    elif ext in (".xls", ".xlsx"):
+        shutil.copy2(arhiva, dest / arhiva.name)
+        return
     else:
         return
     # arhive imbricate
@@ -56,7 +60,7 @@ def main():
     refa = "--refa" in sys.argv
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     for arhiva in sorted(RAW_DIR.iterdir()):
-        if arhiva.suffix.lower() not in (".7z", ".zip"):
+        if arhiva.suffix.lower() not in (".7z", ".zip", ".xls", ".xlsx"):
             continue
         an = arhiva.name[:4]
         dest = OUT_DIR / an
@@ -65,7 +69,7 @@ def main():
                 print(f"  {an}: deja dezarhivat")
                 continue
             shutil.rmtree(dest)
-        print(f"  {an}: dezarhivez {arhiva.name}")
+        print(f"  {an}: {'copiez' if arhiva.suffix.lower() in ('.xls', '.xlsx') else 'dezarhivez'} {arhiva.name}")
         desface(arhiva, dest)
         for f in sorted(dest.rglob("*")):
             if f.is_file():

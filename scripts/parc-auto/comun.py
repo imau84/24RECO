@@ -1,11 +1,12 @@
 """
 comun.py — căi, citirea Excelurilor DGPCI și recunoașterea rândurilor.
 
-Structura fișierelor „Parc auto la 31.12.AAAA” (verificată 2018–2025):
-  - o foaie TOTAL (2018: „Total”) + câte o foaie per județ (cod auto: AB, B, ...);
-    2021 mai are 19 foi goale „FoaieNN”, ignorate.
+Structura fișierelor „Parc auto la 31.12.AAAA” (verificată 2012–2025):
+  - o foaie TOTAL (2012: „TOTAL_FISIER_verificat”, 2017: „total”, 2018: „Total”) + câte o
+    foaie per județ (cod auto: AB, B, ...); 2021 mai are 19 foi goale „FoaieNN”, ignorate.
   - antet pe rândurile 3–6: Numar | Vechime 0--2 ... >20 | Carburant | Vechime 0--4 ... peste 12
-  - un bloc de rezumat (ex. „Autoturisme (M1, M1G)”, în 2018–2019 „AUTOTURISM”),
+    (2012–2017: „0-2” cu o cratimă; 2012 nu are grupele 0-4 ... peste 12)
+  - un bloc de rezumat (ex. „Autoturisme (M1, M1G)”, în 2012–2019 „AUTOTURISM”),
     apoi ierarhia:
         total categorie <cod>       (2020+: „total categorie   AUTOTRACTOARE   N1”)
          total marca <MARCA>        (1 spațiu fix în față)
@@ -90,7 +91,7 @@ def este_foaie_judet(nume: str) -> bool:
 
 
 def foaie_total(foi: dict) -> str:
-    return next(n for n in foi if n.strip().upper() == "TOTAL")
+    return next(n for n in foi if n.strip().upper().startswith("TOTAL"))
 
 
 def numar(v) -> int:
@@ -108,7 +109,8 @@ def text(v) -> str:
 def harta_coloane(randuri: list) -> dict:
     """Găsește rândul de antet (cel cu „0--2”) și întoarce {nume_normalizat: index_coloană}."""
     for i, rand in enumerate(randuri[:15]):
-        celule = [text(c).strip() for c in rand]
+        # 2012–2017 scriu „0-2”, din 2018 „0--2”
+        celule = [re.sub(r"(?<=\d)-+(?=\d)", "--", text(c).strip()) for c in rand]
         if "0--2" not in celule:
             continue
         col = {"numar": 1}

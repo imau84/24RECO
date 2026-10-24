@@ -57,7 +57,7 @@ def analizeaza(an: int) -> dict:
                 nespecificat += x
             if sum(numar(rd[c[k]]) for k in VECHIME_1) != x:
                 vechime_gresita["0-2…>20"] += 1
-            if sum(numar(rd[c[k]]) for k in VECHIME_2) != x:
+            if "v_0_4" in c and sum(numar(rd[c[k]]) for k in VECHIME_2) != x:
                 vechime_gresita["0-4…peste 12"] += 1
             for k in COMBUSTIBIL:
                 if k in c:
