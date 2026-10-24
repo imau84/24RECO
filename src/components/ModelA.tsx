@@ -123,22 +123,26 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
 
   const source = topic.sources.find(s => s.key === srcKey) || topic.sources[0]
 
-  // tab-ul activ din ancora URL-ului (#vechime), dacă analizele au `hash`
+  // tab-ul activ (sursă + analiză) din ancora URL-ului (#vechime), dacă analizele au `hash`
   useEffect(() => {
     const dinHash = () => {
       const h = decodeURIComponent(window.location.hash.slice(1))
-      const i = source.analyses.findIndex(a => a.hash && a.hash === h)
-      if (i >= 0) setAnIdx(i)
+      for (const s of topic.sources) {
+        const i = s.analyses.findIndex(a => a.hash && a.hash === h)
+        if (i >= 0) { setSrcKey(s.key); setAnIdx(i); return }
+      }
     }
     dinHash()
     window.addEventListener('hashchange', dinHash)
     return () => window.removeEventListener('hashchange', dinHash)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [topic.key, source.key])
+  }, [topic.key])
+  const scrieHash = (a?: Analysis) => {
+    if (a?.hash) window.history.replaceState(null, '', '#' + a.hash)
+  }
   const alegeAnaliza = (i: number) => {
     setAnIdx(i)
-    const h = source.analyses[i]?.hash
-    if (h) window.history.replaceState(null, '', '#' + h)
+    scrieHash(source.analyses[i])
   }
   const heroChips = source.chips ?? chips ?? []
   const an = source.analyses[Math.min(anIdx, source.analyses.length - 1)] ?? PLACEHOLDER
@@ -281,7 +285,7 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
       <div className={topics ? 'ma-l1 sub' : 'ma-l1'}>
         {topics && l1Label && <span className="lbl">{l1Label}</span>}
         {topic.sources.map(s => (
-          <button key={s.key} className={s.key === srcKey ? 'on' : ''} onClick={() => { setSrcKey(s.key); setAnIdx(0) }}>
+          <button key={s.key} className={s.key === srcKey ? 'on' : ''} onClick={() => { setSrcKey(s.key); setAnIdx(0); scrieHash(s.analyses[0]) }}>
             {s.label}{s.tag && <> <span className="tag">{s.tag}</span></>}
           </button>
         ))}

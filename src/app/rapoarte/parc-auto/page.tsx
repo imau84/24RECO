@@ -1,111 +1,27 @@
 'use client'
 
-import { createContext, useContext, useMemo, useState, type ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import {
   BarChart, Bar, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ReferenceLine,
 } from 'recharts'
 import ModelA, { type Analysis, type Source } from '@/components/ModelA'
+import { TABURI_EVOLUTIE } from './evolutie'
 import {
   C, NESPECIFICAT, de, dupaTotal, fmt, fmtD, fmtP, n, numeMarca, numeModel, pct, urlIndex, urlJudet, useJson,
   type Bloc, type FisierJudet, type Index, type Vec,
 } from './date'
+import {
+  ACCENT, AXIS, COMBUSTIBIL, Card, Comutator, Ctx, GRI, Legenda, Plain, THEME, VARSTA, VARSTA_6, Asteapta,
+  comparatie, la1000, useNume, useStare,
+} from './comune'
 
 /* Parc auto — autoturisme (DGPCI). Un tab de nivel 1 pe an: pentru un an nou se adaugă
-   anul în ANI și se rulează scripts/parc-auto/05_build_page_data.py <an>. */
+   anul în ANI și se rulează scripts/parc-auto/05_build_page_data.py <an>. Ultimul tab de nivel 1,
+   „Evoluție”, citește public/parc-auto/serii.json (06_build_series.py); la un an nou se
+   actualizează și PERIOADA. */
 
 const ANI = [2025]
-const ACCENT = '#7c5ce6'  // culoarea plăcii Parc auto de pe homepage
-const THEME = { accent: ACCENT, accent2: '#3b82f6', tint: '#f1eefd', tintBorder: '#dcd4fa', tintInk: '#3f2a8f' }
-const AXIS = { fontSize: 11, fill: '#9aa3b8' }
-const GRI = '#c3c8d6'
-
-const VARSTA = [
-  { k: C.v_0_4, l: '0–4 ani', c: '#22b07d' },
-  { k: C.v_5_8, l: '5–8 ani', c: '#3b82f6' },
-  { k: C.v_9_12, l: '9–12 ani', c: '#e0a020' },
-  { k: C.v_peste_12, l: 'peste 12 ani', c: '#e5544b' },
-]
-const VARSTA_6 = [
-  { k: C.v_0_2, l: '0–2 ani' }, { k: C.v_3_5, l: '3–5 ani' }, { k: C.v_6_10, l: '6–10 ani' },
-  { k: C.v_11_15, l: '11–15 ani' }, { k: C.v_16_20, l: '16–20 ani' }, { k: C.v_peste_20, l: 'peste 20 ani' },
-]
-const COMBUSTIBIL = [
-  { k: C.benzina, l: 'Benzină', c: '#e0a020' },
-  { k: C.motorina, l: 'Motorină', c: '#5a6178' },
-  { k: C.electric, l: 'Electric', c: '#22b07d' },
-  { k: C.hibrid, l: 'Hibrid', c: '#12a5b8' },
-  { k: C.gpl_altele, l: 'GPL / altele', c: '#c4b5fd' },
-]
-
-/* ── stare comună (selectorul de județ din bara de sus + filtrele din tab-uri) ── */
-type Stare = {
-  judet: string; setJudet: (c: string) => void
-  marcaV: string; setMarcaV: (m: string) => void
-  modelV: string; setModelV: (m: string) => void
-  marcaM: string; setMarcaM: (m: string) => void
-}
-const Ctx = createContext<Stare | null>(null)
-const useStare = () => useContext(Ctx)!
-
-/* ── piese comune ── */
-function Plain({ children }: { children: ReactNode }) {
-  return <div className="ma-plain">💡 {children}</div>
-}
-
-function Sursa({ an, nota }: { an: number; nota?: ReactNode }) {
-  return (
-    <div className="ma-src">
-      📌 Sursă: DGPCI (MAI), Parc auto la 31.12.{an} · <a href="https://dgpci.mai.gov.ro" target="_blank" rel="noopener noreferrer">dgpci.mai.gov.ro</a> · Prelucrare: 24reco.com
-      {nota && <><br />{nota}</>}
-    </div>
-  )
-}
-
-function Card({ titlu, dreapta, children, an, nota }: { titlu: string; dreapta?: ReactNode; children: ReactNode; an: number; nota?: ReactNode }) {
-  return (
-    <div className="ma-card pa-gap">
-      <div className="ma-ch"><h3>{titlu}</h3>{dreapta}</div>
-      {children}
-      <Sursa an={an} nota={nota} />
-    </div>
-  )
-}
-
-function Comutator({ v, set }: { v: 'grafic' | 'tabel'; set: (v: 'grafic' | 'tabel') => void }) {
-  return (
-    <div className="ma-seg">
-      <button className={v === 'grafic' ? 'on' : ''} onClick={() => set('grafic')}>📈 Grafic</button>
-      <button className={v === 'tabel' ? 'on' : ''} onClick={() => set('tabel')}>⊞ Tabel</button>
-    </div>
-  )
-}
-
-function Legenda({ items }: { items: { l: string; c: string }[] }) {
-  return <div className="ma-legend">{items.map(i => <span key={i.l}><i style={{ background: i.c }} />{i.l}</span>)}</div>
-}
-
-const Asteapta = ({ eroare }: { eroare?: boolean }) =>
-  <div className="ma-card pa-gap pa-wait">{eroare ? 'Datele nu s-au putut încărca. Reîncarcă pagina.' : 'Se încarcă datele…'}</div>
-
-/** numele județului: „Timiș”; loc(): „în Timiș” / „la nivel național” */
-function useNume(idx: Index | null) {
-  return useMemo(() => {
-    const m = new Map((idx?.judete ?? []).map(j => [j.cod, j.nume]))
-    const nume = (c: string) => m.get(c) ?? c
-    const loc = (c: string) => (c === 'RO' ? 'la nivel național' : `în ${nume(c)}`)
-    const Loc = (c: string) => (c === 'RO' ? 'La nivel național' : `În ${nume(c)}`)
-    return { nume, loc, Loc }
-  }, [idx])
-}
-
-/** compară o valoare din județ cu media națională: „▲ peste media națională (12,3%)” */
-function comparatie(v: number, ro: number, f: (x: number) => string, invers = false) {
-  if (Math.abs(v - ro) < 1e-9) return { t: `= media națională`, dir: '' }
-  const sus = v > ro
-  return { t: `${sus ? '▲ peste' : '▼ sub'} media națională (${f(ro)})`, dir: sus !== invers ? 'up' : 'down' }
-}
-
-const la1000 = (v: Vec) => (n(v[C.total]) ? (n(v[C.electric]) / n(v[C.total])) * 1000 : 0)
+const PERIOADA = '2012–2025'
 
 /* ═════════════ Pe scurt ═════════════ */
 function PeScurt({ an }: { an: number }) {
@@ -651,7 +567,7 @@ export default function ParcAutoPage() {
   const ultim = ANI[ANI.length - 1]
   const { data: idx } = useJson<Index>(urlIndex(ultim))
 
-  const sources: Source[] = ANI.map(an => ({
+  const sources: Source[] = [...ANI.map((an): Source => ({
     key: String(an), label: `Parc auto ${an}`, credit: 'DGPCI (MAI)', link: 'dgpci.mai.gov.ro',
     url: 'https://dgpci.mai.gov.ro', freq: 'anual',
     analyses: [
@@ -663,7 +579,11 @@ export default function ParcAutoPage() {
       tab('Electrice și hibride', 'electrice', <Electrice an={an} />),
       tab('Județe', 'judete', <Judete an={an} />),
     ],
-  }))
+  })), {
+    key: 'evolutie', label: `Evoluție ${PERIOADA}`, credit: 'DGPCI (MAI)', link: 'dgpci.mai.gov.ro',
+    url: 'https://dgpci.mai.gov.ro', freq: 'anual',
+    analyses: TABURI_EVOLUTIE.map(t => tab(t.name, t.hash, t.content)),
+  }]
 
   const selector = (
     <label className="pa-jud">

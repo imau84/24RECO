@@ -44,6 +44,17 @@ export const NESPECIFICAT = 'nespecificat'
 export const dupaTotal = <T,>(o: Record<string, T>, total: (x: T) => number | null) =>
   Object.entries(o).sort((a, z) => (total(z[1]) ?? 0) - (total(a[1]) ?? 0))
 
+/** public/parc-auto/serii.json (scripts/parc-auto/06_build_series.py) */
+export type Serii = {
+  ani: number[]
+  actualizat: string
+  coloane: string[]
+  judete: { cod: string; nume: string }[]
+  /** total: un vector pe an; marci: mașini pe an */
+  date: Record<string, { total: Vec[]; marci: Record<string, number[]> }>
+}
+export const URL_SERII = '/parc-auto/serii.json'
+
 export const urlIndex = (an: number) => `/parc-auto/${an}/index.json`
 export const urlJudet = (an: number, cod: string) => `/parc-auto/${an}/judete/${cod}.json`
 
