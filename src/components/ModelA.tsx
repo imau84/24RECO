@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, type ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import Link from 'next/link'
 import {
   BarChart, Bar, LineChart, Line, PieChart, Pie, Cell,
@@ -53,6 +53,8 @@ export type Analysis = {
   extraCols?: { name: string; values: string[] }[]
   /** conținut propriu (ex. un explorator) afișat în locul KPI-urilor, textului și graficului */
   content?: ReactNode
+  /** ancora din URL (#vechime) pentru link direct la tab */
+  hash?: string
 }
 
 export type Source = {
@@ -100,6 +102,8 @@ export type ModelAProps = {
   chipsBelow?: boolean
   /** textul din fața tab-urilor de nivel 2 când există `topics` (implicit „Sursa datelor:”; '' = fără) */
   l1Label?: string
+  /** conținut suplimentar în bara de sus (ex. un selector de județ) */
+  heroExtra?: ReactNode
 }
 
 /** folosit doar când sursa are `content` și nicio analiză */
@@ -109,7 +113,7 @@ const PALETTE = ['#5b4be0', '#e5544b', '#22b07d', '#e0a020', '#3b82f6', '#12a5b8
 const fmt = (n: number | null) => (n == null ? '—' : new Intl.NumberFormat('ro-RO').format(n))
 const AXIS = { fontSize: 11, fill: '#9aa3b8' }
 
-export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics, sources, chipsBelow, l1Label = 'Sursa datelor:' }: ModelAProps) {
+export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics, sources, chipsBelow, l1Label = 'Sursa datelor:', heroExtra }: ModelAProps) {
   const allTopics: Topic[] = topics ?? [{ key: '_', label: '', sources: sources ?? [] }]
   const [topicKey, setTopicKey] = useState(allTopics[0].key)
   const topic = allTopics.find(t => t.key === topicKey) || allTopics[0]
@@ -118,6 +122,24 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
   const [view, setView] = useState<'grafic' | 'tabel'>('grafic')
 
   const source = topic.sources.find(s => s.key === srcKey) || topic.sources[0]
+
+  // tab-ul activ din ancora URL-ului (#vechime), dacă analizele au `hash`
+  useEffect(() => {
+    const dinHash = () => {
+      const h = decodeURIComponent(window.location.hash.slice(1))
+      const i = source.analyses.findIndex(a => a.hash && a.hash === h)
+      if (i >= 0) setAnIdx(i)
+    }
+    dinHash()
+    window.addEventListener('hashchange', dinHash)
+    return () => window.removeEventListener('hashchange', dinHash)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [topic.key, source.key])
+  const alegeAnaliza = (i: number) => {
+    setAnIdx(i)
+    const h = source.analyses[i]?.hash
+    if (h) window.history.replaceState(null, '', '#' + h)
+  }
   const heroChips = source.chips ?? chips ?? []
   const an = source.analyses[Math.min(anIdx, source.analyses.length - 1)] ?? PLACEHOLDER
   const multi = an.series.length > 1
@@ -172,6 +194,7 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
         .ma-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
         .ma-chip{font-size:12px;font-weight:600;background:rgba(255,255,255,.18);padding:5px 11px;border-radius:100px}
         .ma-chips.below{margin-top:12px}
+        .ma-extra{margin-top:14px}
         .ma-chips.below .ma-chip{background:${theme.tint};color:${theme.tintInk};border:1px solid ${theme.tintBorder}}
         .ma-l0{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
         .ma-l0 button{font:inherit;font-size:15px;font-weight:800;color:var(--ink2);background:#fff;border:1px solid var(--line);border-radius:100px;padding:10px 18px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
@@ -239,6 +262,7 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
             {heroChips.map(c => <span key={c} className="ma-chip">{c}</span>)}
           </div>
         )}
+        {heroExtra && <div className="ma-extra">{heroExtra}</div>}
       </div>
 
       {topics && (
@@ -272,7 +296,7 @@ export default function ModelA({ crumbs, icon, title, sub, chips, theme, topics,
       {source.content ? <div className="ma-custom">{source.content}</div> : <>
       <div className="ma-l2">
         {source.analyses.map((a, i) => (
-          <button key={a.name} className={a === an ? 'on' : ''} onClick={() => setAnIdx(i)}>{a.name}</button>
+          <button key={a.name} className={a === an ? 'on' : ''} onClick={() => alegeAnaliza(i)}>{a.name}</button>
         ))}
       </div>
 

@@ -44,3 +44,10 @@ Platformă de rapoarte din date publice românești. Next.js 14 (App Router) + T
 - `/institutii/bnr` — seriile din `public/bnr_data.json` în `EurostatExplorer`; `/institutii/casa-pensii` — `cnpp_asigurati.json` (`cnpp_data.json` e vechi, nefolosit).
 - `/institutii/educatie` — `EduApp.tsx` = codul portat din vechiul HTML (`// @ts-nocheck`).
 - `/rapoarte/date-financiare` și `/rapoarte/date-identificare` — aceeași pagină, deschisă pe subtab-ul propriu; `/rapoarte/alegeri-locale-2024` — 41 de județe, fără București.
+
+### Parc auto — autoturisme (`scripts/parc-auto/`)
+- Sursa: DGPCI, „Parc auto la 31.12.AAAA” (2018–2025), un Excel pe an cu foaia TOTAL + 42 de județe. Ordinea de rulare: `descarca.py` → `dezarhiveaza.py` → `structura.py` (raport de structură) → `extrage.py` (CSV pe an) → `verifica.py` (totaluri vs rândul „Autoturisme (M1, M1G)”) → `genereaza_json.py` → `public/parc_auto_autoturisme.json`.
+- 2018–2019 nu au M1/M1G, doar categoria de folosință „AUTOTURISM” (și doar benzină/motorină); din 2020: M1, M1G (+ M1S din 2022, M1GS din 2025).
+- `data/parc-auto/raw|extracted|cache|csv` sunt ignorate de git. Se comit `marca_mapping.csv` / `model_mapping.csv` (corectabile de mână) + perechile lor `.auto.csv`. O valoare diferită de cea din `.auto.csv` e o corectură manuală și se păstrează la rulare.
+- Dependențe: `py7zr`, `xlrd` (.xls 2018–2021), `openpyxl`.
+- Pagina `/rapoarte/parc-auto` (`src/app/rapoarte/parc-auto/`, client, ModelA cu `heroExtra` = selector de județ și `hash` pe tab-uri) citește `public/parc-auto/<an>/` (`index.json` + `judete/<COD>.json`), generat cu `05_build_page_data.py <an>`. An nou = rulezi scriptul și adaugi anul în `ANI` din `page.tsx`.

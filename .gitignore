@@ -40,3 +40,9 @@ next-env.d.ts
 __pycache__/
 *.pyc
 .arhiva-dedeman/
+
+# parc auto (scripts/parc-auto): arhive, Exceluri, cache și CSV-uri mari; se regenerează
+/data/parc-auto/raw/
+/data/parc-auto/extracted/
+/data/parc-auto/cache/
+/data/parc-auto/csv/

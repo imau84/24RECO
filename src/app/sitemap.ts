@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/institutii/casa-pensii',
     '/institutii/educatie',
     '/institutii-publice/ministerul-finantelor',
+    '/rapoarte/parc-auto',
     '/rapoarte/date-identificare',
     '/rapoarte/date-financiare',
     '/rapoarte/alegeri-locale-2024',

@@ -25,6 +25,7 @@ const INSTITUTII: Item[] = [
 ]
 
 const RAPOARTE: Item[] = [
+  { icon: '🚗', title: 'Parc auto', sub: 'Mașini pe județe · mărci · vechime · DGPCI', href: '/rapoarte/parc-auto', color: '#7c5ce6' },
   { icon: '📊', title: 'Situații Financiare', sub: 'Bilanțuri companii · ANAF', href: '/rapoarte/date-financiare', color: '#5a6178' },
   { icon: '🗳️', title: 'Alegeri Locale 2024', sub: 'Partide · Prezență pe județe', href: '/rapoarte/alegeri-locale-2024', color: '#e5544b' },
 ]
