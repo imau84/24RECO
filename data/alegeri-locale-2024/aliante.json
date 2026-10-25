@@ -1,5 +1,5 @@
 {
-  "_despre": "Editabil manual. Folosit de scripts/build-primari-2024.py. „partide”: abreviere -> nume complet. „competitori”: numele competitorului exact ca în antetul AEP -> tip (partid / alianta / alianta_locala) și partidele componente (abrevieri din „partide”). Competitorii care nu sunt aici sunt partide cu numele lor complet. „competitori_fara_cuvant_cheie”: competitori al căror nume nu începe cu PARTIDUL, ALIANȚA, UNIUNEA etc. și care altfel ar fi luați drept parte din numele candidatului.",
+  "_despre": "Editabil manual. Folosit de scripts/build-primari-2024.py și scripts/build-consiliu-local-2024.py. „partide”: abreviere -> nume complet. „competitori”: numele competitorului exact ca în antetul AEP -> tip (partid / alianta / alianta_locala) și partidele componente (abrevieri din „partide”). Competitorii care nu sunt aici sunt partide cu numele lor complet. „competitori_fara_cuvant_cheie”: competitori al căror nume nu începe cu PARTIDUL, ALIANȚA, UNIUNEA etc. și care altfel ar fi luați drept parte din numele candidatului (la primari) sau drept independenți (la consiliul local).",
   "partide": {
     "PSD": "PARTIDUL SOCIAL DEMOCRAT",
     "PNL": "PARTIDUL NAȚIONAL LIBERAL",
@@ -32,7 +32,8 @@
     "VOLT": "PARTIDUL VOLT ROMANIA",
     "UIPS": "UIPS",
     "ARI": "ARI",
-    "SENS": "SENS"
+    "SENS": "SENS",
+    "URS": "URS"
   },
   "competitori": {
     "ALIANȚA ELECTORALĂ PSD PNL": { "tip": "alianta", "partide": ["PSD", "PNL"], "scurt": "PSD-PNL" },
@@ -58,7 +59,14 @@
     "ALIANȚA ETOCRATĂ PENTRU REFORMĂ": { "tip": "alianta_locala", "partide": [], "nota": "alianță locală – componență nedeterminată" },
     "ALIANȚA NOI SUNTEM MANGALIA": { "tip": "alianta_locala", "partide": [], "nota": "alianță locală – componență nedeterminată" },
     "ALIANȚA PENTRU MEDGIDIA": { "tip": "alianta_locala", "partide": [], "nota": "alianță locală – componență nedeterminată" },
-    "ALIANȚA PENTRU ȘAG": { "tip": "alianta_locala", "partide": [], "nota": "alianță locală – componență nedeterminată" }
+    "ALIANȚA PENTRU ȘAG": { "tip": "alianta_locala", "partide": [], "nota": "alianță locală – componență nedeterminată" },
+    "ALIANȚA ELECTORALĂ PNL - PRO ROMÂNIA": { "tip": "alianta", "partide": ["PNL", "PRO ROMÂNIA"], "scurt": "PNL-PRO ROMÂNIA" },
+    "ALIANȚA REPER SENS URS.PDF PENTRU SECTORUL 3": { "tip": "alianta", "partide": ["REPER", "SENS", "URS"], "scurt": "REPER-SENS-URS (Sectorul 3)", "nota": "REPER, SENS și URS (consilieri aleși: câte unul de la fiecare, spotmedia.ro)" },
+    "ALIANȚA PENTRU LUGAȘ": { "tip": "alianta_locala", "partide": [], "nota": "alianță – componență nedeterminată" },
+    "ALIANȚA PENTRU DEZVOLTARE TÂRGU SECUIESC": { "tip": "alianta_locala", "partide": [], "nota": "alianță – componență nedeterminată" },
+    "ALIANȚA TINERILOR DEMOCRAȚI": { "tip": "alianta_locala", "partide": [], "nota": "alianță – componență nedeterminată" },
+    "ALIANȚA POPORULUI SUVERAN": { "tip": "alianta_locala", "partide": [], "nota": "alianță – componență nedeterminată" },
+    "ALIANȚA PENTRU REFORMĂ ECHITATE SOCIALĂ EMANCIPARE ȘI LIBERTATE": { "tip": "alianta_locala", "partide": [], "nota": "alianță – componență nedeterminată" }
   },
   "competitori_fara_cuvant_cheie": [
     "DREPTATE ȘI RESPECT ÎN EUROPA PENTRU TOȚI",
@@ -69,6 +77,10 @@
     "ACȚIUNEA CONSERVATORILOR ROMÂNI",
     "INDEPENDENȚII COMUNEI MOȘNIȚA",
     "NAȚIUNE OAMENI ÎMPREUNĂ",
-    "MIȘCAREA PENTRU COMUNĂ - MOZGALOM A KŐZSÉGÉRT"
+    "MIȘCAREA PENTRU COMUNĂ - MOZGALOM A KŐZSÉGÉRT",
+    "LIGA PENTRU DEȘTEPTAREA ROMÂNIEI",
+    "LIGA PENTRU UNIFICAREA PATRIOȚILOR",
+    "SIGHIȘOARA PUTERNICĂ",
+    "TRADIȚIE, ONOARE, DISCIPLINĂ, EXCELENȚĂ"
   ]
 }
