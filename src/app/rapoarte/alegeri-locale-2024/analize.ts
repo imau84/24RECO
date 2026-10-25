@@ -132,7 +132,5 @@ export const SURSE_ALEGERI: Source[] = [
   { key: 'judete', label: '📍 Județe', ...SURSA, analyses: [prezentaJudete(), proceseVerbale(), legenda()] },
 ]
 
-/** Tab-urile de nivel 1 (tipul de alegere). Primari, consilii locale etc. se adaugă ca teme noi. */
-export const TEME_ALEGERI: Topic[] = [
-  { key: 'consiliu-judetean', label: 'Consiliu județean', icon: '🏛️', sources: SURSE_ALEGERI },
-]
+/** Tab-ul de nivel 1 „Consiliu județean”; celelalte teme (Primar, …) se adaugă în page.tsx. */
+export const TEMA_CONSILIU: Topic = { key: 'consiliu-judetean', label: 'Consiliu județean', icon: '🏛️', sources: SURSE_ALEGERI }
