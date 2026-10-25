@@ -1,4 +1,4 @@
-import type { Analysis, Source } from '@/components/ModelA'
+import type { Analysis, Source, Topic } from '@/components/ModelA'
 import al from '../../../../public/alegeri_data.json'
 import { cap, fmt0, fmt1, fmt2 } from '../../industrii/agricultura/util'
 
@@ -130,4 +130,9 @@ function legenda(): Analysis {
 export const SURSE_ALEGERI: Source[] = [
   { key: 'rezultate', label: '📊 Rezultate', ...SURSA, analyses: [sumar(), partide()] },
   { key: 'judete', label: '📍 Județe', ...SURSA, analyses: [prezentaJudete(), proceseVerbale(), legenda()] },
+]
+
+/** Tab-urile de nivel 1 (tipul de alegere). Primari, consilii locale etc. se adaugă ca teme noi. */
+export const TEME_ALEGERI: Topic[] = [
+  { key: 'consiliu-judetean', label: 'Consiliu județean', icon: '🏛️', sources: SURSE_ALEGERI },
 ]
