@@ -6,6 +6,7 @@ import {
 } from 'recharts'
 import ModelA, { type Analysis, type Source } from '@/components/ModelA'
 import { TABURI_EVOLUTIE } from './evolutie'
+import { CSS_DETALIAT, DateComplete } from './detaliat'
 import {
   C, NESPECIFICAT, de, dupaTotal, fmt, fmtD, fmtP, n, numeMarca, numeModel, pct, urlIndex, urlJudet, useJson,
   type Bloc, type FisierJudet, type Index, type Vec,
@@ -16,7 +17,8 @@ import {
 } from './comune'
 
 /* Parc auto — autoturisme (DGPCI). Un tab de nivel 1 pe an: pentru un an nou se adaugă
-   anul în ANI și se rulează scripts/parc-auto/05_build_page_data.py <an>. Ultimul tab de nivel 1,
+   anul în ANI și se rulează scripts/parc-auto/05_build_page_data.py <an> (și 07_build_detaliat.py <an>
+   pentru tab-ul „Date complete”). Ultimul tab de nivel 1,
    „Evoluție”, citește public/parc-auto/serii.json (06_build_series.py); la un an nou se
    actualizează și PERIOADA. */
 
@@ -578,6 +580,7 @@ export default function ParcAutoPage() {
       tab('Modele', 'modele', <Modele an={an} />),
       tab('Electrice și hibride', 'electrice', <Electrice an={an} />),
       tab('Județe', 'judete', <Judete an={an} />),
+      tab('Date complete', 'date-complete', <DateComplete an={an} />),
     ],
   })), {
     key: 'evolutie', label: `Evoluție ${PERIOADA}`, credit: 'DGPCI (MAI)', link: 'dgpci.mai.gov.ro',
@@ -625,6 +628,7 @@ export default function ParcAutoPage() {
         .ma-card{min-width:0}
         @media(max-width:820px){.pa-tiles{grid-template-columns:1fr 1fr}.pa-dublu{grid-template-columns:1fr}}
         @media(max-width:420px){.pa-tiles{grid-template-columns:1fr}.pa-tile .v{font-size:24px}}
+        ${CSS_DETALIAT}
       ` }} />
       <ModelA
         crumbs={[{ label: 'Acasă', href: '/' }, { label: 'Rapoarte', href: '/#rapoarte' }, { label: 'Parc auto' }]}
