@@ -117,6 +117,124 @@
           "unitate_pachet": "bucată"
         }
       }
+    },
+    {
+      "luna": "2026-11",
+      "data": "2026-11-01",
+      "produse": {
+        "6044033": {
+          "pret": 36.91,
+          "pret_unitar": 0.92,
+          "unitate": "kg",
+          "unitate_pachet": "sac"
+        },
+        "6062991": {
+          "pret": 36.99,
+          "pret_unitar": 0.92,
+          "unitate": "kg",
+          "unitate_pachet": "sac"
+        },
+        "6011034": {
+          "pret": 36.99,
+          "pret_unitar": 0.92,
+          "unitate": "kg",
+          "unitate_pachet": "sac"
+        },
+        "6061564": {
+          "pret": 18.5,
+          "unitate_pachet": "sac"
+        },
+        "6059766": {
+          "pret": 18.98,
+          "unitate_pachet": "sac"
+        },
+        "6065094": {
+          "pret": 533.0,
+          "unitate_pachet": "m3"
+        },
+        "6065096": {
+          "pret": 533.0,
+          "unitate_pachet": "m3"
+        },
+        "6006574": {
+          "pret": 3.57,
+          "unitate_pachet": "bucată"
+        },
+        "6025878": {
+          "pret": 374.0,
+          "pret_unitar": 11.22,
+          "unitate": "m2",
+          "unitate_pachet": "m3"
+        },
+        "6025880": {
+          "pret": 352.0,
+          "pret_unitar": 17.6,
+          "unitate": "m2",
+          "unitate_pachet": "m3"
+        },
+        "6046746": {
+          "pret": 479.0,
+          "pret_unitar": 47.9,
+          "unitate": "m2",
+          "unitate_pachet": "m3"
+        },
+        "6016677": {
+          "pret": 2.55,
+          "pret_unitar": 51.0,
+          "unitate": "pachet",
+          "unitate_pachet": "bucată"
+        },
+        "6037924": {
+          "pret": 1.2,
+          "pret_unitar": 24.0,
+          "unitate": "pachet",
+          "unitate_pachet": "bucată"
+        },
+        "6029542": {
+          "pret": 86.13,
+          "pret_unitar": 43.07,
+          "unitate": "m2",
+          "unitate_pachet": "bucată"
+        },
+        "6050575": {
+          "pret": 91.39,
+          "unitate_pachet": "rolă"
+        },
+        "5009135": {
+          "pret": 41.9,
+          "pret_unitar": 1.68,
+          "unitate": "kg",
+          "unitate_pachet": "bucată"
+        },
+        "6068692": {
+          "pret": 16.99,
+          "unitate_pachet": "bucată"
+        },
+        "6012314": {
+          "pret": 39.2,
+          "pret_unitar": 1.57,
+          "unitate": "kg",
+          "unitate_pachet": "sac"
+        },
+        "5008952": {
+          "pret": 26.98,
+          "pret_unitar": 0.9,
+          "unitate": "kg",
+          "unitate_pachet": "bucată"
+        },
+        "5006960": {
+          "pret": 53.62,
+          "pret_unitar": 22.34,
+          "unitate": "m2",
+          "unitate_pachet": "bucată"
+        },
+        "5009550": {
+          "pret": 109.0,
+          "pret_unitar": 34.94,
+          "unitate": "m2",
+          "unitate_pachet": "bucată"
+        }
+      }
     }
   ],
   "meta": {
